@@ -47,12 +47,16 @@
   .hidden{display:none !important}
   details.diag{margin-top:8px;font-size:13px;color:var(--muted)} details.diag pre{white-space:pre-wrap;font-size:12px}
   /* Home */
-  .datef{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;padding:12px 16px}
-  .datef .dgrp{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px}
-  .datef .dl{font-weight:600;border-left:5px solid var(--c);padding-left:6px}
-  .datef input{border:1px solid var(--line);border-radius:8px;padding:4px 6px;font:inherit;font-size:14px}
-  .datef .dq{display:flex;gap:6px;align-items:center}
-  .datef .cnt{flex-basis:100%}
+  /* Date filter: a 3-column grid (label · from · to) so the Pre and Post rows line up, with Quick and the count underneath */
+  .datef{display:grid;grid-template-columns:max-content max-content max-content;gap:8px 14px;align-items:center;padding:12px 16px;font-size:14px}
+  .datef .dt{grid-column:1/-1}
+  .datef .dl{font-weight:600;border-left:5px solid var(--c);padding-left:8px}
+  .datef label{display:flex;gap:6px;align-items:center;color:var(--muted)}
+  .datef input{border:1px solid var(--line);border-radius:8px;padding:4px 6px;font:inherit;font-size:14px;color:var(--ink)}
+  .datef .dq{grid-column:2/-1;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .datef .cnt{grid-column:2/-1}
+  @media (max-width:700px){ .datef{grid-template-columns:1fr 1fr} .datef .dl{grid-column:1/-1} .datef .dq,.datef .cnt{grid-column:1/-1} }
+  .list .row .opn{justify-self:end}
   .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 11px;font-size:13px}
   .btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px}
   .btn.sm{padding:4px 10px;font-size:13px}
@@ -74,9 +78,9 @@
   .flag{color:var(--red);font-size:13px;margin-top:3px}
   .flag:before{content:"! ";font-weight:700}
   .detail{grid-column:1/-1;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:4px 0 6px;cursor:default}
-  .detail table{border-collapse:collapse;width:100%;font-size:13px}
-  .detail td,.detail th{border-bottom:1px solid var(--hair);padding:4px 8px;text-align:left;vertical-align:top}
-  .detail th{font-size:12px;color:var(--muted);font-weight:600}
+  table.stagetbl{border-collapse:collapse;width:100%;font-size:13px;background:#fff}
+  table.stagetbl td,table.stagetbl th{border-bottom:1px solid var(--hair);padding:4px 8px;text-align:left;vertical-align:top}
+  table.stagetbl th{font-size:12px;color:var(--muted);font-weight:600}
   .dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
   .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
   .legend span{display:inline-flex;align-items:center;gap:5px}
@@ -89,7 +93,69 @@
   .good{color:var(--ok);font-weight:600} .bad{color:var(--red);font-weight:600}
   .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:14px}
   .grid2 .card{min-width:0;overflow-wrap:anywhere}
+  /* Site page */
+  .rhead{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+  .rhead h2{font-size:30px}
+  .back{font-size:14px;display:inline-block;margin-bottom:6px}
+  .steps{display:flex;align-items:flex-start;margin:18px 0 12px;position:relative}
+  .steps:before{content:"";position:absolute;left:5%;right:5%;top:17px;height:3px;background:var(--soft)}
+  .step{flex:1;text-align:center;position:relative;font-size:13px;color:var(--muted);background:none;border:0;padding:0}
+  .step .sdot{width:36px;height:36px;border-radius:50%;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;background:var(--c);border:3px solid #fff;box-shadow:0 0 0 1px var(--line)}
+  .step.todo .sdot{background:#fff;color:var(--muted)}
+  .step.partial .sdot{background:repeating-linear-gradient(45deg,var(--c) 0 5px,#fff 5px 9px);color:var(--ink)}
+  .step.cur .sdot{width:44px;height:44px;margin-top:-4px;box-shadow:0 0 0 3px var(--amber)}
+  .step.cur{color:var(--ink);font-weight:600}
+  .figs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .fig{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:#fff;border-top:6px solid var(--c)}
+  .fig .big{font-size:32px}
+  .hbi{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:999px;color:#fff;margin-left:6px;vertical-align:middle;font-family:"Public Sans",system-ui,sans-serif}
+  .flags{margin:12px 0;padding:10px 14px;border-radius:10px;background:var(--red-bg);color:var(--red);font-size:14px}
+  .flags div:before{content:"! ";font-weight:700}
+  .flags.none{background:var(--ok-bg);color:#145C3D} .flags.none div:before{content:""}
+  .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-top:14px;flex-wrap:wrap}
+  .tab{border:1px solid transparent;border-bottom:0;background:none;padding:9px 14px;border-radius:10px 10px 0 0;color:var(--muted)}
+  .tab.on{background:#fff;border-color:var(--line);color:var(--ink);font-weight:600;margin-bottom:-1px}
+  .tab.later{opacity:.5}
+  .tabbody{background:#fff;border:1px solid var(--line);border-top:0;border-radius:0 0 12px 12px;padding:16px}
+  .stabs{display:grid;grid-template-columns:200px minmax(0,1fr)}
+  .stnav{display:flex;flex-direction:column;gap:4px}
+  .sttab{text-align:left;border:1px solid transparent;border-right:0;background:none;padding:9px 12px;border-radius:10px 0 0 10px;color:var(--muted);position:relative}
+  .sttab.on{background:var(--bg);border-color:var(--line);color:var(--ink);font-weight:600;margin-right:-1px;z-index:1}
+  .sttab .miss{position:absolute;right:10px;top:13px;width:9px;height:9px;border-radius:50%;background:var(--red)}
+  .stpanel{background:var(--bg);border:1px solid var(--line);border-radius:0 12px 12px 12px;padding:14px;min-height:260px;min-width:0}
+  dl.vals{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;margin:0;font-size:15px}
+  dl.vals dt{color:var(--muted)} dl.vals dd{margin:0;font-weight:500}
+  dl.vals.two{grid-template-columns:max-content 1fr max-content 1fr}
+  table.tx{border-collapse:collapse;width:100%;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:10px}
+  table.tx th,table.tx td{padding:4px 10px;border-bottom:1px solid var(--hair);text-align:right}
+  table.tx th:first-child,table.tx td:first-child{text-align:left}
+  table.tx th{font-size:12px;color:var(--muted);background:#F7F9F8}
+  table.tx tr.gh td{background:#F1F5F4;font-weight:700;font-size:13px}
+  table.tx tr.zero td{color:#9AABB0}
+  table.tx tr.tot td{font-weight:700;border-top:2px solid var(--ink)}
+  table.tx tr.warn td{background:#FFF4E5}
+  .note{border-left:4px solid var(--amber);background:#FFFBEA;padding:8px 12px;border-radius:0 8px 8px 0;font-size:14px;margin:10px 0}
+  .tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+  .later-box{color:var(--muted);font-size:14px}
+  .ovtab{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+  .ovtab th,.ovtab td{border-bottom:1px solid var(--hair);padding:6px 10px;text-align:right}
+  .ovtab th:first-child,.ovtab td:first-child{text-align:left}
+  .ovtab th{font-size:12px;color:var(--muted)}
+  /* Pop-up panel (tools) */
+  .ovl{position:fixed;inset:0;background:rgba(16,36,42,.45);z-index:40;display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto}
+  .panel{background:#fff;border-radius:14px;max-width:820px;width:100%;padding:20px 22px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+  .panel h3{font-size:22px;margin-bottom:6px}
+  .panel .f{margin:12px 0} .panel label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+  .panel input[type=text],.panel input[type=number]{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit;width:220px}
+  .panel .bad-in{border:2px solid var(--red) !important;background:var(--red-bg)}
+  .panel .btns{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+  .rev{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:10px}
+  .rev table{border-collapse:collapse;width:100%;font-size:13px}
+  .rev td,.rev th{padding:4px 10px;border-bottom:1px solid var(--hair);text-align:left;vertical-align:top}
+  .rev th{background:#F7F9F8;font-size:12px;color:var(--muted)}
+  .rev .old{color:var(--red);text-decoration:line-through} .rev .new{color:#145C3D;font-weight:600}
   footer.build{font-size:12px;color:var(--muted);margin-top:28px}
+  @media (max-width:900px){ .figs{grid-template-columns:repeat(2,1fr)} .stabs{grid-template-columns:1fr} .stnav{flex-direction:row;flex-wrap:wrap} .sttab{border-radius:10px} .stpanel{border-radius:12px} dl.vals.two{grid-template-columns:max-content 1fr} }
   .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--rail);border-radius:50%;animation:sp 0.8s linear infinite;vertical-align:-2px;margin-right:8px}
   @keyframes sp{to{transform:rotate(360deg)}}
   @media (max-width:900px){
@@ -115,7 +181,7 @@
   <div class="bar">
     <div class="brand"><a href="#/" aria-label="Home"><img src="data:image/jpeg;base64,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" alt="" width="64" height="64"></a><div><small>Washington County Conservation District</small><small>Watershed Monitoring</small><span id="ptitle">Home</span></div></div>
     <div class="util"><span id="user">Not signed in</span><button type="button" id="signOut" hidden>Sign out</button><br>
-      <label for="q" class="vh">Find a study area</label><input id="q" type="search" placeholder="Find a study area (ID or stream)"></div>
+      <label for="q" class="vh">Find a site</label><input id="q" type="search" placeholder="Find a site (ID or stream)"></div>
   </div>
 </header>
 
@@ -124,9 +190,11 @@
 
   <section id="p-home" class="hidden">
     <div class="card datef">
-      <b>Filter by date</b>
-      <div class="dgrp"><span class="dl" style="--c:var(--c2)">Pre-construction sampled</span><label>from <input type="date" id="hPreFrom"></label><label>to <input type="date" id="hPreTo"></label></div>
-      <div class="dgrp"><span class="dl" style="--c:var(--c4)">Post-construction sampled</span><label>from <input type="date" id="hPostFrom"></label><label>to <input type="date" id="hPostTo"></label></div>
+      <b class="dt">Filter by date</b>
+      <span class="dl" style="--c:var(--c2)">Pre-construction sampled</span>
+      <label class="dfrom">from <input type="date" id="hPreFrom"></label><label class="dto">to <input type="date" id="hPreTo"></label>
+      <span class="dl" style="--c:var(--c4)">Post-construction sampled</span>
+      <label class="dfrom">from <input type="date" id="hPostFrom"></label><label class="dto">to <input type="date" id="hPostTo"></label>
       <div class="dq"><span class="small">Quick:</span><span id="hYears"></span><button class="btn sm" id="hClear" type="button">Clear dates</button></div>
       <div class="small cnt" id="hCount"></div>
     </div>
@@ -139,6 +207,8 @@
     <div class="card list" id="hList"></div>
   </section>
 
+  <section id="p-area" class="hidden"></section>
+
   <section id="p-check" class="hidden">
     <p class="small" style="margin-top:0">This page shows what each survey's layer lets this account do, compares what the app expects with what the layers hold, and recomputes every sample's totals from its taxa rows. Nothing is changed.</p>
     <div class="grid2" id="chkLayers"></div>
@@ -150,9 +220,10 @@
   <section id="p-help" class="hidden">
     <div class="card" style="max-width:820px">
       <h3>About this build</h3>
-      <p>This is an early, <b>read-only</b> build. It signs in, reads the three survey layers (Pre-construction, Post-construction, Lab analysis) and shows each study area's progress on the Home page. Nothing can be changed from this build.</p>
+      <p>This is an early build. It reads the three surveys (Pre-construction, Post-construction, Lab analysis) and shows each site's progress on the Home page. Click a site to see its summary, then <b>Open site</b> for its page.</p>
+      <p>On a site's Overview tab, two corrections are available: changing the site ID, and reviewing "Total Other Taxa". Each one shows exactly what will change, saves only after you confirm, and checks the stored values afterwards. Nothing else can be changed yet.</p>
       <p>Data entry, Explore and Reports are added in later builds. The greyed menu items are placeholders.</p>
-      <p>To report a problem or ask a question, email the administrator at <a href="mailto:yayad@pennwest.edu">yayad@pennwest.edu</a>. Include the study area ID, what you clicked, and the message on the screen.</p>
+      <p>To report a problem or ask a question, email the administrator at <a href="mailto:yayad@pennwest.edu">yayad@pennwest.edu</a>. Include the site ID, what you clicked, and the message on the screen.</p>
       <p class="small" id="aboutInfo"></p>
     </div>
   </section>
@@ -164,12 +235,13 @@
   <footer class="build" id="build"></footer>
 </main>
 </div>
+<div class="ovl hidden" id="ovl" role="dialog" aria-modal="true" aria-labelledby="panelTitle"><div class="panel" id="panel"></div></div>
 
 <script type="module">
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B1c", BUILD_DATE = "16 Nov 2026";
+  const BUILD = "B2a", BUILD_DATE = "16 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -233,11 +305,11 @@
     $("aboutInfo").textContent = "Build " + BUILD + " (" + BUILD_DATE + ") · ArcGIS Maps SDK " + sdk + " · signed in as " + portal.user.username + ".";
     say("notice", '<span class="spin"></span>Reading the survey layers…');
     await loadAll();
-    // A view that hides other people's records would make study areas silently disappear: say so on every page.
+    // A view that hides other people's records would make sites silently disappear: say so on every page.
     const hidden = ["pre", "post", "lab"].filter((k) => { const M = svc[k].byName[MAIN[k]], ob = M && M.def.ownershipBasedAccessControlForFeatures; return !svc[k].error && ob && ob.allowOthersToQuery === false; });
     const failed = ["pre", "post", "lab"].filter((k) => svc[k].error);
     const lines = failed.map((k) => esc(svc[k].error));
-    if (hidden.length) lines.push(`This account can only see the records it created in the ${hidden.map((k) => CFG.serviceNames[k]).join(", ")} survey data, so study areas entered by others are missing.`);
+    if (hidden.length) lines.push(`This account can only see the records it created in the ${hidden.map((k) => CFG.serviceNames[k]).join(", ")} survey data, so sites entered by others are missing.`);
     if (lines.length) say("error", lines.join("<br>") + `<br>What is shown below is incomplete. See <a href="#/check">Data check</a> for details, and tell the administrator (${CFG.admin}). Nothing was changed.`);
     else $("status").classList.add("hidden");
     route();
@@ -311,7 +383,7 @@
     for (const [side, Side, grpName] of SIDES) {
       const G = S.byName[grpName], gid = normId(att(S.byName[MAIN[phaseKey]], mainRow, "globalid"));
       const grp = G ? G.rows.find((r) => normId(att(G, r, "parentglobalid")) === gid) : null;
-      const s = { exists: !!grp, counts: {}, other: 0, rows: 0, dupes: [], geom: null, issues: [] };
+      const s = { exists: !!grp, counts: {}, other: 0, rows: 0, dupes: [], geom: null, issues: [], grp: grp ? { L: G, row: grp } : null, taxaRows: [], Side };
       if (grp) {
         s.geom = grp.geometry || null;
         s.other = Number(att(G, grp, "COUNT_OTHER_" + Side)) || 0;
@@ -323,6 +395,7 @@
           for (const r of T.rows) {
             if (normId(att(T, r, "parentglobalid")) !== kid) continue;
             const n = parseInt(String(r.attributes[taxF] || ""), 10), c = Number(r.attributes[cntF]) || 0;
+            s.taxaRows.push({ L: T, row: r, n, c, g });
             if (!(n >= 1 && n <= 99)) { if (c) s.issues.push("a taxa row with count " + c + " has no taxon chosen (" + g + ")"); continue; }
             s.rows++;
             if (s.counts[n] !== undefined) s.dupes.push(n);
@@ -353,7 +426,7 @@
       for (const r of M.rows) {
         const a = area(att(M, r, "ProjectID"));
         if (a[ph]) { a.flags.push((ph === "pre" ? "Pre" : "Post") + "-construction has more than one record with this ID."); continue; }
-        a[ph] = { stream: att(M, r, "StreamName"), site: att(M, r, "SiteName"), date: att(M, r, "DateSampled"), oid: r.attributes[M.def.objectIdField], samples: sampleFrom(S, ph, r) };
+        a[ph] = { stream: att(M, r, "StreamName"), site: att(M, r, "SiteName"), date: att(M, r, "DateSampled"), oid: r.attributes[M.def.objectIdField], main: { L: M, row: r }, samples: sampleFrom(S, ph, r) };
       }
     }
     const LL = svc.lab.byName[MAIN.lab];
@@ -362,7 +435,7 @@
     return [...areas.values()].sort((x, y) => x.id.localeCompare(y.id));
   }
 
-  // Stage status, flags and the overall status for one study area.
+  // Stage status, flags and the overall status for one site.
   function evaluate(a) {
     a.test = CFG.testIds.includes(a.id);
     a.stream = (a.pre && a.pre.stream) || (a.post && a.post.stream) || "";
@@ -428,30 +501,33 @@
     }
     document.querySelectorAll("#hTiles .tile").forEach((t) => { t.querySelector(".big").textContent = counts[t.dataset.st]; t.classList.toggle("on", home.tile === t.dataset.st); });
     const anyF = pf || pt || qf || qt || q || home.tile;
-    $("hCount").textContent = (anyF ? `Showing ${shown.length} of ${model.length} study areas.` : `Showing all ${model.length} study areas.`) + (qf || qt ? " Study areas without post-construction data are hidden while a post date is set." : "");
-    let h = `<div class="row head"><span>Study area</span><span>Stream · site</span><span>Progress (6 stages)</span><span>Status / next step</span></div>`;
+    $("hCount").textContent = (anyF ? `Showing ${shown.length} of ${model.length} sites.` : `Showing all ${model.length} sites.`) + (qf || qt ? " Sites without post-construction data are hidden while a post date is set." : "");
+    let h = `<div class="row head"><span>Site</span><span>Stream · site name</span><span>Progress (6 stages)</span><span>Status / next step</span></div>`;
     for (const a of shown) {
-      h += `<div class="row${home.open === a.id ? " open" : ""}" data-id="${esc(a.id)}" tabindex="0" role="button" aria-expanded="${home.open === a.id}">
+      h += `<div class="row${home.open === a.id ? " open" : ""}" data-id="${esc(a.id)}" tabindex="0" role="button" aria-expanded="${home.open === a.id}" aria-label="Show the summary of site ${esc(a.id)}">
         <b>${esc(a.id)}${a.test ? '<span class="tag">test</span>' : ""}</b>
         <span>${esc(a.stream) || "–"}${a.site && a.site !== a.stream ? `<br><small>${esc(a.site)}</small>` : ""}<br><small>Pre ${a.pre ? dayText(a.pre.date) : "–"} · Post ${a.post ? dayText(a.post.date) : "–"}</small></span>
         <div><div class="seg">${a.stages.map((s) => `<i class="${s.state === "full" ? "full" : s.state === "part" ? "part" : s.state === "unknown" ? "unk" : ""}" style="--c:${s.col}" title="${esc(s.label)}: ${STATE_TEXT[s.state]}"></i>`).join("")}</div>
           ${a.flags.map((f) => `<div class="flag">${esc(f)}</div>`).join("")}</div>
         <span>${STATUS_TEXT[a.status]}<br><small>next: ${esc(a.next)}</small></span></div>`;
-      if (home.open === a.id) h += detailHtml(a);
+      if (home.open === a.id) h += `<div class="detail">${stageTableHtml(a)}
+        <div class="btns" style="display:flex;justify-content:flex-end;margin-top:10px"><button class="btn pri" type="button" data-open="${esc(a.id)}">Open site ${esc(a.id)} →</button></div></div>`;
     }
-    if (!shown.length) h += `<p class="small" style="padding:10px 6px">No study areas match the filters.</p>`;
+    if (!shown.length) h += `<p class="small" style="padding:10px 6px">No sites match the filters.</p>`;
     h += `<div class="legend">${STAGES.map((s, i) => `<span><i style="background:${s[3]}"></i>${i + 1} ${s[2]}</span>`).join("")}<span><i style="background:repeating-linear-gradient(45deg,#6693D8 0 3px,#fff 3px 5px)"></i>partly entered</span><span><i style="background:var(--soft)"></i>not started</span></div>`;
     $("hList").innerHTML = h;
+    // A row unfolds the site's summary; the "Open site" button (or double-click) opens the site page.
+    const openSite = (id) => { location.hash = "#/area/" + encodeURIComponent(id); };
     document.querySelectorAll("#hList .row[data-id]").forEach((r) => { const t = () => { home.open = home.open === r.dataset.id ? null : r.dataset.id; drawHome(); };
-      r.onclick = t; r.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } }; });
+      r.onclick = t; r.ondblclick = () => openSite(r.dataset.id); r.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } }; });
+    document.querySelectorAll("#hList [data-open]").forEach((b) => b.onclick = (e) => { e.stopPropagation(); openSite(b.dataset.open); });
   }
-  // Read-only detail under a row (the full study area page comes in build B2).
-  function detailHtml(a) {
+  // Stage table (used on the site Overview tab).
+  function stageTableHtml(a) {
     const row = (s) => { let fig = "";
       if (s.side !== "lab" && a[s.ph] && a[s.ph].samples[s.side].exists) { const c = a[s.ph].samples[s.side].calc; fig = `${c.count} organisms · ${c.taxa} taxa · index ${c.index} · Avg HILS ${fmt(c.avg, 2)} · EPT ${c.ept}`; }
       return `<tr><td><span class="dot" style="background:${s.col}"></span>${esc(s.label)}</td><td>${s.state === "full" ? '<span class="good">entered</span>' : s.state === "unknown" ? '<span class="bad">could not be read</span>' : STATE_TEXT[s.state]}</td><td>${fig}</td><td>${esc(s.notes.join("; "))}</td></tr>`; };
-    return `<div class="detail"><table><tr><th>Stage</th><th>State</th><th>Figures (calculated by the app)</th><th>Notes</th></tr>${a.stages.map(row).join("")}</table>
-      <p class="small" style="margin:8px 0 0">The full study area page, with data entry, comes in build B2.</p></div>`;
+    return `<div style="overflow:auto"><table class="stagetbl"><tr><th>Stage</th><th>State</th><th>Figures (calculated by the app)</th><th>Notes</th></tr>${a.stages.map(row).join("")}</table></div>`;
   }
   function initHome() {
     ["hPreFrom", "hPreTo", "hPostFrom", "hPostTo"].forEach((id) => $(id).addEventListener("change", drawHome));
@@ -489,7 +565,7 @@
         <div>${miss.length ? `<span class="bad">Missing fields: ${esc(miss.join(", "))}</span>` : `<span class="good">All expected fields found</span>`}</div>
         <div class="small">${M ? M.rows.length : 0} record(s) in ${esc(MAIN[k])}; ${nR} rows read in total.</div></div>`;
     }).join("");
-    let t = `<tr><th>Study area</th><th>Sample</th><th class="num">Count<br>stored · app</th><th class="num">Taxa<br>stored · app</th><th class="num">Index<br>stored · app</th><th class="num">Avg HILS<br>stored · app</th><th class="num">EPT<br>stored · app</th><th>Result</th></tr>`;
+    let t = `<tr><th>Site</th><th>Sample</th><th class="num">Count<br>stored · app</th><th class="num">Taxa<br>stored · app</th><th class="num">Index<br>stored · app</th><th class="num">Avg HILS<br>stored · app</th><th class="num">EPT<br>stored · app</th><th>Result</th></tr>`;
     for (const a of model) for (const ph of ["pre", "post"]) { if (!a[ph]) continue;
       for (const side of ["down", "up"]) { const s = a[ph].samples[side]; if (!s.exists) continue; const c = s.calc, d = s.stored;
         const same = (x, y, tol = 0) => nb(x) ? null : Math.abs(Number(x) - y) <= tol;
@@ -501,14 +577,304 @@
     $("chkTotals").innerHTML = t;
   }
 
+  // ==========================================================================================
+  // Site page (B2: read-only view + two clean-up tools)
+  // ==========================================================================================
+  const GROUPS = [["MISC","Miscellaneous",1,8],["GAS","Gastropoda – Snails",9,16],["BIV","Bivalvia – Clams",17,19],["ISO","Isopoda – Sow Bugs",20,20],["AMP","Amphipoda – Scuds",21,24],["DEC","Decapoda – Crayfish",25,25],["MAY","Mayflies – Ephemeroptera",26,39],["DRA","Dragonflies – Odonata",40,45],["DAM","Damselflies – Odonata",46,48],["STO","Stoneflies – Plecoptera",49,57],["BEE","Beetles – Coleoptera",58,64],["DOB","Dobsonflies & Alderflies",65,68],["SPO","Spongillaflies – Neuroptera",69,69],["CAD","Caddisflies – Trichoptera",70,86],["TRU","True Flies – Diptera",87,99]];
+  const TAXON = ["Annelida","Bryozoa","Hirudinea","Hydracarina","Oligochaeta","Tubificidae","Turbellaria","Other Worms","Ancylidae","Hydrobiidae","Lymnaeidae","Physidae","Planorbidae","Pleuroceridae","Valvatidae","Viviparidae","Corbiculidae","Sphaeriidae","Unionidae","Asellidae","Amphipoda","Crangonyctidae","Gammaridae","Talitridae","Cambaridae","Ameletidae","Baetidae","Baetiscidae","Caenidae","Ephemerellidae","Ephemeridae","Heptageniidae","Isonychiidae","Leptophlebiidae","Neoephemeridae","Polymitarcyidae","Potamanthidae","Siphlonuridae","Tricorythidae","Aeshnidae","Cordulegastridae","Corduliidae","Macromiinae","Gomphidae","Libellulidae","Calopterygidae","Coenagrionidae","Lestidae","Capniidae","Chloroperlidae","Leuctridae","Nemouridae","Peltoperlidae","Perlidae","Perlodidae","Pteronarcyidae","Taeniopterygidae","Dryopidae","Dytiscidae","Elmidae","Gyrinidae","Hydrophilidae","Psephenidae","Ptilodactylidae","Corydalidae","Corydalus","Nigronia","Sialidae","Sisyridae","Brachycentridae","Glossosomatidae","Helicopsychidae","Hydropsychidae","Hydroptilidae","Lepidostomatidae","Leptoceridae","Limnephilidae","Molannidae","Odontoceridae","Philopotamidae","Phryganeidae","Polycentropodidae","Psychomyiidae","Rhyacophilidae","Uenoidae","Moths Lepidoptera","Athericidae","Blephariceridae","Ceratopogonidae","Chironomidae (red)","Chironomidae (other)","Dixidae","Dolichopodidae","Empididae","Psychodidae","Simuliidae","Tabanidae","Tipulidae","Other Diptera"];
+  const RATE = [[3.75,"Excellent","#1B6E8A"],[4.25,"Very good","#1B8A5A"],[5.00,"Good","#3E8E3E"],[5.75,"Fair","#B86E00"],[6.50,"Fairly poor","#C2410C"],[7.25,"Poor","#B3261E"],[10,"Very poor","#6B1111"]];
+  const rating = (v) => v == null ? null : RATE.find((r) => v <= r[0]);
+  const hbiBadge = (v) => { const r = rating(v); return r ? `<span class="hbi" style="background:${r[2]}">${r[1]}</span>` : ""; };
+  const SAMPLE_COL = { pre_down: "var(--c1)", pre_up: "var(--c2)", post_down: "var(--c3)", post_up: "var(--c4)" };
+  const PH = { pre: "Pre-construction", post: "Post-construction" }, SD = { down: "Downstream", up: "Upstream" };
+  const area = { tab: "overview", side: {}, empty: false, note: null };   // page state
+
+  function drawArea(id) {
+    const a = model.find((x) => x.id === id), P = $("p-area");
+    if (!a) { P.innerHTML = `<div class="card"><p>No site "${esc(id)}" was found.</p><p><a href="#/">Back to Home</a></p></div>`; return; }
+    $("ptitle").textContent = a.id + (a.stream ? " · " + a.stream : "");
+    const curIdx = a.stages.findIndex((s) => s.state !== "full");
+    const steps = a.stages.map((s, i) => `<button class="step ${s.state === "full" ? "" : s.state === "part" ? "partial" : "todo"}${i === curIdx ? " cur" : ""}" style="--c:${s.col}" data-go="${s.ph}:${s.side}" type="button">
+      <span class="sdot">${s.state === "full" ? "✓" : i + 1}</span>${esc(s.label)}</button>`).join("");
+    const figs = [["pre","down"],["pre","up"],["post","down"],["post","up"]].map(([ph, sd]) => {
+      const s = a[ph] && a[ph].samples[sd], c = s && s.exists ? s.calc : null;
+      return `<div class="fig" style="--c:${SAMPLE_COL[ph + "_" + sd]}"><small>${ph === "pre" ? "Pre" : "Post"} · ${sd === "down" ? "downstream" : "upstream"} Avg HILS</small>
+        <div class="big">${c && c.avg != null ? fmt(c.avg, 2) + hbiBadge(c.avg) : "–"}</div><small>${c ? `${c.count} organisms · ${c.taxa} taxa · EPT ${c.ept}` : "not entered"}</small></div>`; }).join("");
+    const flags = a.flags.length ? `<div class="flags">${a.flags.map((f) => `<div>${esc(f)}</div>`).join("")}</div>` : `<div class="flags none"><div>Nothing to flag.</div></div>`;
+    const TABS = [["overview","Overview"],["pre","Pre-construction"],["post","Post-construction"],["map","Map"],["files","Files"]];
+    P.innerHTML = `<a class="back" href="#/">← Home</a>
+      ${area.note ? `<div class="msg ${area.note.cls}">${area.note.html}</div>` : ""}
+      <div class="rhead"><h2>${esc(a.id)}${a.test ? '<span class="tag">test</span>' : ""} · ${esc(a.stream || "no stream")}</h2>
+        <span class="small">${esc(a.site && a.site !== a.stream ? a.site + " · " : "")}status <b>${STATUS_TEXT[a.status]}</b> · next: ${esc(a.next)}</span></div>
+      <div class="steps">${steps}</div><div class="figs">${figs}</div>${flags}
+      <div class="tabs" role="tablist">${TABS.map(([k, l]) => `<button class="tab${area.tab === k ? " on" : ""}${k === "map" || k === "files" ? " later" : ""}" data-tab="${k}" role="tab" type="button">${l}</button>`).join("")}</div>
+      <div class="tabbody">${tabHtml(a)}</div>`;
+    area.note = null;
+    // Changing tabs always starts at the first side tab; a stage circle opens its phase tab at that stage's side tab.
+    P.querySelectorAll("[data-tab]").forEach((b) => b.onclick = () => { area.tab = b.dataset.tab; delete area.side[area.tab]; drawArea(a.id); });
+    P.querySelectorAll("[data-go]").forEach((b) => b.onclick = () => { const [ph, sd] = b.dataset.go.split(":"); area.tab = ph; area.side[ph] = sd; drawArea(a.id); });
+    P.querySelectorAll("[data-side]").forEach((b) => b.onclick = () => { area.side[area.tab] = b.dataset.side; drawArea(a.id); });
+    P.querySelectorAll("[data-tool]").forEach((b) => b.onclick = () => openTool(a, b.dataset.tool, b.dataset.ph, b.dataset.sd));
+    const e = P.querySelector("#tEmpty"); if (e) e.onchange = () => { area.empty = e.checked; drawArea(a.id); };
+  }
+
+  function sideTabs(key, items) {   // items: [key, label, missing?, html]
+    const pick = items.some((i) => i[0] === area.side[key]) ? area.side[key] : items[0][0];
+    return `<div class="stabs"><div class="stnav" role="tablist">${items.map(([k, l, miss]) => `<button class="sttab${k === pick ? " on" : ""}" data-side="${k}" role="tab" type="button">${esc(l)}${miss ? '<span class="miss" title="something is missing here"></span>' : ""}</button>`).join("")}</div>
+      <div class="stpanel">${items.find((i) => i[0] === pick)[3]}</div></div>`;
+  }
+
+  function tabHtml(a) {
+    if (area.tab === "map" || area.tab === "files") return `<p class="later-box">${area.tab === "map" ? "The map of the sample points" : "The attached lab reports"} come in a later build.</p>`;
+    if (area.tab === "pre" || area.tab === "post") return phaseTab(a, area.tab);
+    return overviewTab(a);
+  }
+
+  function overviewTab(a) {
+    const cols = [["pre","down"],["pre","up"],["post","down"],["post","up"]].map(([ph, sd]) => ({ ph, sd, s: a[ph] && a[ph].samples[sd] }));
+    const cell = (f, d = 0) => cols.map(({ s }) => `<td>${s && s.exists ? f(s.calc, s) : "–"}</td>`).join("");
+    const head = cols.map(({ ph, sd }) => `<th><span class="dot" style="background:${SAMPLE_COL[ph + "_" + sd]}"></span>${ph === "pre" ? "Pre" : "Post"} ${sd === "down" ? "down" : "up"}</th>`).join("");
+    const others = cols.filter(({ s }) => s && s.other > 0);
+    return `<div class="card" style="padding:0;overflow:auto"><table class="ovtab"><tr><th>Calculated by the app</th>${head}</tr>
+        <tr><td>Organisms</td>${cell((c) => c.count)}</tr><tr><td>Taxa present</td>${cell((c) => c.taxa)}</tr><tr><td>EPT taxa</td>${cell((c) => c.ept)}</tr>
+        <tr><td>Total Index</td>${cell((c) => fmt(c.index))}</tr><tr><td>Avg HILS</td>${cell((c) => `<b>${fmt(c.avg, 2)}</b>`)}</tr><tr><td>Water quality (HBI)</td>${cell((c) => c.avg == null ? "–" : rating(c.avg)[1])}</tr>
+        <tr><td>"Total Other Taxa"</td>${cell((c, s) => s.other || "–")}</tr></table></div>
+      <h3 style="margin:16px 0 8px">Stages</h3>${stageTableHtml(a)}
+      <h3 style="margin:16px 0 6px">Corrections</h3>
+      <p class="small" style="margin:0">Each correction shows exactly what will change, saves only after you confirm, and checks the stored values afterwards.</p>
+      <div class="tools">
+        <button class="btn${!a.test && !CFG.idPattern.test(a.id) ? " pri" : ""}" type="button" data-tool="rename">Change the site ID…</button>
+        ${others.map(({ ph, sd, s }) => `<button class="btn pri" type="button" data-tool="other" data-ph="${ph}" data-sd="${sd}">Review "Other Taxa" (${PH[ph]} ${SD[sd].toLowerCase()}: ${s.other})…</button>`).join("")}
+      </div>`;
+  }
+
+  function phaseTab(a, ph) {
+    const P = a[ph];
+    if (!P) return `<p class="later-box">No ${PH[ph].toLowerCase()} record yet. Entering a new record comes in build B3.</p>`;
+    const M = P.main.L, r = P.main.row, v = (f) => att(M, r, f);
+    const site = `<dl class="vals two"><dt>Project ID</dt><dd>${esc(v("ProjectID"))}</dd><dt>Phase ID</dt><dd>${esc(v("PhaseID") || "–")}</dd>
+      <dt>Stream</dt><dd>${esc(v("StreamName") || "–")}</dd><dt>Site</dt><dd>${esc(v("SiteName") || "–")}</dd>
+      <dt>Date sampled</dt><dd>${dayText(v("DateSampled"))}</dd><dt>Stream ID (COMID)</dt><dd>${esc(v("StreamID") || "–")}</dd></dl>`;
+    const items = [["site", "Site and date", false, site]];
+    for (const sd of ["down", "up"]) items.push([sd, SD[sd] + " taxa", !(P.samples[sd].exists && (P.samples[sd].rows || P.samples[sd].other)), taxaPanel(a, ph, sd)]);
+    const fr = ["down", "up"].map((sd) => { const s = P.samples[sd], f = s.field || {}; return `<tr><td>${SD[sd]}</td><td>${fmt(f.ph, 1)}</td><td>${fmt(f.temp, 1)}</td><td>${fmt(f.cond)}</td></tr>`; }).join("");
+    const frMissing = ["down", "up"].every((sd) => { const f = P.samples[sd].field || {}; return nb(f.ph) && nb(f.temp) && nb(f.cond); });
+    items.push(["field", "Field readings", frMissing, `<table class="tx"><tr><th>Sample</th><th>pH</th><th>Temperature (°C)</th><th>Conductivity (µS/cm)</th></tr>${fr}</table>${frMissing ? '<p class="small">No field readings were entered for this phase.</p>' : ""}`]);
+    const loc = ["down", "up"].map((sd) => { const g = P.samples[sd].geom; return `<dt>${SD[sd]}</dt><dd>${zeroGeom(g) ? '<span class="bad">no location</span>' : `${g.y.toFixed(6)}, ${g.x.toFixed(6)}`}</dd>`; }).join("");
+    items.push(["loc", "Sample locations", ["down", "up"].some((sd) => zeroGeom(P.samples[sd].geom)), `<dl class="vals">${loc}</dl><p class="small">Latitude, longitude. The map comes in a later build.</p>`]);
+    const labIdx = ph === "pre" ? 2 : 5;
+    items.push(["lab", "Lab results", nb(v("laboratory_name")) || a.stages[labIdx].state !== "full", labPanel(a, ph)]);
+    return sideTabs(ph, items);
+  }
+
+  function taxaPanel(a, ph, sd) {
+    const s = a[ph].samples[sd];
+    if (!s.exists) return `<p class="later-box">No ${SD[sd].toLowerCase()} sample yet.</p>`;
+    let rows = "";
+    for (const [g, name, lo, hi] of GROUPS) {
+      let body = "", gc = 0, gi = 0, gt = 0;
+      for (let n = lo; n <= hi; n++) { const c = s.counts[n] || 0; if (c) { gc += c; gi += Math.round(c * HILS[n - 1]); gt++; } if (!c && !area.empty) continue;
+        body += `<tr class="${c ? "" : "zero"}"><td>${n}. ${TAXON[n - 1]}</td><td>${HILS[n - 1]}</td><td>${c || 0}</td><td>${c ? Math.round(c * HILS[n - 1]) : 0}</td></tr>`; }
+      if (body || area.empty) rows += `<tr class="gh"><td>${name}${isEPT(lo) ? " · EPT" : ""}</td><td></td><td>${gc || ""}</td><td>${gi || ""}</td></tr>` + body;
+    }
+    if (s.other || area.empty) rows += `<tr class="${s.other ? "warn" : "zero"}"><td>Total Other Taxa <span class="small">(no HILS)</span></td><td>–</td><td>${s.other}</td><td>0</td></tr>`;
+    const c = s.calc, d = s.stored, diff = (!nb(d.count) && +d.count !== c.count) || (!nb(d.index) && +d.index !== c.index) || (c.avg != null && !nb(d.avg) && Math.abs(+d.avg - c.avg) > 0.006);
+    return `<label class="small" style="display:inline-flex;gap:6px;align-items:center;margin-bottom:8px"><input type="checkbox" id="tEmpty"${area.empty ? " checked" : ""}> Show taxa with no count</label>
+      <table class="tx"><tr><th>Taxon</th><th>HILS</th><th>Count</th><th>Index</th></tr>${rows}
+      <tr class="tot"><td>Totals · ${c.taxa} taxa · EPT ${c.ept}</td><td></td><td>${c.count}</td><td>${fmt(c.index)}</td></tr></table>
+      <p style="margin:8px 0 0">Avg HILS <b>${fmt(c.avg, 2)}</b> ${hbiBadge(c.avg)}</p>
+      <p class="small" style="margin:4px 0 0">Stored in the layer: count ${fmt(d.count)}, index ${fmt(d.index)}, Avg HILS ${fmt(d.avg, 2)} · ${diff ? '<span class="bad">differs from the taxa rows</span>' : '<span class="good">matches the taxa rows</span>'}</p>
+      ${s.other ? `<div class="tools"><button class="btn pri" type="button" data-tool="other" data-ph="${ph}" data-sd="${sd}">Review "Other Taxa" (${s.other})…</button></div>` : ""}
+      <p class="small">Entering and editing counts comes in build B3.</p>`;
+  }
+
+  // Lab results for one phase: the certificate details stored with the macroinvertebrate record, plus the values from the Lab survey.
+  function labPanel(a, ph) {
+    const PFX = { TotalColiforms: "TC", EscherichiaColi: "EC", Nitrate: "NA", Nitrite: "NI" };
+    const UNITS = { TotalColiforms: "MPN/100mL", EscherichiaColi: "MPN/100mL", Nitrate: "mg/L", Nitrite: "mg/L", Acidity: "mg CaCO3/L", Conductivity: "µmhos/cm", DissolvedSolids: "mg/L", SuspendedSolids: "mg/L", pH: "–", Oxygen: "mg/L", Phosphorus: "mg/L" };
+    const M = a[ph].main.L, mr = a[ph].main.row, mv = (f) => att(M, mr, f);
+    const lab = a.lab, lv = (f) => lab ? att(lab.L, lab.row, f) : undefined, P0 = ph === "pre" ? "Pre" : "Post";
+    const id = (sd) => lv(P0 + (sd === "down" ? "Down" : "Up") + "LabSampleID") || mv(sd === "down" ? "lab_sample_id_downstream" : "lab_sample_id_upstream");
+    const when = lv(P0 + "DownDateTime");
+    const cert = `<dl class="vals two" style="margin-bottom:12px"><dt>Laboratory</dt><dd>${esc(mv("laboratory_name") || "–")}</dd><dt>Collected by</dt><dd>${esc(lv(P0 + "DownCollectedBy") || mv("collected_by") || "–")}</dd>
+      <dt>Collected (downstream)</dt><dd>${nb(when) ? "–" : new Date(when).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}</dd><dt>Received · Reported</dt><dd>${dayText(mv("received_on"))} · ${dayText(mv("reported_on"))}</dd></dl>`;
+    if (svc.lab.error) return cert + `<p class="bad">${esc(svc.lab.error)}</p>`;
+    if (!lab) return cert + `<p class="later-box">No lab results have been entered for this site yet.</p>`;
+    const val = (sd, t) => { const x = lv(labField(ph, sd, t)), p = PFX[t] ? lv(labField(ph, sd, "Prefix" + PFX[t])) : ""; return nb(x) ? '<span class="bad">empty</span>' : esc((p || "") + x); };
+    return cert + `<table class="tx"><tr><th>Test</th><th>Units</th><th>Downstream<br><span class="small">${esc(id("down") || "–")}</span></th><th>Upstream<br><span class="small">${esc(id("up") || "–")}</span></th></tr>
+      ${LABTESTS.map((t) => `<tr><td>${LABNAMES[t]}</td><td>${UNITS[t]}</td><td>${val("down", t)}</td><td>${val("up", t)}</td></tr>`).join("")}</table>
+      <p class="small">"&lt;" below the reporting limit, "&gt;" above the upper limit. Prefix boxes for the other tests are added with lab entry (build B3). The attached lab report comes with the Files tab.</p>`;
+  }
+
+  // ---------------- safe save: review → last-edited check → write (all-or-nothing per survey) → read back ----------------
+  const normV = (v) => (v === null || v === undefined || v === "") ? null : (typeof v === "number" ? Math.round(v * 1e6) / 1e6 : String(v));
+  const editDateOf = (L, row) => { const f = L.def.editFieldsInfo && L.def.editFieldsInfo.editDateField; return f ? row.attributes[f] : undefined; };
+  // A change: { svc, L, oid, set: {field: new}, before: {field: old}, edit (edit date when read), label }
+  // Only values that actually change are kept; a record with nothing left to change returns null.
+  function change(svcKey, L, row, set, label) {
+    const before = {}, real = {};
+    for (const [k, v] of Object.entries(set)) if (normV(row.attributes[k]) !== normV(v)) { real[k] = v; before[k] = row.attributes[k]; }
+    if (!Object.keys(real).length) return null;
+    return { svc: svcKey, L, oid: row.attributes[L.def.objectIdField], set: real, before, edit: editDateOf(L, row), label };
+  }
+  async function queryOids(L, oids, fields) {
+    const r = await getJson(L.url + "/query", { objectIds: oids.join(","), outFields: fields.join(","), returnGeometry: false });
+    const m = {}; for (const f of r.features || []) m[f.attributes[L.def.objectIdField]] = f.attributes; return m;
+  }
+  async function saveChanges(changes, progress) {
+    const byLayer = new Map(); for (const c of changes) { const k = c.svc + "|" + c.L.name; if (!byLayer.has(k)) byLayer.set(k, []); byLayer.get(k).push(c); }
+    // 1. has anyone saved these records since the app read them?
+    progress("Checking that nobody else has changed these records…");
+    for (const list of byLayer.values()) {
+      const L = list[0].L, ef = L.def.editFieldsInfo && L.def.editFieldsInfo.editDateField; if (!ef) continue;
+      const now = await queryOids(L, list.map((c) => c.oid), [L.def.objectIdField, ef]);
+      for (const c of list) { if (!now[c.oid]) throw new Error(`a record in ${L.name} (${c.label}) no longer exists`);
+        if (normV(now[c.oid][ef]) !== normV(c.edit)) throw new Error(`someone saved ${c.label} after this page was opened. Reload the page and try again`); }
+    }
+    // 2. write: one all-or-nothing request per survey (rollbackOnFailure). If a later survey refuses,
+    //    the surveys already saved are put back to their previous values, so the site is never left half-changed.
+    const sendSurvey = async (key, list, useBefore) => {
+      const layers = new Map(); for (const c of list) { if (!layers.has(c.L.id)) layers.set(c.L.id, []); layers.get(c.L.id).push({ attributes: { [c.L.def.objectIdField]: c.oid, ...(useBefore ? c.before : c.set) } }); }
+      const edits = [...layers].map(([id, updates]) => ({ id, updates }));
+      let res;
+      try { res = (await req(svc[key].base + "/applyEdits", { method: "post", query: { f: "json", edits: JSON.stringify(edits), rollbackOnFailure: true, useGlobalIds: false } })).data; }
+      catch (err) { return mask(err.message || err); }
+      if (res && res.error) return mask(res.error.message || "error");
+      for (const lr of Array.isArray(res) ? res : []) for (const u of lr.updateResults || []) if (!u.success) return mask((u.error && u.error.description) || "update failed");
+      return null;   // success
+    };
+    const done = [], order = ["lab", "post", "pre"];
+    for (const key of order) {
+      const mine = changes.filter((c) => c.svc === key); if (!mine.length) continue;
+      progress(`Saving ${mine.length} record(s) in the ${CFG.serviceNames[key]} survey…`);
+      const fail = await sendSurvey(key, mine, false);
+      if (!fail) { done.push(key); continue; }
+      let msg = `the ${CFG.serviceNames[key]} survey refused the save (${fail}); nothing in that survey was changed`;
+      if (done.length) {
+        const undone = [], stuck = [];
+        for (const k of done.slice().reverse()) { progress(`Putting the ${CFG.serviceNames[k]} survey back as it was…`);
+          (await sendSurvey(k, changes.filter((c) => c.svc === k), true) ? stuck : undone).push(CFG.serviceNames[k]); }
+        if (undone.length) msg += `. The changes already saved in ${undone.join(", ")} were undone, so nothing is changed`;
+        if (stuck.length) msg += `. WARNING: the changes in ${stuck.join(", ")} could NOT be undone and are still saved; tell the administrator (${CFG.admin}) before doing anything else`;
+      } else msg += ". Nothing was saved";
+      throw new Error(msg);
+    }
+    // 3. read back and compare every written value
+    progress("Checking the stored values…");
+    const wrong = [];
+    for (const list of byLayer.values()) {
+      const L = list[0].L, fields = [...new Set(list.flatMap((c) => Object.keys(c.set)))], back = await queryOids(L, list.map((c) => c.oid), [L.def.objectIdField, ...fields]);
+      for (const c of list) for (const [k, want] of Object.entries(c.set)) { const got = back[c.oid] ? back[c.oid][k] : undefined; if (normV(got) !== normV(want)) wrong.push(`${c.label}: ${k} wrote ${want}, the layer holds ${got}`); }
+    }
+    return { written: changes.length, fields: changes.reduce((t, c) => t + Object.keys(c.set).length, 0), wrong };
+  }
+
+  // ---------------- the two clean-up tools ----------------
+  const ID_FIELD = /projectid|phaseid|sampleid|project_id/i;
+  function renamePlan(a, newId) {
+    const old = a.id, out = [];
+    const visit = (key, L, row, label) => { const set = {};
+      for (const real of Object.values(L.fields)) { if (!ID_FIELD.test(real)) continue; const v = row.attributes[real];
+        if (typeof v === "string" && (v === old || v.startsWith(old))) set[real] = newId + v.slice(old.length); }
+      const c = Object.keys(set).length ? change(key, L, row, set, label) : null; if (c) out.push(c); };
+    for (const ph of ["pre", "post"]) { const P = a[ph]; if (!P) continue;
+      visit(ph, P.main.L, P.main.row, `${PH[ph]} record`);
+      for (const sd of ["down", "up"]) { const s = P.samples[sd]; if (!s.grp) continue;
+        visit(ph, s.grp.L, s.grp.row, `${PH[ph]} ${SD[sd].toLowerCase()} sample`);
+        for (const t of s.taxaRows) visit(ph, t.L, t.row, `${PH[ph]} ${SD[sd].toLowerCase()} · ${t.n >= 1 ? t.n + ". " + TAXON[t.n - 1] : t.g + " row"}`); } }
+    if (a.lab) visit("lab", a.lab.L, a.lab.row, "Lab record");
+    return out;
+  }
+  function otherPlan(a, ph, sd, newCount) {
+    const P = a[ph], s = P.samples[sd], Side = s.Side, G = s.grp.L, M = P.main.L, out = [];
+    const ixField = Object.values(G.fields).find((f) => /^(index|inext)_other_/i.test(f)), hOther = Number(att(G, s.grp.row, "HILS_OTHER_" + Side)) || 0;
+    const gset = { [G.fields[("COUNT_OTHER_" + Side).toLowerCase()]]: newCount }; if (ixField) gset[ixField] = Math.round(newCount * hOther);
+    const gc = change(ph, G, s.grp.row, gset, `${PH[ph]} ${SD[sd].toLowerCase()} sample`); if (gc) out.push(gc);
+    const c = calcTotals({ ...s, other: newCount }), sfx = sd === "down" ? "_down" : "_up", mset = {};
+    const put = (name, val) => { const real = M.fields[name.toLowerCase()]; if (real) mset[real] = val; };
+    put("total_count" + sfx, c.count); put("total_index" + sfx, c.index); put("total_taxa" + sfx, c.taxa);
+    put("average_hils" + sfx, c.avg == null ? null : Math.round(c.avg * 100) / 100); put(sd === "down" ? "EPT_TAXATotal_Down" : "ept_taxatotal_up", c.ept);
+    const mc = change(ph, M, P.main.row, mset, `${PH[ph]} record (stored ${SD[sd].toLowerCase()} totals)`); if (mc) out.push(mc);
+    return { changes: out, calc: c };
+  }
+
+  function closeTool() { $("ovl").classList.add("hidden"); $("panel").innerHTML = ""; }
+  function reviewHtml(changes) {
+    const groups = new Map(); for (const c of changes) { const k = CFG.serviceNames[c.svc] + " · " + c.L.name; groups.set(k, (groups.get(k) || 0) + 1); }
+    const rows = changes.map((c) => Object.keys(c.set).map((k) => `<tr><td>${esc(c.label)}</td><td>${esc(k)}</td><td><span class="old">${esc(fmtV(c.before[k]))}</span> → <span class="new">${esc(fmtV(c.set[k]))}</span></td></tr>`).join("")).join("");
+    return `<p class="small" style="margin:8px 0 4px">${changes.length} record(s), ${changes.reduce((t, c) => t + Object.keys(c.set).length, 0)} value(s): ${[...groups].map(([k, n]) => `${esc(k)} (${n})`).join(" · ")}</p>
+      <div class="rev"><table><tr><th>Record</th><th>Field</th><th>Change</th></tr>${rows}</table></div>`;
+  }
+  const fmtV = (v) => nb(v) ? "(empty)" : String(v);
+
+  function openTool(a, tool, ph, sd) {
+    const P = $("panel"); $("ovl").classList.remove("hidden");
+    if (tool === "rename") {
+      P.innerHTML = `<h3 id="panelTitle">Change the site ID</h3>
+        <p>Replaces <b>${esc(a.id)}</b> in every record of this site: the Pre, Post and Lab records, both samples, and every taxa row's ID fields (Project, Phase and Sample IDs).</p>
+        <div class="f"><label for="newId">New WCCD project ID (4 letters + 4 digits)</label><input type="text" id="newId" autocomplete="off" maxlength="8" value="" placeholder="e.g. BRUR3699"><div class="small" id="newIdMsg"></div></div>
+        <div id="revBox"></div><div class="small" id="toolStatus"></div>
+        <div class="btns"><button class="btn" type="button" id="tCancel">Cancel</button><button class="btn pri" type="button" id="tGo" disabled>Confirm and save</button></div>`;
+      const inp = $("newId"), go = $("tGo");
+      const check = () => { const v = inp.value.trim().toUpperCase(); inp.value = v; let msg = "";
+        if (!v) msg = ""; else if (!CFG.idPattern.test(v)) msg = "Use 4 letters followed by 4 digits."; else if (v === a.id) msg = "That is the current ID."; else if (model.some((x) => x.id === v)) msg = "Another site already uses this ID.";
+        $("newIdMsg").textContent = msg; inp.classList.toggle("bad-in", !!msg);
+        const ok = !!v && !msg; go.disabled = !ok; $("revBox").innerHTML = ok ? reviewHtml(renamePlan(a, v)) : ""; };
+      inp.oninput = check; inp.focus();
+      go.onclick = () => runSave(a, () => renamePlan(a, inp.value.trim()), inp.value.trim(), `ID changed from ${a.id} to ${inp.value.trim()}`);
+    } else if (tool === "other") {
+      const s = a[ph].samples[sd], c0 = s.calc;
+      P.innerHTML = `<h3 id="panelTitle">"Total Other Taxa" · ${PH[ph]} ${SD[sd].toLowerCase()}</h3>
+        <p>This sample stores <b>${s.other}</b> organisms as "Total Other Taxa". They have no HILS, so they add to the count but not to the index, and pull Avg HILS down. Compare with the WCCD sheet: if its "Total Other Taxa" row is empty, enter 0.</p>
+        <div class="f"><label for="newOther">"Total Other Taxa" count</label><input type="number" id="newOther" min="0" step="1" value="${s.other}"></div>
+        <div class="card" style="padding:10px 14px"><table class="ovtab" id="otherFig"></table></div>
+        <div id="revBox"></div><div class="small" id="toolStatus"></div>
+        <div class="btns"><button class="btn" type="button" id="tCancel">Cancel</button><button class="btn pri" type="button" id="tGo" disabled>Confirm and save</button></div>`;
+      const inp = $("newOther"), go = $("tGo");
+      const check = () => { const n = Number(inp.value), ok = inp.value !== "" && Number.isInteger(n) && n >= 0;
+        inp.classList.toggle("bad-in", !ok);
+        const plan = ok ? otherPlan(a, ph, sd, n) : null, c1 = plan ? plan.calc : null;
+        $("otherFig").innerHTML = `<tr><th></th><th>Now</th><th>After saving</th></tr>
+          <tr><td>Organisms</td><td>${c0.count}</td><td>${c1 ? c1.count : "–"}</td></tr><tr><td>Total Index</td><td>${c0.index}</td><td>${c1 ? c1.index : "–"}</td></tr>
+          <tr><td>Avg HILS</td><td>${fmt(c0.avg, 2)} ${hbiBadge(c0.avg)}</td><td>${c1 ? fmt(c1.avg, 2) + " " + hbiBadge(c1.avg) : "–"}</td></tr>`;
+        const changed = ok && plan.changes.length > 0; go.disabled = !changed; $("revBox").innerHTML = changed ? reviewHtml(plan.changes) : ""; };
+      inp.oninput = check; check();
+      go.onclick = () => runSave(a, () => otherPlan(a, ph, sd, Number(inp.value)).changes, a.id, `"Total Other Taxa" for ${PH[ph]} ${SD[sd].toLowerCase()} set to ${inp.value}; stored totals updated`);
+    }
+    $("tCancel").onclick = closeTool;
+  }
+
+  async function runSave(a, makePlan, landingId, what) {
+    const go = $("tGo"), cancel = $("tCancel"), st = $("toolStatus"), progress = (t) => { st.innerHTML = '<span class="spin"></span>' + esc(t); };
+    go.disabled = true; cancel.disabled = true; document.querySelectorAll("#panel input").forEach((i) => i.disabled = true);
+    try {
+      const plan = makePlan(), res = await saveChanges(plan, progress);
+      progress("Reloading the survey data…"); await loadAll();
+      area.note = res.wrong.length
+        ? { cls: "error", html: `Saved, but the check afterwards found differences:<br>${res.wrong.map(esc).join("<br>")}<br>Tell the administrator (${CFG.admin}).` }
+        : { cls: "okmsg", html: `Saved and verified (${res.written} records, ${res.fields} values): ${esc(what)}.` };
+      closeTool(); area.tab = "overview";
+      const target = "#/area/" + encodeURIComponent(landingId); if (location.hash === target) route(); else location.hash = target;
+    } catch (err) {
+      console.error(err);
+      st.innerHTML = `<div class="msg error" style="margin-top:10px">Save stopped – ${esc(mask(err.message || err))}.</div>`;
+      cancel.disabled = false; cancel.textContent = "Close";
+      try { await loadAll(); } catch { /* keep the old data on screen */ }
+    }
+  }
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("ovl").classList.contains("hidden") && !$("tCancel").disabled) closeTool(); });
+
   // ---------------- routes ----------------
-  const LATER = { new: "New study area", explore: "Explore", reports: "Reports" };
+  const LATER = { new: "New site", explore: "Explore", reports: "Reports" };
   function route() {
-    const r = (location.hash.replace(/^#\/?/, "").split("/")[0]) || "home";
-    for (const id of ["home", "check", "help", "later"]) $("p-" + id).classList.add("hidden");
-    document.querySelectorAll(".rail a[data-r]").forEach((a) => a.classList.toggle("on", a.dataset.r === r));
-    if (!model.length && r !== "help") { if (svc.pre) say("notice", "No study areas were found in the layers."); }
-    if (r === "check") { $("ptitle").textContent = "Data check"; $("p-check").classList.remove("hidden"); drawCheck(); }
+    const parts = location.hash.replace(/^#\/?/, "").split("/"), r = parts[0] || "home";
+    for (const id of ["home", "area", "check", "help", "later"]) $("p-" + id).classList.add("hidden");
+    document.querySelectorAll(".rail a[data-r]").forEach((a) => a.classList.toggle("on", a.dataset.r === r || (r === "area" && a.dataset.r === "home")));
+    if (!model.length && r !== "help") { if (svc.pre) say("notice", "No sites were found in the layers."); }
+    if (r === "area") { const id = decodeURIComponent(parts.slice(1).join("/"));
+      if (area.id !== id) { area.id = id; area.tab = area.tab && area.keepTab ? area.tab : "overview"; area.side = {}; } area.keepTab = false;
+      $("p-area").classList.remove("hidden"); drawArea(id); window.scrollTo(0, 0); }
+    else if (r === "check") { $("ptitle").textContent = "Data check"; $("p-check").classList.remove("hidden"); drawCheck(); }
     else if (r === "help") { $("ptitle").textContent = "Help"; $("p-help").classList.remove("hidden"); }
     else if (LATER[r]) { $("ptitle").textContent = LATER[r]; $("laterTitle").textContent = LATER[r]; $("p-later").classList.remove("hidden"); }
     else { $("ptitle").textContent = "Home"; $("p-home").classList.remove("hidden"); drawHome(); }
