@@ -185,8 +185,16 @@
   .labed textarea{width:100%;min-height:60px;resize:vertical}
   .labed .bad-in{border:2px solid var(--red) !important;background:var(--red-bg) !important}
   .labed input:focus,.labed select:focus,.labed textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
+  .ptwrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;align-items:start}
+  .cmap{height:380px;border:1px solid var(--line);border-radius:10px;background:var(--soft);overflow:hidden}
+  .ptside .placebtns{display:flex;gap:6px;margin:8px 0 10px}
+  .ptside .ptrow{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px;margin-bottom:10px}
+  .ptside .ptrow b{grid-column:1/-1;font-size:13px;display:flex;align-items:center;gap:6px}
+  .ptside .ptrow label{font-size:12px;color:var(--muted)} .ptside .ptrow .num-in{width:100%;text-align:left}
+  .sw{display:inline-block;width:11px;height:11px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);margin-right:4px;vertical-align:-1px}
+  #cLook,#cSug{margin-top:6px}
   footer.build{font-size:12px;color:var(--muted);margin-top:28px}
-  @media (max-width:900px){ .labed .fields3{grid-template-columns:1fr} .sheetwrap{grid-template-columns:1fr} .totals{position:static} .fields2{grid-template-columns:1fr} .figs{grid-template-columns:repeat(2,1fr)} .stabs{grid-template-columns:1fr} .stnav{flex-direction:row;flex-wrap:wrap} .sttab{border-radius:10px} .stpanel{border-radius:12px} dl.vals.two{grid-template-columns:max-content 1fr} }
+  @media (max-width:900px){ .ptwrap{grid-template-columns:1fr} .labed .fields3{grid-template-columns:1fr} .sheetwrap{grid-template-columns:1fr} .totals{position:static} .fields2{grid-template-columns:1fr} .figs{grid-template-columns:repeat(2,1fr)} .stabs{grid-template-columns:1fr} .stnav{flex-direction:row;flex-wrap:wrap} .sttab{border-radius:10px} .stpanel{border-radius:12px} dl.vals.two{grid-template-columns:max-content 1fr} }
   .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--rail);border-radius:50%;animation:sp 0.8s linear infinite;vertical-align:-2px;margin-right:8px}
   @keyframes sp{to{transform:rotate(360deg)}}
   @media (max-width:900px){
@@ -199,7 +207,7 @@
 <nav class="rail" aria-label="Main">
   <a class="mark" href="#/" aria-label="Home"><img src="data:image/jpeg;base64,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" alt="Washington County Conservation District" width="56" height="56"></a>
   <a href="#/" data-r="home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Home</a>
-  <a href="#/new" data-r="new" class="later"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>New</a>
+  <a href="#/new" data-r="new"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>New</a>
   <a href="#/explore" data-r="explore" class="later"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4l-6 2v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Explore</a>
   <a href="#/reports" data-r="reports" class="later"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/></svg>Reports</a>
   <span class="grow"></span>
@@ -239,6 +247,7 @@
   </section>
 
   <section id="p-area" class="hidden"></section>
+  <section id="p-new" class="hidden"></section>
 
   <section id="p-check" class="hidden">
     <p class="small" style="margin-top:0">This page shows what each survey's layer lets this account do, compares what the app expects with what the layers hold, and recomputes every sample's totals from its taxa rows. Nothing is changed.</p>
@@ -272,7 +281,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B4", BUILD_DATE = "16 Nov 2026";
+  const BUILD = "B5", BUILD_DATE = "16 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -463,6 +472,13 @@
         a[ph] = { stream: att(M, r, "StreamName"), site: att(M, r, "SiteName"), date: att(M, r, "DateSampled"), oid: r.attributes[M.def.objectIdField], main: { L: M, row: r }, samples: sampleFrom(S, ph, r) };
       }
     }
+    // One Stream ID (COMID) belongs to one stream: the same ID stored for differently named streams cannot be right
+    // (the Survey123 forms' lookup stored 99425020 for every record).
+    const byId = new Map();
+    for (const a of areas.values()) for (const ph of ["pre", "post"]) { const P = a[ph]; if (!P) continue; const sid = String(att(P.main.L, P.main.row, "StreamID") || "").trim();
+      if (sid) { if (!byId.has(sid)) byId.set(sid, new Set()); byId.get(sid).add(String(P.stream || "").trim()); } }
+    for (const a of areas.values()) for (const ph of ["pre", "post"]) { const P = a[ph]; if (!P) continue; const sid = String(att(P.main.L, P.main.row, "StreamID") || "").trim();
+      if (sid && byId.get(sid).size > 1) a.flags.push(`${PH[ph]} record: Stream ID ${sid} is also stored for ${[...byId.get(sid)].filter((n) => n !== String(P.stream || "").trim()).join(", ")}, so it cannot be right. Use "Check the stream ID" on the Overview tab.`); }
     const LL = svc.lab.byName[MAIN.lab];
     if (LL) for (const r of LL.rows) { const a = area(att(LL, r, "project_id")); if (a.lab) a.flags.push("The Lab layer has more than one record with this ID."); else a.lab = { row: r, L: LL }; }
     for (const a of areas.values()) evaluate(a);
@@ -650,15 +666,22 @@
     P.querySelectorAll("[data-tab]").forEach((b) => b.onclick = leave(() => { area.tab = b.dataset.tab; delete area.side[area.tab]; }));
     P.querySelectorAll("[data-go]").forEach((b) => b.onclick = leave(() => { const [ph, sd] = b.dataset.go.split(":"); area.tab = ph; area.side[ph] = sd; }));
     P.querySelectorAll("[data-side]").forEach((b) => b.onclick = leave(() => { area.side[area.tab] = b.dataset.side; }));
-    P.querySelectorAll("[data-tool]").forEach((b) => b.onclick = () => { if (leaveOk()) { area.edit = null; openTool(a, b.dataset.tool, b.dataset.ph, b.dataset.sd); } });
+    P.querySelectorAll("[data-tool]").forEach((b) => b.onclick = () => { if (leaveOk()) { area.edit = null; if (b.dataset.tool === "comid") openComidTool(a); else openTool(a, b.dataset.tool, b.dataset.ph, b.dataset.sd); } });
     P.querySelectorAll("[data-edit]").forEach((b) => b.onclick = () => startEdit(a, b.dataset.edit, area.tab, b.dataset.sd));
     P.querySelectorAll("[data-ecancel]").forEach((b) => b.onclick = () => { if (leaveOk()) { area.edit = null; drawArea(a.id); } });
     P.querySelectorAll("[data-ereview]").forEach((b) => b.onclick = () => openReview(a));
     P.querySelectorAll("[data-tn]").forEach((i) => i.oninput = () => { const n = +i.dataset.tn; if (n) area.edit.vals.counts[n] = i.value; else area.edit.vals.other = i.value; editorRefresh(a); });
     P.querySelectorAll("[data-lv]").forEach((i) => i.oninput = i.onchange = () => { area.edit.vals[i.dataset.lv] = i.value; editorRefresh(a); });
+    // Lab editor: Tab follows one certificate at a time (all downstream boxes, then all upstream), not the table rows.
+    const led = P.querySelector(".labed"); if (led) led.onkeydown = (e) => {
+      if (e.key !== "Tab" || e.ctrlKey || e.altKey) return;
+      const list = [...led.querySelectorAll("[data-lv]")].sort((x, y) => labOrder(x.dataset.lv) - labOrder(y.dataset.lv)), i = list.indexOf(document.activeElement);
+      const next = i < 0 ? null : list[i + (e.shiftKey ? -1 : 1)]; if (next) { e.preventDefault(); next.focus(); if (next.select && next.type === "text") next.select(); } };
     P.querySelectorAll("[data-ev]").forEach((i) => i.oninput =() => { const k = i.dataset.ev; if (k.includes(".")) { const [x, y] = k.split("."); area.edit.vals[x][y] = i.value; } else area.edit.vals[k] = i.value; editorRefresh(a); });
     const e = P.querySelector("#tEmpty"); if (e) e.onchange = () => { area.empty = e.checked; drawArea(a.id); };
-    if (area.edit) { editorRefresh(a); const first = P.querySelector("[data-tn],[data-ev],[data-lv]"); if (first && !area.edit.focused) { first.focus(); area.edit.focused = true; } }
+    if (area.edit && (area.edit.kind === "post0" || area.edit.kind === "loc")) bindCreate(area.edit, a, P, () => editorRefresh(a));
+    else if (mapS.view) mountMap(null);
+    if (area.edit) { editorRefresh(a); const first = P.querySelector("[data-tn],[data-ev],[data-lv],[data-cv]"); if (first && !area.edit.focused) { first.focus(); area.edit.focused = true; } }
   }
 
   function sideTabs(key, items) {   // items: [key, label, missing?, html]
@@ -687,23 +710,32 @@
       <p class="small" style="margin:0">Each correction shows exactly what will change, saves only after you confirm, and checks the stored values afterwards.</p>
       <div class="tools">
         <button class="btn${!a.test && !CFG.idPattern.test(a.id) ? " pri" : ""}" type="button" data-tool="rename">Change the site ID…</button>
+        ${a.pre || a.post ? `<button class="btn${a.flags.some((f) => /Stream ID/.test(f)) ? " pri" : ""}" type="button" data-tool="comid">Check the stream ID (COMID)…</button>` : ""}
         ${others.map(({ ph, sd, s }) => `<button class="btn pri" type="button" data-tool="other" data-ph="${ph}" data-sd="${sd}">Review "Other Taxa" (${PH[ph]} ${SD[sd].toLowerCase()}: ${s.other})…</button>`).join("")}
       </div>`;
   }
 
   function phaseTab(a, ph) {
     const P = a[ph];
-    if (!P) return `<p class="later-box">No ${PH[ph].toLowerCase()} record yet. Creating a new record comes with the new-site page (build B5).</p>`;
+    if (!P) {
+      if (ph === "post" && area.edit && area.edit.kind === "post0") return `<h3 style="margin:0 0 4px">Start post-construction</h3>
+        <p class="small" style="margin:0 0 10px">Creates the Post-construction record with its downstream and upstream samples, as the Survey123 form does.</p>${createFormHtml(area.edit, a)}${editButtons().replace("Review and save", "Review and create")}`;
+      if (ph === "post" && a.pre) return `<p class="later-box">No post-construction record yet.</p>
+        ${svc.post.error ? `<p class="bad">${esc(svc.post.error)}</p>` : `<div class="tools"><button class="btn pri" type="button" data-edit="post0">Start post-construction…</button></div>`}`;
+      return `<p class="later-box">No ${PH[ph].toLowerCase()} record yet.${ph === "pre" ? " This site has post-construction data without a pre-construction record; tell the administrator." : ""}</p>`;
+    }
     const M = P.main.L, r = P.main.row, v = (f) => att(M, r, f);
     const ed = area.edit && area.edit.ph === ph ? area.edit : null;
     const site = ed && ed.kind === "site"
-      ? `<div class="fields2"><div class="f"><label for="eSite">Site name</label><input type="text" id="eSite" data-ev="site" value="${esc(ed.vals.site)}"></div>
+      ? `<div class="fields2"><div class="f"><label for="eStream">Stream * required</label><input type="text" id="eStream" data-ev="stream" list="streamList" autocomplete="off" value="${esc(ed.vals.stream)}">${streamListHtml()}</div>
+         <div class="f"><label for="eSite">Site name</label><input type="text" id="eSite" data-ev="site" value="${esc(ed.vals.site)}"></div>
          <div class="f"><label for="eDate">Date sampled * required</label><input type="date" id="eDate" data-ev="date" value="${esc(ed.vals.date)}"></div></div>
-         <p class="small">The project and phase IDs are changed with "Change the site ID" on the Overview tab. Choosing a different stream comes with the new-site page (build B5).</p>${editButtons()}`
+         <p class="small" id="cLook"></p>
+         <p class="small">The project and phase IDs are changed with "Change the site ID" on the Overview tab. A new stream also updates the Stream ID, from the segment nearest the downstream point.</p>${editButtons()}`
       : `<dl class="vals two"><dt>Project ID</dt><dd>${esc(v("ProjectID"))}</dd><dt>Phase ID</dt><dd>${esc(v("PhaseID") || "–")}</dd>
       <dt>Stream</dt><dd>${esc(v("StreamName") || "–")}</dd><dt>Site name</dt><dd>${esc(v("SiteName") || "–")}</dd>
       <dt>Date sampled</dt><dd>${dayText(v("DateSampled"))}</dd><dt>Stream ID (COMID)</dt><dd>${esc(v("StreamID") || "–")}</dd></dl>
-      <div class="tools"><button class="btn" type="button" data-edit="site">Edit site name and date</button></div>`;
+      <div class="tools"><button class="btn" type="button" data-edit="site">Edit stream, site name and date</button></div>`;
     const items = [["site", "Site and date", nb(v("DateSampled")), site]];
     for (const sd of ["down", "up"]) items.push([sd, SD[sd] + " taxa", !(P.samples[sd].exists && (P.samples[sd].rows || P.samples[sd].other)), taxaPanel(a, ph, sd)]);
     const frMissing = ["down", "up"].every((sd) => { const f = P.samples[sd].field || {}; return nb(f.ph) && nb(f.temp) && nb(f.cond); });
@@ -720,7 +752,10 @@
     }
     items.push(["field", "Field readings", frMissing, field]);
     const loc = ["down", "up"].map((sd) => { const g = P.samples[sd].geom; return `<dt>${SD[sd]}</dt><dd>${zeroGeom(g) ? '<span class="bad">no location</span>' : `${g.y.toFixed(6)}, ${g.x.toFixed(6)}`}</dd>`; }).join("");
-    items.push(["loc", "Sample locations", ["down", "up"].some((sd) => zeroGeom(P.samples[sd].geom)), `<dl class="vals">${loc}</dl><p class="small">Latitude, longitude. The map comes in a later build.</p>`]);
+    const anyGrp = ["down", "up"].some((sd) => P.samples[sd].grp);
+    items.push(["loc", "Sample locations", ["down", "up"].some((sd) => zeroGeom(P.samples[sd].geom)), ed && ed.kind === "loc"
+      ? `${pointsHtml(ed, PTCOL[ph])}${["down", "up"].some((sd) => !P.samples[sd].grp) ? `<p class="small">Only samples that exist can be moved.</p>` : ""}${editButtons()}`
+      : `<dl class="vals">${loc}</dl><p class="small">Latitude, longitude (WGS84).</p>${anyGrp ? `<div class="tools"><button class="btn" type="button" data-edit="loc">Edit sample locations (map)</button></div>` : ""}`]);
     const labIdx = ph === "pre" ? 2 : 5;
     items.push(["lab", "Lab results", nb(v("laboratory_name")) || a.stages[labIdx].state !== "full", labPanel(a, ph)]);
     return sideTabs(ph, items);
@@ -749,18 +784,27 @@
 
   // ---------------- editing (B3): taxa sheet, field readings, site name and date ----------------
   const editButtons = () => `<div class="btns ebar"><span class="small" id="eChanged"></span><button class="btn" type="button" data-ecancel>Cancel</button><button class="btn pri" type="button" data-ereview disabled>Review and save</button></div>`;
-  const isDirty = () => !!area.edit && JSON.stringify(area.edit.vals) !== area.edit.orig;
+  const isDirty = () => (!!area.edit && JSON.stringify(area.edit.vals) !== area.edit.orig) || (!!nw.st && JSON.stringify(nw.st.vals) !== nw.st.orig);
   const leaveOk = () => !isDirty() || confirm("You have changes that are not saved. Discard them?");
   // Local noon for a date typed without a time (the convention used on the lime app), so it shows the same day everywhere.
   const noonMs = (t) => { const d = /^(\d{4})-(\d\d)-(\d\d)$/.exec(t || ""); return d ? new Date(+d[1], +d[2] - 1, +d[3], 12).getTime() : null; };
 
   function startEdit(a, kind, ph, sd) {
+    if (kind === "post0" || kind === "loc") {   // B5: start the post-construction record / move the sample points
+      const src = kind === "post0" ? a.pre : a[ph], g = (x) => src && src.samples[x] && geomPt(src.samples[x].geom), vals = {};
+      if (kind === "post0") Object.assign(vals, { stream: a.pre.stream || "", site: a.pre.site || "", date: "" });
+      for (const x of ["down", "up"]) { const p = g(x); vals[x + ".lat"] = p ? pt6(p.lat) : ""; vals[x + ".lon"] = p ? pt6(p.lon) : ""; }
+      area.edit = kind === "post0" ? { kind, ph: "post", mode: "post", vals, orig: JSON.stringify(vals), place: "down" } : { kind, ph, vals, orig: JSON.stringify(vals), place: "down" };
+      area.tab = area.edit.ph; if (kind === "loc") area.side[ph] = "loc";
+      drawArea(a.id); return;
+    }
     const P = a[ph], M = P.main.L, r = P.main.row;
     let vals;
     if (kind === "taxa") { const s = P.samples[sd], counts = {}; for (let n = 1; n <= 99; n++) counts[n] = s.counts[n] ? String(s.counts[n]) : ""; vals = { counts, other: s.other ? String(s.other) : "" }; }
     else if (kind === "field") { vals = {}; for (const x of ["down", "up"]) { const f = P.samples[x].field || {}; vals[x] = { ph: nb(f.ph) ? "" : String(f.ph), temp: nb(f.temp) ? "" : String(f.temp), cond: nb(f.cond) ? "" : String(f.cond) }; } }
     else if (kind === "lab") vals = labStartVals(a, ph);
-    else vals = { site: att(M, r, "SiteName") || "", date: dayKey(att(M, r, "DateSampled")) };
+    else { vals = { stream: att(M, r, "StreamName") || "", site: att(M, r, "SiteName") || "", date: dayKey(att(M, r, "DateSampled")) };
+      if (!streamNames) loadStreams().then(() => { const dl = document.querySelector("#p-area #streamList"); if (dl) dl.outerHTML = streamListHtml(); editorRefresh(a); }).catch(() => { /* typed name is then checked as is */ }); }
     area.edit = { kind, ph, sd, vals, orig: JSON.stringify(vals) };
     area.tab = ph; area.side[ph] = kind === "taxa" ? sd : kind;
     drawArea(a.id);
@@ -794,6 +838,7 @@
   // After every keystroke: update index cells, totals, the "You changed" line and the Review button, without redrawing the page.
   function editorRefresh(a) {
     const E = area.edit, P = $("p-area"); if (!E) return;
+    if (E.kind === "post0" || E.kind === "loc") { createRefresh(E, a, P); return; }
     const changed = [], errs = [];
     if (E.kind === "taxa") {
       const { counts, other, bad } = readCounts(E.vals), s = a[E.ph].samples[E.sd];
@@ -824,6 +869,15 @@
       if (E.vals.date !== dayKey(att(M, r, "DateSampled"))) changed.push(`Date sampled → ${E.vals.date || "(empty)"}`);
       if (!E.vals.date) errs.push("Date sampled is required");
       const d = P.querySelector("#eDate"); if (d) d.classList.toggle("bad-in", !E.vals.date);
+      const oldStream = att(M, r, "StreamName") || "", stream = matchStream(E.vals.stream), sEl = P.querySelector("#eStream");
+      const streamBad = !String(E.vals.stream).trim() || !stream; if (sEl) sEl.classList.toggle("bad-in", streamBad);
+      if (streamBad) errs.push(String(E.vals.stream).trim() ? `"${E.vals.stream.trim()}" is not in the Washington County stream list` : "Choose the stream");
+      else if (stream !== oldStream) {
+        changed.push(`Stream → ${stream}`);
+        const down = geomPt(a[E.ph].samples.down.geom); lookups(E, stream, down, () => editorRefresh(a));
+        const lk = P.querySelector("#cLook"); if (lk) lk.innerHTML = down ? lookHtml(E, stream, down) : "There is no downstream point, so the Stream ID is left as it is.";
+        if (!lookReady(E, stream, down)) errs.push("Finding the stream segment");
+      } else { const lk = P.querySelector("#cLook"); if (lk) lk.innerHTML = ""; }
     }
     const line = $("eChanged"); if (line) line.innerHTML = errs.length ? `<span class="bad">${esc(errs.join(". "))}</span>` : changed.length ? "You changed: " + esc(changed.slice(0, 6).join(" · ")) + (changed.length > 6 ? ` · and ${changed.length - 6} more` : "") : "No changes yet.";
     const rv = P.querySelector("[data-ereview]"); if (rv) rv.disabled = !changed.length || errs.length > 0;
@@ -877,11 +931,17 @@
   function sitePlan(a, ph, vals) {
     const P = a[ph], M = P.main.L, set = {}; set[M.fields.sitename] = vals.site.trim() || null;
     if (vals.date !== dayKey(att(M, P.main.row, "DateSampled"))) set[M.fields.datesampled] = noonMs(vals.date);   // same calendar day = no change
-    const c = change(ph, M, P.main.row, set, `${PH[ph]} record`); return c ? [c] : [];
+    const stream = matchStream(vals.stream);
+    if (stream && stream !== (att(M, P.main.row, "StreamName") || "") && M.fields.streamname) {
+      set[M.fields.streamname] = stream;
+      const lk = area.edit && area.edit.look; if (lk && !lk.pending && lk.comid && M.fields.streamid) set[M.fields.streamid] = lk.comid; }
+    const c = change(ph, M, P.main.row, set, `${PH[ph]} record`); if (c) c.names = { [M.fields.sitename]: "Site name", [M.fields.datesampled]: "Date sampled", [M.fields.streamname]: "Stream", [M.fields.streamid]: "Stream ID (COMID)" };
+    return c ? [c] : [];
   }
 
   function openReview(a) {
     const E = area.edit; let plan, what;
+    if (E.kind === "post0" || E.kind === "loc") return openCreateReview(E, a);
     try {
       if (E.kind === "taxa") { const { counts, other } = readCounts(E.vals); plan = () => taxaPlan(a, E.ph, E.sd, counts, other); what = `${PH[E.ph]} ${SD[E.sd].toLowerCase()} counts saved`; }
       else if (E.kind === "field") { plan = () => fieldPlan(a, E.ph, E.vals); what = `${PH[E.ph]} field readings saved`; }
@@ -974,6 +1034,14 @@
       </div>${editButtons()}`;
   }
 
+  // Tab order in the lab editor: certificate, downstream sample, upstream sample, downstream results, upstream results, notes.
+  function labOrder(key) {
+    const top = { name: 0, recv: 1, rep: 2, notes: 9999 }; if (key in top) return top[key];
+    const [sd, x, t] = key.split("."), si = sd === "down" ? 0 : 1;
+    if (x === "p" || x === "v") return 1000 + si * 100 + LABTESTS.indexOf(t) * 2 + (x === "v" ? 1 : 0);
+    return 10 + si * 10 + LABROWS.findIndex((r) => r[0] === x);
+  }
+
   // Check the typed values; returns { errs: [text], bad: Set(keys) }.
   function labCheck(v, ph) {
     const errs = [], bad = new Set(), num = (t) => { const s = String(t).trim(); return s === "" ? null : Number(s); };
@@ -1032,6 +1100,294 @@
     return out;
   }
 
+  // ==========================================================================================
+  // B5: streams, sample points, new records
+  // ==========================================================================================
+  // The stream list and stream segments come from the public Washington County Flowlines layer (the one the Survey123 forms use).
+  const FLOW_URL = "https://services1.arcgis.com/PWtxnKIFOvE9zUTs/arcgis/rest/services/Washington_County_Flowlines/FeatureServer/5";
+  const TOPO_URL = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer";
+  const COUNTY_CENTER = [-80.25, 40.19], COMID_RADIUS = 500, SUGGEST_RADIUS = 200;
+  const PTCOL = { pre: { down: "#6693D8", up: "#24508F" }, post: { down: "#DB6F5C", up: "#A0221B" } };
+  const sq = (s) => String(s).replace(/'/g, "''");
+  let streamNames = null;
+  async function loadStreams() {
+    if (streamNames) return streamNames;
+    const r = await getJson(FLOW_URL + "/query", { where: "GNIS_NAME IS NOT NULL", outFields: "GNIS_NAME", returnDistinctValues: true, returnGeometry: false, orderByFields: "GNIS_NAME" });
+    streamNames = [...new Set((r.features || []).map((f) => String(f.attributes.GNIS_NAME || "").trim()).filter(Boolean))].sort((x, y) => x.localeCompare(y));
+    return streamNames;
+  }
+  const matchStream = (t) => { const s = String(t || "").trim(); if (!s) return null; return streamNames ? streamNames.find((n) => n.toLowerCase() === s.toLowerCase()) || null : s; };
+  const streamListHtml = () => `<datalist id="streamList">${(streamNames || []).map((n) => `<option value="${esc(n)}">`).join("")}</datalist>`;
+  // Distance in metres from a point to a polyline (local flat approximation, fine at stream scale).
+  function distToLine(lat, lon, g) {
+    const k = Math.cos(lat * Math.PI / 180), M = 111320; let best = Infinity;
+    for (const path of (g && g.paths) || []) for (let i = 1; i < path.length; i++) {
+      const ax = (path[i - 1][0] - lon) * k * M, ay = (path[i - 1][1] - lat) * M, bx = (path[i][0] - lon) * k * M, by = (path[i][1] - lat) * M;
+      const dx = bx - ax, dy = by - ay, L2 = dx * dx + dy * dy, t = L2 ? Math.max(0, Math.min(1, -(ax * dx + ay * dy) / L2)) : 0;
+      best = Math.min(best, Math.hypot(ax + t * dx, ay + t * dy)); }
+    return best;
+  }
+  // Nearest stream segment to a point (optionally only segments of one stream). Returns { comid, name, dist } or null.
+  async function nearestFlow(lat, lon, stream, radius) {
+    const r = await getJson(FLOW_URL + "/query", { geometry: JSON.stringify({ x: lon, y: lat, spatialReference: { wkid: 4326 } }), geometryType: "esriGeometryPoint", inSR: 4326,
+      spatialRel: "esriSpatialRelIntersects", distance: radius, units: "esriSRUnit_Meter", where: stream ? `GNIS_NAME = '${sq(stream)}'` : "GNIS_NAME IS NOT NULL AND GNIS_NAME <> ' '",   // unnamed segments hold " "
+      outFields: "COMID,GNIS_NAME", returnGeometry: true, outSR: 4326 });
+    let best = null;
+    for (const f of r.features || []) { const d = distToLine(lat, lon, f.geometry); if (!best || d < best.dist) best = { comid: f.attributes.COMID, name: String(f.attributes.GNIS_NAME || "").trim(), dist: d }; }
+    return best && best.dist <= radius ? best : null;
+  }
+  // Looks up (debounced) the segment of `stream` nearest `pt`, and the nearest named stream; calls cb when an answer arrives.
+  function lookups(st, stream, pt, cb) {
+    const key = stream && pt ? `${stream}|${pt.lat}|${pt.lon}` : "";
+    if (!key) st.look = null;
+    else if (!st.look || st.look.key !== key) {
+      st.look = { key, pending: true }; clearTimeout(st.lookT);
+      st.lookT = setTimeout(async () => { const res = { key };
+        try { const b = await nearestFlow(pt.lat, pt.lon, stream, COMID_RADIUS); res.comid = b ? String(b.comid) : null; res.dist = b ? b.dist : null; } catch (e) { res.err = mask(e.message || e); }
+        if (st.look && st.look.key === key) { st.look = res; cb(); } }, 400);
+    }
+    const skey = pt ? `${pt.lat}|${pt.lon}` : "";
+    if (!skey) st.sug = null;
+    else if (!st.sug || st.sug.key !== skey) {
+      st.sug = { key: skey, pending: true }; clearTimeout(st.sugT);
+      st.sugT = setTimeout(async () => { let name = null; try { const b = await nearestFlow(pt.lat, pt.lon, null, SUGGEST_RADIUS); name = b ? b.name : null; } catch { /* no suggestion */ }
+        if (st.sug && st.sug.key === skey) { st.sug = { key: skey, name }; cb(); } }, 400);
+    }
+  }
+  const lookReady = (st, stream, pt) => !(stream && pt) || (st.look && st.look.key === `${stream}|${pt.lat}|${pt.lon}` && !st.look.pending);
+  const lookHtml = (st, stream, pt) => {
+    if (!stream || !pt) return `Stream ID (COMID): found from the downstream point once the stream and that point are set.`;
+    const L = st.look; if (!L || L.pending) return `<span class="spin"></span>Finding the ${esc(stream)} segment nearest the downstream point…`;
+    if (L.err) return `<span class="bad">The stream layer could not be read (${esc(L.err)}). The Stream ID will be left empty.</span>`;
+    return L.comid ? `Stream ID (COMID) <b>${esc(L.comid)}</b>: the ${esc(stream)} segment ${Math.round(L.dist)} m from the downstream point.`
+      : `<span class="bad">No ${esc(stream)} segment within ${COMID_RADIUS} m of the downstream point.</span> Check the stream and the point; otherwise the Stream ID will be left empty.`; };
+
+  // ---- points ----
+  const ptOf = (v, sd) => { const lat = String(v[sd + ".lat"] ?? "").trim(), lon = String(v[sd + ".lon"] ?? "").trim(); if (lat === "" || lon === "") return null;
+    const y = Number(lat), x = Number(lon); return Number.isFinite(x) && Number.isFinite(y) && Math.abs(y) <= 90 && Math.abs(x) <= 180 ? { lat: y, lon: x } : null; };
+  const geomPt = (g) => zeroGeom(g) ? null : { lat: g.y, lon: g.x };
+  const pt6 = (n) => String(Math.round(n * 1e6) / 1e6);
+  const ptGeom = (p) => p ? { x: p.lon, y: p.lat, spatialReference: { wkid: 4326 } } : { x: 0, y: 0, spatialReference: { wkid: 4326 } };   // no point = 0,0, as Survey123 stores it
+  function ptCheck(v, errs, bad) {
+    for (const sd of ["down", "up"]) { const lat = String(v[sd + ".lat"] ?? "").trim(), lon = String(v[sd + ".lon"] ?? "").trim();
+      if (lat === "" && lon === "") continue;
+      if (lat === "" || lon === "") { errs.push(`The ${SD[sd].toLowerCase()} point needs both latitude and longitude`); bad.add(sd + (lat === "" ? ".lat" : ".lon")); continue; }
+      const p = ptOf(v, sd); if (!p) { errs.push(`The ${SD[sd].toLowerCase()} point is not a valid latitude and longitude`); bad.add(sd + ".lat"); bad.add(sd + ".lon"); continue; }
+      if (p.lat < 39.6 || p.lat > 40.7 || p.lon < -80.8 || p.lon > -79.6) { errs.push(`The ${SD[sd].toLowerCase()} point is far outside Washington County (check that longitude is negative)`); bad.add(sd + ".lat"); bad.add(sd + ".lon"); } }
+  }
+  function pointsHtml(st, cols) {
+    return `<div class="ptwrap"><div id="cmap" class="cmap" aria-label="Map: click to place the selected point"></div><div class="ptside">
+      <div class="small" id="cPlaceTxt">Click the map to place the <b>${st.place === "down" ? "downstream" : "upstream"}</b> point, or type it below.</div>
+      <div class="placebtns">${["down", "up"].map((sd) => `<button type="button" class="chip${st.place === sd ? " on" : ""}" data-place="${sd}"><i class="sw" style="background:${cols[sd]}"></i>${SD[sd]}</button>`).join("")}</div>
+      ${["down", "up"].map((sd) => `<div class="ptrow"><b><i class="sw" style="background:${cols[sd]}"></i>${SD[sd]}</b>
+        <label>Latitude<input type="text" inputmode="decimal" class="num-in" data-cv="${sd}.lat" value="${esc(st.vals[sd + ".lat"])}" placeholder="40.2021"></label>
+        <label>Longitude<input type="text" inputmode="decimal" class="num-in" data-cv="${sd}.lon" value="${esc(st.vals[sd + ".lon"])}" placeholder="-80.4003"></label></div>`).join("")}
+      <div id="cSug" class="small"></div><div id="cLook" class="small"></div></div></div>`;
+  }
+
+  // ---- the map (ArcGIS Maps SDK). If it cannot load, the coordinate boxes still work. ----
+  const mapS = { view: null };
+  async function mountMap(el, st, cols, onPick) {
+    if (mapS.view) { try { mapS.view.destroy(); } catch { /* already gone */ } }
+    mapS.view = null; mapS.gl = null;
+    if (!el) return;
+    try {
+      const [Map, MapView, TileLayer, FeatureLayer, GraphicsLayer, Graphic] = await $arcgis.import(["@arcgis/core/Map.js", "@arcgis/core/views/MapView.js", "@arcgis/core/layers/TileLayer.js", "@arcgis/core/layers/FeatureLayer.js", "@arcgis/core/layers/GraphicsLayer.js", "@arcgis/core/Graphic.js"]);
+      if (!Map || !MapView) throw new Error("the map library is not available");
+      const gl = new GraphicsLayer();
+      const flow = new FeatureLayer({ url: FLOW_URL, outFields: ["GNIS_NAME", "COMID"], renderer: { type: "simple", symbol: { type: "simple-line", color: [27, 95, 170, 0.85], width: 1.6 } },
+        labelingInfo: [{ labelExpressionInfo: { expression: "$feature.GNIS_NAME" }, labelPlacement: "center-along", minScale: 40000, symbol: { type: "text", color: "#173A70", haloColor: "white", haloSize: 1.5, font: { size: 10 } } }] });
+      const map = new Map({ layers: [new TileLayer({ url: TOPO_URL }), flow, gl] });
+      const first = ptOf(st.vals, "down") || ptOf(st.vals, "up");
+      const view = new MapView({ container: el, map, center: first ? [first.lon, first.lat] : COUNTY_CENTER, zoom: first ? 16 : 10 });
+      mapS.view = view; mapS.gl = gl; mapS.Graphic = Graphic; mapS.st = st; mapS.cols = cols;
+      view.on("click", (e) => { const p = e.mapPoint; if (p) onPick(Math.round(p.latitude * 1e6) / 1e6, Math.round(p.longitude * 1e6) / 1e6); });
+      drawMapPts();
+    } catch (err) { el.innerHTML = `<p class="small" style="padding:12px">The map could not be shown (${esc(mask(err.message || err))}). Type the coordinates instead.</p>`; }
+  }
+  function drawMapPts() {
+    if (!mapS.gl || !mapS.st) return; mapS.gl.removeAll();
+    for (const sd of ["down", "up"]) { const p = ptOf(mapS.st.vals, sd); if (!p) continue;
+      const geometry = { type: "point", longitude: p.lon, latitude: p.lat };
+      mapS.gl.add(new mapS.Graphic({ geometry, symbol: { type: "simple-marker", color: mapS.cols[sd], size: 13, outline: { color: "#ffffff", width: 2 } } }));
+      mapS.gl.add(new mapS.Graphic({ geometry, symbol: { type: "text", text: sd === "down" ? "D" : "U", color: "#ffffff", font: { size: 8, weight: "bold" }, yoffset: -3 } })); }
+  }
+
+  // ---- create form: a new site (Pre record) or a site's Post record ----
+  function createFormHtml(st, a) {
+    const v = st.vals, cols = PTCOL[st.mode];
+    return `<div class="labed cform">
+      <div class="fields3">
+        ${st.mode === "pre" ? `<div><label for="cId">WCCD project ID * required</label><input type="text" id="cId" data-cv="id" maxlength="8" autocomplete="off" placeholder="e.g. BRUR3699" value="${esc(v.id)}"></div>`
+          : `<div><label>Project ID</label><input type="text" value="${esc(a.id)}" disabled></div>`}
+        <div><label for="cStream">Stream * required</label><input type="text" id="cStream" data-cv="stream" list="streamList" autocomplete="off" placeholder="type to search" value="${esc(v.stream)}">${streamListHtml()}</div>
+        <div><label for="cSite">Site name</label><input type="text" id="cSite" data-cv="site" maxlength="255" placeholder="same as the stream" value="${esc(v.site)}"></div>
+        <div><label for="cDate">${PH[st.mode]} date sampled * required</label><input type="date" id="cDate" data-cv="date" value="${esc(v.date)}"></div>
+      </div>
+      <h4>Sample points</h4>${pointsHtml(st, cols)}
+      ${st.mode === "post" ? `<p class="small" style="margin:6px 0 0">The stream, site name and points are copied from the Pre-construction record. Change them if the post-construction samples were taken elsewhere.</p>` : ""}
+    </div>`;
+  }
+  function bindCreate(st, a, root, refresh) {
+    st.touched = st.touched || {};
+    root.querySelectorAll("[data-cv]").forEach((i) => { i.oninput = i.onchange = () => { st.vals[i.dataset.cv] = i.dataset.cv === "id" ? (i.value = i.value.toUpperCase()) : i.value; st.touched[i.dataset.cv] = true; refresh(); };
+      i.onblur = () => { if (!st.touched[i.dataset.cv]) { st.touched[i.dataset.cv] = true; refresh(); } }; });
+    root.querySelectorAll("[data-place]").forEach((b) => b.onclick = () => { st.place = b.dataset.place; root.querySelectorAll("[data-place]").forEach((x) => x.classList.toggle("on", x === b));
+      $("cPlaceTxt").innerHTML = `Click the map to place the <b>${st.place === "down" ? "downstream" : "upstream"}</b> point, or type it below.`; });
+    const pick = (lat, lon) => { const sd = st.place; st.vals[sd + ".lat"] = pt6(lat); st.vals[sd + ".lon"] = pt6(lon);
+      for (const k of ["lat", "lon"]) { const el = root.querySelector(`[data-cv="${sd}.${k}"]`); if (el) el.value = st.vals[`${sd}.${k}`]; }
+      if (sd === "down" && !ptOf(st.vals, "up")) { st.place = "up"; root.querySelector('[data-place="up"]') && root.querySelector('[data-place="up"]').click(); }
+      refresh(); };
+    st.pick = pick;   // also used by tests
+    mountMap(root.querySelector("#cmap"), st, PTCOL[st.mode || st.ph] || PTCOL.pre, pick);
+    if (!streamNames) loadStreams().then(() => { const dl = root.querySelector("#streamList"); if (dl) dl.outerHTML = streamListHtml(); refresh(); })
+      .catch((e) => { st.streamErr = mask(e.message || e); refresh(); });
+  }
+  // Checks, lookups and the status line for the create form and the sample-location editor. Returns the plan (or null).
+  function createRefresh(st, a, root, reviewSel) {
+    const v = st.vals, errs = [], bad = new Set(), notes = [];
+    const create = st.kind === "create" || st.kind === "post0";
+    let stream;
+    if (create) {
+      if (st.mode === "pre") { const id = String(v.id || "").trim().toUpperCase();
+        if (!id) { errs.push("Enter the WCCD project ID"); bad.add("id"); }
+        else if (!CFG.idPattern.test(id)) { errs.push("The project ID is 4 letters followed by 4 digits"); bad.add("id"); }
+        else if (model.some((x) => x.id.toUpperCase() === id)) { errs.push(`Another site already uses ${id}`); bad.add("id"); } }
+      stream = matchStream(v.stream);
+      if (!String(v.stream || "").trim()) { errs.push("Choose the stream"); bad.add("stream"); }
+      else if (!stream) { errs.push(`"${v.stream.trim()}" is not in the Washington County stream list`); bad.add("stream"); }
+      if (st.streamErr) errs.push(`The stream list could not be read (${st.streamErr})`);
+      if (!v.date) { errs.push("Enter the date sampled"); bad.add("date"); }
+    } else stream = a[st.ph].stream || null;
+    ptCheck(v, errs, bad);
+    if (!create) for (const sd of ["down", "up"]) { const s = a[st.ph].samples[sd];
+      if (s.grp && geomPt(s.geom) && !ptOf(v, sd) && String(v[sd + ".lat"]).trim() === "" && String(v[sd + ".lon"]).trim() === "") { errs.push(`The ${SD[sd].toLowerCase()} point cannot be removed; type the corrected one`); bad.add(sd + ".lat"); } }
+    for (const sd of ["down", "up"]) if (!ptOf(v, sd) && !bad.has(sd + ".lat") && !bad.has(sd + ".lon")) notes.push(`no ${SD[sd].toLowerCase()} point yet (the site will be flagged until it is entered)`);
+    const down = bad.has("down.lat") || bad.has("down.lon") ? null : ptOf(v, "down"), redo = () => createRefresh(st, a, root, reviewSel);
+    lookups(st, stream, down, redo);
+    const touched = st.touched || {};   // an untouched empty box is not red yet
+    root.querySelectorAll("[data-cv]").forEach((el) => el.classList.toggle("bad-in", bad.has(el.dataset.cv) && (!create || touched[el.dataset.cv] || String(st.vals[el.dataset.cv] || "").trim() !== "")));
+    if (st.kind === "create" && !Object.keys(touched).length && errs.length) { errs.length = 0; errs.push("Fill in the project ID, stream and date sampled, and place the two points"); }
+    const lk = root.querySelector("#cLook"); if (lk) lk.innerHTML = lookHtml(st, stream, down);
+    const sg = root.querySelector("#cSug");
+    if (sg) { const n = st.sug && !st.sug.pending ? st.sug.name : null;
+      sg.innerHTML = create && n && n !== stream ? `Nearest named stream to the downstream point: <b>${esc(n)}</b> <button type="button" class="btn" style="padding:2px 8px" data-usestream="${esc(n)}">Use it</button>` : "";
+      const ub = sg.querySelector("[data-usestream]"); if (ub) ub.onclick = () => { v.stream = ub.dataset.usestream; const el = root.querySelector('[data-cv="stream"]'); if (el) el.value = v.stream; redo(); }; }
+    drawMapPts();
+    let plan = null;
+    const ready = lookReady(st, stream, down);
+    if (!errs.length && ready) { try { plan = create ? createPlan(st, a) : locPlan(st, a); } catch (e) { errs.push(e.message || String(e)); } }
+    const line = root.querySelector("#eChanged");
+    if (line) line.innerHTML = errs.length ? `<span class="bad">${esc(errs.join(". "))}</span>` : !ready ? "Finding the stream segment…"
+      : create ? `Ready to create ${plan.length} records.` + (notes.length ? ` <span class="small">Note: ${esc(notes.join("; "))}.</span>` : "")
+      : plan.length ? "You changed: " + esc(plan.map((c) => c.label + (c.geometry ? " location" : " " + Object.keys(c.set).map((k) => (c.names && c.names[k]) || k).join(", "))).join(" · ")) : "No changes yet.";
+    const rv = root.querySelector(reviewSel || "[data-ereview]"); if (rv) rv.disabled = !plan || !plan.length;
+    return plan;
+  }
+  const newGid = () => "{" + crypto.randomUUID().toUpperCase() + "}";
+  const gidField = (L) => L.def.globalIdField || ((L.def.fields || []).find((f) => f.type === "esriFieldTypeGlobalID") || {}).name || "globalid";
+  // The three records the Survey123 form creates: the main record (at 0,0) and the downstream and upstream samples, linked by GlobalID.
+  function createPlan(st, a) {
+    const key = st.mode, Sv = svc[key], v = st.vals, M = Sv.byName[MAIN[key]], out = [];
+    if (!M) throw new Error(`the ${PH[key]} layer was not found`);
+    const id = key === "pre" ? String(v.id).trim().toUpperCase() : a.id, phase = id + (key === "pre" ? "PRE" : "POS"), stream = matchStream(v.stream);
+    const put = (L, set, names, f, val, label) => { const real = L.fields[f.toLowerCase()]; if (real) { set[real] = val; names[real] = label || f; } };
+    const look = st.look && !st.look.pending ? st.look : null;
+    const gMain = newGid(), mset = { [gidField(M)]: gMain }, mnames = {};
+    put(M, mset, mnames, "ProjectID", id, "Project ID"); put(M, mset, mnames, "PhaseID", phase, "Phase ID"); put(M, mset, mnames, "StreamName", stream, "Stream");
+    put(M, mset, mnames, "SiteName", String(v.site || "").trim() || stream, "Site name"); put(M, mset, mnames, "DateSampled", noonMs(v.date), "Date sampled");
+    put(M, mset, mnames, "StreamID", look && look.comid ? look.comid : null, "Stream ID (COMID)");
+    for (const f of Object.values(M.fields)) if (/_(CountTotal|IndexTotal|TAXATotal)_(Down|Up)$/i.test(f) || /^(total_(count|index|taxa)|ept_taxatotal)_(down|up)$/i.test(f)) mset[f] = 0;   // totals start at 0, as in the form
+    out.push({ op: "add", svc: key, L: M, set: mset, names: mnames, gid: gMain, geometry: ptGeom(null), label: `${PH[key]} record for ${id} (new)`, summary: "", showFields: true, hideZeros: true,
+               unique: { where: `${M.fields.projectid || "ProjectID"} = '${sq(id)}'`, what: `a ${PH[key]} record for ${id}` } });
+    for (const [sd, Side, grpName] of SIDES) {
+      const G = Sv.byName[grpName]; if (!G) throw new Error(`the ${grpName} layer was not found`);
+      const UP = Side === "Down" ? "DOWN" : "UP", gset = { [gidField(G)]: newGid() }, gn = {};
+      put(G, gset, gn, "parentglobalid", gMain, "linked to"); put(G, gset, gn, Side === "Down" ? "Downstream" : "Upstream", UP);
+      put(G, gset, gn, "PhaseID" + (Side === "Down" ? "Downstream" : "Upstream"), phase); put(G, gset, gn, "SampleID" + (Side === "Down" ? "Downstream" : "Upstream"), phase + UP, "Sample ID");
+      put(G, gset, gn, "ProjectID" + (Side === "Down" ? "Downstream" : "Upstream"), id);
+      const tf = G.fields[("TAXA_OTHER_" + Side).toLowerCase()], dom = tf && (G.def.fields.find((f) => f.name === tf) || {}).domain;
+      const cv = dom && dom.codedValues ? dom.codedValues.find((c) => c.code === "Total Other Taxa" || c.name === "Total Other Taxa") : null;
+      if (tf) gset[tf] = cv ? cv.code : "Total Other Taxa";
+      for (const f of ["COUNT_OTHER_", "HILS_OTHER_", "INDEX_OTHER_", "INEXT_OTHER_"]) put(G, gset, gn, f + Side, 0);
+      const p = ptOf(v, sd);
+      out.push({ op: "add", svc: key, L: G, set: gset, names: gn, gid: gset[gidField(G)], geometry: ptGeom(p), label: `${PH[key]} ${SD[sd].toLowerCase()} sample (new)`, summary: p ? `point ${pt6(p.lat)}, ${pt6(p.lon)}` : "no point yet (0,0)", showFields: true, hideZeros: true });
+    }
+    return out;
+  }
+  // A location change on an existing record (geometry only).
+  function geomChange(svcKey, L, row, geom, label) {
+    const g = row.geometry; return { svc: svcKey, L, oid: row.attributes[L.def.objectIdField], set: {}, before: {}, edit: editDateOf(L, row), label, geometry: geom, beforeGeom: g ? { x: g.x, y: g.y, spatialReference: { wkid: 4326 } } : null };
+  }
+  function locPlan(st, a) {
+    const P = a[st.ph], out = [];
+    for (const sd of ["down", "up"]) { const s = P.samples[sd], np = ptOf(st.vals, sd), op = geomPt(s.geom); if (!s.grp || !np) continue;
+      if (op && Math.abs(op.lat - np.lat) < 5e-7 && Math.abs(op.lon - np.lon) < 5e-7) continue;
+      out.push(geomChange(st.ph, s.grp.L, s.grp.row, ptGeom(np), `${PH[st.ph]} ${SD[sd].toLowerCase()} sample`)); }
+    // a moved downstream point also refreshes the Stream ID (the stand-alone check is the "Check the stream ID" correction)
+    if (out.some((c) => c.L === P.samples.down.grp?.L)) { const sid = streamIdChange(a, st.ph, st.look); if (sid) out.push(sid); }
+    return out;
+  }
+  // StreamID on the main record set to the COMID found (when one was found and it differs).
+  function streamIdChange(a, ph, look) {
+    if (!look || look.pending || !look.comid) return null;
+    const M = a[ph].main.L, f = M.fields.streamid; if (!f) return null;
+    const c = change(ph, M, a[ph].main.row, { [f]: look.comid }, `${PH[ph]} record`); if (c) c.names = { [f]: "Stream ID (COMID)" }; return c;
+  }
+
+  // ---- New site page ----
+  const nw = { st: null };
+  function drawNew() {
+    const P = $("p-new"); $("ptitle").textContent = "New site";
+    if (!nw.st) { const vals = { id: "", stream: "", site: "", date: "", "down.lat": "", "down.lon": "", "up.lat": "", "up.lon": "" }; nw.st = { kind: "create", mode: "pre", vals, orig: JSON.stringify(vals), place: "down" }; }
+    if (svc.pre.error) { P.innerHTML = `<div class="card"><p class="bad">${esc(svc.pre.error)}</p><p>A new site cannot be created until the Pre-construction survey can be read.</p></div>`; return; }
+    P.innerHTML = `<a class="back" href="#/">← Home</a><div class="card" style="max-width:1100px"><h3 style="margin-bottom:4px">New site</h3>
+      <p class="small" style="margin:0 0 12px">Creates the site's Pre-construction record with its downstream and upstream samples, as the Survey123 form does. Taxa counts, field readings and lab results are entered afterwards on the site page.</p>
+      ${createFormHtml(nw.st, null)}${editButtons().replace("Review and save", "Review and create")}</div>`;
+    const refresh = () => createRefresh(nw.st, null, P);
+    bindCreate(nw.st, null, P, refresh);
+    P.querySelector("[data-ecancel]").onclick = () => { location.hash = "#/"; };
+    P.querySelector("[data-ereview]").onclick = () => openCreateReview(nw.st, null);
+    refresh(); const f = P.querySelector("#cId"); if (f) f.focus();
+  }
+  function openCreateReview(st, a) {
+    let changes; try { changes = st.kind === "loc" ? locPlan(st, a) : createPlan(st, a); } catch (err) { alert("This cannot be saved: " + (err.message || err)); return; }
+    const id = st.mode === "pre" ? String(st.vals.id).trim().toUpperCase() : a.id;
+    const create = st.kind !== "loc", title = !create ? "sample locations" : st.mode === "pre" ? `new site ${id}` : "post-construction record";
+    $("ovl").classList.remove("hidden");
+    $("panel").innerHTML = `<h3 id="panelTitle">Review and ${create ? "create" : "save"}</h3><p>${esc(PH[st.mode || st.ph])} · ${esc(title)}. Nothing is stored until you click Confirm.</p>
+      ${create ? `<p class="small">One request creates all three records, linked to each other; if any of them is refused, none is created.</p>` : ""}
+      ${reviewHtml(changes)}<div class="small" id="toolStatus"></div>
+      <div class="btns"><button class="btn" type="button" id="tCancel">Back to editing</button><button class="btn pri" type="button" id="tGo">Confirm and ${create ? "create" : "save"}</button></div>`;
+    $("tCancel").onclick = closeTool;
+    const makePlan = () => st.kind === "loc" ? locPlan(st, a) : createPlan(st, a);
+    $("tGo").onclick = () => runSave(a, makePlan, id, create ? (st.mode === "pre" ? `site ${id} created; enter the downstream taxa next` : "post-construction record created; enter the downstream taxa next") : `${PH[st.ph]} sample locations saved`,
+      create ? { stay: true, tab: st.mode, side: "down", after: () => { if (st === nw.st) nw.st = null; } } : { stay: true });
+  }
+
+  // ---- Stream ID check (correction tool) ----
+  async function openComidTool(a) {
+    const P = $("panel"); $("ovl").classList.remove("hidden");
+    P.innerHTML = `<h3 id="panelTitle">Check the stream ID (COMID)</h3><p>Finds the stream segment nearest each downstream point, on the record's stream, and compares its COMID with the stored Stream ID.</p>
+      <div id="revBox"><span class="spin"></span>Looking up the stream segments…</div><div class="small" id="toolStatus"></div>
+      <div class="btns"><button class="btn" type="button" id="tCancel">Cancel</button><button class="btn pri" type="button" id="tGo" disabled>Confirm and save</button></div>`;
+    $("tCancel").onclick = closeTool;
+    const rows = [], looks = {};
+    for (const ph of ["pre", "post"]) { const R = a[ph]; if (!R) continue;
+      const stored = att(R.main.L, R.main.row, "StreamID"), pt = geomPt(R.samples.down.geom), stream = R.stream;
+      let res = null, msg = "";
+      if (!pt) msg = "no downstream point"; else if (!stream) msg = "no stream name";
+      else { try { const b = await nearestFlow(pt.lat, pt.lon, stream, COMID_RADIUS); res = b; msg = b ? `${b.comid} (${Math.round(b.dist)} m away)` : `no ${stream} segment within ${COMID_RADIUS} m`; } catch (e) { msg = "lookup failed: " + mask(e.message || e); } }
+      looks[ph] = res ? { comid: String(res.comid) } : null;
+      rows.push(`<tr><td>${PH[ph]}</td><td>${esc(stream || "–")}</td><td>${esc(fmtV(stored))}</td><td>${esc(msg)}</td></tr>`); }
+    const plan = () => ["pre", "post"].map((ph) => a[ph] ? streamIdChange(a, ph, looks[ph]) : null).filter(Boolean);
+    const ch = plan();
+    $("revBox").innerHTML = `<div class="rev"><table><tr><th>Record</th><th>Stream</th><th>Stored Stream ID</th><th>Nearest segment</th></tr>${rows.join("")}</table></div>`
+      + (ch.length ? reviewHtml(ch) : `<p class="good" style="margin-top:8px">Nothing to correct.</p>`);
+    $("tGo").disabled = !ch.length;
+    $("tGo").onclick = () => runSave(a, plan, a.id, "Stream ID corrected from the downstream point");
+  }
+
   // ---------------- safe save: review → last-edited check → write (all-or-nothing per survey) → read back ----------------
   const normV = (v) => (v === null || v === undefined || v === "") ? null : (typeof v === "number" ? Math.round(v * 1e6) / 1e6 : String(v));
   const editDateOf = (L, row) => { const f = L.def.editFieldsInfo && L.def.editFieldsInfo.editDateField; return f ? row.attributes[f] : undefined; };
@@ -1043,10 +1399,11 @@
     if (!Object.keys(real).length) return null;
     return { svc: svcKey, L, oid: row.attributes[L.def.objectIdField], set: real, before, edit: editDateOf(L, row), label };
   }
-  async function queryOids(L, oids, fields) {
-    const r = await getJson(L.url + "/query", { objectIds: oids.join(","), outFields: fields.join(","), returnGeometry: false });
-    const m = {}; for (const f of r.features || []) m[f.attributes[L.def.objectIdField]] = f.attributes; return m;
+  async function queryOids(L, oids, fields, withGeom = false) {
+    const r = await getJson(L.url + "/query", { objectIds: oids.join(","), outFields: fields.join(","), returnGeometry: withGeom, outSR: 4326 });
+    const m = {}; for (const f of r.features || []) { m[f.attributes[L.def.objectIdField]] = f.attributes; if (withGeom) f.attributes.__geom = f.geometry || null; } return m;
   }
+  const sameGeom = (g, w) => !!g && !!w && Math.abs(g.x - w.x) < 1e-6 && Math.abs(g.y - w.y) < 1e-6;
   // Changes carry an op: "update" (default), "add" (set = all attributes of the new row) or "delete" (oid of the row).
   async function saveChanges(changes, progress) {
     const opOf = (c) => c.op || "update";
@@ -1071,14 +1428,19 @@
     //    the surveys already saved are put back to their previous values, so the site is never left half-changed.
     const sendSurvey = async (key, list, useBefore) => {
       const layers = new Map(), slot = (L) => { if (!layers.has(L.id)) layers.set(L.id, { id: L.id, adds: [], updates: [], deletes: [], addRefs: [] }); return layers.get(L.id); };
+      // New linked records (a main record and its samples) carry their own GlobalIDs, so they can go in one request: useGlobalIds.
+      // In that mode every record is named by GlobalID, so such a save holds only new rows (or, when undoing it, their removal).
+      const useG = list.some((c) => c.gid);
+      if (useG && list.some((c) => opOf(c) !== "add")) throw new Error("internal: new linked records cannot share a save with other changes in the same survey");
       for (const c of list) { const e = slot(c.L), op = opOf(c);
-        if (op === "add" && useBefore) { if (c.oid != null) e.deletes.push(c.oid); }   // undo a new row = remove it
-        else if (op === "add") { e.adds.push({ attributes: c.set }); e.addRefs.push(c); }
+        if (op === "add" && useBefore) { if (useG) e.deletes.push(c.gid); else if (c.oid != null) e.deletes.push(c.oid); }   // undo a new row = remove it
+        else if (op === "add") { const f = { attributes: c.set }; if (c.geometry) f.geometry = c.geometry; e.adds.push(f); e.addRefs.push(c); }
         else if (op === "delete") e.deletes.push(c.oid);
-        else e.updates.push({ attributes: { [c.L.def.objectIdField]: c.oid, ...(useBefore ? c.before : c.set) } }); }
+        else { const f = { attributes: { [c.L.def.objectIdField]: c.oid, ...(useBefore ? c.before : c.set) } };
+          if (c.geometry) f.geometry = useBefore ? (c.beforeGeom || ptGeom(null)) : c.geometry; e.updates.push(f); } }
       const edits = [...layers.values()].map(({ id, adds, updates, deletes }) => { const o = { id }; if (adds.length) o.adds = adds; if (updates.length) o.updates = updates; if (deletes.length) o.deletes = deletes; return o; });
       let res;
-      try { res = (await req(svc[key].base + "/applyEdits", { method: "post", query: { f: "json", edits: JSON.stringify(edits), rollbackOnFailure: true, useGlobalIds: false } })).data; }
+      try { res = (await req(svc[key].base + "/applyEdits", { method: "post", query: { f: "json", edits: JSON.stringify(edits), rollbackOnFailure: true, useGlobalIds: useG } })).data; }
       catch (err) { return mask(err.message || err); }
       if (res && res.error) return mask(res.error.message || "error");
       for (const lr of Array.isArray(res) ? res : []) {
@@ -1110,15 +1472,19 @@
     for (const list of byLayer(changes).values()) {
       const L = list[0].L, keep = list.filter((c) => opOf(c) !== "delete" && c.oid != null);
       const fields = [...new Set(keep.flatMap((c) => Object.keys(c.set)))];
-      const back = await queryOids(L, list.map((c) => c.oid).filter((o) => o != null), [L.def.objectIdField, ...fields]);
+      const back = await queryOids(L, list.map((c) => c.oid).filter((o) => o != null), [L.def.objectIdField, ...fields], list.some((c) => c.geometry));
+      const gidF = gidField(L).toLowerCase();
       for (const c of list) {
         if (opOf(c) === "delete") { if (back[c.oid]) wrong.push(`${c.label}: was to be removed but is still there`); continue; }
         if (c.oid == null || !back[c.oid]) { wrong.push(`${c.label}: the new row was not found afterwards`); continue; }
-        for (const [k, want] of Object.entries(c.set)) { if (/^parentglobalid$/i.test(k)) { if (normId(back[c.oid][k]) !== normId(want)) wrong.push(`${c.label}: not linked to its sample`); continue; }
+        for (const [k, want] of Object.entries(c.set)) {
+          if (/^parentglobalid$/i.test(k)) { if (normId(back[c.oid][k]) !== normId(want)) wrong.push(`${c.label}: not linked to its parent record`); continue; }
+          if (k.toLowerCase() === gidF) { if (normId(back[c.oid][k]) !== normId(want)) wrong.push(`${c.label}: GlobalID differs`); continue; }
           const got = back[c.oid][k]; if (normV(got) !== normV(want)) wrong.push(`${c.label}: ${k} wrote ${want}, the layer holds ${got}`); }
+        if (c.geometry && !sameGeom(back[c.oid].__geom, c.geometry)) wrong.push(`${c.label}: the location was not stored as sent`);
       }
     }
-    return { written: changes.length, fields: changes.reduce((t, c) => t + (c.op === "delete" ? 1 : Object.keys(c.set).length), 0), wrong };
+    return { written: changes.length, fields: changes.reduce((t, c) => t + (c.op === "delete" ? 1 : Object.keys(c.set).length + (c.geometry ? 1 : 0)), 0), wrong };
   }
 
   // ---------------- the two clean-up tools ----------------
@@ -1155,14 +1521,18 @@
     const groups = new Map(); for (const c of changes) { const k = CFG.serviceNames[c.svc] + " · " + c.L.name; groups.set(k, (groups.get(k) || 0) + 1); }
     const fname = (c, k) => c.names && c.names[k] ? `${esc(c.names[k])} <span class="small">(${esc(k)})</span>` : esc(k);
     const rows = changes.map((c) => c.op === "add" ? `<tr><td>${esc(c.label)}</td><td><b>new row</b></td><td><span class="new">${esc(c.summary || "")}</span></td></tr>`
-        + (c.showFields ? Object.keys(c.set).map((k) => `<tr><td></td><td>${fname(c, k)}</td><td><span class="new">${esc(fmtF(c.L, k, c.set[k]))}</span></td></tr>`).join("") : "")
+        + (c.showFields ? Object.keys(c.set).filter((k) => !(c.hideZeros && c.set[k] === 0) && k.toLowerCase() !== gidField(c.L).toLowerCase() && !/^parentglobalid$/i.test(k))
+            .map((k) => `<tr><td></td><td>${fname(c, k)}</td><td><span class="new">${esc(fmtF(c.L, k, c.set[k]))}</span></td></tr>`).join("")
+          + (c.hideZeros && Object.values(c.set).some((x) => x === 0) ? `<tr><td></td><td class="small">totals and "Other Taxa"</td><td class="small">start at 0, as in the form</td></tr>` : "") : "")
       : c.op === "delete" ? `<tr><td>${esc(c.label)}</td><td><b>remove row</b></td><td><span class="old">${esc(c.summary || "")}</span></td></tr>`
-      : Object.keys(c.set).map((k) => `<tr><td>${esc(c.label)}</td><td>${fname(c, k)}</td><td><span class="old">${esc(fmtF(c.L, k, c.before[k]))}</span> → <span class="new">${esc(fmtF(c.L, k, c.set[k]))}</span></td></tr>`).join("")).join("");
+      : Object.keys(c.set).map((k) => `<tr><td>${esc(c.label)}</td><td>${fname(c, k)}</td><td><span class="old">${esc(fmtF(c.L, k, c.before[k]))}</span> → <span class="new">${esc(fmtF(c.L, k, c.set[k]))}</span></td></tr>`).join("")
+        + (c.geometry ? `<tr><td>${esc(c.label)}</td><td>location</td><td><span class="old">${esc(geomText(c.beforeGeom))}</span> → <span class="new">${esc(geomText(c.geometry))}</span></td></tr>` : "")).join("");
     const nOp = (op) => changes.filter((c) => (c.op || "update") === op).length;
     return `<p class="small" style="margin:8px 0 4px">${[nOp("add") && nOp("add") + " new row(s)", nOp("update") && nOp("update") + " changed record(s)", nOp("delete") && nOp("delete") + " removed row(s)"].filter(Boolean).join(", ")}: ${[...groups].map(([k, n]) => `${esc(k)} (${n})`).join(" · ")}</p>
       <div class="rev"><table><tr><th>Record</th><th>Field</th><th>Change</th></tr>${rows}</table></div>`;
   }
   const fmtV = (v) => nb(v) ? "(empty)" : String(v);
+  const geomText = (g) => zeroGeom(g) ? "(no point)" : `${pt6(g.y)}, ${pt6(g.x)}`;
   // Same, but a date field shows as a date (with the time when it has one other than noon).
   const fmtF = (L, k, v) => { const f = L && (L.def.fields || []).find((x) => x.name === k);
     if (nb(v) || !f || f.type !== "esriFieldTypeDate") return fmtV(v);
@@ -1215,6 +1585,8 @@
         ? { cls: "error", html: `Saved, but the check afterwards found differences:<br>${res.wrong.map(esc).join("<br>")}<br>Tell the administrator (${CFG.admin}).` }
         : { cls: "okmsg", html: `Saved and verified (${res.written} records, ${res.fields} values): ${esc(what)}.` };
       closeTool(); area.edit = null; if (!opts.stay) area.tab = "overview";   // an edit stays on its tab and side tab; a correction returns to Overview
+      if (opts.after) opts.after();
+      if (opts.tab) { area.tab = opts.tab; area.side = { [opts.tab]: opts.side }; area.keepTab = true; }   // a new record opens on its first stage
       const target = "#/area/" + encodeURIComponent(landingId); if (location.hash === target) route(); else location.hash = target;
     } catch (err) {
       console.error(err);
@@ -1226,15 +1598,17 @@
   addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("ovl").classList.contains("hidden") && !$("tCancel").disabled) closeTool(); });
 
   // ---------------- routes ----------------
-  const LATER = { new: "New site", explore: "Explore", reports: "Reports" };
+  const LATER = { explore: "Explore", reports: "Reports" };
   function route() {
     const parts = location.hash.replace(/^#\/?/, "").split("/"), r = parts[0] || "home";
-    for (const id of ["home", "area", "check", "help", "later"]) $("p-" + id).classList.add("hidden");
+    for (const id of ["home", "area", "new", "check", "help", "later"]) $("p-" + id).classList.add("hidden");
+    if (r !== "new" && r !== "area" && mapS.view) mountMap(null);   // free the map when leaving a page that has one
     document.querySelectorAll(".rail a[data-r]").forEach((a) => a.classList.toggle("on", a.dataset.r === r || (r === "area" && a.dataset.r === "home")));
     if (!model.length && r !== "help") { if (svc.pre) say("notice", "No sites were found in the layers."); }
     if (r === "area") { const id = decodeURIComponent(parts.slice(1).join("/"));
-      if (area.id !== id) { area.id = id; area.tab = area.tab && area.keepTab ? area.tab : "overview"; area.side = {}; } area.keepTab = false;
+      if (area.id !== id) { area.id = id; if (!area.keepTab) { area.tab = "overview"; area.side = {}; } } area.keepTab = false;
       $("p-area").classList.remove("hidden"); drawArea(id); window.scrollTo(0, 0); }
+    else if (r === "new") { $("p-new").classList.remove("hidden"); drawNew(); window.scrollTo(0, 0); }
     else if (r === "check") { $("ptitle").textContent = "Data check"; $("p-check").classList.remove("hidden"); drawCheck(); }
     else if (r === "help") { $("ptitle").textContent = "Help"; $("p-help").classList.remove("hidden"); }
     else if (LATER[r]) { $("ptitle").textContent = LATER[r]; $("laterTitle").textContent = LATER[r]; $("p-later").classList.remove("hidden"); }
@@ -1246,6 +1620,7 @@
     if (!svc.pre) return;
     if (isDirty() && !confirm("You have changes that are not saved. Discard them?")) { history.replaceState(null, "", lastHash || "#/"); return; }
     if (area.edit && !location.hash.startsWith("#/area/" + encodeURIComponent(area.id))) area.edit = null;
+    if (nw.st && !location.hash.startsWith("#/new")) nw.st = null;
     lastHash = location.hash; route();
   });
   addEventListener("beforeunload", (e) => { if (isDirty()) { e.preventDefault(); e.returnValue = ""; } });
