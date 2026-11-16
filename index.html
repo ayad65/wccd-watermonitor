@@ -154,8 +154,29 @@
   .rev td,.rev th{padding:4px 10px;border-bottom:1px solid var(--hair);text-align:left;vertical-align:top}
   .rev th{background:#F7F9F8;font-size:12px;color:var(--muted)}
   .rev .old{color:var(--red);text-decoration:line-through} .rev .new{color:#145C3D;font-weight:600}
+  /* Taxa sheet editor (B3) */
+  .sheetwrap{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:14px;align-items:start}
+  .sheet{columns:3 250px;column-gap:14px}
+  .grp{break-inside:avoid;background:#fff;border:1px solid var(--line);border-radius:10px;margin:0 0 10px;overflow:hidden}
+  .grp h4{margin:0;font-size:13px;padding:5px 10px;background:var(--soft);display:flex;justify-content:space-between}
+  .trx{display:grid;grid-template-columns:1fr 34px 62px 42px;gap:4px;align-items:center;padding:2px 8px;font-size:13px}
+  .trx input{width:60px;border:1px solid var(--line);border-radius:6px;padding:3px 6px;font:inherit;font-size:13px;text-align:right}
+  .trx input:focus,.num-in:focus,.fields2 input:focus{outline:2px solid var(--amber);outline-offset:1px}
+  .trx.has{font-weight:600} .trx.has input{border-color:var(--c4);background:#FFF5F3}
+  .trx .h,.trx .ix{text-align:right;color:var(--muted)}
+  .trx.hd{font-size:11px;color:var(--muted);font-weight:600}
+  .trx input.bad-in,.num-in.bad-in,.fields2 input.bad-in{border:2px solid var(--red);background:var(--red-bg)}
+  .totals{position:sticky;top:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+  .totals dl{margin:0;display:grid;grid-template-columns:1fr auto;gap:6px 8px;font-size:14px}
+  .totals dd{margin:0;font-weight:700;text-align:right}
+  .ebar{display:flex;gap:8px;justify-content:flex-end;align-items:center;flex-wrap:wrap;margin-top:12px;position:sticky;bottom:0;background:var(--bg);padding:8px 0;border-top:1px solid var(--line)}
+  .ebar #eChanged{flex:1;min-width:200px}
+  .num-in{width:110px;border:1px solid var(--line);border-radius:6px;padding:3px 6px;font:inherit;font-size:14px;text-align:right}
+  .fields2{display:grid;grid-template-columns:repeat(2,minmax(0,280px));gap:10px 18px}
+  .fields2 label{display:block;font-size:13px;color:var(--muted);margin-bottom:3px}
+  .fields2 input{border:1px solid var(--line);border-radius:8px;padding:7px 9px;font:inherit;font-size:14px;width:100%}
   footer.build{font-size:12px;color:var(--muted);margin-top:28px}
-  @media (max-width:900px){ .figs{grid-template-columns:repeat(2,1fr)} .stabs{grid-template-columns:1fr} .stnav{flex-direction:row;flex-wrap:wrap} .sttab{border-radius:10px} .stpanel{border-radius:12px} dl.vals.two{grid-template-columns:max-content 1fr} }
+  @media (max-width:900px){ .sheetwrap{grid-template-columns:1fr} .totals{position:static} .fields2{grid-template-columns:1fr} .figs{grid-template-columns:repeat(2,1fr)} .stabs{grid-template-columns:1fr} .stnav{flex-direction:row;flex-wrap:wrap} .sttab{border-radius:10px} .stpanel{border-radius:12px} dl.vals.two{grid-template-columns:max-content 1fr} }
   .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--rail);border-radius:50%;animation:sp 0.8s linear infinite;vertical-align:-2px;margin-right:8px}
   @keyframes sp{to{transform:rotate(360deg)}}
   @media (max-width:900px){
@@ -241,7 +262,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B2a", BUILD_DATE = "16 Nov 2026";
+  const BUILD = "B3", BUILD_DATE = "16 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -611,11 +632,19 @@
       <div class="tabbody">${tabHtml(a)}</div>`;
     area.note = null;
     // Changing tabs always starts at the first side tab; a stage circle opens its phase tab at that stage's side tab.
-    P.querySelectorAll("[data-tab]").forEach((b) => b.onclick = () => { area.tab = b.dataset.tab; delete area.side[area.tab]; drawArea(a.id); });
-    P.querySelectorAll("[data-go]").forEach((b) => b.onclick = () => { const [ph, sd] = b.dataset.go.split(":"); area.tab = ph; area.side[ph] = sd; drawArea(a.id); });
-    P.querySelectorAll("[data-side]").forEach((b) => b.onclick = () => { area.side[area.tab] = b.dataset.side; drawArea(a.id); });
-    P.querySelectorAll("[data-tool]").forEach((b) => b.onclick = () => openTool(a, b.dataset.tool, b.dataset.ph, b.dataset.sd));
+    // Leaving an edit with unsaved changes asks first; leaving it closes the editor.
+    const leave = (fn) => () => { if (!leaveOk()) return; area.edit = null; fn(); drawArea(a.id); };
+    P.querySelectorAll("[data-tab]").forEach((b) => b.onclick = leave(() => { area.tab = b.dataset.tab; delete area.side[area.tab]; }));
+    P.querySelectorAll("[data-go]").forEach((b) => b.onclick = leave(() => { const [ph, sd] = b.dataset.go.split(":"); area.tab = ph; area.side[ph] = sd; }));
+    P.querySelectorAll("[data-side]").forEach((b) => b.onclick = leave(() => { area.side[area.tab] = b.dataset.side; }));
+    P.querySelectorAll("[data-tool]").forEach((b) => b.onclick = () => { if (leaveOk()) { area.edit = null; openTool(a, b.dataset.tool, b.dataset.ph, b.dataset.sd); } });
+    P.querySelectorAll("[data-edit]").forEach((b) => b.onclick = () => startEdit(a, b.dataset.edit, area.tab, b.dataset.sd));
+    P.querySelectorAll("[data-ecancel]").forEach((b) => b.onclick = () => { if (leaveOk()) { area.edit = null; drawArea(a.id); } });
+    P.querySelectorAll("[data-ereview]").forEach((b) => b.onclick = () => openReview(a));
+    P.querySelectorAll("[data-tn]").forEach((i) => i.oninput = () => { const n = +i.dataset.tn; if (n) area.edit.vals.counts[n] = i.value; else area.edit.vals.other = i.value; editorRefresh(a); });
+    P.querySelectorAll("[data-ev]").forEach((i) => i.oninput = () => { const k = i.dataset.ev; if (k.includes(".")) { const [x, y] = k.split("."); area.edit.vals[x][y] = i.value; } else area.edit.vals[k] = i.value; editorRefresh(a); });
     const e = P.querySelector("#tEmpty"); if (e) e.onchange = () => { area.empty = e.checked; drawArea(a.id); };
+    if (area.edit) { editorRefresh(a); const first = P.querySelector("[data-tn],[data-ev]"); if (first && !area.edit.focused) { first.focus(); area.edit.focused = true; } }
   }
 
   function sideTabs(key, items) {   // items: [key, label, missing?, html]
@@ -652,14 +681,30 @@
     const P = a[ph];
     if (!P) return `<p class="later-box">No ${PH[ph].toLowerCase()} record yet. Entering a new record comes in build B3.</p>`;
     const M = P.main.L, r = P.main.row, v = (f) => att(M, r, f);
-    const site = `<dl class="vals two"><dt>Project ID</dt><dd>${esc(v("ProjectID"))}</dd><dt>Phase ID</dt><dd>${esc(v("PhaseID") || "–")}</dd>
-      <dt>Stream</dt><dd>${esc(v("StreamName") || "–")}</dd><dt>Site</dt><dd>${esc(v("SiteName") || "–")}</dd>
-      <dt>Date sampled</dt><dd>${dayText(v("DateSampled"))}</dd><dt>Stream ID (COMID)</dt><dd>${esc(v("StreamID") || "–")}</dd></dl>`;
-    const items = [["site", "Site and date", false, site]];
+    const ed = area.edit && area.edit.ph === ph ? area.edit : null;
+    const site = ed && ed.kind === "site"
+      ? `<div class="fields2"><div class="f"><label for="eSite">Site name</label><input type="text" id="eSite" data-ev="site" value="${esc(ed.vals.site)}"></div>
+         <div class="f"><label for="eDate">Date sampled * required</label><input type="date" id="eDate" data-ev="date" value="${esc(ed.vals.date)}"></div></div>
+         <p class="small">The project and phase IDs are changed with "Change the site ID" on the Overview tab. Choosing a different stream comes with the new-site page (build B5).</p>${editButtons()}`
+      : `<dl class="vals two"><dt>Project ID</dt><dd>${esc(v("ProjectID"))}</dd><dt>Phase ID</dt><dd>${esc(v("PhaseID") || "–")}</dd>
+      <dt>Stream</dt><dd>${esc(v("StreamName") || "–")}</dd><dt>Site name</dt><dd>${esc(v("SiteName") || "–")}</dd>
+      <dt>Date sampled</dt><dd>${dayText(v("DateSampled"))}</dd><dt>Stream ID (COMID)</dt><dd>${esc(v("StreamID") || "–")}</dd></dl>
+      <div class="tools"><button class="btn" type="button" data-edit="site">Edit site name and date</button></div>`;
+    const items = [["site", "Site and date", nb(v("DateSampled")), site]];
     for (const sd of ["down", "up"]) items.push([sd, SD[sd] + " taxa", !(P.samples[sd].exists && (P.samples[sd].rows || P.samples[sd].other)), taxaPanel(a, ph, sd)]);
-    const fr = ["down", "up"].map((sd) => { const s = P.samples[sd], f = s.field || {}; return `<tr><td>${SD[sd]}</td><td>${fmt(f.ph, 1)}</td><td>${fmt(f.temp, 1)}</td><td>${fmt(f.cond)}</td></tr>`; }).join("");
     const frMissing = ["down", "up"].every((sd) => { const f = P.samples[sd].field || {}; return nb(f.ph) && nb(f.temp) && nb(f.cond); });
-    items.push(["field", "Field readings", frMissing, `<table class="tx"><tr><th>Sample</th><th>pH</th><th>Temperature (°C)</th><th>Conductivity (µS/cm)</th></tr>${fr}</table>${frMissing ? '<p class="small">No field readings were entered for this phase.</p>' : ""}`]);
+    let field;
+    if (ed && ed.kind === "field") {
+      const inp = (sd, k, step) => `<td><input type="number" step="${step}" class="num-in" data-ev="${sd}.${k}" value="${esc(ed.vals[sd][k])}" aria-label="${SD[sd]} ${k}"></td>`;
+      field = `<table class="tx"><tr><th>Sample</th><th>pH</th><th>Temperature (°C)</th><th>Conductivity (µS/cm)</th></tr>
+        ${["down", "up"].filter((sd) => P.samples[sd].exists).map((sd) => `<tr><td>${SD[sd]}</td>${inp(sd, "ph", "0.1")}${inp(sd, "temp", "0.1")}${inp(sd, "cond", "1")}</tr>`).join("")}</table>
+        <p class="small">Leave a box empty if it was not measured. pH must be between 0 and 14.</p>${editButtons()}`;
+    } else {
+      const fr = ["down", "up"].map((sd) => { const f = P.samples[sd].field || {}; return `<tr><td>${SD[sd]}</td><td>${fmt(f.ph, 1)}</td><td>${fmt(f.temp, 1)}</td><td>${fmt(f.cond)}</td></tr>`; }).join("");
+      field = `<table class="tx"><tr><th>Sample</th><th>pH</th><th>Temperature (°C)</th><th>Conductivity (µS/cm)</th></tr>${fr}</table>${frMissing ? '<p class="small">No field readings were entered for this phase.</p>' : ""}
+        ${["down", "up"].some((sd) => P.samples[sd].exists) ? `<div class="tools"><button class="btn" type="button" data-edit="field">Edit field readings</button></div>` : ""}`;
+    }
+    items.push(["field", "Field readings", frMissing, field]);
     const loc = ["down", "up"].map((sd) => { const g = P.samples[sd].geom; return `<dt>${SD[sd]}</dt><dd>${zeroGeom(g) ? '<span class="bad">no location</span>' : `${g.y.toFixed(6)}, ${g.x.toFixed(6)}`}</dd>`; }).join("");
     items.push(["loc", "Sample locations", ["down", "up"].some((sd) => zeroGeom(P.samples[sd].geom)), `<dl class="vals">${loc}</dl><p class="small">Latitude, longitude. The map comes in a later build.</p>`]);
     const labIdx = ph === "pre" ? 2 : 5;
@@ -669,7 +714,8 @@
 
   function taxaPanel(a, ph, sd) {
     const s = a[ph].samples[sd];
-    if (!s.exists) return `<p class="later-box">No ${SD[sd].toLowerCase()} sample yet.</p>`;
+    if (!s.exists) return `<p class="later-box">No ${SD[sd].toLowerCase()} sample yet. Creating a sample comes with the new-site page (build B5).</p>`;
+    if (area.edit && area.edit.kind === "taxa" && area.edit.ph === ph && area.edit.sd === sd) return taxaEditor(a, ph, sd);
     let rows = "";
     for (const [g, name, lo, hi] of GROUPS) {
       let body = "", gc = 0, gi = 0, gt = 0;
@@ -684,8 +730,152 @@
       <tr class="tot"><td>Totals · ${c.taxa} taxa · EPT ${c.ept}</td><td></td><td>${c.count}</td><td>${fmt(c.index)}</td></tr></table>
       <p style="margin:8px 0 0">Avg HILS <b>${fmt(c.avg, 2)}</b> ${hbiBadge(c.avg)}</p>
       <p class="small" style="margin:4px 0 0">Stored in the layer: count ${fmt(d.count)}, index ${fmt(d.index)}, Avg HILS ${fmt(d.avg, 2)} · ${diff ? '<span class="bad">differs from the taxa rows</span>' : '<span class="good">matches the taxa rows</span>'}</p>
-      ${s.other ? `<div class="tools"><button class="btn pri" type="button" data-tool="other" data-ph="${ph}" data-sd="${sd}">Review "Other Taxa" (${s.other})…</button></div>` : ""}
-      <p class="small">Entering and editing counts comes in build B3.</p>`;
+      <div class="tools"><button class="btn pri" type="button" data-edit="taxa" data-sd="${sd}">Edit ${SD[sd].toLowerCase()} counts</button></div>`;
+  }
+
+  // ---------------- editing (B3): taxa sheet, field readings, site name and date ----------------
+  const editButtons = () => `<div class="btns ebar"><span class="small" id="eChanged"></span><button class="btn" type="button" data-ecancel>Cancel</button><button class="btn pri" type="button" data-ereview disabled>Review and save</button></div>`;
+  const isDirty = () => !!area.edit && JSON.stringify(area.edit.vals) !== area.edit.orig;
+  const leaveOk = () => !isDirty() || confirm("You have changes that are not saved. Discard them?");
+  // Local noon for a date typed without a time (the convention used on the lime app), so it shows the same day everywhere.
+  const noonMs = (t) => { const d = /^(\d{4})-(\d\d)-(\d\d)$/.exec(t || ""); return d ? new Date(+d[1], +d[2] - 1, +d[3], 12).getTime() : null; };
+
+  function startEdit(a, kind, ph, sd) {
+    const P = a[ph], M = P.main.L, r = P.main.row;
+    let vals;
+    if (kind === "taxa") { const s = P.samples[sd], counts = {}; for (let n = 1; n <= 99; n++) counts[n] = s.counts[n] ? String(s.counts[n]) : ""; vals = { counts, other: s.other ? String(s.other) : "" }; }
+    else if (kind === "field") { vals = {}; for (const x of ["down", "up"]) { const f = P.samples[x].field || {}; vals[x] = { ph: nb(f.ph) ? "" : String(f.ph), temp: nb(f.temp) ? "" : String(f.temp), cond: nb(f.cond) ? "" : String(f.cond) }; } }
+    else vals = { site: att(M, r, "SiteName") || "", date: dayKey(att(M, r, "DateSampled")) };
+    area.edit = { kind, ph, sd, vals, orig: JSON.stringify(vals) };
+    area.tab = ph; area.side[ph] = kind === "taxa" ? sd : kind;
+    drawArea(a.id);
+  }
+
+  function taxaEditor(a, ph, sd) {
+    const v = area.edit.vals;
+    let html = "";
+    for (const [g, name, lo, hi] of GROUPS) {
+      html += `<div class="grp"><h4><span>${name}</span>${isEPT(lo) ? "<span>EPT</span>" : ""}</h4><div class="trx hd"><span>Taxon</span><span class="h">HILS</span><span>Count</span><span class="ix">Index</span></div>`;
+      for (let n = lo; n <= hi; n++) html += `<div class="trx" data-n="${n}"><span>${n}. ${TAXON[n - 1]}</span><span class="h">${HILS[n - 1]}</span><input inputmode="numeric" data-tn="${n}" value="${esc(v.counts[n])}" aria-label="${n}. ${TAXON[n - 1]} count"><span class="ix"></span></div>`;
+      html += "</div>";
+    }
+    html += `<div class="grp"><h4><span>Other taxa</span></h4><div class="trx" data-n="0"><span>Total Other Taxa <span class="small">(no HILS)</span></span><span class="h">–</span><input inputmode="numeric" data-tn="0" value="${esc(v.other)}" aria-label="Total other taxa count"><span class="ix"></span></div></div>`;
+    return `<p class="small" style="margin:0 0 8px">Laid out like the WCCD sheet. Type each count; leave a box empty (or 0) for taxa not found. HILS and Index fill in by themselves, and only taxa with a count are stored.</p>
+      <div class="sheetwrap"><div class="sheet">${html}</div>
+      <div class="totals"><h3 style="margin-bottom:8px">${SD[sd]} totals</h3>
+        <dl><dt>Taxa present</dt><dd id="tTaxa"></dd><dt>Total count</dt><dd id="tCount"></dd><dt>Total Index</dt><dd id="tIndex"></dd><dt>Avg HILS</dt><dd id="tAvg"></dd><dt>Water quality</dt><dd id="tRate"></dd><dt>EPT taxa</dt><dd id="tEpt"></dd></dl>
+        <p class="small" style="margin:10px 0 0">Calculated by the app from the counts.</p></div></div>${editButtons()}`;
+  }
+
+  // Parse the typed counts; returns { counts, other, bad: [labels] }.
+  function readCounts(v) {
+    const counts = {}, bad = []; let other = 0;
+    const num = (t, label) => { const s = String(t).trim(); if (s === "") return 0; if (!/^\d+$/.test(s)) { bad.push(label); return 0; } return Number(s); };
+    for (let n = 1; n <= 99; n++) { const c = num(v.counts[n], `${n}. ${TAXON[n - 1]}`); if (c) counts[n] = c; }
+    other = num(v.other, "Total Other Taxa");
+    return { counts, other, bad };
+  }
+
+  // After every keystroke: update index cells, totals, the "You changed" line and the Review button, without redrawing the page.
+  function editorRefresh(a) {
+    const E = area.edit, P = $("p-area"); if (!E) return;
+    const changed = [], errs = [];
+    if (E.kind === "taxa") {
+      const { counts, other, bad } = readCounts(E.vals), s = a[E.ph].samples[E.sd];
+      P.querySelectorAll(".trx[data-n]").forEach((row) => { const n = +row.dataset.n, inp = row.querySelector("input"), c = n ? counts[n] || 0 : other;
+        row.querySelector(".ix").textContent = n && c ? Math.round(c * HILS[n - 1]) : "";
+        const isBad = inp.value.trim() !== "" && !/^\d+$/.test(inp.value.trim()); inp.classList.toggle("bad-in", isBad); row.classList.toggle("has", c > 0 && !isBad); });
+      const c = calcTotals({ counts, other }), rt = rating(c.avg);
+      $("tTaxa").textContent = c.taxa; $("tCount").textContent = c.count; $("tIndex").textContent = fmt(c.index); $("tAvg").textContent = fmt(c.avg, 2);
+      $("tRate").innerHTML = rt ? `<span class="hbi" style="background:${rt[2]};margin:0">${rt[1]}</span>` : "–"; $("tEpt").textContent = c.ept;
+      for (let n = 1; n <= 99; n++) if ((counts[n] || 0) !== (s.counts[n] || 0)) changed.push(`${TAXON[n - 1]} ${s.counts[n] || 0} → ${counts[n] || 0}`);
+      if (other !== s.other) changed.push(`Other Taxa ${s.other} → ${other}`);
+      if (bad.length) errs.push("Counts must be whole numbers: " + bad.join(", "));
+    } else if (E.kind === "field") {
+      const P0 = a[E.ph]; for (const x of ["down", "up"]) for (const k of ["ph", "temp", "cond"]) { const t = String(E.vals[x][k]).trim(), f = P0.samples[x].field || {};
+        const el = P.querySelector(`[data-ev="${x}.${k}"]`), n = Number(t), okNum = t === "" || Number.isFinite(n), okRange = !(k === "ph" && t !== "" && (n < 0 || n > 14)) && !(k === "cond" && n < 0);
+        if (el) el.classList.toggle("bad-in", !(okNum && okRange)); if (!okNum || !okRange) errs.push(`${SD[x]} ${k === "ph" ? "pH" : k === "temp" ? "temperature" : "conductivity"} is not valid`);
+        if (normV(t === "" ? null : n) !== normV(nb(f[k]) ? null : Number(f[k]))) changed.push(`${SD[x]} ${k === "ph" ? "pH" : k === "temp" ? "temperature" : "conductivity"} ${fmtV(f[k])} → ${t || "(empty)"}`); }
+    } else {
+      const M = a[E.ph].main.L, r = a[E.ph].main.row;
+      if (E.vals.site.trim() !== (att(M, r, "SiteName") || "")) changed.push(`Site name → ${E.vals.site.trim() || "(empty)"}`);
+      if (E.vals.date !== dayKey(att(M, r, "DateSampled"))) changed.push(`Date sampled → ${E.vals.date || "(empty)"}`);
+      if (!E.vals.date) errs.push("Date sampled is required");
+      const d = P.querySelector("#eDate"); if (d) d.classList.toggle("bad-in", !E.vals.date);
+    }
+    const line = $("eChanged"); if (line) line.innerHTML = errs.length ? `<span class="bad">${esc(errs.join(". "))}</span>` : changed.length ? "You changed: " + esc(changed.slice(0, 6).join(" · ")) + (changed.length > 6 ? ` · and ${changed.length - 6} more` : "") : "No changes yet.";
+    const rv = P.querySelector("[data-ereview]"); if (rv) rv.disabled = !changed.length || errs.length > 0;
+  }
+
+  // ---- save plans: turn the edited values into changes ----
+  function taxaPlan(a, ph, sd, counts, other) {
+    const S = svc[ph], P = a[ph], s = P.samples[sd], Side = s.Side, G = s.grp.L, grow = s.grp.row, M = P.main.L, out = [];
+    const ids = { project: att(M, P.main.row, "ProjectID"), phase: att(M, P.main.row, "PhaseID"), sample: att(G, grow, sd === "down" ? "SampleIDDownstream" : "SampleIDUpstream") };
+    const gid = att(G, grow, "globalid"), lab = (n) => `${PH[ph]} ${SD[sd].toLowerCase()} · ${n}. ${TAXON[n - 1]}`;
+    const byN = {}; for (const t of s.taxaRows) if (t.n >= 1 && t.n <= 99) (byN[t.n] = byN[t.n] || []).push(t);
+    for (let n = 1; n <= 99; n++) {
+      const want = counts[n] || 0, rows = byN[n] || [], g = GROUPS.find((x) => n >= x[2] && n <= x[3])[0], T = S.byName[repeatName(g, Side)];
+      if (!T) { if (want) throw new Error(`the table for ${TAXON[n - 1]} (${repeatName(g, Side)}) was not found`); continue; }
+      const F = Object.values(T.fields), taxF = F.find((f) => /^taxa_/i.test(f)), cntF = F.find((f) => /^count_/i.test(f) || f === "_count"),
+            hF = F.find((f) => /^hils(_|$)/i.test(f)), ixF = F.find((f) => /^index_/i.test(f) || f === "_index");
+      const vals = { [cntF]: want }; if (hF) vals[hF] = HILS[n - 1]; if (ixF) vals[ixF] = Math.round(want * HILS[n - 1]);
+      if (want > 0 && rows.length) { const c = change(ph, T, rows[0].row, vals, lab(n)); if (c) out.push(c); }
+      if (want > 0 && !rows.length) {
+        const dom = (T.def.fields.find((f) => f.name === taxF) || {}).domain, cv = dom && dom.codedValues ? dom.codedValues.find((x) => parseInt(x.code, 10) === n) : null;
+        const set = { parentglobalid: gid, [taxF]: cv ? cv.code : `${n}. ${TAXON[n - 1]}`, ...vals };
+        for (const f of F) { if (/^projectid_/i.test(f)) set[f] = ids.project; else if (/^phaseid_/i.test(f)) set[f] = ids.phase; else if (/^sampleid_/i.test(f)) set[f] = ids.sample; }
+        out.push({ op: "add", svc: ph, L: T, set, label: lab(n), summary: `count ${want}` });
+      }
+      // rows to remove: all of them when the count is now 0, or the duplicates of a taxon entered twice
+      for (const t of (want > 0 ? rows.slice(1) : rows)) out.push({ op: "delete", svc: ph, L: T, oid: t.row.attributes[T.def.objectIdField], edit: editDateOf(T, t.row), before: t.row.attributes, label: lab(n), summary: want > 0 ? `duplicate row (count ${t.c})` : `count ${t.c}` });
+    }
+    // "Total Other Taxa" lives on the sample record
+    const ixO = Object.values(G.fields).find((f) => /^(index|inext)_other_/i.test(f)), hO = Number(att(G, grow, "HILS_OTHER_" + Side)) || 0;
+    const gset = { [G.fields[("COUNT_OTHER_" + Side).toLowerCase()]]: other }; if (ixO) gset[ixO] = Math.round(other * hO);
+    const gc = change(ph, G, grow, gset, `${PH[ph]} ${SD[sd].toLowerCase()} sample`); if (gc) out.push(gc);
+    // stored totals on the main record: per taxa group (the dashboard reads these) and for the whole sample
+    const c = calcTotals({ counts, other }), mset = {}, put = (name, val) => { const real = M.fields[name.toLowerCase()]; if (real) mset[real] = val; };
+    for (const [g, , lo, hi] of GROUPS) { let gc2 = 0, gi = 0, gt = 0; for (let n = lo; n <= hi; n++) { const v = counts[n] || 0; if (v) { gc2 += v; gi += Math.round(v * HILS[n - 1]); gt++; } }
+      put(`${g}_CountTotal_${Side}`, gc2); put(`${g}_IndexTotal_${Side}`, gi); put(`${g}_TAXATotal_${Side}`, gt); }
+    const sfx = sd === "down" ? "_down" : "_up";
+    put("total_count" + sfx, c.count); put("total_index" + sfx, c.index); put("total_taxa" + sfx, c.taxa);
+    put("average_hils" + sfx, c.avg == null ? null : Math.round(c.avg * 100) / 100); put(sd === "down" ? "EPT_TAXATotal_Down" : "ept_taxatotal_up", c.ept);
+    const mc = change(ph, M, P.main.row, mset, `${PH[ph]} record (stored ${SD[sd].toLowerCase()} totals)`); if (mc) out.push(mc);
+    return out;
+  }
+  function fieldPlan(a, ph, vals) {
+    const P = a[ph], M = P.main.L, out = [], mset = {}, put = (name, val) => { const real = M.fields[name.toLowerCase()]; if (real) mset[real] = val; };
+    for (const sd of ["down", "up"]) { const s = P.samples[sd]; if (!s.grp) continue; const G = s.grp.L, Side = s.Side, num = (t) => String(t).trim() === "" ? null : Number(t), v = vals[sd], set = {};
+      for (const [k, f] of [["ph", "pH_"], ["temp", "Temperature_"], ["cond", "Conductivity_"]]) { const real = G.fields[(f + Side).toLowerCase()]; if (real) set[real] = num(v[k]); }
+      const c = change(ph, G, s.grp.row, set, `${PH[ph]} ${SD[sd].toLowerCase()} sample`); if (c) out.push(c);
+      const sfx = sd === "down" ? "_down" : "_up"; put("ph_summary" + sfx, num(v.ph)); put("temperature_summary" + sfx, num(v.temp)); put("conductivity_summary" + sfx, num(v.cond)); }
+    const mc = change(ph, M, P.main.row, mset, `${PH[ph]} record (stored field readings)`); if (mc) out.push(mc);
+    return out;
+  }
+  function sitePlan(a, ph, vals) {
+    const P = a[ph], M = P.main.L, set = {}; set[M.fields.sitename] = vals.site.trim() || null;
+    if (vals.date !== dayKey(att(M, P.main.row, "DateSampled"))) set[M.fields.datesampled] = noonMs(vals.date);   // same calendar day = no change
+    const c = change(ph, M, P.main.row, set, `${PH[ph]} record`); return c ? [c] : [];
+  }
+
+  function openReview(a) {
+    const E = area.edit; let plan, what;
+    try {
+      if (E.kind === "taxa") { const { counts, other } = readCounts(E.vals); plan = () => taxaPlan(a, E.ph, E.sd, counts, other); what = `${PH[E.ph]} ${SD[E.sd].toLowerCase()} counts saved`; }
+      else if (E.kind === "field") { plan = () => fieldPlan(a, E.ph, E.vals); what = `${PH[E.ph]} field readings saved`; }
+      else { plan = () => sitePlan(a, E.ph, E.vals); what = `${PH[E.ph]} site name and date saved`; }
+      const changes = plan(); let extra = "";
+      if (E.kind === "taxa") { const s = a[E.ph].samples[E.sd], { counts, other } = readCounts(E.vals), c1 = calcTotals({ counts, other }), c0 = s.calc;
+        extra = `<div class="card" style="padding:10px 14px;margin-top:10px"><table class="ovtab"><tr><th></th><th>Now</th><th>After saving</th></tr>
+          <tr><td>Organisms</td><td>${c0.count}</td><td>${c1.count}</td></tr><tr><td>Taxa present</td><td>${c0.taxa}</td><td>${c1.taxa}</td></tr><tr><td>Total Index</td><td>${fmt(c0.index)}</td><td>${fmt(c1.index)}</td></tr>
+          <tr><td>Avg HILS</td><td>${fmt(c0.avg, 2)} ${hbiBadge(c0.avg)}</td><td>${fmt(c1.avg, 2)} ${hbiBadge(c1.avg)}</td></tr><tr><td>EPT taxa</td><td>${c0.ept}</td><td>${c1.ept}</td></tr></table></div>`; }
+      $("ovl").classList.remove("hidden");
+      $("panel").innerHTML = `<h3 id="panelTitle">Review and save</h3><p>${esc(PH[E.ph])} · ${E.kind === "taxa" ? SD[E.sd] + " taxa counts" : E.kind === "field" ? "field readings" : "site name and date"}. Nothing is stored until you click Confirm and save.</p>
+        ${extra}${changes.length ? reviewHtml(changes) : '<p class="bad">Nothing to save.</p>'}<div class="small" id="toolStatus"></div>
+        <div class="btns"><button class="btn" type="button" id="tCancel">Back to editing</button><button class="btn pri" type="button" id="tGo"${changes.length ? "" : " disabled"}>Confirm and save</button></div>`;
+      $("tCancel").onclick = closeTool;
+      $("tGo").onclick = () => runSave(a, plan, a.id, what, { stay: true });
+    } catch (err) { alert("This cannot be saved: " + (err.message || err)); }
   }
 
   // Lab results for one phase: the certificate details stored with the macroinvertebrate record, plus the values from the Lab survey.
@@ -721,11 +911,16 @@
     const r = await getJson(L.url + "/query", { objectIds: oids.join(","), outFields: fields.join(","), returnGeometry: false });
     const m = {}; for (const f of r.features || []) m[f.attributes[L.def.objectIdField]] = f.attributes; return m;
   }
+  // Changes carry an op: "update" (default), "add" (set = all attributes of the new row) or "delete" (oid of the row).
   async function saveChanges(changes, progress) {
-    const byLayer = new Map(); for (const c of changes) { const k = c.svc + "|" + c.L.name; if (!byLayer.has(k)) byLayer.set(k, []); byLayer.get(k).push(c); }
+    const opOf = (c) => c.op || "update";
+    const surveys = [...new Set(changes.map((c) => c.svc))];
+    if (surveys.length > 1 && changes.some((c) => opOf(c) !== "update")) throw new Error("internal: adding or removing rows across more than one survey in one save is not allowed");
+    const existing = changes.filter((c) => opOf(c) !== "add");
+    const byLayer = (list) => { const m = new Map(); for (const c of list) { const k = c.svc + "|" + c.L.name; if (!m.has(k)) m.set(k, []); m.get(k).push(c); } return m; };
     // 1. has anyone saved these records since the app read them?
     progress("Checking that nobody else has changed these records…");
-    for (const list of byLayer.values()) {
+    for (const list of byLayer(existing).values()) {
       const L = list[0].L, ef = L.def.editFieldsInfo && L.def.editFieldsInfo.editDateField; if (!ef) continue;
       const now = await queryOids(L, list.map((c) => c.oid), [L.def.objectIdField, ef]);
       for (const c of list) { if (!now[c.oid]) throw new Error(`a record in ${L.name} (${c.label}) no longer exists`);
@@ -734,19 +929,27 @@
     // 2. write: one all-or-nothing request per survey (rollbackOnFailure). If a later survey refuses,
     //    the surveys already saved are put back to their previous values, so the site is never left half-changed.
     const sendSurvey = async (key, list, useBefore) => {
-      const layers = new Map(); for (const c of list) { if (!layers.has(c.L.id)) layers.set(c.L.id, []); layers.get(c.L.id).push({ attributes: { [c.L.def.objectIdField]: c.oid, ...(useBefore ? c.before : c.set) } }); }
-      const edits = [...layers].map(([id, updates]) => ({ id, updates }));
+      const layers = new Map(), slot = (L) => { if (!layers.has(L.id)) layers.set(L.id, { id: L.id, adds: [], updates: [], deletes: [], addRefs: [] }); return layers.get(L.id); };
+      for (const c of list) { const e = slot(c.L), op = opOf(c);
+        if (op === "add") { e.adds.push({ attributes: c.set }); e.addRefs.push(c); }
+        else if (op === "delete") e.deletes.push(c.oid);
+        else e.updates.push({ attributes: { [c.L.def.objectIdField]: c.oid, ...(useBefore ? c.before : c.set) } }); }
+      const edits = [...layers.values()].map(({ id, adds, updates, deletes }) => { const o = { id }; if (adds.length) o.adds = adds; if (updates.length) o.updates = updates; if (deletes.length) o.deletes = deletes; return o; });
       let res;
       try { res = (await req(svc[key].base + "/applyEdits", { method: "post", query: { f: "json", edits: JSON.stringify(edits), rollbackOnFailure: true, useGlobalIds: false } })).data; }
       catch (err) { return mask(err.message || err); }
       if (res && res.error) return mask(res.error.message || "error");
-      for (const lr of Array.isArray(res) ? res : []) for (const u of lr.updateResults || []) if (!u.success) return mask((u.error && u.error.description) || "update failed");
+      for (const lr of Array.isArray(res) ? res : []) {
+        for (const kind of ["addResults", "updateResults", "deleteResults"]) for (const u of lr[kind] || []) if (!u.success) return mask((u.error && u.error.description) || kind.replace("Results", "") + " failed");
+        const e = layers.get(lr.id); if (e) (lr.addResults || []).forEach((r, i) => { if (e.addRefs[i]) e.addRefs[i].oid = r.objectId; });
+      }
       return null;   // success
     };
     const done = [], order = ["lab", "post", "pre"];
     for (const key of order) {
       const mine = changes.filter((c) => c.svc === key); if (!mine.length) continue;
-      progress(`Saving ${mine.length} record(s) in the ${CFG.serviceNames[key]} survey…`);
+      const n = (op) => mine.filter((c) => opOf(c) === op).length;
+      progress(`Saving in the ${CFG.serviceNames[key]} survey: ${[n("add") && n("add") + " new", n("update") && n("update") + " changed", n("delete") && n("delete") + " removed"].filter(Boolean).join(", ")} record(s)…`);
       const fail = await sendSurvey(key, mine, false);
       if (!fail) { done.push(key); continue; }
       let msg = `the ${CFG.serviceNames[key]} survey refused the save (${fail}); nothing in that survey was changed`;
@@ -759,14 +962,21 @@
       } else msg += ". Nothing was saved";
       throw new Error(msg);
     }
-    // 3. read back and compare every written value
+    // 3. read back: every written value must be stored, every new row must exist, every removed row must be gone
     progress("Checking the stored values…");
     const wrong = [];
-    for (const list of byLayer.values()) {
-      const L = list[0].L, fields = [...new Set(list.flatMap((c) => Object.keys(c.set)))], back = await queryOids(L, list.map((c) => c.oid), [L.def.objectIdField, ...fields]);
-      for (const c of list) for (const [k, want] of Object.entries(c.set)) { const got = back[c.oid] ? back[c.oid][k] : undefined; if (normV(got) !== normV(want)) wrong.push(`${c.label}: ${k} wrote ${want}, the layer holds ${got}`); }
+    for (const list of byLayer(changes).values()) {
+      const L = list[0].L, keep = list.filter((c) => opOf(c) !== "delete" && c.oid != null);
+      const fields = [...new Set(keep.flatMap((c) => Object.keys(c.set)))];
+      const back = await queryOids(L, list.map((c) => c.oid).filter((o) => o != null), [L.def.objectIdField, ...fields]);
+      for (const c of list) {
+        if (opOf(c) === "delete") { if (back[c.oid]) wrong.push(`${c.label}: was to be removed but is still there`); continue; }
+        if (c.oid == null || !back[c.oid]) { wrong.push(`${c.label}: the new row was not found afterwards`); continue; }
+        for (const [k, want] of Object.entries(c.set)) { if (/^parentglobalid$/i.test(k)) { if (normId(back[c.oid][k]) !== normId(want)) wrong.push(`${c.label}: not linked to its sample`); continue; }
+          const got = back[c.oid][k]; if (normV(got) !== normV(want)) wrong.push(`${c.label}: ${k} wrote ${want}, the layer holds ${got}`); }
+      }
     }
-    return { written: changes.length, fields: changes.reduce((t, c) => t + Object.keys(c.set).length, 0), wrong };
+    return { written: changes.length, fields: changes.reduce((t, c) => t + (c.op === "delete" ? 1 : Object.keys(c.set).length), 0), wrong };
   }
 
   // ---------------- the two clean-up tools ----------------
@@ -801,8 +1011,11 @@
   function closeTool() { $("ovl").classList.add("hidden"); $("panel").innerHTML = ""; }
   function reviewHtml(changes) {
     const groups = new Map(); for (const c of changes) { const k = CFG.serviceNames[c.svc] + " · " + c.L.name; groups.set(k, (groups.get(k) || 0) + 1); }
-    const rows = changes.map((c) => Object.keys(c.set).map((k) => `<tr><td>${esc(c.label)}</td><td>${esc(k)}</td><td><span class="old">${esc(fmtV(c.before[k]))}</span> → <span class="new">${esc(fmtV(c.set[k]))}</span></td></tr>`).join("")).join("");
-    return `<p class="small" style="margin:8px 0 4px">${changes.length} record(s), ${changes.reduce((t, c) => t + Object.keys(c.set).length, 0)} value(s): ${[...groups].map(([k, n]) => `${esc(k)} (${n})`).join(" · ")}</p>
+    const rows = changes.map((c) => c.op === "add" ? `<tr><td>${esc(c.label)}</td><td><b>new row</b></td><td><span class="new">${esc(c.summary || "")}</span></td></tr>`
+      : c.op === "delete" ? `<tr><td>${esc(c.label)}</td><td><b>remove row</b></td><td><span class="old">${esc(c.summary || "")}</span></td></tr>`
+      : Object.keys(c.set).map((k) => `<tr><td>${esc(c.label)}</td><td>${esc(k)}</td><td><span class="old">${esc(fmtV(c.before[k]))}</span> → <span class="new">${esc(fmtV(c.set[k]))}</span></td></tr>`).join("")).join("");
+    const nOp = (op) => changes.filter((c) => (c.op || "update") === op).length;
+    return `<p class="small" style="margin:8px 0 4px">${[nOp("add") && nOp("add") + " new row(s)", nOp("update") && nOp("update") + " changed record(s)", nOp("delete") && nOp("delete") + " removed row(s)"].filter(Boolean).join(", ")}: ${[...groups].map(([k, n]) => `${esc(k)} (${n})`).join(" · ")}</p>
       <div class="rev"><table><tr><th>Record</th><th>Field</th><th>Change</th></tr>${rows}</table></div>`;
   }
   const fmtV = (v) => nb(v) ? "(empty)" : String(v);
@@ -844,7 +1057,7 @@
     $("tCancel").onclick = closeTool;
   }
 
-  async function runSave(a, makePlan, landingId, what) {
+  async function runSave(a, makePlan, landingId, what, opts = {}) {
     const go = $("tGo"), cancel = $("tCancel"), st = $("toolStatus"), progress = (t) => { st.innerHTML = '<span class="spin"></span>' + esc(t); };
     go.disabled = true; cancel.disabled = true; document.querySelectorAll("#panel input").forEach((i) => i.disabled = true);
     try {
@@ -853,7 +1066,7 @@
       area.note = res.wrong.length
         ? { cls: "error", html: `Saved, but the check afterwards found differences:<br>${res.wrong.map(esc).join("<br>")}<br>Tell the administrator (${CFG.admin}).` }
         : { cls: "okmsg", html: `Saved and verified (${res.written} records, ${res.fields} values): ${esc(what)}.` };
-      closeTool(); area.tab = "overview";
+      closeTool(); area.edit = null; if (!opts.stay) area.tab = "overview";   // an edit stays on its tab and side tab; a correction returns to Overview
       const target = "#/area/" + encodeURIComponent(landingId); if (location.hash === target) route(); else location.hash = target;
     } catch (err) {
       console.error(err);
@@ -879,7 +1092,15 @@
     else if (LATER[r]) { $("ptitle").textContent = LATER[r]; $("laterTitle").textContent = LATER[r]; $("p-later").classList.remove("hidden"); }
     else { $("ptitle").textContent = "Home"; $("p-home").classList.remove("hidden"); drawHome(); }
   }
-  addEventListener("hashchange", () => { if (svc.pre) route(); });
+  // Leaving the page (another menu item, Home, or closing the tab) with unsaved edits asks first.
+  let lastHash = location.hash;
+  addEventListener("hashchange", () => {
+    if (!svc.pre) return;
+    if (isDirty() && !confirm("You have changes that are not saved. Discard them?")) { history.replaceState(null, "", lastHash || "#/"); return; }
+    if (area.edit && !location.hash.startsWith("#/area/" + encodeURIComponent(area.id))) area.edit = null;
+    lastHash = location.hash; route();
+  });
+  addEventListener("beforeunload", (e) => { if (isDirty()) { e.preventDefault(); e.returnValue = ""; } });
 
   start().then(() => initHome()).then(() => { if ((location.hash || "#/") === "#/" || location.hash === "") drawHome(); })
     .catch((err) => { console.error(err); const m = mask((err && err.message) || err);
