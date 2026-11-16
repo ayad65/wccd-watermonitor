@@ -175,8 +175,18 @@
   .fields2{display:grid;grid-template-columns:repeat(2,minmax(0,280px));gap:10px 18px}
   .fields2 label{display:block;font-size:13px;color:var(--muted);margin-bottom:3px}
   .fields2 input{border:1px solid var(--line);border-radius:8px;padding:7px 9px;font:inherit;font-size:14px;width:100%}
+  .labed h4{margin:14px 0 6px;font-size:14px} .labed h4:first-child{margin-top:0}
+  .labed .fields3{display:grid;grid-template-columns:repeat(3,minmax(0,220px));gap:10px 18px}
+  .labed .fields3 label{display:block;font-size:13px;color:var(--muted);margin-bottom:3px}
+  .labed input[type=text],.labed input[type=date],.labed input[type=datetime-local],.labed select,.labed textarea{border:1px solid var(--line);border-radius:6px;padding:4px 6px;font:inherit;font-size:14px;background:#fff}
+  .labed .fields3 input{width:100%;padding:7px 9px;border-radius:8px}
+  .labed table.tx input[type=text],.labed table.tx input[type=datetime-local]{width:100%;min-width:150px}
+  .labed .pv{display:flex;gap:4px;align-items:center} .labed .pv select{width:52px;padding:3px 2px} .labed .pv .num-in{width:100px}
+  .labed textarea{width:100%;min-height:60px;resize:vertical}
+  .labed .bad-in{border:2px solid var(--red) !important;background:var(--red-bg) !important}
+  .labed input:focus,.labed select:focus,.labed textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
   footer.build{font-size:12px;color:var(--muted);margin-top:28px}
-  @media (max-width:900px){ .sheetwrap{grid-template-columns:1fr} .totals{position:static} .fields2{grid-template-columns:1fr} .figs{grid-template-columns:repeat(2,1fr)} .stabs{grid-template-columns:1fr} .stnav{flex-direction:row;flex-wrap:wrap} .sttab{border-radius:10px} .stpanel{border-radius:12px} dl.vals.two{grid-template-columns:max-content 1fr} }
+  @media (max-width:900px){ .labed .fields3{grid-template-columns:1fr} .sheetwrap{grid-template-columns:1fr} .totals{position:static} .fields2{grid-template-columns:1fr} .figs{grid-template-columns:repeat(2,1fr)} .stabs{grid-template-columns:1fr} .stnav{flex-direction:row;flex-wrap:wrap} .sttab{border-radius:10px} .stpanel{border-radius:12px} dl.vals.two{grid-template-columns:max-content 1fr} }
   .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--rail);border-radius:50%;animation:sp 0.8s linear infinite;vertical-align:-2px;margin-right:8px}
   @keyframes sp{to{transform:rotate(360deg)}}
   @media (max-width:900px){
@@ -262,7 +272,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B3", BUILD_DATE = "16 Nov 2026";
+  const BUILD = "B4", BUILD_DATE = "16 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -291,6 +301,9 @@
   const LABNAMES = { TotalColiforms:"Total Coliforms", EscherichiaColi:"E. coli", Nitrate:"Nitrate", Nitrite:"Nitrite", Acidity:"Acidity", Conductivity:"Conductivity", DissolvedSolids:"TDS", SuspendedSolids:"TSS", pH:"pH", Oxygen:"Dissolved oxygen", Phosphorus:"Phosphorus" };
   const LABFIX = { PostUpTotalColiforms:"PostUpColiforms", PostUpPrefixNI:"PostUpNI", PostUpDissolvedSolids:"PostUpDissolved", PostUpSuspendedSolids:"PostUpSuspended" };
   const labField = (ph, side, key) => { const k = (ph === "pre" ? "Pre" : "Post") + (side === "down" ? "Down" : "Up") + key; return LABFIX[k] || k; };
+  // "<" / ">" box per test: TC, EC, NA, NI came with the survey; the other seven were added in B4 (additions only).
+  const PFXCODE = { TotalColiforms: "TC", EscherichiaColi: "EC", Nitrate: "NA", Nitrite: "NI", Acidity: "AC", Conductivity: "CN", DissolvedSolids: "TD", SuspendedSolids: "TS", pH: "PH", Oxygen: "DO", Phosphorus: "PP" };
+  const LABUNITS = { TotalColiforms: "MPN/100mL", EscherichiaColi: "MPN/100mL", Nitrate: "mg/L", Nitrite: "mg/L", Acidity: "mg CaCO3/L", Conductivity: "µmhos/cm", DissolvedSolids: "mg/L", SuspendedSolids: "mg/L", pH: "–", Oxygen: "mg/L", Phosphorus: "mg/L" };
   const STAGES = [["pre","down","Pre downstream","var(--s1)"],["pre","up","Pre upstream","var(--s2)"],["pre","lab","Pre lab","var(--s3)"],["post","down","Post downstream","var(--s4)"],["post","up","Post upstream","var(--s5)"],["post","lab","Post lab","var(--s6)"]];
 
   // ---------------- small helpers ----------------
@@ -642,9 +655,10 @@
     P.querySelectorAll("[data-ecancel]").forEach((b) => b.onclick = () => { if (leaveOk()) { area.edit = null; drawArea(a.id); } });
     P.querySelectorAll("[data-ereview]").forEach((b) => b.onclick = () => openReview(a));
     P.querySelectorAll("[data-tn]").forEach((i) => i.oninput = () => { const n = +i.dataset.tn; if (n) area.edit.vals.counts[n] = i.value; else area.edit.vals.other = i.value; editorRefresh(a); });
-    P.querySelectorAll("[data-ev]").forEach((i) => i.oninput = () => { const k = i.dataset.ev; if (k.includes(".")) { const [x, y] = k.split("."); area.edit.vals[x][y] = i.value; } else area.edit.vals[k] = i.value; editorRefresh(a); });
+    P.querySelectorAll("[data-lv]").forEach((i) => i.oninput = i.onchange = () => { area.edit.vals[i.dataset.lv] = i.value; editorRefresh(a); });
+    P.querySelectorAll("[data-ev]").forEach((i) => i.oninput =() => { const k = i.dataset.ev; if (k.includes(".")) { const [x, y] = k.split("."); area.edit.vals[x][y] = i.value; } else area.edit.vals[k] = i.value; editorRefresh(a); });
     const e = P.querySelector("#tEmpty"); if (e) e.onchange = () => { area.empty = e.checked; drawArea(a.id); };
-    if (area.edit) { editorRefresh(a); const first = P.querySelector("[data-tn],[data-ev]"); if (first && !area.edit.focused) { first.focus(); area.edit.focused = true; } }
+    if (area.edit) { editorRefresh(a); const first = P.querySelector("[data-tn],[data-ev],[data-lv]"); if (first && !area.edit.focused) { first.focus(); area.edit.focused = true; } }
   }
 
   function sideTabs(key, items) {   // items: [key, label, missing?, html]
@@ -679,7 +693,7 @@
 
   function phaseTab(a, ph) {
     const P = a[ph];
-    if (!P) return `<p class="later-box">No ${PH[ph].toLowerCase()} record yet. Entering a new record comes in build B3.</p>`;
+    if (!P) return `<p class="later-box">No ${PH[ph].toLowerCase()} record yet. Creating a new record comes with the new-site page (build B5).</p>`;
     const M = P.main.L, r = P.main.row, v = (f) => att(M, r, f);
     const ed = area.edit && area.edit.ph === ph ? area.edit : null;
     const site = ed && ed.kind === "site"
@@ -745,6 +759,7 @@
     let vals;
     if (kind === "taxa") { const s = P.samples[sd], counts = {}; for (let n = 1; n <= 99; n++) counts[n] = s.counts[n] ? String(s.counts[n]) : ""; vals = { counts, other: s.other ? String(s.other) : "" }; }
     else if (kind === "field") { vals = {}; for (const x of ["down", "up"]) { const f = P.samples[x].field || {}; vals[x] = { ph: nb(f.ph) ? "" : String(f.ph), temp: nb(f.temp) ? "" : String(f.temp), cond: nb(f.cond) ? "" : String(f.cond) }; } }
+    else if (kind === "lab") vals = labStartVals(a, ph);
     else vals = { site: att(M, r, "SiteName") || "", date: dayKey(att(M, r, "DateSampled")) };
     area.edit = { kind, ph, sd, vals, orig: JSON.stringify(vals) };
     area.tab = ph; area.side[ph] = kind === "taxa" ? sd : kind;
@@ -796,6 +811,13 @@
         const el = P.querySelector(`[data-ev="${x}.${k}"]`), n = Number(t), okNum = t === "" || Number.isFinite(n), okRange = !(k === "ph" && t !== "" && (n < 0 || n > 14)) && !(k === "cond" && n < 0);
         if (el) el.classList.toggle("bad-in", !(okNum && okRange)); if (!okNum || !okRange) errs.push(`${SD[x]} ${k === "ph" ? "pH" : k === "temp" ? "temperature" : "conductivity"} is not valid`);
         if (normV(t === "" ? null : n) !== normV(nb(f[k]) ? null : Number(f[k]))) changed.push(`${SD[x]} ${k === "ph" ? "pH" : k === "temp" ? "temperature" : "conductivity"} ${fmtV(f[k])} → ${t || "(empty)"}`); }
+    } else if (E.kind === "lab") {
+      const { errs: le, bad } = labCheck(E.vals, E.ph); errs.push(...le);
+      P.querySelectorAll("[data-lv]").forEach((el) => el.classList.toggle("bad-in", bad.has(el.dataset.lv)));
+      if (!le.length) { try { for (const c of labPlan(a, E.ph, E.vals)) { const nm = c.names || {};
+          if (c.op === "add") changed.push("new Lab record with " + Object.keys(c.set).length + " values");
+          else for (const k of Object.keys(c.set)) changed.push(`${nm[k] || k} ${fmtF(c.L, k, c.before[k])} → ${fmtF(c.L, k, c.set[k])}`); } }
+        catch (err) { errs.push(err.message || String(err)); } }
     } else {
       const M = a[E.ph].main.L, r = a[E.ph].main.row;
       if (E.vals.site.trim() !== (att(M, r, "SiteName") || "")) changed.push(`Site name → ${E.vals.site.trim() || "(empty)"}`);
@@ -863,6 +885,7 @@
     try {
       if (E.kind === "taxa") { const { counts, other } = readCounts(E.vals); plan = () => taxaPlan(a, E.ph, E.sd, counts, other); what = `${PH[E.ph]} ${SD[E.sd].toLowerCase()} counts saved`; }
       else if (E.kind === "field") { plan = () => fieldPlan(a, E.ph, E.vals); what = `${PH[E.ph]} field readings saved`; }
+      else if (E.kind === "lab") { plan = () => labPlan(a, E.ph, E.vals); what = `${PH[E.ph]} lab results saved`; }
       else { plan = () => sitePlan(a, E.ph, E.vals); what = `${PH[E.ph]} site name and date saved`; }
       const changes = plan(); let extra = "";
       if (E.kind === "taxa") { const s = a[E.ph].samples[E.sd], { counts, other } = readCounts(E.vals), c1 = calcTotals({ counts, other }), c0 = s.calc;
@@ -870,7 +893,7 @@
           <tr><td>Organisms</td><td>${c0.count}</td><td>${c1.count}</td></tr><tr><td>Taxa present</td><td>${c0.taxa}</td><td>${c1.taxa}</td></tr><tr><td>Total Index</td><td>${fmt(c0.index)}</td><td>${fmt(c1.index)}</td></tr>
           <tr><td>Avg HILS</td><td>${fmt(c0.avg, 2)} ${hbiBadge(c0.avg)}</td><td>${fmt(c1.avg, 2)} ${hbiBadge(c1.avg)}</td></tr><tr><td>EPT taxa</td><td>${c0.ept}</td><td>${c1.ept}</td></tr></table></div>`; }
       $("ovl").classList.remove("hidden");
-      $("panel").innerHTML = `<h3 id="panelTitle">Review and save</h3><p>${esc(PH[E.ph])} · ${E.kind === "taxa" ? SD[E.sd] + " taxa counts" : E.kind === "field" ? "field readings" : "site name and date"}. Nothing is stored until you click Confirm and save.</p>
+      $("panel").innerHTML = `<h3 id="panelTitle">Review and save</h3><p>${esc(PH[E.ph])} · ${E.kind === "taxa" ? SD[E.sd] + " taxa counts" : E.kind === "field" ? "field readings" : E.kind === "lab" ? "lab results" : "site name and date"}. Nothing is stored until you click Confirm and save.</p>
         ${extra}${changes.length ? reviewHtml(changes) : '<p class="bad">Nothing to save.</p>'}<div class="small" id="toolStatus"></div>
         <div class="btns"><button class="btn" type="button" id="tCancel">Back to editing</button><button class="btn pri" type="button" id="tGo"${changes.length ? "" : " disabled"}>Confirm and save</button></div>`;
       $("tCancel").onclick = closeTool;
@@ -878,22 +901,135 @@
     } catch (err) { alert("This cannot be saved: " + (err.message || err)); }
   }
 
+  const whenText = (ms) => nb(ms) ? "–" : new Date(ms).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" });
+  const localDT = (ms) => { if (nb(ms)) return ""; const d = new Date(ms), p = (n) => String(n).padStart(2, "0"); return `${dayKey(ms)}T${p(d.getHours())}:${p(d.getMinutes())}`; };
+  const dtMs = (t) => /^\d{4}-\d\d-\d\dT\d\d:\d\d$/.test(t || "") ? new Date(t).getTime() : null;   // read as local time
+  const LABROWS = [["id", "LabSampleID", "Lab sample ID"], ["by", "CollectedBy", "Collected by"], ["when", "DateTime", "Collected on"], ["lat", "Lat", "Latitude"], ["lon", "Lon", "Longitude"]];
+  const labL = () => svc.lab.byName[MAIN.lab];
+
   // Lab results for one phase: the certificate details stored with the macroinvertebrate record, plus the values from the Lab survey.
   function labPanel(a, ph) {
-    const PFX = { TotalColiforms: "TC", EscherichiaColi: "EC", Nitrate: "NA", Nitrite: "NI" };
-    const UNITS = { TotalColiforms: "MPN/100mL", EscherichiaColi: "MPN/100mL", Nitrate: "mg/L", Nitrite: "mg/L", Acidity: "mg CaCO3/L", Conductivity: "µmhos/cm", DissolvedSolids: "mg/L", SuspendedSolids: "mg/L", pH: "–", Oxygen: "mg/L", Phosphorus: "mg/L" };
+    if (area.edit && area.edit.kind === "lab" && area.edit.ph === ph) return labEditor(a, ph);
     const M = a[ph].main.L, mr = a[ph].main.row, mv = (f) => att(M, mr, f);
     const lab = a.lab, lv = (f) => lab ? att(lab.L, lab.row, f) : undefined, P0 = ph === "pre" ? "Pre" : "Post";
-    const id = (sd) => lv(P0 + (sd === "down" ? "Down" : "Up") + "LabSampleID") || mv(sd === "down" ? "lab_sample_id_downstream" : "lab_sample_id_upstream");
-    const when = lv(P0 + "DownDateTime");
-    const cert = `<dl class="vals two" style="margin-bottom:12px"><dt>Laboratory</dt><dd>${esc(mv("laboratory_name") || "–")}</dd><dt>Collected by</dt><dd>${esc(lv(P0 + "DownCollectedBy") || mv("collected_by") || "–")}</dd>
-      <dt>Collected (downstream)</dt><dd>${nb(when) ? "–" : new Date(when).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}</dd><dt>Received · Reported</dt><dd>${dayText(mv("received_on"))} · ${dayText(mv("reported_on"))}</dd></dl>`;
-    if (svc.lab.error) return cert + `<p class="bad">${esc(svc.lab.error)}</p>`;
-    if (!lab) return cert + `<p class="later-box">No lab results have been entered for this site yet.</p>`;
-    const val = (sd, t) => { const x = lv(labField(ph, sd, t)), p = PFX[t] ? lv(labField(ph, sd, "Prefix" + PFX[t])) : ""; return nb(x) ? '<span class="bad">empty</span>' : esc((p || "") + x); };
-    return cert + `<table class="tx"><tr><th>Test</th><th>Units</th><th>Downstream<br><span class="small">${esc(id("down") || "–")}</span></th><th>Upstream<br><span class="small">${esc(id("up") || "–")}</span></th></tr>
-      ${LABTESTS.map((t) => `<tr><td>${LABNAMES[t]}</td><td>${UNITS[t]}</td><td>${val("down", t)}</td><td>${val("up", t)}</td></tr>`).join("")}</table>
-      <p class="small">"&lt;" below the reporting limit, "&gt;" above the upper limit. Prefix boxes for the other tests are added with lab entry (build B3). The attached lab report comes with the Files tab.</p>`;
+    const side = (sd, key) => lv(labField(ph, sd, key));
+    const cert = `<dl class="vals two" style="margin-bottom:12px"><dt>Laboratory</dt><dd>${esc(mv("laboratory_name") || "–")}</dd><dt>Received · Reported</dt><dd>${dayText(mv("received_on"))} · ${dayText(mv("reported_on"))}</dd></dl>`;
+    if (svc.lab.error) return cert + `<p class="bad">${esc(svc.lab.error)}</p><p class="small">Lab results cannot be entered until the Lab survey can be read.</p>`;
+    const btn = `<div class="tools"><button class="btn pri" type="button" data-edit="lab">${lab ? "Edit lab results" : "Enter lab results"}</button></div>`;
+    if (!lab) return cert + `<p class="later-box">No lab results have been entered for this site yet. "Enter lab results" creates the site's record in the Lab survey.</p>` + btn;
+    const val = (sd, t) => { const x = side(sd, t), p = side(sd, "Prefix" + PFXCODE[t]); return nb(x) ? '<span class="bad">empty</span>' : esc((p || "") + x); };
+    const fall = { id: (sd) => mv(sd === "down" ? "lab_sample_id_downstream" : "lab_sample_id_upstream"), by: () => mv("collected_by") };
+    const info = (k, key) => ["down", "up"].map((sd) => { const x = side(sd, key);
+      if (k === "when") return `<td>${whenText(x)}</td>`;
+      if (k === "lat" || k === "lon") return `<td>${nb(x) ? "–" : Number(x).toFixed(6)}</td>`;
+      return `<td>${esc(!nb(x) ? x : (fall[k] && fall[k](sd)) || "–")}</td>`; }).join("");
+    const notes = lv(P0 + "LabNotes");
+    return cert + `<table class="tx" style="margin-bottom:12px"><tr><th>Sample</th><th>Downstream</th><th>Upstream</th></tr>
+        ${LABROWS.map(([k, key, label]) => `<tr><td>${label}</td>${info(k, key)}</tr>`).join("")}</table>
+      <table class="tx"><tr><th>Test</th><th>Units</th><th>Downstream</th><th>Upstream</th></tr>
+      ${LABTESTS.map((t) => `<tr><td>${LABNAMES[t]}</td><td>${LABUNITS[t]}</td><td>${val("down", t)}</td><td>${val("up", t)}</td></tr>`).join("")}</table>
+      <p class="small">"&lt;" below the reporting limit, "&gt;" above the upper limit.</p>
+      <p style="margin:8px 0 0"><b>Lab notes:</b> ${nb(notes) ? '<span class="small">none</span>' : esc(notes)}</p>${btn}
+      <p class="small">The attached lab report comes with the Files tab.</p>`;
+  }
+
+  // Edit values: certificate (on the macroinvertebrate record) + everything in the Lab survey for this phase. Flat keys: "down.v.pH", "down.p.pH", "down.id", …
+  function labStartVals(a, ph) {
+    const M = a[ph].main.L, mr = a[ph].main.row, lab = a.lab, lv = (f) => lab ? att(lab.L, lab.row, f) : undefined, s = (x) => nb(x) ? "" : String(x);
+    const v = { name: s(att(M, mr, "laboratory_name")), recv: dayKey(att(M, mr, "received_on")), rep: dayKey(att(M, mr, "reported_on")), notes: s(lv((ph === "pre" ? "Pre" : "Post") + "LabNotes")) };
+    for (const sd of ["down", "up"]) {
+      for (const [k, key] of LABROWS) { const x = lv(labField(ph, sd, key)); v[`${sd}.${k}`] = k === "when" ? localDT(x) : s(x); }
+      for (const t of LABTESTS) { v[`${sd}.v.${t}`] = s(lv(labField(ph, sd, t))); v[`${sd}.p.${t}`] = s(lv(labField(ph, sd, "Prefix" + PFXCODE[t]))); }
+    }
+    return v;
+  }
+
+  function labEditor(a, ph) {
+    const v = area.edit.vals, L = labL(), ok = (f) => has(L, f), M = a[ph].main.L, mr = a[ph].main.row;
+    const inp = (key, type, extra = "") => `<input type="${type}" data-lv="${key}" value="${esc(v[key])}" ${extra}>`;
+    const fallId = (sd) => att(M, mr, sd === "down" ? "lab_sample_id_downstream" : "lab_sample_id_upstream"), fallBy = att(M, mr, "collected_by");
+    const sampleRow = ([k, key, label]) => `<tr><td>${label}</td>${["down", "up"].map((sd) => { const f = labField(ph, sd, key); if (!ok(f)) return `<td class="small">not in the layer</td>`;
+      const ph0 = k === "id" && fallId(sd) ? ` placeholder="${esc(fallId(sd))} (on the macro record)"` : k === "by" && fallBy ? ` placeholder="${esc(fallBy)} (on the macro record)"` : "";
+      return `<td>${k === "when" ? inp(`${sd}.when`, "datetime-local", `aria-label="${SD[sd]} collected on"`)
+        : k === "lat" || k === "lon" ? inp(`${sd}.${k}`, "text", `inputmode="decimal" class="num-in" aria-label="${SD[sd]} ${label}" placeholder="${k === "lat" ? "40.1234" : "-80.1234"}"`)
+        : inp(`${sd}.${k}`, "text", `maxlength="255" aria-label="${SD[sd]} ${label}"${ph0}`)}</td>`; }).join("")}</tr>`;
+    const pv = (sd, t) => { const pf = labField(ph, sd, "Prefix" + PFXCODE[t]), cur = v[`${sd}.p.${t}`], opts = ["", "<", ">"]; if (cur && !opts.includes(cur)) opts.push(cur);
+      return `<td><div class="pv">${ok(pf) ? `<select data-lv="${sd}.p.${t}" aria-label="${SD[sd]} ${LABNAMES[t]} prefix">${opts.map((o) => `<option value="${esc(o)}"${o === cur ? " selected" : ""}>${o ? esc(o) : "–"}</option>`).join("")}</select>` : ""}
+        ${inp(`${sd}.v.${t}`, "text", `inputmode="decimal" class="num-in" aria-label="${SD[sd]} ${LABNAMES[t]}"`)}</div></td>`; };
+    return `<div class="labed">
+      ${a.lab ? "" : `<div class="msg notice" style="margin:0 0 10px">This site has no record in the Lab survey yet. Saving creates it (project ID ${esc(a.id)}).</div>`}
+      <h4>Lab certificate <span class="small">(stored with the ${PH[ph].toLowerCase()} macroinvertebrate record)</span></h4>
+      <div class="fields3"><div><label for="lName">Laboratory name</label><input type="text" id="lName" data-lv="name" maxlength="255" value="${esc(v.name)}"></div>
+        <div><label for="lRecv">Received on</label><input type="date" id="lRecv" data-lv="recv" value="${esc(v.recv)}"></div>
+        <div><label for="lRep">Reported on</label><input type="date" id="lRep" data-lv="rep" value="${esc(v.rep)}"></div></div>
+      <h4>Samples</h4>
+      <div style="overflow:auto"><table class="tx"><tr><th></th><th>Downstream</th><th>Upstream</th></tr>${LABROWS.map(sampleRow).join("")}</table></div>
+      <p class="small" style="margin:4px 0 0">Coordinates in decimal degrees, as printed under "Sample Coordinates" on the certificate (longitude is negative here).</p>
+      <h4>Results</h4>
+      <div style="overflow:auto"><table class="tx"><tr><th>Test</th><th>Units</th><th>Downstream</th><th>Upstream</th></tr>
+        ${LABTESTS.map((t) => `<tr><td>${LABNAMES[t]}</td><td>${LABUNITS[t]}</td>${pv("down", t)}${pv("up", t)}</tr>`).join("")}</table></div>
+      <p class="small" style="margin:4px 0 0">Type the number as printed. For a value reported as a limit (e.g. "&lt;0.40" or "&gt;2420"), choose &lt; or &gt; and type the number. Leave a box empty if the test was not reported.</p>
+      <h4><label for="lNotes">Lab notes</label></h4>
+      ${ok((ph === "pre" ? "Pre" : "Post") + "LabNotes") ? `<textarea id="lNotes" data-lv="notes" maxlength="1000" placeholder="e.g. H4: pH and DO tested outside the 15-minute holding time.">${esc(v.notes)}</textarea>` : `<p class="small">The notes field is not in the layer.</p>`}
+      </div>${editButtons()}`;
+  }
+
+  // Check the typed values; returns { errs: [text], bad: Set(keys) }.
+  function labCheck(v, ph) {
+    const errs = [], bad = new Set(), num = (t) => { const s = String(t).trim(); return s === "" ? null : Number(s); };
+    for (const sd of ["down", "up"]) {
+      const S0 = SD[sd];
+      for (const t of LABTESTS) { const k = `${sd}.v.${t}`, s = String(v[k]).trim(), n = Number(s);
+        if (s !== "" && !(/^-?\d*\.?\d+$/.test(s) && Number.isFinite(n))) { errs.push(`${S0} ${LABNAMES[t]} is not a number`); bad.add(k); continue; }
+        if (s !== "" && t === "pH" && (n < 0 || n > 14)) { errs.push(`${S0} pH must be between 0 and 14`); bad.add(k); }
+        if (s !== "" && t !== "Acidity" && n < 0) { errs.push(`${S0} ${LABNAMES[t]} cannot be negative`); bad.add(k); }
+        if (s === "" && v[`${sd}.p.${t}`]) { errs.push(`${S0} ${LABNAMES[t]} has a ${v[`${sd}.p.${t}`]} but no number`); bad.add(k); } }
+      const lat = String(v[`${sd}.lat`]).trim(), lon = String(v[`${sd}.lon`]).trim();
+      for (const [k, s, lo, hi, name] of [[`${sd}.lat`, lat, -90, 90, "latitude"], [`${sd}.lon`, lon, -180, 180, "longitude"]]) {
+        const n = num(s); if (s !== "" && (!Number.isFinite(n) || n < lo || n > hi)) { errs.push(`${S0} ${name} must be a number between ${lo} and ${hi}`); bad.add(k); } }
+      if ((lat === "") !== (lon === "")) { errs.push(`${S0} needs both latitude and longitude`); bad.add(lat === "" ? `${sd}.lat` : `${sd}.lon`); }
+      if (v[`${sd}.when`] && dtMs(v[`${sd}.when`]) == null) { errs.push(`${S0} collection date and time is not complete`); bad.add(`${sd}.when`); }
+    }
+    if (v.recv && v.rep && v.rep < v.recv) { errs.push("Reported on is before Received on"); bad.add("rep"); }
+    return { errs, bad };
+  }
+
+  // Turn the edited lab values into changes: certificate fields on the macro record, the rest on the Lab record (created if missing).
+  function labPlan(a, ph, v) {
+    const M = a[ph].main.L, mr = a[ph].main.row, L = labL(), out = [], names = {};
+    if (!L) throw new Error("the Lab survey's layer was not found");
+    const lab = a.lab, cur = (f) => lab ? lab.row.attributes[L.fields[f.toLowerCase()]] : null, P0 = ph === "pre" ? "Pre" : "Post";
+    // certificate
+    const mset = {}, mput = (f, val) => { const real = M.fields[f.toLowerCase()]; if (real) mset[real] = val; };
+    mput("laboratory_name", v.name.trim() || null);
+    if (v.recv !== dayKey(att(M, mr, "received_on"))) mput("received_on", noonMs(v.recv));
+    if (v.rep !== dayKey(att(M, mr, "reported_on"))) mput("reported_on", noonMs(v.rep));
+    const mc = change(ph, M, mr, mset, `${PH[ph]} record (lab certificate)`);
+    if (mc) { mc.names = {}; for (const [f, l] of [["laboratory_name", "Laboratory name"], ["received_on", "Received on"], ["reported_on", "Reported on"]]) if (M.fields[f]) mc.names[M.fields[f]] = l; out.push(mc); }
+    // Lab survey values
+    const lset = {}, put = (f, val, label) => { const real = L.fields[f.toLowerCase()]; if (!real) return; lset[real] = val; names[real] = label; };
+    const num = (t) => { const s = String(t).trim(); return s === "" ? null : Number(s); }, txt = (t) => String(t).trim() || null;
+    for (const sd of ["down", "up"]) {
+      const S0 = `${PH[ph]} ${SD[sd].toLowerCase()}`;
+      put(labField(ph, sd, "LabSampleID"), txt(v[`${sd}.id`]), `${S0} lab sample ID`);
+      put(labField(ph, sd, "CollectedBy"), txt(v[`${sd}.by`]), `${S0} collected by`);
+      const f = labField(ph, sd, "DateTime"); if (v[`${sd}.when`] !== localDT(cur(f))) put(f, dtMs(v[`${sd}.when`]), `${S0} collected on`);   // same minute = no change
+      put(labField(ph, sd, "Lat"), num(v[`${sd}.lat`]), `${S0} latitude`); put(labField(ph, sd, "Lon"), num(v[`${sd}.lon`]), `${S0} longitude`);
+      for (const t of LABTESTS) { put(labField(ph, sd, t), num(v[`${sd}.v.${t}`]), `${S0} ${LABNAMES[t]}`); put(labField(ph, sd, "Prefix" + PFXCODE[t]), v[`${sd}.p.${t}`] || null, `${S0} ${LABNAMES[t]} prefix`); }
+    }
+    put(P0 + "LabNotes", txt(v.notes), `${PH[ph]} lab notes`);
+    const anyVal = Object.values(lset).some((x) => !nb(x));
+    // The Survey123 form shows its post-construction section only when "Add Post Construction Data?" is Yes.
+    if (ph === "post" && anyVal && has(L, "PreAddPost") && cur("PreAddPost") !== "Yes") put("PreAddPost", "Yes", "Add Post Construction Data? (shows the post section in Survey123)");
+    if (lab) { const c = change("lab", L, lab.row, lset, `the Lab record of ${a.id}`); if (c) { c.names = names; out.push(c); } }
+    else if (anyVal) {
+      const set = {}; for (const [k, x] of Object.entries(lset)) if (!nb(x)) set[k] = x;
+      if (has(L, "project_id")) set[L.fields.project_id] = a.id;
+      if (has(L, "enter_data_for")) set[L.fields.enter_data_for] = ph === "pre" ? "Pre Construction" : "Post Construction";
+      out.push({ op: "add", svc: "lab", L, set, names, label: `Lab record for ${a.id} (new)`, summary: `${Object.keys(set).length} values`, showFields: true,
+                 unique: { where: `${L.fields.project_id || "project_id"} = '${String(a.id).replace(/'/g, "''")}'`, what: `a Lab record for ${a.id}` } });
+    }
+    return out;
   }
 
   // ---------------- safe save: review → last-edited check → write (all-or-nothing per survey) → read back ----------------
@@ -915,7 +1051,8 @@
   async function saveChanges(changes, progress) {
     const opOf = (c) => c.op || "update";
     const surveys = [...new Set(changes.map((c) => c.svc))];
-    if (surveys.length > 1 && changes.some((c) => opOf(c) !== "update")) throw new Error("internal: adding or removing rows across more than one survey in one save is not allowed");
+    // A removed row cannot be put back, so removals never share a save with another survey. A new row can be undone (removed again).
+    if (surveys.length > 1 && changes.some((c) => opOf(c) === "delete")) throw new Error("internal: removing rows across more than one survey in one save is not allowed");
     const existing = changes.filter((c) => opOf(c) !== "add");
     const byLayer = (list) => { const m = new Map(); for (const c of list) { const k = c.svc + "|" + c.L.name; if (!m.has(k)) m.set(k, []); m.get(k).push(c); } return m; };
     // 1. has anyone saved these records since the app read them?
@@ -926,12 +1063,17 @@
       for (const c of list) { if (!now[c.oid]) throw new Error(`a record in ${L.name} (${c.label}) no longer exists`);
         if (normV(now[c.oid][ef]) !== normV(c.edit)) throw new Error(`someone saved ${c.label} after this page was opened. Reload the page and try again`); }
     }
+    for (const c of changes.filter((x) => x.unique)) {   // a new record that must be the only one (e.g. one Lab record per site)
+      const r = await getJson(c.L.url + "/query", { where: c.unique.where, returnCountOnly: true });
+      if (r.count > 0) throw new Error(`someone created ${c.unique.what} after this page was opened. Reload the page and try again`);
+    }
     // 2. write: one all-or-nothing request per survey (rollbackOnFailure). If a later survey refuses,
     //    the surveys already saved are put back to their previous values, so the site is never left half-changed.
     const sendSurvey = async (key, list, useBefore) => {
       const layers = new Map(), slot = (L) => { if (!layers.has(L.id)) layers.set(L.id, { id: L.id, adds: [], updates: [], deletes: [], addRefs: [] }); return layers.get(L.id); };
       for (const c of list) { const e = slot(c.L), op = opOf(c);
-        if (op === "add") { e.adds.push({ attributes: c.set }); e.addRefs.push(c); }
+        if (op === "add" && useBefore) { if (c.oid != null) e.deletes.push(c.oid); }   // undo a new row = remove it
+        else if (op === "add") { e.adds.push({ attributes: c.set }); e.addRefs.push(c); }
         else if (op === "delete") e.deletes.push(c.oid);
         else e.updates.push({ attributes: { [c.L.def.objectIdField]: c.oid, ...(useBefore ? c.before : c.set) } }); }
       const edits = [...layers.values()].map(({ id, adds, updates, deletes }) => { const o = { id }; if (adds.length) o.adds = adds; if (updates.length) o.updates = updates; if (deletes.length) o.deletes = deletes; return o; });
@@ -1011,14 +1153,20 @@
   function closeTool() { $("ovl").classList.add("hidden"); $("panel").innerHTML = ""; }
   function reviewHtml(changes) {
     const groups = new Map(); for (const c of changes) { const k = CFG.serviceNames[c.svc] + " · " + c.L.name; groups.set(k, (groups.get(k) || 0) + 1); }
+    const fname = (c, k) => c.names && c.names[k] ? `${esc(c.names[k])} <span class="small">(${esc(k)})</span>` : esc(k);
     const rows = changes.map((c) => c.op === "add" ? `<tr><td>${esc(c.label)}</td><td><b>new row</b></td><td><span class="new">${esc(c.summary || "")}</span></td></tr>`
+        + (c.showFields ? Object.keys(c.set).map((k) => `<tr><td></td><td>${fname(c, k)}</td><td><span class="new">${esc(fmtF(c.L, k, c.set[k]))}</span></td></tr>`).join("") : "")
       : c.op === "delete" ? `<tr><td>${esc(c.label)}</td><td><b>remove row</b></td><td><span class="old">${esc(c.summary || "")}</span></td></tr>`
-      : Object.keys(c.set).map((k) => `<tr><td>${esc(c.label)}</td><td>${esc(k)}</td><td><span class="old">${esc(fmtV(c.before[k]))}</span> → <span class="new">${esc(fmtV(c.set[k]))}</span></td></tr>`).join("")).join("");
+      : Object.keys(c.set).map((k) => `<tr><td>${esc(c.label)}</td><td>${fname(c, k)}</td><td><span class="old">${esc(fmtF(c.L, k, c.before[k]))}</span> → <span class="new">${esc(fmtF(c.L, k, c.set[k]))}</span></td></tr>`).join("")).join("");
     const nOp = (op) => changes.filter((c) => (c.op || "update") === op).length;
     return `<p class="small" style="margin:8px 0 4px">${[nOp("add") && nOp("add") + " new row(s)", nOp("update") && nOp("update") + " changed record(s)", nOp("delete") && nOp("delete") + " removed row(s)"].filter(Boolean).join(", ")}: ${[...groups].map(([k, n]) => `${esc(k)} (${n})`).join(" · ")}</p>
       <div class="rev"><table><tr><th>Record</th><th>Field</th><th>Change</th></tr>${rows}</table></div>`;
   }
   const fmtV = (v) => nb(v) ? "(empty)" : String(v);
+  // Same, but a date field shows as a date (with the time when it has one other than noon).
+  const fmtF = (L, k, v) => { const f = L && (L.def.fields || []).find((x) => x.name === k);
+    if (nb(v) || !f || f.type !== "esriFieldTypeDate") return fmtV(v);
+    const d = new Date(v); return d.getHours() === 12 && d.getMinutes() === 0 ? dayText(v) : whenText(v); };
 
   function openTool(a, tool, ph, sd) {
     const P = $("panel"); $("ovl").classList.remove("hidden");
