@@ -69,6 +69,7 @@
   .tag{display:inline-block;font-size:11px;font-weight:600;background:#EDE7D3;color:#6A5300;border-radius:4px;padding:0 6px;margin-left:4px;vertical-align:middle}
   .seg{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
   .seg i{height:12px;border-radius:3px;background:var(--soft)}
+  .seg i.unk{background:repeating-linear-gradient(135deg,#C6D3D0 0 3px,#fff 3px 6px);outline:1px dashed var(--red)}
   .seg i.full{background:var(--c)} .seg i.part{background:repeating-linear-gradient(45deg,var(--c) 0 4px,#fff 4px 7px);outline:1px solid var(--c)}
   .flag{color:var(--red);font-size:13px;margin-top:3px}
   .flag:before{content:"! ";font-weight:700}
@@ -168,7 +169,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B1b", BUILD_DATE = "16 Nov 2026";
+  const BUILD = "B1c", BUILD_DATE = "16 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -233,8 +234,11 @@
     say("notice", '<span class="spin"></span>Reading the survey layers…');
     await loadAll();
     // A view that hides other people's records would make study areas silently disappear: say so on every page.
-    const hidden = ["pre", "post", "lab"].filter((k) => { const M = svc[k].byName[MAIN[k]], ob = M && M.def.ownershipBasedAccessControlForFeatures; return ob && ob.allowOthersToQuery === false; });
-    if (hidden.length) say("error", `This account can only see the records it created in the ${hidden.map((k) => CFG.serviceNames[k]).join(", ")} survey data, so study areas entered by others are missing. See <a href="#/check">Data check</a>, and tell the administrator (${CFG.admin}).`);
+    const hidden = ["pre", "post", "lab"].filter((k) => { const M = svc[k].byName[MAIN[k]], ob = M && M.def.ownershipBasedAccessControlForFeatures; return !svc[k].error && ob && ob.allowOthersToQuery === false; });
+    const failed = ["pre", "post", "lab"].filter((k) => svc[k].error);
+    const lines = failed.map((k) => esc(svc[k].error));
+    if (hidden.length) lines.push(`This account can only see the records it created in the ${hidden.map((k) => CFG.serviceNames[k]).join(", ")} survey data, so study areas entered by others are missing.`);
+    if (lines.length) say("error", lines.join("<br>") + `<br>What is shown below is incomplete. See <a href="#/check">Data check</a> for details, and tell the administrator (${CFG.admin}). Nothing was changed.`);
     else $("status").classList.add("hidden");
     route();
   }
@@ -255,39 +259,48 @@
     return out;
   }
   // One service: list its layers and tables, read each definition, then every record.
+  // A failure is kept on the service (S.error, S.step) instead of stopping the app, so the other surveys still load.
   async function loadService(key) {
-    const base = CFG.services[key], info = await getJson(base);
-    const all = [...(info.layers || []), ...(info.tables || [])];
-    const S = { key, base, byName: {}, missing: [], counts: {}, capabilities: info.capabilities || "" };
-    await Promise.all(all.map(async (l) => {
-      const url = base + "/" + l.id, def = await getJson(url);
-      const fields = {}; for (const f of def.fields || []) fields[f.name.toLowerCase()] = f.name;
-      S.byName[l.name] = { id: l.id, url, name: l.name, def, fields, isLayer: !!def.geometryType, rows: [] };
-    }));
-    const wanted = key === "lab" ? [MAIN.lab] : [MAIN[key], ...SIDES.map((s) => s[2]), ...SIDES.flatMap(([, Side]) => GROUP_KEYS.map((g) => repeatName(g, Side)))];
-    S.missing = wanted.filter((n) => !S.byName[n]);
-    await Promise.all(Object.values(S.byName).filter((L) => wanted.includes(L.name)).map(async (L) => {
-      L.rows = await queryAll(L.url, { returnGeometry: L.isLayer, outSR: 4326 });
-      S.counts[L.name] = L.rows.length;
-    }));
+    const base = CFG.services[key];
+    const S = { key, base, byName: {}, missing: [], counts: {}, capabilities: "", error: null, step: "" };
+    try {
+      S.step = "list the layers";
+      const info = await getJson(base);
+      S.capabilities = info.capabilities || "";
+      const all = [...(info.layers || []), ...(info.tables || [])];
+      S.step = "read the layer definitions";
+      await Promise.all(all.map(async (l) => {
+        const url = base + "/" + l.id, def = await getJson(url);
+        const fields = {}; for (const f of def.fields || []) fields[f.name.toLowerCase()] = f.name;
+        S.byName[l.name] = { id: l.id, url, name: l.name, def, fields, isLayer: !!def.geometryType, rows: [] };
+      }));
+      const wanted = key === "lab" ? [MAIN.lab] : [MAIN[key], ...SIDES.map((s) => s[2]), ...SIDES.flatMap(([, Side]) => GROUP_KEYS.map((g) => repeatName(g, Side)))];
+      S.missing = wanted.filter((n) => !S.byName[n]);
+      S.step = "read the records";
+      await Promise.all(Object.values(S.byName).filter((L) => wanted.includes(L.name)).map(async (L) => {
+        L.rows = await queryAll(L.url, { returnGeometry: L.isLayer, outSR: 4326 });
+        S.counts[L.name] = L.rows.length;
+      }));
+      S.step = "done";
+    } catch (err) {
+      const m = mask(String((err && err.message) || err)), name = CFG.serviceNames[key];
+      S.error = /do not have access|not authorized|permission|token required|\b(403|498|499)\b/i.test(m)
+        ? `This account is not allowed to open the ${name} survey's data. Check that its form view is shared with the WCCD Editors group.`
+        : /not supported/i.test(m)
+        ? `The ${name} survey's form view does not allow reading records. In Survey123 this usually means "What can submitters do" is set to "Only add new records".`
+        : `The ${name} survey's data could not be read.`;
+      S.detail = `Stopped while trying to ${S.step}: ${m}`;
+      for (const L of Object.values(S.byName)) L.rows = [];   // never work from half-read data
+      S.counts = {};
+    }
     return S;
   }
   // Read an attribute by its expected name, whatever case the service uses.
   const att = (L, row, name) => { const real = L.fields[name.toLowerCase()]; return real ? row.attributes[real] : undefined; };
   const has = (L, name) => !!L.fields[name.toLowerCase()];
 
-  // Wrap a service read so an access problem names the survey instead of showing a raw address.
-  async function loadNamed(key) {
-    try { return await loadService(key); }
-    catch (err) {
-      const m = String((err && err.message) || err), name = CFG.serviceNames[key];
-      if (/do not have access|not authorized|permission|token required|\b(403|498|499)\b/i.test(m))
-        throw new Error(`this account cannot read the ${name} survey's data. Ask the administrator to check that the ${name} survey's form view is shared with the WCCD Editors group`);
-      throw new Error(`the ${name} survey's data could not be read (${m})`);
-    }
-  }
   async function loadAll() {
-    const [pre, post, lab] = await Promise.all(["pre", "post", "lab"].map(loadNamed));
+    const [pre, post, lab] = await Promise.all(["pre", "post", "lab"].map(loadService));
     svc = { pre, post, lab };
     model = buildModel();
   }
@@ -359,6 +372,7 @@
     a.stages = STAGES.map(([ph, side, label, col]) => {
       const st = { ph, side, label, col, state: "none", notes: [] };
       if (side === "lab") {
+        if (svc.lab.error) { st.state = "unknown"; st.notes.push("the Lab survey's data could not be read"); return st; }
         if (!a.lab) { st.notes.push("no lab record"); return st; }
         const L = a.lab.L, r = a.lab.row, empty = [];
         for (const sd of ["down", "up"]) for (const t of LABTESTS) if (nb(att(L, r, labField(ph, sd, t)))) empty.push((sd === "down" ? "Downstream " : "Upstream ") + LABNAMES[t]);
@@ -399,6 +413,7 @@
   }
 
   // ---------------- Home ----------------
+  const STATE_TEXT = { full: "entered", part: "partly entered", none: "not started", unknown: "could not be read" };
   const STATUS_TEXT = { pre: "Pre-construction in progress", wait: "Waiting for construction", post: "Post-construction in progress", done: "Complete" };
   const home = { tile: null, open: null };
   function drawHome() {
@@ -419,7 +434,7 @@
       h += `<div class="row${home.open === a.id ? " open" : ""}" data-id="${esc(a.id)}" tabindex="0" role="button" aria-expanded="${home.open === a.id}">
         <b>${esc(a.id)}${a.test ? '<span class="tag">test</span>' : ""}</b>
         <span>${esc(a.stream) || "–"}${a.site && a.site !== a.stream ? `<br><small>${esc(a.site)}</small>` : ""}<br><small>Pre ${a.pre ? dayText(a.pre.date) : "–"} · Post ${a.post ? dayText(a.post.date) : "–"}</small></span>
-        <div><div class="seg">${a.stages.map((s) => `<i class="${s.state === "full" ? "full" : s.state === "part" ? "part" : ""}" style="--c:${s.col}" title="${esc(s.label)}: ${s.state === "full" ? "entered" : s.state === "part" ? "partly entered" : "not started"}"></i>`).join("")}</div>
+        <div><div class="seg">${a.stages.map((s) => `<i class="${s.state === "full" ? "full" : s.state === "part" ? "part" : s.state === "unknown" ? "unk" : ""}" style="--c:${s.col}" title="${esc(s.label)}: ${STATE_TEXT[s.state]}"></i>`).join("")}</div>
           ${a.flags.map((f) => `<div class="flag">${esc(f)}</div>`).join("")}</div>
         <span>${STATUS_TEXT[a.status]}<br><small>next: ${esc(a.next)}</small></span></div>`;
       if (home.open === a.id) h += detailHtml(a);
@@ -434,7 +449,7 @@
   function detailHtml(a) {
     const row = (s) => { let fig = "";
       if (s.side !== "lab" && a[s.ph] && a[s.ph].samples[s.side].exists) { const c = a[s.ph].samples[s.side].calc; fig = `${c.count} organisms · ${c.taxa} taxa · index ${c.index} · Avg HILS ${fmt(c.avg, 2)} · EPT ${c.ept}`; }
-      return `<tr><td><span class="dot" style="background:${s.col}"></span>${esc(s.label)}</td><td>${s.state === "full" ? '<span class="good">entered</span>' : s.state === "part" ? "partly entered" : "not started"}</td><td>${fig}</td><td>${esc(s.notes.join("; "))}</td></tr>`; };
+      return `<tr><td><span class="dot" style="background:${s.col}"></span>${esc(s.label)}</td><td>${s.state === "full" ? '<span class="good">entered</span>' : s.state === "unknown" ? '<span class="bad">could not be read</span>' : STATE_TEXT[s.state]}</td><td>${fig}</td><td>${esc(s.notes.join("; "))}</td></tr>`; };
     return `<div class="detail"><table><tr><th>Stage</th><th>State</th><th>Figures (calculated by the app)</th><th>Notes</th></tr>${a.stages.map(row).join("")}</table>
       <p class="small" style="margin:8px 0 0">The full study area page, with data entry, comes in build B2.</p></div>`;
   }
@@ -466,7 +481,10 @@
                      : `<tr><td>Records limited to their owner</td><td><span class="good">no limit set</span></td></tr>`;
       const perm = `<table class="chk" style="margin:8px 0"><tr><th colspan="2">This account may…</th></tr><tr><td>Read records</td><td>${yes(can("Query"))}</td></tr><tr><td>Add records</td><td>${yes(can("Create"))}</td></tr><tr><td>Update records</td><td>${yes(can("Update"))}</td></tr><tr><td>Delete records</td><td>${yes(can("Delete"))}</td></tr>${own}</table>
         <div class="small">Service capabilities: ${esc(caps || "not reported")}</div>`;
-      return `<div class="card"><h3>${NAMES[k]}</h3><p class="small" style="margin:4px 0 8px">${esc(S.base.split("/services/")[1].replace("/FeatureServer", ""))}</p>${perm}
+      const head = `<div class="card"><h3>${NAMES[k]}</h3><p class="small" style="margin:4px 0 8px">${esc(S.base.split("/services/")[1].replace("/FeatureServer", ""))}</p>`;
+      if (S.error) return head + `<div class="msg error" style="margin:8px 0">${esc(S.error)}</div>${S.capabilities || M ? perm : ""}
+        <details class="diag"><summary>diagnostics (for support)</summary><pre>${esc(S.detail)}</pre></details></div>`;
+      return head + `${perm}
         <div>${S.missing.length ? `<span class="bad">Missing layers or tables: ${esc(S.missing.join(", "))}</span>` : `<span class="good">All expected layers and tables found</span> (${nT})`}</div>
         <div>${miss.length ? `<span class="bad">Missing fields: ${esc(miss.join(", "))}</span>` : `<span class="good">All expected fields found</span>`}</div>
         <div class="small">${M ? M.rows.length : 0} record(s) in ${esc(MAIN[k])}; ${nR} rows read in total.</div></div>`;
