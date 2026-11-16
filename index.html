@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WCCD Watershed Monitoring</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<script type="module" src="https://js.arcgis.com/5.2/"></script>
+<style>
+  :root{
+    --ink:#10242A; --muted:#47606A; --line:#C6D3D0; --soft:#DCE5E3; --hair:#E6ECEA; --bg:#F3F6F5; --rail:#14323A; --amber:#F0A202;
+    --red:#8A1515; --red-bg:#FBE4E4; --ok:#1B8A5A; --ok-bg:#E3F1EA;
+    --c1:#6693D8; --c2:#24508F; --c3:#DB6F5C; --c4:#A0221B;        /* samples: Pre down, Pre up, Post down, Post up (validated) */
+    --s1:var(--c1); --s2:var(--c2); --s3:#173A70; --s4:var(--c3); --s5:var(--c4); --s6:#6B1111;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:16px/1.45 "Public Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg)}
+  h1,h2,h3,.big{font-family:"Barlow Semi Condensed",system-ui,sans-serif;font-weight:700;margin:0}
+  h2{font-size:24px} h3{font-size:18px}
+  small,.small{font-size:13px;color:var(--muted)}
+  button{font:inherit;cursor:pointer;color:inherit}
+  a{color:#0B5E8A}
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .rail{position:fixed;inset:0 auto 0 0;width:96px;background:var(--rail);display:flex;flex-direction:column;padding:10px 0;z-index:5}
+  .rail .mark{display:flex;justify-content:center;padding:4px 0 12px}
+  .rail .mark img{border-radius:12px;background:#fff}
+  .rail a{color:#DCE5E3;text-decoration:none;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;margin:2px 0 2px 8px;border-radius:12px 0 0 12px}
+  .rail a.on{background:var(--bg);color:var(--ink);font-weight:600}
+  .rail a.later{opacity:.45}
+  .rail .grow{flex:1}
+  .page{margin-left:96px}
+  header.top{background:#fff;border-bottom:1px solid var(--line)}
+  .bar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 24px;flex-wrap:wrap}
+  .brand{display:flex;gap:14px;align-items:center}
+  .brand small{display:block;line-height:1.25}
+  .brand span{font-family:"Barlow Semi Condensed";font-weight:700;font-size:24px;display:block}
+  .util{font-size:13px;color:var(--muted);text-align:right}
+  .util button{border:0;background:none;color:#0B5E8A;text-decoration:underline;padding:0 0 0 8px;font-size:13px}
+  .util input{margin-top:6px;border:1px solid var(--line);border-radius:8px;padding:7px 10px;width:260px;font:inherit;font-size:14px}
+  main{padding:20px 24px 40px;max-width:1440px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+  .msg{border-radius:10px;padding:10px 14px;margin:0 0 14px;font-size:15px}
+  .msg.notice{background:#EAF2FB;border:1px solid #BFD5EE}
+  .msg.error{background:var(--red-bg);border:1px solid #E7B4B4;color:var(--red)}
+  .msg.okmsg{background:var(--ok-bg);border:1px solid #B5DCC8;color:#145C3D}
+  .hidden{display:none !important}
+  details.diag{margin-top:8px;font-size:13px;color:var(--muted)} details.diag pre{white-space:pre-wrap;font-size:12px}
+  /* Home */
+  .datef{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;padding:12px 16px}
+  .datef .dgrp{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px}
+  .datef .dl{font-weight:600;border-left:5px solid var(--c);padding-left:6px}
+  .datef input{border:1px solid var(--line);border-radius:8px;padding:4px 6px;font:inherit;font-size:14px}
+  .datef .dq{display:flex;gap:6px;align-items:center}
+  .datef .cnt{flex-basis:100%}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 11px;font-size:13px}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px}
+  .btn.sm{padding:4px 10px;font-size:13px}
+  .btn.pri{background:var(--rail);color:#fff;border-color:var(--rail)}
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+  .tile{border-radius:12px;padding:14px;color:#fff;cursor:pointer;border:0;text-align:left}
+  .tile .big{font-size:36px;line-height:1;display:block}
+  .tile.on{box-shadow:0 0 0 3px var(--amber)}
+  .t1{background:var(--c2)} .t2{background:#5B6F76} .t3{background:var(--c4)} .t4{background:var(--ok)}
+  .list .row{display:grid;grid-template-columns:130px 1.3fr 2fr 1.3fr;gap:14px;align-items:center;padding:12px 6px;border-top:1px solid var(--soft);cursor:pointer}
+  .list .row:hover{background:#F7F9F8}
+  .list .row.head{font-size:13px;color:var(--muted);padding-top:0;cursor:default;border-top:0} .list .row.head:hover{background:none}
+  .list .row.open{background:#F7F9F8}
+  .tag{display:inline-block;font-size:11px;font-weight:600;background:#EDE7D3;color:#6A5300;border-radius:4px;padding:0 6px;margin-left:4px;vertical-align:middle}
+  .seg{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .seg i{height:12px;border-radius:3px;background:var(--soft)}
+  .seg i.full{background:var(--c)} .seg i.part{background:repeating-linear-gradient(45deg,var(--c) 0 4px,#fff 4px 7px);outline:1px solid var(--c)}
+  .flag{color:var(--red);font-size:13px;margin-top:3px}
+  .flag:before{content:"! ";font-weight:700}
+  .detail{grid-column:1/-1;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:4px 0 6px;cursor:default}
+  .detail table{border-collapse:collapse;width:100%;font-size:13px}
+  .detail td,.detail th{border-bottom:1px solid var(--hair);padding:4px 8px;text-align:left;vertical-align:top}
+  .detail th{font-size:12px;color:var(--muted);font-weight:600}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .legend i{width:14px;height:10px;border-radius:2px;display:inline-block}
+  /* Data check */
+  table.chk{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+  table.chk th,table.chk td{border-bottom:1px solid var(--hair);padding:5px 8px;text-align:left;vertical-align:top}
+  table.chk th{font-size:12px;color:var(--muted);background:#F7F9F8}
+  table.chk td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .good{color:var(--ok);font-weight:600} .bad{color:var(--red);font-weight:600}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+  footer.build{font-size:12px;color:var(--muted);margin-top:28px}
+  .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--rail);border-radius:50%;animation:sp 0.8s linear infinite;vertical-align:-2px;margin-right:8px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  @media (max-width:900px){
+    .rail{position:static;width:auto;flex-direction:row;overflow:auto;padding:4px} .rail a{margin:0;border-radius:10px} .rail .mark{padding:0 8px}
+    .page{margin-left:0} .tiles{grid-template-columns:repeat(2,1fr)} .list .row{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<nav class="rail" aria-label="Main">
+  <a class="mark" href="#/" aria-label="Home"><img src="data:image/jpeg;base64,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" alt="Washington County Conservation District" width="56" height="56"></a>
+  <a href="#/" data-r="home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Home</a>
+  <a href="#/new" data-r="new" class="later"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>New</a>
+  <a href="#/explore" data-r="explore" class="later"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4l-6 2v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Explore</a>
+  <a href="#/reports" data-r="reports" class="later"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/></svg>Reports</a>
+  <span class="grow"></span>
+  <a href="#/check" data-r="check"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Data check</a>
+  <a href="#/help" data-r="help"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1.2-1.5 2.3M12 17v.5"/></svg>Help</a>
+</nav>
+
+<div class="page">
+<header class="top">
+  <div class="bar">
+    <div class="brand"><a href="#/" aria-label="Home"><img src="data:image/jpeg;base64,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" alt="" width="64" height="64"></a><div><small>Washington County Conservation District</small><small>Watershed Monitoring</small><span id="ptitle">Home</span></div></div>
+    <div class="util"><span id="user">Not signed in</span><button type="button" id="signOut" hidden>Sign out</button><br>
+      <label for="q" class="vh">Find a study area</label><input id="q" type="search" placeholder="Find a study area (ID or stream)"></div>
+  </div>
+</header>
+
+<main>
+  <div id="status" class="msg notice"><span class="spin"></span>Starting…</div>
+
+  <section id="p-home" class="hidden">
+    <div class="card datef">
+      <b>Filter by date</b>
+      <div class="dgrp"><span class="dl" style="--c:var(--c2)">Pre-construction sampled</span><label>from <input type="date" id="hPreFrom"></label><label>to <input type="date" id="hPreTo"></label></div>
+      <div class="dgrp"><span class="dl" style="--c:var(--c4)">Post-construction sampled</span><label>from <input type="date" id="hPostFrom"></label><label>to <input type="date" id="hPostTo"></label></div>
+      <div class="dq"><span class="small">Quick:</span><span id="hYears"></span><button class="btn sm" id="hClear" type="button">Clear dates</button></div>
+      <div class="small cnt" id="hCount"></div>
+    </div>
+    <div class="tiles" id="hTiles">
+      <button class="tile t1" data-st="pre" type="button"><span class="big">0</span><b>Pre-construction in progress</b></button>
+      <button class="tile t2" data-st="wait" type="button"><span class="big">0</span><b>Waiting for construction</b></button>
+      <button class="tile t3" data-st="post" type="button"><span class="big">0</span><b>Post-construction in progress</b></button>
+      <button class="tile t4" data-st="done" type="button"><span class="big">0</span><b>Complete</b></button>
+    </div>
+    <div class="card list" id="hList"></div>
+  </section>
+
+  <section id="p-check" class="hidden">
+    <p class="small" style="margin-top:0">This page compares what the app expects with what the layers hold, and recomputes every sample's totals from its taxa rows. Nothing is changed.</p>
+    <div class="grid2" id="chkLayers"></div>
+    <h3 style="margin:18px 0 8px">Totals: stored in the layer vs recomputed by the app</h3>
+    <div class="card" style="padding:0;overflow:auto"><table class="chk" id="chkTotals"></table></div>
+    <p class="small">Recomputed values use the WCCD HILS table (99 taxa). Index = round(count × HILS). Avg HILS = total index ÷ total count. EPT taxa = taxa present in Mayflies, Stoneflies and Caddisflies (taxa 26–39, 49–57, 70–86).</p>
+  </section>
+
+  <section id="p-help" class="hidden">
+    <div class="card" style="max-width:820px">
+      <h3>About this build</h3>
+      <p>This is an early, <b>read-only</b> build. It signs in, reads the three survey layers (Pre-construction, Post-construction, Lab analysis) and shows each study area's progress on the Home page. Nothing can be changed from this build.</p>
+      <p>Data entry, Explore and Reports are added in later builds. The greyed menu items are placeholders.</p>
+      <p>To report a problem or ask a question, email the administrator at <a href="mailto:yayad@pennwest.edu">yayad@pennwest.edu</a>. Include the study area ID, what you clicked, and the message on the screen.</p>
+      <p class="small" id="aboutInfo"></p>
+    </div>
+  </section>
+
+  <section id="p-later" class="hidden">
+    <div class="card" style="max-width:720px"><h3 id="laterTitle"></h3><p>This part of the app comes in a later build. The layout is the one you approved in the layout review.</p><p><a href="#/">Back to Home</a></p></div>
+  </section>
+
+  <footer class="build" id="build"></footer>
+</main>
+</div>
+
+<script type="module">
+  // ==========================================================================================
+  // WCCD Watershed Monitoring – build B1 (read-only)
+  // ==========================================================================================
+  const BUILD = "B1", BUILD_DATE = "15 Nov 2026";
+  const CFG = {
+    clientId: "PASTE_CLIENT_ID_HERE",                 // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret)
+    portalUrl: "https://clarion.maps.arcgis.com",
+    // The three hosted feature services. These addresses carry no sign-in; the layers stay private to the WCCD Editors group.
+    services: {
+      pre:  "https://services1.arcgis.com/PWtxnKIFOvE9zUTs/arcgis/rest/services/service_1d5b6cd3a94c43089f11dfe41957f3d0/FeatureServer",
+      post: "https://services1.arcgis.com/PWtxnKIFOvE9zUTs/arcgis/rest/services/service_dcaab5768120498e92886dc8308294a9/FeatureServer",
+      lab:  "https://services1.arcgis.com/PWtxnKIFOvE9zUTs/arcgis/rest/services/survey123_6f7d1d8148534c2497664e21d47ee51c/FeatureServer"
+    },
+    testIds: ["asdfadsf"],                            // shown on Home with a "test" tag; left out of Explore and Reports
+    idPattern: /^[A-Z]{4}\d{4}$/,                     // WCCD project ID: 4 letters + 4 digits (e.g. BRUR3699)
+    admin: "yayad@pennwest.edu"
+  };
+
+  // ---------------- reference: HILS per taxon (WCCD sheet; 8 Other Worms and 57 Taeniopterygidae included) ----------------
+  const HILS = [9,4,8,7,10,10,9,9, 7,8,7,8,6,7,2,8, 4,8,4, 8, 6,4,4,8, 6, 0,6,3,7,2,4,3,3,4,3,2,4,7,4, 3,3,5,3,4,9, 5,8,9, 3,0,0,2,2,3,2,0,2, 5,5,5,4,5,4,5, 3,4,2,6, 1, 1,0,3,5,4,1,4,4,6,0,3,4,6,2,1,3,5, 2,0,6,10,6,1,4,6,10,6,6,4,6];
+  const isEPT = (n) => (n >= 26 && n <= 39) || (n >= 49 && n <= 57) || (n >= 70 && n <= 86);   // 86 Moths Lepidoptera counts, as on the WCCD sheet
+  // Survey123 repeat tables, one per taxa group and side. Note the Down crayfish table is DECO_, the Up one DEC_.
+  const GROUP_KEYS = ["MISC","GAS","BIV","ISO","AMP","DEC","MAY","DRA","DAM","STO","BEE","DOB","SPO","CAD","TRU"];
+  const repeatName = (g, side) => (g === "DEC" && side === "Down" ? "DECO" : g) + "_REPEAT_" + side;
+  const MAIN = { pre: "PreWaterSample", post: "PostWaterSample", lab: "survey" };
+  const SIDES = [["down", "Down", "DownstreamSampleGRP"], ["up", "Up", "UpstreamSampleGRP"]];
+  const LABTESTS = ["TotalColiforms","EscherichiaColi","Nitrate","Nitrite","Acidity","Conductivity","DissolvedSolids","SuspendedSolids","pH","Oxygen","Phosphorus"];
+  const LABNAMES = { TotalColiforms:"Total Coliforms", EscherichiaColi:"E. coli", Nitrate:"Nitrate", Nitrite:"Nitrite", Acidity:"Acidity", Conductivity:"Conductivity", DissolvedSolids:"TDS", SuspendedSolids:"TSS", pH:"pH", Oxygen:"Dissolved oxygen", Phosphorus:"Phosphorus" };
+  const LABFIX = { PostUpTotalColiforms:"PostUpColiforms", PostUpPrefixNI:"PostUpNI", PostUpDissolvedSolids:"PostUpDissolved", PostUpSuspendedSolids:"PostUpSuspended" };
+  const labField = (ph, side, key) => { const k = (ph === "pre" ? "Pre" : "Post") + (side === "down" ? "Down" : "Up") + key; return LABFIX[k] || k; };
+  const STAGES = [["pre","down","Pre downstream","var(--s1)"],["pre","up","Pre upstream","var(--s2)"],["pre","lab","Pre lab","var(--s3)"],["post","down","Post downstream","var(--s4)"],["post","up","Post upstream","var(--s5)"],["post","lab","Post lab","var(--s6)"]];
+
+  // ---------------- small helpers ----------------
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const mask = (t) => String(t).replace(/(token=)[^&\s]+/gi, "$1•••");
+  const normId = (g) => String(g || "").replace(/[{}]/g, "").toLowerCase();
+  const nb = (v) => v === null || v === undefined || v === "";
+  const fmt = (v, d = 0) => nb(v) || Number.isNaN(v) ? "–" : Number(v).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const dayKey = (ms) => { if (nb(ms)) return ""; const d = new Date(ms); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+  const dayText = (ms) => nb(ms) ? "no date" : new Date(ms).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+  const say = (cls, html) => { const s = $("status"); s.className = "msg " + cls; s.innerHTML = html; s.classList.remove("hidden"); };
+  $("build").textContent = "WCCD Watershed Monitoring · build " + BUILD + " · " + BUILD_DATE;
+
+  let req, svc = {}, model = [], portalUser = null;
+
+  // ---------------- start-up: SDK, sign-in ----------------
+  async function start() {
+    if (/PASTE_CLIENT_ID/.test(CFG.clientId)) throw new Error("the app's sign-in Client ID has not been set yet (administrator: set CFG.clientId)");
+    const t0 = Date.now();
+    while (!(window.$arcgis && window.$arcgis.import)) { if (Date.now() - t0 > 30000) throw new Error("the ArcGIS SDK did not load"); await new Promise((r) => setTimeout(r, 100)); }
+    const [esriConfig, esriId, OAuthInfo, Portal, request] = await $arcgis.import(["@arcgis/core/config.js", "@arcgis/core/identity/IdentityManager.js", "@arcgis/core/identity/OAuthInfo.js", "@arcgis/core/portal/Portal.js", "@arcgis/core/request.js"]);
+    req = request;
+    esriConfig.portalUrl = CFG.portalUrl;
+    esriId.registerOAuthInfos([new OAuthInfo({ appId: CFG.clientId, portalUrl: CFG.portalUrl, popup: false })]);
+    const sharing = CFG.portalUrl + "/sharing";
+    try { await esriId.checkSignInStatus(sharing); } catch { await esriId.getCredential(sharing); }
+    const portal = new Portal({ url: CFG.portalUrl, authMode: "immediate" }); await portal.load();
+    portalUser = portal.user;
+    $("user").textContent = "Signed in as " + portal.user.fullName; $("signOut").hidden = false;
+    $("signOut").onclick = () => { esriId.destroyCredentials(); location.href = location.pathname; };
+    let sdk = "?"; try { const k = await $arcgis.import("@arcgis/core/kernel.js"); sdk = k.fullVersion || k.version || "?"; } catch { /* keep ? */ }
+    $("aboutInfo").textContent = "Build " + BUILD + " (" + BUILD_DATE + ") · ArcGIS Maps SDK " + sdk + " · signed in as " + portal.user.username + ".";
+    say("notice", '<span class="spin"></span>Reading the survey layers…');
+    await loadAll();
+    $("status").classList.add("hidden");
+    route();
+  }
+
+  // ---------------- reading ----------------
+  async function getJson(url, query = {}) {
+    const r = (await req(url, { query: { f: "json", ...query } })).data;
+    if (r && r.error) throw new Error((r.error.message || "request failed") + " (" + url.split("/rest/services/")[1] + ")");
+    return r;
+  }
+  async function queryAll(url, extra = {}) {
+    const out = []; let offset = 0;
+    for (;;) {
+      const r = await getJson(url + "/query", { where: "1=1", outFields: "*", returnGeometry: false, resultOffset: offset, resultRecordCount: 1000, ...extra });
+      const f = r.features || []; out.push(...f);
+      if (!r.exceededTransferLimit || !f.length) break; offset += f.length;
+    }
+    return out;
+  }
+  // One service: list its layers and tables, read each definition, then every record.
+  async function loadService(key) {
+    const base = CFG.services[key], info = await getJson(base);
+    const all = [...(info.layers || []), ...(info.tables || [])];
+    const S = { key, base, byName: {}, missing: [], counts: {} };
+    await Promise.all(all.map(async (l) => {
+      const url = base + "/" + l.id, def = await getJson(url);
+      const fields = {}; for (const f of def.fields || []) fields[f.name.toLowerCase()] = f.name;
+      S.byName[l.name] = { id: l.id, url, name: l.name, def, fields, isLayer: !!def.geometryType, rows: [] };
+    }));
+    const wanted = key === "lab" ? [MAIN.lab] : [MAIN[key], ...SIDES.map((s) => s[2]), ...SIDES.flatMap(([, Side]) => GROUP_KEYS.map((g) => repeatName(g, Side)))];
+    S.missing = wanted.filter((n) => !S.byName[n]);
+    await Promise.all(Object.values(S.byName).filter((L) => wanted.includes(L.name)).map(async (L) => {
+      L.rows = await queryAll(L.url, { returnGeometry: L.isLayer, outSR: 4326 });
+      S.counts[L.name] = L.rows.length;
+    }));
+    return S;
+  }
+  // Read an attribute by its expected name, whatever case the service uses.
+  const att = (L, row, name) => { const real = L.fields[name.toLowerCase()]; return real ? row.attributes[real] : undefined; };
+  const has = (L, name) => !!L.fields[name.toLowerCase()];
+
+  async function loadAll() {
+    const [pre, post, lab] = await Promise.all(["pre", "post", "lab"].map(loadService));
+    svc = { pre, post, lab };
+    model = buildModel();
+  }
+
+  // ---------------- the app's own calculations ----------------
+  function sampleFrom(S, phaseKey, mainRow) {
+    const out = {};
+    for (const [side, Side, grpName] of SIDES) {
+      const G = S.byName[grpName], gid = normId(att(S.byName[MAIN[phaseKey]], mainRow, "globalid"));
+      const grp = G ? G.rows.find((r) => normId(att(G, r, "parentglobalid")) === gid) : null;
+      const s = { exists: !!grp, counts: {}, other: 0, rows: 0, dupes: [], geom: null, issues: [] };
+      if (grp) {
+        s.geom = grp.geometry || null;
+        s.other = Number(att(G, grp, "COUNT_OTHER_" + Side)) || 0;
+        s.field = { ph: att(G, grp, "pH_" + Side), temp: att(G, grp, "Temperature_" + Side), cond: att(G, grp, "Conductivity_" + Side) };
+        const kid = normId(att(G, grp, "globalid"));
+        for (const g of GROUP_KEYS) {
+          const T = S.byName[repeatName(g, Side)]; if (!T) continue;
+          const taxF = Object.values(T.fields).find((f) => /^taxa_/i.test(f)), cntF = Object.values(T.fields).find((f) => /^count_/i.test(f) || f === "_count");
+          for (const r of T.rows) {
+            if (normId(att(T, r, "parentglobalid")) !== kid) continue;
+            const n = parseInt(String(r.attributes[taxF] || ""), 10), c = Number(r.attributes[cntF]) || 0;
+            if (!(n >= 1 && n <= 99)) { if (c) s.issues.push("a taxa row with count " + c + " has no taxon chosen (" + g + ")"); continue; }
+            s.rows++;
+            if (s.counts[n] !== undefined) s.dupes.push(n);
+            s.counts[n] = (s.counts[n] || 0) + c;
+          }
+        }
+      }
+      s.calc = calcTotals(s);
+      const M = S.byName[MAIN[phaseKey]], sfx = side === "down" ? "_down" : "_up";
+      s.stored = { count: att(M, mainRow, "total_count" + sfx), index: att(M, mainRow, "total_index" + sfx), avg: att(M, mainRow, "average_hils" + sfx), taxa: att(M, mainRow, "total_taxa" + sfx),
+                   ept: att(M, mainRow, side === "down" ? "EPT_TAXATotal_Down" : "ept_taxatotal_up") };
+      out[side] = s;
+    }
+    return out;
+  }
+  function calcTotals(s) {
+    let count = s.other || 0, index = 0, taxa = 0, ept = 0;
+    for (const [k, c] of Object.entries(s.counts)) { const n = +k; count += c; index += Math.round(c * HILS[n - 1]); if (c > 0) { taxa++; if (isEPT(n)) ept++; } }
+    return { count, index, taxa, ept, avg: count ? index / count : null };
+  }
+  const zeroGeom = (g) => !g || (Math.abs(g.x) < 1e-6 && Math.abs(g.y) < 1e-6);
+
+  function buildModel() {
+    const areas = new Map();
+    const area = (id) => { const k = String(id || "").trim(); if (!areas.has(k)) areas.set(k, { id: k, pre: null, post: null, lab: null, flags: [] }); return areas.get(k); };
+    for (const ph of ["pre", "post"]) {
+      const S = svc[ph], M = S.byName[MAIN[ph]]; if (!M) continue;
+      for (const r of M.rows) {
+        const a = area(att(M, r, "ProjectID"));
+        if (a[ph]) { a.flags.push((ph === "pre" ? "Pre" : "Post") + "-construction has more than one record with this ID."); continue; }
+        a[ph] = { stream: att(M, r, "StreamName"), site: att(M, r, "SiteName"), date: att(M, r, "DateSampled"), oid: r.attributes[M.def.objectIdField], samples: sampleFrom(S, ph, r) };
+      }
+    }
+    const LL = svc.lab.byName[MAIN.lab];
+    if (LL) for (const r of LL.rows) { const a = area(att(LL, r, "project_id")); if (a.lab) a.flags.push("The Lab layer has more than one record with this ID."); else a.lab = { row: r, L: LL }; }
+    for (const a of areas.values()) evaluate(a);
+    return [...areas.values()].sort((x, y) => x.id.localeCompare(y.id));
+  }
+
+  // Stage status, flags and the overall status for one study area.
+  function evaluate(a) {
+    a.test = CFG.testIds.includes(a.id);
+    a.stream = (a.pre && a.pre.stream) || (a.post && a.post.stream) || "";
+    a.site = (a.pre && a.pre.site) || (a.post && a.post.site) || "";
+    if (!a.test && !CFG.idPattern.test(a.id)) a.flags.push(`The ID "${a.id}" does not follow the WCCD format (4 letters + 4 digits, e.g. BRUR3699).`);
+    if (a.post && !a.pre) a.flags.push("Post-construction data exists but there is no Pre-construction record with this ID.");
+    a.stages = STAGES.map(([ph, side, label, col]) => {
+      const st = { ph, side, label, col, state: "none", notes: [] };
+      if (side === "lab") {
+        if (!a.lab) { st.notes.push("no lab record"); return st; }
+        const L = a.lab.L, r = a.lab.row, empty = [];
+        for (const sd of ["down", "up"]) for (const t of LABTESTS) if (nb(att(L, r, labField(ph, sd, t)))) empty.push((sd === "down" ? "Downstream " : "Upstream ") + LABNAMES[t]);
+        const filled = 22 - empty.length;
+        st.state = filled === 0 ? "none" : empty.length ? "part" : "full";
+        if (filled === 0) st.notes.push("no " + (ph === "pre" ? "pre" : "post") + "-construction lab values");
+        else if (empty.length) st.notes.push("empty: " + empty.join(", "));
+        return st;
+      }
+      const P = a[ph]; if (!P) { st.notes.push("not started"); return st; }
+      const s = P.samples[side];
+      if (!s.exists) { st.notes.push("no " + (side === "down" ? "downstream" : "upstream") + " sample"); return st; }
+      const hasTaxa = s.rows > 0 || s.other > 0, hasPt = !zeroGeom(s.geom);
+      st.state = hasTaxa && hasPt ? "full" : (hasTaxa || hasPt) ? "part" : "none";
+      if (!hasTaxa) st.notes.push("no taxa counts");
+      if (!hasPt) st.notes.push("no sample location");
+      if (nb(s.field.ph) && nb(s.field.temp) && nb(s.field.cond)) st.notes.push("field readings (pH, temperature, conductivity) not entered");
+      for (const n of [...new Set(s.dupes)]) st.notes.push(`taxon ${n} appears more than once`);
+      st.notes.push(...s.issues);
+      // stored totals vs the app's own figures
+      const c = s.calc, sd = s.stored, diff = [];
+      if (!nb(sd.count) && Number(sd.count) !== c.count) diff.push(`count ${fmt(sd.count)} → ${c.count}`);
+      if (!nb(sd.index) && Number(sd.index) !== c.index) diff.push(`index ${fmt(sd.index)} → ${c.index}`);
+      if (c.avg != null && !nb(sd.avg) && Math.abs(Number(sd.avg) - c.avg) > 0.006) diff.push(`Avg HILS ${fmt(sd.avg, 2)} → ${fmt(c.avg, 2)}`);
+      if (diff.length) a.flags.push(`${label}: the layer's stored totals differ from the taxa rows (${diff.join(", ")})` + (s.other ? `. "Other Taxa" holds ${s.other}.` : "."));
+      if (hasTaxa && !hasPt) a.flags.push(`${label}: the sample has no location on the map.`);
+      // "Total Other Taxa" has no HILS: it adds to the count but not the index, so it pulls Avg HILS down. Worth a second look against the WCCD sheet.
+      if (s.other > 0) { const without = c.count - s.other ? c.index / (c.count - s.other) : null;
+        a.flags.push(`${label}: "Total Other Taxa" holds ${s.other} of ${c.count} organisms. They have no HILS, so Avg HILS is ${fmt(c.avg, 2)} with them and ${fmt(without, 2)} without. Check this against the WCCD sheet.`); }
+      return st;
+    });
+    const full = (i) => a.stages[i].state === "full";
+    const preDone = [0, 1, 2].every(full), postAny = [3, 4, 5].some((i) => a.stages[i].state !== "none"), postDone = [3, 4, 5].every(full);
+    a.status = !preDone ? "pre" : !postAny ? "wait" : !postDone ? "post" : "done";
+    const nextStage = a.stages.find((s) => s.state !== "full");
+    a.next = a.flags.length && a.status === "done" ? "review the flags" : nextStage ? "enter " + nextStage.label.toLowerCase() : "create the report";
+    a.preDate = a.pre ? dayKey(a.pre.date) : ""; a.postDate = a.post ? dayKey(a.post.date) : "";
+  }
+
+  // ---------------- Home ----------------
+  const STATUS_TEXT = { pre: "Pre-construction in progress", wait: "Waiting for construction", post: "Post-construction in progress", done: "Complete" };
+  const home = { tile: null, open: null };
+  function drawHome() {
+    const v = (id) => $(id).value, q = $("q").value.trim().toLowerCase();
+    const pf = v("hPreFrom"), pt = v("hPreTo"), qf = v("hPostFrom"), qt = v("hPostTo");
+    const inRange = (d, f, t) => (!f && !t) || (d && (!f || d >= f) && (!t || d <= t));
+    const counts = { pre: 0, wait: 0, post: 0, done: 0 }, shown = [];
+    for (const a of model) {
+      const ok = inRange(a.preDate, pf, pt) && inRange(a.postDate, qf, qt) && (!q || a.id.toLowerCase().includes(q) || a.stream.toLowerCase().includes(q) || a.site.toLowerCase().includes(q));
+      if (!ok) continue; counts[a.status]++;
+      if (!home.tile || home.tile === a.status) shown.push(a);
+    }
+    document.querySelectorAll("#hTiles .tile").forEach((t) => { t.querySelector(".big").textContent = counts[t.dataset.st]; t.classList.toggle("on", home.tile === t.dataset.st); });
+    const anyF = pf || pt || qf || qt || q || home.tile;
+    $("hCount").textContent = (anyF ? `Showing ${shown.length} of ${model.length} study areas.` : `Showing all ${model.length} study areas.`) + (qf || qt ? " Study areas without post-construction data are hidden while a post date is set." : "");
+    let h = `<div class="row head"><span>Study area</span><span>Stream · site</span><span>Progress (6 stages)</span><span>Status / next step</span></div>`;
+    for (const a of shown) {
+      h += `<div class="row${home.open === a.id ? " open" : ""}" data-id="${esc(a.id)}" tabindex="0" role="button" aria-expanded="${home.open === a.id}">
+        <b>${esc(a.id)}${a.test ? '<span class="tag">test</span>' : ""}</b>
+        <span>${esc(a.stream) || "–"}${a.site && a.site !== a.stream ? `<br><small>${esc(a.site)}</small>` : ""}<br><small>Pre ${a.pre ? dayText(a.pre.date) : "–"} · Post ${a.post ? dayText(a.post.date) : "–"}</small></span>
+        <div><div class="seg">${a.stages.map((s) => `<i class="${s.state === "full" ? "full" : s.state === "part" ? "part" : ""}" style="--c:${s.col}" title="${esc(s.label)}: ${s.state === "full" ? "entered" : s.state === "part" ? "partly entered" : "not started"}"></i>`).join("")}</div>
+          ${a.flags.map((f) => `<div class="flag">${esc(f)}</div>`).join("")}</div>
+        <span>${STATUS_TEXT[a.status]}<br><small>next: ${esc(a.next)}</small></span></div>`;
+      if (home.open === a.id) h += detailHtml(a);
+    }
+    if (!shown.length) h += `<p class="small" style="padding:10px 6px">No study areas match the filters.</p>`;
+    h += `<div class="legend">${STAGES.map((s, i) => `<span><i style="background:${s[3]}"></i>${i + 1} ${s[2]}</span>`).join("")}<span><i style="background:repeating-linear-gradient(45deg,#6693D8 0 3px,#fff 3px 5px)"></i>partly entered</span><span><i style="background:var(--soft)"></i>not started</span></div>`;
+    $("hList").innerHTML = h;
+    document.querySelectorAll("#hList .row[data-id]").forEach((r) => { const t = () => { home.open = home.open === r.dataset.id ? null : r.dataset.id; drawHome(); };
+      r.onclick = t; r.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } }; });
+  }
+  // Read-only detail under a row (the full study area page comes in build B2).
+  function detailHtml(a) {
+    const row = (s) => { let fig = "";
+      if (s.side !== "lab" && a[s.ph] && a[s.ph].samples[s.side].exists) { const c = a[s.ph].samples[s.side].calc; fig = `${c.count} organisms · ${c.taxa} taxa · index ${c.index} · Avg HILS ${fmt(c.avg, 2)} · EPT ${c.ept}`; }
+      return `<tr><td><span class="dot" style="background:${s.col}"></span>${esc(s.label)}</td><td>${s.state === "full" ? '<span class="good">entered</span>' : s.state === "part" ? "partly entered" : "not started"}</td><td>${fig}</td><td>${esc(s.notes.join("; "))}</td></tr>`; };
+    return `<div class="detail"><table><tr><th>Stage</th><th>State</th><th>Figures (calculated by the app)</th><th>Notes</th></tr>${a.stages.map(row).join("")}</table>
+      <p class="small" style="margin:8px 0 0">The full study area page, with data entry, comes in build B2.</p></div>`;
+  }
+  function initHome() {
+    ["hPreFrom", "hPreTo", "hPostFrom", "hPostTo"].forEach((id) => $(id).addEventListener("change", drawHome));
+    $("q").addEventListener("input", () => { if (!location.hash.startsWith("#/") || location.hash.length > 2) location.hash = "#/"; drawHome(); });
+    const years = [...new Set(model.flatMap((a) => [a.preDate, a.postDate]).filter(Boolean).map((d) => d.slice(0, 4)))].sort();
+    $("hYears").innerHTML = years.map((y) => `<button class="chip" type="button" data-y="${y}">${y}</button>`).join(" ");
+    document.querySelectorAll("#hYears .chip").forEach((b) => b.onclick = () => { const y = b.dataset.y; $("hPreFrom").value = y + "-01-01"; $("hPreTo").value = y + "-12-31"; $("hPostFrom").value = $("hPostTo").value = ""; drawHome(); });
+    $("hClear").onclick = () => { ["hPreFrom", "hPreTo", "hPostFrom", "hPostTo"].forEach((id) => $(id).value = ""); home.tile = null; drawHome(); };
+    document.querySelectorAll("#hTiles .tile").forEach((t) => t.onclick = () => { home.tile = home.tile === t.dataset.st ? null : t.dataset.st; drawHome(); });
+  }
+
+  // ---------------- Data check ----------------
+  function drawCheck() {
+    const NAMES = { pre: "Pre-construction", post: "Post-construction", lab: "Lab analysis" };
+    $("chkLayers").innerHTML = ["pre", "post", "lab"].map((k) => {
+      const S = svc[k], M = S.byName[MAIN[k]], miss = [];
+      const want = k === "lab" ? ["project_id", ...["pre", "post"].flatMap((ph) => ["down", "up"].flatMap((sd) => LABTESTS.map((t) => labField(ph, sd, t))))]
+                               : ["ProjectID", "StreamName", "SiteName", "DateSampled", "total_count_down", "total_index_down", "average_hils_down", "total_count_up", "total_index_up", "average_hils_up"];
+      if (M) for (const f of want) if (!has(M, f)) miss.push(f);
+      if (k !== "lab") for (const [, Side, g] of SIDES) { const G = S.byName[g]; if (G) for (const f of ["parentglobalid", "COUNT_OTHER_" + Side]) if (!has(G, f)) miss.push(g + "." + f); }
+      const nT = Object.keys(S.counts).length, nR = Object.values(S.counts).reduce((t, x) => t + x, 0);
+      return `<div class="card"><h3>${NAMES[k]}</h3><p class="small" style="margin:4px 0 8px">${esc(S.base.split("/services/")[1].replace("/FeatureServer", ""))}</p>
+        <div>${S.missing.length ? `<span class="bad">Missing layers or tables: ${esc(S.missing.join(", "))}</span>` : `<span class="good">All expected layers and tables found</span> (${nT})`}</div>
+        <div>${miss.length ? `<span class="bad">Missing fields: ${esc(miss.join(", "))}</span>` : `<span class="good">All expected fields found</span>`}</div>
+        <div class="small">${M ? M.rows.length : 0} record(s) in ${esc(MAIN[k])}; ${nR} rows read in total.</div></div>`;
+    }).join("");
+    let t = `<tr><th>Study area</th><th>Sample</th><th class="num">Count<br>stored · app</th><th class="num">Taxa<br>stored · app</th><th class="num">Index<br>stored · app</th><th class="num">Avg HILS<br>stored · app</th><th class="num">EPT<br>stored · app</th><th>Result</th></tr>`;
+    for (const a of model) for (const ph of ["pre", "post"]) { if (!a[ph]) continue;
+      for (const side of ["down", "up"]) { const s = a[ph].samples[side]; if (!s.exists) continue; const c = s.calc, d = s.stored;
+        const same = (x, y, tol = 0) => nb(x) ? null : Math.abs(Number(x) - y) <= tol;
+        const parts = [same(d.count, c.count), same(d.taxa, c.taxa), same(d.index, c.index), c.avg == null ? null : same(d.avg, c.avg, 0.006), same(d.ept, c.ept)];
+        const bad = parts.some((p) => p === false);
+        const cell = (x, y, dd, i) => `<td class="num${parts[i] === false ? " bad" : ""}">${fmt(x, dd)} · ${fmt(y, dd)}</td>`;
+        t += `<tr><td>${esc(a.id)}</td><td>${ph === "pre" ? "Pre" : "Post"} ${side === "down" ? "downstream" : "upstream"}</td>${cell(d.count, c.count, 0, 0)}${cell(d.taxa, c.taxa, 0, 1)}${cell(d.index, c.index, 0, 2)}${cell(d.avg, c.avg, 2, 3)}${cell(d.ept, c.ept, 0, 4)}
+          <td>${bad ? '<span class="bad">differs</span>' + (s.other ? ` · Other Taxa ${s.other}` : "") : '<span class="good">matches</span>'}</td></tr>`; } }
+    $("chkTotals").innerHTML = t;
+  }
+
+  // ---------------- routes ----------------
+  const LATER = { new: "New study area", explore: "Explore", reports: "Reports" };
+  function route() {
+    const r = (location.hash.replace(/^#\/?/, "").split("/")[0]) || "home";
+    for (const id of ["home", "check", "help", "later"]) $("p-" + id).classList.add("hidden");
+    document.querySelectorAll(".rail a[data-r]").forEach((a) => a.classList.toggle("on", a.dataset.r === r));
+    if (!model.length && r !== "help") { if (svc.pre) say("notice", "No study areas were found in the layers."); }
+    if (r === "check") { $("ptitle").textContent = "Data check"; $("p-check").classList.remove("hidden"); drawCheck(); }
+    else if (r === "help") { $("ptitle").textContent = "Help"; $("p-help").classList.remove("hidden"); }
+    else if (LATER[r]) { $("ptitle").textContent = LATER[r]; $("laterTitle").textContent = LATER[r]; $("p-later").classList.remove("hidden"); }
+    else { $("ptitle").textContent = "Home"; $("p-home").classList.remove("hidden"); drawHome(); }
+  }
+  addEventListener("hashchange", () => { if (svc.pre) route(); });
+
+  start().then(() => initHome()).then(() => { if ((location.hash || "#/") === "#/" || location.hash === "") drawHome(); })
+    .catch((err) => { console.error(err); const m = mask((err && err.message) || err);
+      say("error", "The app could not start – " + esc(m) + ". Nothing was changed. Reload the page; if this keeps happening, tell the administrator (" + CFG.admin + ")."
+        + `<details class="diag"><summary>diagnostics (for support)</summary><pre>${esc(mask(err && err.stack ? err.stack : m))}\nbuild ${BUILD}</pre></details>`); });
+</script>
+</body>
+</html>
