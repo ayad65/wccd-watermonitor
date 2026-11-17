@@ -608,7 +608,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B15", BUILD_DATE = "17 Nov 2026";
+  const BUILD = "B16", BUILD_DATE = "17 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -770,7 +770,7 @@
         s.geom = grp.geometry || null;
         s.other = Number(att(G, grp, "COUNT_OTHER_" + Side)) || 0;
         // B15: the "other taxon" (a taxon not on the WCCD sheet) has its own HILS and, once the field is added, its own name
-        s.otherHils = Number(att(G, grp, "HILS_OTHER_" + Side)) || 0; s.otherName = String(att(G, grp, "OtherTaxonName_" + Side) ?? "").trim();
+        s.otherHils = Number(att(G, grp, "HILS_OTHER_" + Side)) || 0;   // (its name is on the site's Lab record: see buildModel)
         s.field = { ph: att(G, grp, "pH_" + Side), temp: att(G, grp, "Temperature_" + Side), cond: att(G, grp, "Conductivity_" + Side) };
         const kid = normId(att(G, grp, "globalid"));
         for (const g of GROUP_KEYS) {
@@ -825,6 +825,9 @@
       if (sid && byId.get(sid).size > 1) a.flags.push(`${PH[ph]} record: Stream ID ${sid} is also stored for ${[...byId.get(sid)].filter((n) => n !== String(P.stream || "").trim()).join(", ")}, so it cannot be right. Use "Check the stream ID" on the Overview tab.`); }
     const LL = svc.lab.byName[MAIN.lab];
     if (LL) for (const r of LL.rows) { const a = area(att(LL, r, "project_id")); if (a.lab) a.flags.push("The Lab layer has more than one record with this ID."); else a.lab = { row: r, L: LL }; }
+    // B16: the other taxon's name lives on the site's Lab record (Pre/PostDown/UpOtherTaxonName)
+    if (LL) for (const a of areas.values()) if (a.lab) for (const ph of ["pre", "post"]) if (a[ph]) for (const sd of ["down", "up"]) {
+      const s = a[ph].samples[sd]; if (s) s.otherName = String(att(LL, a.lab.row, otherNameField(ph, sd)) ?? "").trim(); }
     for (const a of areas.values()) evaluate(a);
     return [...areas.values()].sort((x, y) => x.id.localeCompare(y.id));
   }
@@ -1264,8 +1267,13 @@
     // "Total Other Taxa" lives on the sample record
     const ixO = Object.values(G.fields).find((f) => /^(index|inext)_other_/i.test(f)), hO = oh != null ? oh : (Number(att(G, grow, "HILS_OTHER_" + Side)) || 0);
     const gset = { [G.fields[("COUNT_OTHER_" + Side).toLowerCase()]]: other }; if (ixO) gset[ixO] = Math.round(other * hO);
-    const hF = G.fields[("HILS_OTHER_" + Side).toLowerCase()], nF = G.fields[("OtherTaxonName_" + Side).toLowerCase()];
-    if (hF && oh != null) gset[hF] = oh; if (nF && oname != null) gset[nF] = oname || null;
+    const hF = G.fields[("HILS_OTHER_" + Side).toLowerCase()]; if (hF && oh != null) gset[hF] = oh;
+    if (oname != null && labNameOk(ph, sd)) {   // B16: the name is stored on the site's Lab record
+      const L = labL(), nf = L.fields[otherNameField(ph, sd).toLowerCase()], label = `${PH[ph]} ${SD[sd].toLowerCase()} other taxon name`;
+      if (a.lab) { const lc = change("lab", L, a.lab.row, { [nf]: oname || null }, `the Lab record of ${a.id}`); if (lc) { lc.names = { [nf]: label }; out.push(lc); } }
+      else if (oname) { const set = { [nf]: oname }; if (has(L, "project_id")) set[L.fields.project_id] = a.id;
+        out.push({ op: "add", svc: "lab", L, set, names: { [nf]: label }, label: `Lab record for ${a.id} (new)`, summary: "other taxon name", showFields: true, mergeKey: "lab-new",
+                   unique: { where: `${L.fields.project_id || "project_id"} = '${String(a.id).replace(/'/g, "''")}'`, what: `a Lab record for ${a.id}` } }); } }
     const gc = change(ph, G, grow, gset, `${PH[ph]} ${SD[sd].toLowerCase()} sample`); if (gc) out.push(gc);
     // stored totals on the main record: per taxa group (the dashboard reads these) and for the whole sample
     const c = calcTotals({ counts, other, otherHils: hO }), mset = {}, put = (name, val) => { const real = M.fields[name.toLowerCase()]; if (real) mset[real] = val; };
@@ -1324,6 +1332,8 @@
   const dtMs = (t) => /^\d{4}-\d\d-\d\dT\d\d:\d\d$/.test(t || "") ? new Date(t).getTime() : null;   // read as local time
   const LABROWS = [["id", "LabSampleID", "Lab sample ID"], ["by", "CollectedBy", "Collected by"], ["when", "DateTime", "Collected on"], ["lat", "Lat", "Latitude"], ["lon", "Lon", "Longitude"]];
   const labL = () => svc.lab.byName[MAIN.lab];
+  const otherNameField = (ph, sd) => (ph === "pre" ? "Pre" : "Post") + (sd === "down" ? "Down" : "Up") + "OtherTaxonName";
+  const labNameOk = (ph, sd) => !svc.lab.error && !!labL() && has(labL(), otherNameField(ph, sd));
 
   // Lab results for one phase: the certificate details stored with the macroinvertebrate record, plus the values from the Lab survey.
   function labPanel(a, ph) {
@@ -2976,13 +2986,14 @@
   function dashDirty() { if (!dedit) return false; return dedit.kind === "taxa" ? Object.values(dedit.sides).some((x) => JSON.stringify(x.vals) !== x.orig) : JSON.stringify(dedit.vals) !== dedit.orig; }
   const editHash = (id, kind, ph, sd) => `#/dash/site/${encodeURIComponent(id)}/edit/${kind}/${ph}${sd ? "/" + sd : ""}`;
   const deBtn = (href, label) => `<a class="dbtn acc" href="${href}">${label}</a>`;
-  const taxaStart = (s) => { const counts = {}; for (let n = 1; n <= 99; n++) counts[n] = s.counts[n] ? String(s.counts[n]) : ""; const nameOk = !!(s.grp && s.grp.L.fields[("OtherTaxonName_" + s.Side).toLowerCase()]);   // the name box only when the layer has the field
+  const taxaStart = (s, nameOk) => {   // nameOk: the Lab layer has this sample's name field (B16)
+    const counts = {}; for (let n = 1; n <= 99; n++) counts[n] = s.counts[n] ? String(s.counts[n]) : "";
     return { counts, other: s.other ? String(s.other) : "", otherHils: s.otherHils ? String(s.otherHils) : "", ...(nameOk ? { otherName: s.otherName || "" } : {}) }; };
   const cnum = (x) => { const s = String(x ?? "").trim(); return /^\d+$/.test(s) ? Number(s) : 0; };
   // Two plans that update the same record (both samples' stored totals sit on the phase record) are merged into one update.
   function mergePlan(list) {
     const out = [];
-    for (const c of list) { const same = !c.op ? out.find((o) => !o.op && o.L === c.L && o.oid === c.oid) : null;
+    for (const c of list) { const same = !c.op ? out.find((o) => !o.op && o.L === c.L && o.oid === c.oid) : c.mergeKey ? out.find((o) => o.mergeKey === c.mergeKey) : null;
       if (same) { Object.assign(same.set, c.set); same.before = { ...c.before, ...same.before }; if (c.names) same.names = { ...(same.names || {}), ...c.names }; } else out.push({ ...c, set: { ...c.set }, before: { ...c.before } }); }
     return out;
   }
@@ -2996,7 +3007,7 @@
       if (!sides.includes(sd)) sd = sides[0];
       if (!dedit || dedit.kind !== "taxa" || dedit.id !== a.id || dedit.ph !== ph) {
         dedit = { kind, id: a.id, ph, sd, sides: {}, filter: { q: "", tab: null } };
-        for (const x of sides) { const v = taxaStart(P.samples[x]); dedit.sides[x] = { vals: v, orig: JSON.stringify(v) }; } }
+        for (const x of sides) { const v = taxaStart(P.samples[x], labNameOk(ph, x)); dedit.sides[x] = { vals: v, orig: JSON.stringify(v) }; } }
       if (dedit.sd !== sd) dedit.filter.tab = null;
       dedit.sd = sd; if (dedit.filter.tab == null) dedit.filter.tab = Object.keys(P.samples[sd].counts).length ? "counts" : "all";
       dtaxaDraw(a);
@@ -3054,10 +3065,10 @@
         + (!q && f.tab === "counts" && show.length < ns.length ? `<div class="dmore"><button type="button" class="dfold" data-open="${g}">▸ all ${ns.length} ${GSHORT[g].toLowerCase()}</button></div>` : "");
     }
     // B15: the other taxon (name, own HILS, count) at the end of the list, and on its own tab
-    const oHas = cnum(v.other) > 0 || (s.other || 0) > 0 || String(v.otherName || "").trim() !== "", nameOk = !!(s.grp && s.grp.L.fields[("OtherTaxonName_" + s.Side).toLowerCase()]);
+    const oHas = cnum(v.other) > 0 || (s.other || 0) > 0 || String(v.otherName || "").trim() !== "", nameOk = labNameOk(E.ph, E.sd);
     const oShow = q ? "other".includes(q) || String(v.otherName || "").toLowerCase().includes(q) : f.tab === "OTHER" || f.tab === "all" || (f.tab === "counts" && oHas);
     if (oShow) html += `<div class="dgh"><span class="gn"><span>Other taxa</span><em>a taxon not on the WCCD sheet</em></span><span class="gt" data-gt="OTHER"></span></div>
-      <div class="dtr dto"><span class="no">–</span><span class="nm"><input class="dtx" data-oth="name" maxlength="255" autocomplete="off" value="${esc(v.otherName)}" placeholder="${nameOk ? "Taxon name" : "Name: field not added to the layer yet"}"${nameOk ? "" : " disabled"} aria-label="Other taxon name"><em class="was"></em></span>
+      <div class="dtr dto"><span class="no">–</span><span class="nm"><input class="dtx" data-oth="name" maxlength="255" autocomplete="off" value="${esc(v.otherName)}" placeholder="${nameOk ? "Taxon name" : "Name: field not added to the Lab layer yet"}"${nameOk ? "" : " disabled"} aria-label="Other taxon name"><em class="was"></em></span>
         <span class="h"><input class="dpi doh" data-oth="hils" inputmode="decimal" autocomplete="off" value="${esc(v.otherHils)}" placeholder="0–10" aria-label="Other taxon HILS (0 to 10)"></span>
         <span class="cnt"><button type="button" class="stp" data-ostep="-1" tabindex="-1" aria-label="One less">−</button><input inputmode="numeric" autocomplete="off" data-oth="count" value="${esc(v.other)}" aria-label="Other taxon count"><button type="button" class="stp" data-ostep="1" tabindex="-1" aria-label="One more">+</button></span><span class="ix"></span></div>
       <div class="dmore" style="font-size:11.5px;color:#5B6B5F;padding:4px 14px 10px">Index = count × its HILS; it counts in the totals and the Avg HILS like any taxon on the sheet.</div>`;
