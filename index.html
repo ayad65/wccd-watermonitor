@@ -503,6 +503,37 @@
   .dx-msize{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:var(--muted)} .dx-msize span{display:inline-flex;align-items:center;gap:4px}
   .dx-msize i{display:inline-block;border-radius:50%;background:rgba(200,227,90,.55);border:2px solid #C8E35A}
   @media (max-width:1000px){ .dx-minfo{position:static;width:auto;margin:10px} .dx-dcmp{grid-template-columns:1fr} }
+  /* B19: Data check, Reports and New site in the Dashboard view */
+  .dck-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px} .dck-card{padding:14px 16px} .dck-h{display:flex;justify-content:space-between;align-items:center;gap:8px} .dck-h h3{margin:0}
+  .dck-st{font-size:12px;border-radius:999px;padding:2px 9px;border:1px solid} .dck-st.ok{color:var(--acc);border-color:rgba(200,227,90,.45)} .dck-st.warn{color:#F2B33D;border-color:rgba(242,179,61,.5)}
+  .dck-chips{display:flex;gap:6px;flex-wrap:wrap} .dck-chip{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 9px} .dck-chip.no{opacity:.5;text-decoration:line-through}
+  .dck-w{margin-top:8px;font-size:12.5px;padding:7px 10px;border-radius:10px;background:rgba(242,179,61,.1);border:1px solid rgba(242,179,61,.35)}
+  .dck-two{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(0,1fr);gap:14px;margin-top:14px;align-items:start}
+  .dck-t{width:100%;border-collapse:collapse;font-size:13px} .dck-t th{font-size:11px;color:var(--muted);font-weight:600;text-align:right;padding:5px 6px} .dck-t th:nth-child(-n+2){text-align:left}
+  .dck-t td{padding:7px 6px;border-top:1px solid rgba(255,255,255,.06);text-align:right;white-space:nowrap} .dck-t td:nth-child(-n+2){text-align:left} .dck-t td.bad{color:#F2B33D;font-weight:600}
+  .dck-f{font-size:12.5px;padding:8px 10px;border-radius:10px;background:rgba(242,179,61,.08);border:1px solid rgba(242,179,61,.3);margin:6px 0} .dck-f a{color:var(--acc);display:block;margin-bottom:3px} .dck-f div{margin-top:3px}
+  .drp-wrap{display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px;align-items:start} .drp-side{position:sticky;top:16px;padding:14px}
+  .drp-sec{display:flex;align-items:center;gap:10px;padding:7px 0;border-top:1px solid rgba(255,255,255,.06);font-size:13px}
+  .drp-sw{width:36px;height:20px;border-radius:999px;border:0;background:var(--surf2);position:relative;cursor:pointer;flex:none} .drp-sw i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--muted);transition:left .15s}
+  .drp-sw.on{background:var(--acc)} .drp-sw.on i{left:18px;background:#0B0F0C}
+  .drp-go{flex:1;text-align:left;border:0;background:none;color:var(--ink);font:inherit;font-size:13px;cursor:pointer;padding:0} .drp-go:hover{color:var(--acc)}
+  .drp-prev{border-radius:18px;background:rgba(255,255,255,.035);border:1px solid var(--line);padding:24px 16px;min-width:0;overflow-x:auto}
+  .drp-prev .pages{--ink:#10242A;--muted:#47606A;--line:#C6D3D0;--soft:#DCE5E3;--hair:#E6ECEA;--bg:#F3F6F5;--s1:var(--c1);--s2:var(--c2);--s3:#173A70;--s4:var(--c3);color:#10242A;font-size:16px}
+  .drp-prev .paper{box-shadow:0 12px 34px rgba(0,0,0,.45)} .drp-prev .paper.skip{opacity:.35}
+  .dn-grid{display:grid;grid-template-columns:minmax(330px,430px) minmax(0,1fr);gap:16px;align-items:start}
+  .dn-form{padding:4px 16px 16px} .dn-step{display:flex;align-items:center;gap:8px;font:700 15px "Barlow Semi Condensed",sans-serif;color:#1F3A2A;margin:14px 0 8px}
+  .dn-step span{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:13px;background:#1F3A2A;color:#fff}
+  .dn-f{margin-bottom:8px} .dn-f label{display:block;font-size:11px;color:#5B6B5F;margin-bottom:3px} .dn-f small{display:block;font-size:11px;color:#7B887E;margin-top:2px} .dn-f .dtx{height:38px;font-size:14px}
+  .dn-2{display:grid;grid-template-columns:1fr 1fr;gap:10px} .dn-2[hidden]{display:none}
+  .dnpage .bad-in{border:2px solid #C2410C !important;background:#FFF1EC !important}
+  .dn-place{display:flex;gap:8px;margin-bottom:6px} .dn-place .pbtn{flex:1;justify-content:center;padding:9px;border-radius:10px;border:1px solid #D6DFD3;background:#fff;color:#2F3D33;font:inherit;font-weight:600;cursor:pointer;display:flex;gap:6px;align-items:center;transition:transform .12s}
+  .dn-place .pbtn.on{background:var(--pc);color:#fff;border-color:var(--pc);transform:scale(1.04);box-shadow:0 4px 12px rgba(0,0,0,.18)} .dn-place .pbtn .sw{width:10px;height:10px;border-radius:50%;display:inline-block;border:1.5px solid #fff}
+  .dn-hint,.dn-note{font-size:12px;color:#5B6B5F;margin:6px 0} .dn-note:empty{display:none} .dn-note .btn{font-size:12px} .dn-note .bad{color:#C2410C}
+  .dn-status{margin-top:10px;font-size:12.5px;color:#2F3D33;padding:8px 10px;border-radius:10px;background:#E8EFE2} .dn-status .bad{color:#C2410C}
+  .dn-mapcol{position:sticky;top:16px} .dn-map{height:calc(100vh - 130px);min-height:440px;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+  @media (max-width:1100px){ .dck-grid,.dck-two,.drp-wrap,.dn-grid{grid-template-columns:minmax(0,1fr)} .drp-side,.dn-mapcol{position:static} .dn-map{height:60vh} }
+  @media print{ body.drep #dash{display:block !important;background:#fff;min-height:0} body.drep #dash .drail,body.drep #dash .drp-side,body.drep .ovl,body.drep #tip{display:none !important}
+    body.drep #dash .dsp-main{margin:0 !important;padding:0 !important;background:#fff !important;min-height:0} body.drep .drp-wrap{display:block} body.drep .drp-prev{border:0;padding:0;background:none;overflow:visible} body.drep .drp-prev .paper{box-shadow:none} }
   /* B14: on phones the dashboard menu becomes a bar along the bottom, so it never covers the page */
   @media (max-width:640px){ .drail{top:auto;bottom:0;right:0;width:auto;height:60px;flex-direction:row;justify-content:space-around;padding:4px 2px;border-right:0;border-top:1px solid var(--line)}
     .drail .logo,.drail .grow,.drail a[href="#/help"]{display:none} .drail a{width:auto;flex:1;padding:4px 0;font-size:10px} .drail a.classic{border-top:0;padding-top:4px}
@@ -655,7 +686,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B18", BUILD_DATE = "17 Nov 2026";
+  const BUILD = "B19", BUILD_DATE = "17 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -2728,23 +2759,23 @@
           <div>${esc(b.a.id)} · ${esc(b.a.stream || "no stream")}, ${sideText(b.sd)}</div><div class="muted" style="font-size:12px">${fmt(b.pre, 2)} ${r0 ? r0[1] : ""} → ${fmt(b.post, 2)} ${r1 ? r1[1] : ""}, ${monYr(b.a.pre.date)} → ${monYr(b.a.post.date)}</div></div>`; })()
       : `<div class="muted">No site has both Pre- and Post-construction samples yet, so there is no change to show.</div>`;
     const tiles = [["#/dash/sites", "Sites", "Every site and its progress on the map", `${k.sites.length} site${k.sites.length === 1 ? "" : "s"} · ${k.done} complete`, "home"],
-      ["#/new", "New site", "Start a site or its post-construction record", "Map + stream picker", "plus"],
+      ["#/dash/new", "New site", "Start a site or its post-construction record", "Map + stream picker", "plus"],
       ["#/dash/explore", "Explore", "Charts, taxa browser and comparisons", "6 views", "explore"],
-      ["#/reports", "Reports", "Print, PDF, Word and Excel", "5 Letter pages per site", "report"],
-      ["#/check", "Data check", "Permissions, fields and totals", k.flags ? `${k.flags} flag${k.flags === 1 ? "" : "s"} to review` : "No flags on any site", "check"]];
+      ["#/dash/reports", "Reports", "Print, PDF, Word and Excel", "5 Letter pages per site", "report"],
+      ["#/dash/check", "Data check", "Permissions, fields and totals", k.flags ? `${k.flags} flag${k.flags === 1 ? "" : "s"} to review` : "No flags on any site", "check"]];
     const curve = "M0,100 C260,10 420,150 700,60 C930,-10 1080,100 1280,30";
     $("dash").innerHTML = `<div class="dl-hero"><div class="dl-photo"></div><div class="dl-tint"></div><div class="dl-shade"></div>
         <svg class="dl-curve" viewBox="0 0 1280 150" preserveAspectRatio="none" aria-hidden="true"><defs><filter id="dlGlow" x="-10%" y="-200%" width="120%" height="500%"><feGaussianBlur stdDeviation="7"/></filter></defs>
           <path d="${curve} L1280,150 L0,150 Z" fill="#0B0F0C"/><path d="${curve}" stroke="#C8E35A" stroke-width="6" fill="none" filter="url(#dlGlow)" opacity=".85" vector-effect="non-scaling-stroke"/>
           <path d="${curve}" stroke="#C8E35A" stroke-width="2.2" fill="none" vector-effect="non-scaling-stroke"/></svg>
         <div class="dl-top"><a class="dl-brand" href="#/dash"><img src="${DLOGO}" width="64" height="64" alt=""><div><div class="ttl">Washington County Conservation District</div><div class="muted">Watershed Monitoring</div></div></a>
-          <nav class="dl-nav" aria-label="Dashboard"><a href="#/dash/sites">Sites</a><a href="#/dash/explore">Explore</a><a href="#/reports">Reports</a><a href="#/help">Help</a><a href="#/" data-classic>Classic view</a>
+          <nav class="dl-nav" aria-label="Dashboard"><a href="#/dash/sites">Sites</a><a href="#/dash/explore">Explore</a><a href="#/dash/reports">Reports</a><a href="#/help">Help</a><a href="#/" data-classic>Classic view</a>
             <span class="chip" style="color:var(--ink)">Signed in · ${esc(user)}</span><button type="button" id="dSignOut">Sign out</button></nav></div>
         <div class="dl-body"><div>${dashBanner()}
             <div class="dl-kick">STREAM ASSESSMENT · STAFF PORTAL</div>
             <h1 class="ttl dl-title">Watershed<br>Monitoring Program</h1>
             <p class="dl-lead">Pre- and post-construction assessments of District conservation projects: macroinvertebrate surveys, laboratory results, site records and reports.</p>
-            <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap"><a class="btnp" href="#/dash/sites">View monitoring sites</a><a class="btnp ghost" href="#/new">Start a new site</a></div></div>
+            <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap"><a class="btnp" href="#/dash/sites">View monitoring sites</a><a class="btnp ghost" href="#/dash/new">Start a new site</a></div></div>
           <div class="dl-side">
             <div class="dl-sum" aria-label="Program summary, all sites">
               <div class="dl-rings">
@@ -2762,7 +2793,7 @@
     document.querySelectorAll("#dash [data-classic]").forEach((x) => x.addEventListener("click", () => setViewPref("classic")));
   }
   const drail = (on) => `<nav class="drail" aria-label="Dashboard"><a class="logo" href="#/dash" title="Dashboard home"><img src="${DLOGO}" width="46" height="46" alt="Dashboard home"></a>
-    ${[["#/dash/sites", "home", "Sites"], ["#/new", "plus", "New site"], ["#/dash/explore", "explore", "Explore"], ["#/reports", "report", "Reports"], ["#/check", "check", "Data check"]].map(([h, k, l]) => `<a href="${h}"${k === on ? ' class="on" aria-current="page"' : ""}>${dico(k)}<span>${l}</span></a>`).join("")}
+    ${[["#/dash/sites", "home", "Sites"], ["#/dash/new", "plus", "New site"], ["#/dash/explore", "explore", "Explore"], ["#/dash/reports", "report", "Reports"], ["#/dash/check", "check", "Data check"]].map(([h, k, l]) => `<a href="${h}"${k === on ? ' class="on" aria-current="page"' : ""}>${dico(k)}<span>${l}</span></a>`).join("")}
     <span class="grow"></span><a href="#/help">${dico("help", "currentColor", 18)}<span>Help</span></a><a class="classic" href="#/" data-classic>${dico("back", "currentColor", 18)}<span>Classic<br>view</span></a></nav>`;
 
   function dashSites() {
@@ -3066,9 +3097,9 @@
     } else dashEditFail(a, ph, "Unknown editor.");
   }
   const deHead = (a, title, sideSw) => `<div class="de-head"><div><a class="dsp-back" href="${siteHash(a.id, dedit.ph)}">← ${esc(a.id)} · ${esc(a.stream || "no stream")} · ${PH[dedit.ph]}</a><h2 class="ttl">${title}</h2></div>${sideSw || ""}
-    <span class="de-btns"><button type="button" class="dbtn" id="deCancel">Cancel</button><button type="button" class="btnp" id="deReview" disabled>Review and save</button></span></div>`;
+    <span class="de-btns"><button type="button" class="dbtn" id="deCancel">Cancel</button><button type="button" class="btnp" id="deReview" disabled>Review and save</button></span></div>${dash.note ? `<div class="dnote${dash.note.bad ? " bad" : ""}" role="status">${dash.note.html}</div>` : ""}`;
   function deWireCommon(a) {
-    dashWire();
+    dash.note = null; dashWire();   // B19: a "saved" note (e.g. after creating a site) shows once, at the top of the editor
     $("deCancel").onclick = () => { if (dashDirty() && !confirm("Discard the changes you made here?")) return; const ph = dedit.ph; dedit = null; location.hash = siteHash(a.id, ph); };
     $("deReview").onclick = () => dashReview(a);
   }
@@ -3262,7 +3293,7 @@
       $("tGo").onclick = () => dashRunSave(plan, what, siteHash(a.id, E.ph));
     } catch (err) { alert("This cannot be saved: " + (err.message || err)); }
   }
-  async function dashRunSave(makePlan, what, back) {
+  async function dashRunSave(makePlan, what, back, after) {
     const go = $("tGo"), cancel = $("tCancel"), st = $("toolStatus"), progress = (x) => { st.innerHTML = '<span class="spin"></span>' + esc(x); };
     go.disabled = true; cancel.disabled = true;
     try {
@@ -3270,7 +3301,7 @@
       progress("Reloading the survey data…"); await loadAll();
       dash.note = res.wrong.length ? { bad: true, html: `Saved, but the check afterwards found differences:<br>${res.wrong.map(esc).join("<br>")}<br>Tell the administrator (${CFG.admin}).` }
         : { html: `Saved and verified (${res.written} records, ${res.fields} values): ${esc(what)}.` };
-      closeTool(); dedit = null;
+      closeTool(); dedit = null; if (after) after();
       if (location.hash === back) route(); else location.hash = back;
     } catch (err) {
       console.error(err);
@@ -3540,12 +3571,150 @@
         <div class="card dx-card"><h3>All tests · Pre → Post</h3><table class="dx-lt"><tr><th>Test</th><th>Downstream</th><th>Upstream</th></tr>
           ${LABTESTS.map((tt) => `<tr class="${tt === t0 ? "on" : ""}"><td>${LABNAMES[tt]}</td>${cellT(tt, "down")}${cellT(tt, "up")}</tr>`).join("")}</table></div></div>`;
   }
+
+  // ---------------- B19: step 4 — Data check, Reports and New site in the Dashboard view ----------------
+  // ---- Data check (#/dash/check): read-only, the same checks as the classic page ----
+  function dashCheck() {
+    const NAMES = { pre: "Pre-construction", post: "Post-construction", lab: "Lab analysis" };
+    const cards = ["pre", "post", "lab"].map((k) => {
+      const S = svc[k], M = S.byName[MAIN[k]], miss = [], opt = [];
+      const want = k === "lab" ? ["project_id", ...["pre", "post"].flatMap((ph) => ["down", "up"].flatMap((sd) => LABTESTS.map((tt) => labField(ph, sd, tt))))]
+                               : ["ProjectID", "StreamName", "SiteName", "DateSampled", "total_count_down", "total_index_down", "average_hils_down", "total_count_up", "total_index_up", "average_hils_up"];
+      if (M) for (const fl of want) if (!has(M, fl)) miss.push(fl);
+      if (k !== "lab") for (const [, Side, g] of SIDES) { const G = S.byName[g]; if (G) for (const fl of ["parentglobalid", "COUNT_OTHER_" + Side, "HILS_OTHER_" + Side]) if (!has(G, fl)) miss.push(g + "." + fl); }
+      if (k === "lab" && M) for (const ph of ["pre", "post"]) for (const sd of ["down", "up"]) if (!has(M, otherNameField(ph, sd))) opt.push(otherNameField(ph, sd));
+      const caps = (M && M.def.capabilities) || S.capabilities || "", can = (w) => new RegExp("\\b" + w + "\\b", "i").test(caps), ob = M && M.def.ownershipBasedAccessControlForFeatures;
+      const chips = [["Read", can("Query")], ["Add", can("Create")], ["Update", can("Update")], ["Delete", can("Delete")], ["Attachments", !!(M && M.def.hasAttachments)]];
+      const others = !ob || ob.allowOthersToQuery !== false;
+      const warns = []; if (S.error) warns.push(S.error); if (S.missing.length) warns.push("Missing layers or tables: " + S.missing.join(", ")); if (miss.length) warns.push("Missing fields: " + miss.join(", "));
+      if (!others) warns.push("Only this account's own records are visible");
+      const nR = Object.values(S.counts).reduce((s, x) => s + x, 0);
+      return `<div class="card dck-card"><div class="dck-h"><h3>${NAMES[k]}</h3><span class="dck-st ${warns.length ? "warn" : "ok"}">${warns.length ? "⚠ check" : "✓ ready"}</span></div>
+        <div class="muted" style="font-size:11.5px;margin-bottom:8px">${esc(S.base.split("/services/")[1].replace("/FeatureServer", ""))}</div>
+        <div class="dck-chips">${chips.map(([l, okk]) => `<span class="dck-chip${okk ? "" : " no"}">${okk ? "✓" : "✕"} ${l}</span>`).join("")}</div>
+        ${warns.map((w) => `<div class="dck-w">${esc(w)}</div>`).join("")}
+        <div class="muted" style="font-size:12px;margin-top:8px">${others ? "Others' records visible" : ""}${!warns.length ? " · all expected layers and fields found" : ""}${opt.length ? ` · optional name field${opt.length > 1 ? "s" : ""} not added yet: ${esc(opt.join(", "))}` : k === "lab" && M ? " · other-taxon name fields found" : ""}</div>
+        <div class="muted" style="font-size:11.5px;margin-top:4px">${M ? M.rows.length : 0} record(s) · ${nR} rows read · ${esc(caps || "capabilities not reported")}</div></div>`; }).join("");
+    let rows = ""; let nBad = 0;
+    for (const a of model) for (const ph of ["pre", "post"]) { if (!a[ph]) continue;
+      for (const sd of ["down", "up"]) { const s = a[ph].samples[sd]; if (!s.exists) continue; const c = s.calc, d = s.stored;
+        const same = (x, y, tol = 0) => nb(x) ? null : Math.abs(Number(x) - y) <= tol;
+        const parts = [same(d.count, c.count), same(d.taxa, c.taxa), same(d.index, c.index), c.avg == null ? null : same(d.avg, c.avg, 0.006), same(d.ept, c.ept)], bad = parts.some((p) => p === false); if (bad) nBad++;
+        const cell = (x, y, dd, i) => `<td class="${parts[i] === false ? "bad" : ""}">${fmt(x, dd)} <span class="muted">·</span> ${fmt(y, dd)}</td>`;
+        rows += `<tr><td><a href="${siteHash(a.id)}"><b>${esc(a.id)}</b></a>${a.test ? ' <span class="dtag">test</span>' : ""}</td><td>${DSS[ph + "_" + sd]}</td>${cell(d.count, c.count, 0, 0)}${cell(d.taxa, c.taxa, 0, 1)}${cell(d.index, c.index, 0, 2)}${cell(d.avg, c.avg, 2, 3)}${cell(d.ept, c.ept, 0, 4)}
+          <td style="text-align:right"><span class="dck-st ${bad ? "warn" : "ok"}">${bad ? "differs" : "✓ matches"}</span></td></tr>`; } }
+    const flags = model.filter((a) => a.flags.length);
+    $("dash").innerHTML = `${drail("check")}<main class="dsp-main">${dashBanner()}
+      <div class="dx-head"><div><div class="muted" style="font-size:12px">Data check · nothing is changed on this page</div><h2 class="ttl">Survey layers and totals</h2></div></div>
+      <div class="dck-grid">${cards}</div>
+      <div class="dck-two"><div class="card dx-card"><div class="dx-ch"><h3>Totals: stored in the layer · recomputed by the app</h3><span class="muted" style="font-size:12px">${nBad ? `${nBad} sample${nBad === 1 ? "" : "s"} differ` : "every sample matches"}</span></div>
+          <div style="overflow:auto"><table class="dck-t"><tr><th>Site</th><th>Sample</th><th>Count</th><th>Taxa</th><th>Index</th><th>Avg HILS</th><th>EPT</th><th></th></tr>${rows || `<tr><td colspan="8" class="muted">No samples yet.</td></tr>`}</table></div>
+          <div class="muted" style="font-size:11.5px;margin-top:6px">Each cell: stored · recomputed. Recomputed values use the WCCD HILS table (99 taxa) plus the other taxon's own HILS. Index = round(count × HILS); Avg HILS = total index ÷ total count.</div></div>
+        <div class="card dx-card"><h3>Flags on sites</h3>${flags.length ? flags.map((a) => `<div class="dck-f"><a href="${siteHash(a.id)}"><b>${esc(a.id)}</b> · open ↗</a>${a.flags.map((x) => `<div>${esc(x)}</div>`).join("")}</div>`).join("") : '<p class="muted">Nothing to flag on any site.</p>'}</div></div></main>`;
+    dashWire();
+  }
+
+  // ---- Reports (#/dash/reports): new controls; the report itself is the classic white Letter pages ----
+  const drp = { home: null, next: null };
+  function drpRestore() {   // put the classic report pages back where they came from
+    const pg = $("pages"); document.body.classList.remove("drep");
+    if (pg && drp.home && pg.parentElement !== drp.home) drp.home.insertBefore(pg, drp.next);
+  }
+  function dashReports() {
+    const sites = exSites();
+    if (!sites.length) { $("dash").innerHTML = `${drail("report")}<main class="dsp-main"><div class="card">No sites with data yet.</div></main>`; dashWire(); return; }
+    if (!sites.some((a) => a.id === rp.area)) rp.area = sites[0].id;
+    $("dash").innerHTML = `${drail("report")}<main class="dsp-main"><div class="drp-wrap">
+      <aside class="card drp-side"><div class="muted" style="font-size:12px">Reports · white Letter pages for print, PDF, Word and Excel</div><h2 class="ttl" style="font-size:24px;margin:2px 0 10px">Site report</h2>
+        <label class="dx-lbl" for="drpSite">Site</label><select id="drpSite" class="dx-sel">${sites.map((a) => `<option value="${esc(a.id)}">${esc(a.id)} · ${esc(a.stream || "no stream")}</option>`).join("")}</select>
+        <div class="dx-lbl">Sections</div><div id="drpSecs"></div>
+        <label class="dx-tog"><input type="checkbox" id="drpEmpty"${rp.empty ? " checked" : ""}> Include taxa with no count</label>
+        <div style="display:grid;gap:8px;margin-top:14px"><button type="button" class="btnp" id="drpPrint" style="justify-content:center">Print or save as PDF</button>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button type="button" class="dbtn" id="drpWord" style="justify-content:center;padding:8px">Word (.doc)</button><button type="button" class="dbtn" id="drpExcel" style="justify-content:center;padding:8px">Excel (.xls)</button></div></div>
+        <p class="muted" id="drpMsg" style="font-size:11.5px;margin:12px 0 0">In the print dialog choose "Save as PDF" for a PDF, Letter paper, margins "None", and tick "Background graphics".</p></aside>
+      <section class="drp-prev" id="drpPrev" aria-label="Report preview"></section></div></main>`;
+    dashWire();
+    const pg = $("pages"); if (!drp.home) { drp.home = pg.parentElement; drp.next = pg.nextSibling; }
+    $("drpPrev").appendChild(pg); document.body.classList.add("drep");
+    $("drpSite").value = rp.area;
+    $("drpSite").onchange = (e) => { rp.area = e.target.value; drpBuild(); };
+    $("drpEmpty").onchange = (e) => { rp.empty = e.target.checked; drpBuild(); };
+    $("drpPrint").onclick = printReport;
+    $("drpWord").onclick = () => drpExport("word"); $("drpExcel").onclick = () => drpExport("excel");
+    drpBuild();
+  }
+  async function drpExport(kind) {   // the classic export writes its progress into #rMsg; mirror it here
+    const m = $("drpMsg"), old = m.innerHTML; m.textContent = "Preparing the file…";
+    try { await exportReport(kind); m.innerHTML = old; } catch (err) { m.textContent = "The file could not be made: " + mask(err.message || err); }
+  }
+  function drpBuild() {
+    buildReport();
+    const papers = [...document.querySelectorAll("#pages .paper")];
+    const draw = () => {
+      const inc = papers.filter((p) => !rp.skip.has(p.dataset.sec));
+      $("drpSecs").innerHTML = SECS.map(([k, label]) => { const ps = papers.filter((p) => p.dataset.sec === k), on = !rp.skip.has(k), nums = ps.map((p) => inc.indexOf(p) + 1).filter((n) => n > 0);
+        return `<div class="drp-sec"><button type="button" class="drp-sw${on ? " on" : ""}" data-drps="${k}" role="switch" aria-checked="${on}" aria-label="Include ${esc(label)}"><i></i></button>
+          <button type="button" class="drp-go" data-drpg="${k}" title="Go to this page">${esc(label)}${ps.length > 1 ? ` <span class="muted">(${ps.length} pages)</span>` : ""}</button><span class="muted">${on && nums.length ? "p. " + (nums.length > 1 ? `${nums[0]}–${nums[nums.length - 1]}` : nums[0]) : "off"}</span></div>`; }).join("");
+      document.querySelectorAll("#dash [data-drps]").forEach((b) => b.onclick = () => { const k = b.dataset.drps;
+        if (!rp.skip.has(k) && SECS.filter(([x]) => !rp.skip.has(x)).length <= 1) return;   // keep at least one section
+        if (rp.skip.has(k)) rp.skip.delete(k); else rp.skip.add(k); renumber(); draw(); });
+      document.querySelectorAll("#dash [data-drpg]").forEach((b) => b.onclick = () => { const p = papers.find((x) => x.dataset.sec === b.dataset.drpg); if (p) p.scrollIntoView({ behavior: "smooth", block: "start" }); });
+    };
+    renumber(); draw();
+  }
+
+  // ---- New site (#/dash/new): the classic form's checks, lookups and save, in the new layout ----
+  function dashNew() {
+    if (!nw.st) { const vals = { id: "", stream: "", site: "", date: "", "down.lat": "", "down.lon": "", "up.lat": "", "up.lon": "" }; nw.st = { kind: "create", mode: "pre", vals, orig: JSON.stringify(vals), place: "down" }; }
+    if (svc.pre.error) { $("dash").innerHTML = `${drail("plus")}<main class="dsp-main"><div class="card">${esc(svc.pre.error)}<p class="muted">A new site cannot be created until the Pre-construction survey can be read.</p></div></main>`; dashWire(); return; }
+    const st = nw.st, v = st.vals, cols = PTCOL.pre, step = (n, tl) => `<div class="dn-step"><span>${n}</span>${tl}</div>`;
+    $("dash").innerHTML = `${drail("plus")}<main class="dsp-main dnpage" id="dnRoot">
+      <div class="de-head"><div><div class="muted" style="font-size:12px">New site · Pre-construction</div><h2 class="ttl">Start a new site</h2></div>
+        <span class="de-btns"><button type="button" class="dbtn" id="dnCancel">Cancel</button><button type="button" class="btnp" id="dnReview" disabled>Review and create</button></span></div>
+      <div class="dn-grid"><section class="dpaper dn-form">
+          ${step(1, "Site")}
+          <div class="dn-f"><label for="cId">WCCD project ID</label><input class="dtx" type="text" id="cId" data-cv="id" maxlength="8" autocomplete="off" placeholder="e.g. BRUR3699" value="${esc(v.id)}"><small>4 letters + 4 digits, not already used</small></div>
+          <div class="dn-f"><label for="cStream">Stream</label><input class="dtx" type="text" id="cStream" data-cv="stream" list="streamList" autocomplete="off" placeholder="type to search the Washington County streams" value="${esc(v.stream)}">${streamListHtml()}<small>the map zooms to it</small></div>
+          <div class="dn-2"><div class="dn-f"><label for="cSite">Site name</label><input class="dtx" type="text" id="cSite" data-cv="site" maxlength="255" placeholder="same as the stream" value="${esc(v.site)}"><small>defaults to the stream</small></div>
+            <div class="dn-f"><label for="cDate">Date sampled</label><input class="dtx" type="date" id="cDate" data-cv="date" value="${esc(v.date)}"></div></div>
+          ${step(2, "Sample points")}
+          <div class="dn-place" role="group" aria-label="Point to place">${["down", "up"].map((sd) => `<button type="button" class="pbtn${st.place === sd ? " on" : ""}" style="--pc:${cols[sd]}" data-place="${sd}" aria-pressed="${st.place === sd}"><i class="sw" style="background:${cols[sd]}"></i>${SD[sd]}</button>`).join("")}</div>
+          <div class="dn-hint" id="cPlaceTxt">Click the map to place the <b>${st.place === "down" ? "downstream" : "upstream"}</b> point, or type it below.</div>
+          ${["down", "up"].map((sd) => `<div class="dn-2 ptrow" data-ptrow="${sd}"${st.place === sd ? "" : " hidden"}><div class="dn-f"><label>${SD[sd]} latitude</label><input class="dtx" type="text" inputmode="decimal" data-cv="${sd}.lat" value="${esc(v[sd + ".lat"])}" placeholder="e.g. 40.2021"></div>
+            <div class="dn-f"><label>${SD[sd]} longitude</label><input class="dtx" type="text" inputmode="decimal" data-cv="${sd}.lon" value="${esc(v[sd + ".lon"])}" placeholder="e.g. -80.4003"></div></div>`).join("")}
+          <div class="dn-note" id="cOther"></div><div class="dn-note" id="cSug"></div><div class="dn-note" id="cLook"></div>
+          ${step(3, "Review and create")}
+          <div class="dn-note" style="margin-top:0">Creates the Pre-construction record with its downstream and upstream samples, as the Survey123 form does. Taxa counts, field readings and lab results are entered afterwards.</div>
+          <div class="dn-status" id="eChanged"></div></section>
+        <section class="dn-mapcol"><div id="cmap" class="dn-map" aria-label="Map: click to place the selected point"></div></section></div></main>`;
+    dashWire();
+    const root = $("dnRoot"), refresh = () => createRefresh(st, null, root, "#dnReview");
+    bindCreate(st, null, root, refresh);
+    $("dnCancel").onclick = () => { if (JSON.stringify(st.vals) !== st.orig && !confirm("Discard this new site?")) return; nw.st = null; location.hash = "#/dash/sites"; };
+    $("dnReview").onclick = () => dashCreateReview(st);
+    refresh(); const fi = $("cId"); if (fi) fi.focus();
+  }
+  function dashCreateReview(st) {
+    let changes; try { changes = createPlan(st, null); } catch (err) { alert("This cannot be saved: " + (err.message || err)); return; }
+    const id = String(st.vals.id).trim().toUpperCase();
+    $("ovl").classList.remove("hidden");
+    $("panel").innerHTML = `<h3 id="panelTitle">Review and create</h3><p>Pre-construction · new site ${esc(id)}. Nothing is stored until you click Confirm.</p>
+      <p class="small">One request creates all three records, linked to each other; if any of them is refused, none is created.</p>
+      ${reviewHtml(changes)}<div class="small" id="toolStatus"></div>
+      <div class="btns"><button class="btn" type="button" id="tCancel">Back to editing</button><button class="btn pri" type="button" id="tGo">Confirm and create</button></div>`;
+    $("tCancel").onclick = closeTool;
+    $("tGo").onclick = () => dashRunSave(() => createPlan(st, null), `site ${id} created; enter the downstream taxa next`, editHash(id, "taxa", "pre", "down"), () => { if (st === nw.st) nw.st = null; });
+  }
   function drawDash(parts) {
     hideTip(); document.body.classList.add("dashmode"); $("dash").hidden = false; setViewPref("dash");
     document.title = "WCCD Watershed Monitoring · Dashboard";
     const sub = parts[1];
     if (sub !== "site" || parts[3] !== "edit") dedit = null;
-    if (sub === "explore") { dashMapFree(); if (dash.lastSub !== "explore") dxReset(); if (DXV.some((x) => x[0] === parts[2])) dx.view = parts[2]; dashExplore(); }   // #/dash/explore/<view> opens that view
+    if (sub !== "reports") drpRestore();
+    if (sub === "check") { dashMapFree(); dashCheck(); }
+    else if (sub === "reports") { dashMapFree(); dashReports(); }
+    else if (sub === "new") { dashMapFree(); dashNew(); }
+    else if (sub === "explore") { dashMapFree(); if (dash.lastSub !== "explore") dxReset(); if (DXV.some((x) => x[0] === parts[2])) dx.view = parts[2]; dashExplore(); }   // #/dash/explore/<view> opens that view
     else if (sub === "sites") dashSites();
     else if (sub === "site" && parts[3] === "edit") { dashMapFree(); const a = model.find((x) => x.id === decodeURIComponent(parts[2] || ""));
       if (a) dashEdit(a, parts[4], parts[5], parts[6]); else dashSite(decodeURIComponent(parts[2] || ""), "overview"); }
@@ -3555,7 +3724,7 @@
   }
   function leaveDash() {
     if (!document.body.classList.contains("dashmode")) return;
-    dashMapFree(); dedit = null; dash.lastSub = null; document.body.classList.remove("dashmode"); $("dash").hidden = true; $("dash").innerHTML = ""; document.title = "WCCD Watershed Monitoring";
+    dashMapFree(); drpRestore(); dedit = null; dash.lastSub = null; document.body.classList.remove("dashmode"); $("dash").hidden = true; $("dash").innerHTML = ""; document.title = "WCCD Watershed Monitoring";
   }
   // Opening the app: go straight to the dashboard when the address asks for it, or when it was the last interface used.
   if (/^#\/dash/.test(location.hash) || ((!location.hash || location.hash === "#/" || location.hash === "#") && viewPref() === "dash")) {
@@ -3599,7 +3768,7 @@
     const sameEdit = !!editKey(lastHash) && editKey(lastHash) === editKey(location.hash);
     if (!sameEdit && isDirty() && !confirm("You have changes that are not saved. Discard them?")) { history.replaceState(null, "", lastHash || "#/"); return; }
     if (area.edit && !location.hash.startsWith("#/area/" + encodeURIComponent(area.id))) area.edit = null;
-    if (nw.st && !location.hash.startsWith("#/new")) nw.st = null;
+    if (nw.st && !/^#\/(dash\/)?new/.test(location.hash)) nw.st = null;
     lastHash = location.hash; route();
   });
   addEventListener("beforeunload", (e) => { if (isDirty()) { e.preventDefault(); e.returnValue = ""; } });
