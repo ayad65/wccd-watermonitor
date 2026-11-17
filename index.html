@@ -367,11 +367,11 @@
   .dsp-main .card{background:rgba(21,28,24,.64);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-color:rgba(200,227,90,.12)}
   .dsp-main .dlab>div{background:rgba(29,38,32,.55)}
   .dlrow{display:grid;grid-template-columns:40px minmax(0,1fr) 140px;gap:10px;align-items:center;font-size:12px;margin:4px 0}
-  .dltr{position:relative;height:18px;border-radius:9px;background:rgba(255,255,255,.05);display:block}
-  .dltr i{position:absolute;left:0;border-radius:9px} .dltr i.pre{top:0;bottom:0;background:color-mix(in srgb,var(--c) 34%,transparent);border:1px solid color-mix(in srgb,var(--c) 70%,transparent)}
-  .dltr i.post{top:6px;height:6px;background:linear-gradient(90deg,#7FC243,#C8E35A);box-shadow:0 0 8px rgba(200,227,90,.6)}
+  .dltr{position:relative;height:13px;border-radius:7px;background:rgba(255,255,255,.05);display:block}
+  .dltr i{position:absolute;left:0;border-radius:7px} .dltr i.pre{top:0;bottom:0;background:color-mix(in srgb,var(--c) 34%,transparent);border:1px solid color-mix(in srgb,var(--c) 70%,transparent)}
+  .dltr i.post{top:4px;height:5px;background:linear-gradient(90deg,#7FC243,#C8E35A);box-shadow:0 0 8px rgba(200,227,90,.6)}
   .dlv{text-align:right;white-space:nowrap} .dlv b{color:var(--acc)}
-  .dlkey{display:inline-block;width:18px;border-radius:5px} .dlkey.pre{height:12px;background:rgba(127,216,200,.34);border:1px solid rgba(127,216,200,.7)} .dlkey.post{height:5px;background:#C8E35A;box-shadow:0 0 6px rgba(200,227,90,.6)}
+  .dlkey{display:inline-block;width:18px;border-radius:5px} .dlkey.pre{height:10px;background:rgba(127,216,200,.34);border:1px solid rgba(127,216,200,.7)} .dlkey.post{height:5px;background:#C8E35A;box-shadow:0 0 6px rgba(200,227,90,.6)}
   .dsp-mapwrap{position:relative;height:calc(100vh - 175px);min-height:440px;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
   .dsp-mapwrap .dsp-map{position:absolute;inset:0;height:auto;min-height:0;border:0;border-radius:0}
   .dsp-maplg{position:absolute;left:14px;right:14px;bottom:30px;z-index:5;padding:10px 14px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
@@ -413,12 +413,20 @@
   .dgtabs button b{margin-left:auto;font-size:11.5px;font-weight:600;color:#5E7F1E} .dgtabs button.on b{color:#D9EE8F}
   .dgtabs button:not(.has):not(.on){color:#6F7D72} .dgtabs button[data-tab="counts"]:not(.on),.dgtabs button[data-tab="all"]:not(.on){color:#2F3D33} .dgtabs button[data-tab="counts"],.dgtabs button[data-tab="all"]{font-weight:600}
   .dgtabs .dept{font-style:normal;margin-left:2px} .dgsep{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:#7B887E;padding:10px 10px 2px}
-  .dlistcol{min-width:0}
+  .dlistcol{min-width:0;container-type:inline-size;--cw:162px}
+  .gtx{display:flex;flex-direction:column;line-height:1.15;min-width:0} .gtx em{font-size:10.5px;font-style:italic;opacity:.75;margin-top:1px}
+  .dgtabs button{align-items:center} .dgtabs button:has(.gtx){padding:5px 10px}
+  .dgh .gn{display:flex;flex-direction:column;line-height:1.1} .dgh .gn em{font:italic 400 11px "Public Sans",sans-serif;color:#5B6B5F;margin-top:2px} .dgh{align-items:flex-end}
+  .dtr.dto{grid-template-columns:28px minmax(0,1fr) 64px var(--cw) 52px;padding-top:8px;padding-bottom:8px} .dtr.dto .dtx{height:34px} .dtr.dto .doh{width:56px;font-size:15px}
+  @container (max-width:560px){ .dth,.dtr{--cw:136px;column-gap:8px;padding:6px 10px} .stp{width:30px;height:32px} .cnt{gap:4px} .cnt input{width:62px;height:34px;font-size:16px} }
+  @container (max-width:430px){ .dth,.dtr{grid-template-columns:24px minmax(0,1fr) 30px var(--cw)} .dth span:nth-child(5),.dtr .ix{display:none} }
   .dpaper .q{flex:1;min-width:220px;height:40px;border-radius:12px;border:1px solid #D6DFD3;background:#fff;padding:0 12px;font:inherit;font-size:14px;color:#142019}
   .dchip{padding:7px 12px;border-radius:999px;border:1px solid #D6DFD3;background:#fff;color:#142019;cursor:pointer;font:inherit;font-size:13px} .dchip.on{background:#1F3A2A;color:#fff;border-color:#1F3A2A}
-  .dth,.dtr{display:grid;grid-template-columns:44px minmax(0,1fr) 52px 178px 60px;gap:10px;align-items:center;padding:6px 14px}
+  .dth,.dtr{display:grid;grid-template-columns:28px minmax(0,1fr) 38px var(--cw) 52px;column-gap:10px;align-items:center;padding:6px 14px}
   .dth{font-size:11px;color:#5B6B5F;text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
-  .dtr{border-top:1px solid #DDE5DA} .dtr .no{color:#5B6B5F;font-size:12px} .dtr .nm{font-size:14px} .dtr .h{text-align:center;color:#5B6B5F;font-size:12px} .dtr .ix{text-align:right;font-size:13px}
+  .dtr{border-top:1px solid #DDE5DA} .dtr .no{color:#5B6B5F;font-size:12px}
+  .dtr .nm{min-width:0;display:flex;flex-direction:column;line-height:1.2} .dtr .tn{font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dtr .was{margin:1px 0 0;font-size:10.5px} .dtr .was:empty{display:none} .dtr .h{text-align:center;color:#5B6B5F;font-size:12px} .dtr .ix{text-align:right;font-size:13px}
   .dtr.chg{background:#FFF3CC;box-shadow:inset 3px 0 0 #E2A82B} .was{font-style:normal;font-size:11px;color:#9A6A00;margin-left:6px}
   .cnt{display:flex;align-items:center;justify-content:center;gap:6px}   /* centred, so the "Count" heading sits over the number box */
   .stp{width:34px;height:34px;border-radius:10px;border:1px solid #D6DFD3;background:#fff;color:#5B6B5F;font-size:18px;line-height:1;cursor:pointer} .stp:hover{border-color:#8DB320;color:#142019}
@@ -600,7 +608,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B14", BUILD_DATE = "17 Nov 2026";
+  const BUILD = "B15", BUILD_DATE = "17 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -757,10 +765,12 @@
     for (const [side, Side, grpName] of SIDES) {
       const G = S.byName[grpName], gid = normId(att(S.byName[MAIN[phaseKey]], mainRow, "globalid"));
       const grp = G ? G.rows.find((r) => normId(att(G, r, "parentglobalid")) === gid) : null;
-      const s = { exists: !!grp, counts: {}, other: 0, rows: 0, dupes: [], geom: null, issues: [], grp: grp ? { L: G, row: grp } : null, taxaRows: [], Side };
+      const s = { exists: !!grp, counts: {}, other: 0, otherHils: 0, otherName: "", rows: 0, dupes: [], geom: null, issues: [], grp: grp ? { L: G, row: grp } : null, taxaRows: [], Side };
       if (grp) {
         s.geom = grp.geometry || null;
         s.other = Number(att(G, grp, "COUNT_OTHER_" + Side)) || 0;
+        // B15: the "other taxon" (a taxon not on the WCCD sheet) has its own HILS and, once the field is added, its own name
+        s.otherHils = Number(att(G, grp, "HILS_OTHER_" + Side)) || 0; s.otherName = String(att(G, grp, "OtherTaxonName_" + Side) ?? "").trim();
         s.field = { ph: att(G, grp, "pH_" + Side), temp: att(G, grp, "Temperature_" + Side), cond: att(G, grp, "Conductivity_" + Side) };
         const kid = normId(att(G, grp, "globalid"));
         for (const g of GROUP_KEYS) {
@@ -786,7 +796,9 @@
     return out;
   }
   function calcTotals(s) {
-    let count = s.other || 0, index = 0, taxa = 0, ept = 0;
+    // B15: the other taxon counts like any taxon on the sheet: count, index = round(count × its HILS), and one more taxon present
+    const oc = s.other || 0, oh = s.otherHils || 0;
+    let count = oc, index = Math.round(oc * oh), taxa = oc > 0 ? 1 : 0, ept = 0;
     for (const [k, c] of Object.entries(s.counts)) { const n = +k; count += c; index += Math.round(c * HILS[n - 1]); if (c > 0) { taxa++; if (isEPT(n)) ept++; } }
     return { count, index, taxa, ept, avg: count ? index / count : null };
   }
@@ -857,9 +869,9 @@
       if (c.avg != null && !nb(sd.avg) && Math.abs(Number(sd.avg) - c.avg) > 0.006) diff.push(`Avg HILS ${fmt(sd.avg, 2)} → ${fmt(c.avg, 2)}`);
       if (diff.length) a.flags.push(`${label}: the layer's stored totals differ from the taxa rows (${diff.join(", ")})` + (s.other ? `. "Other Taxa" holds ${s.other}.` : "."));
       if (hasTaxa && !hasPt) a.flags.push(`${label}: the sample has no location on the map.`);
-      // "Total Other Taxa" has no HILS: it adds to the count but not the index, so it pulls Avg HILS down. Worth a second look against the WCCD sheet.
-      if (s.other > 0) { const without = c.count - s.other ? c.index / (c.count - s.other) : null;
-        a.flags.push(`${label}: "Total Other Taxa" holds ${s.other} of ${c.count} organisms. They have no HILS, so Avg HILS is ${fmt(c.avg, 2)} with them and ${fmt(without, 2)} without. Check this against the WCCD sheet.`); }
+      // B15: an other taxon with a count but no HILS adds to the count but not the index, which pulls Avg HILS down
+      if (s.other > 0 && !s.otherHils) { const without = c.count - s.other ? c.index / (c.count - s.other) : null;
+        a.flags.push(`${label}: the other taxon${s.otherName ? ` (${s.otherName})` : ""} has ${s.other} organisms but no HILS, so Avg HILS is ${fmt(c.avg, 2)} with them and ${fmt(without, 2)} without. Enter its HILS in the taxa editor.`); }
       return st;
     });
     const full = (i) => a.stages[i].state === "full";
@@ -1111,7 +1123,7 @@
         body += `<tr class="${c ? "" : "zero"}"><td>${n}. ${TAXON[n - 1]}</td><td>${HILS[n - 1]}</td><td>${c || 0}</td><td>${c ? Math.round(c * HILS[n - 1]) : 0}</td></tr>`; }
       if (body || area.empty) rows += `<tr class="gh"><td>${name}${isEPT(lo) ? " · EPT" : ""}</td><td></td><td>${gc || ""}</td><td>${gi || ""}</td></tr>` + body;
     }
-    if (s.other || area.empty) rows += `<tr class="${s.other ? "warn" : "zero"}"><td>Total Other Taxa <span class="small">(no HILS)</span></td><td>–</td><td>${s.other}</td><td>0</td></tr>`;
+    if (s.other || area.empty) rows += `<tr class="${s.other && !s.otherHils ? "warn" : s.other ? "" : "zero"}"><td>${esc(s.otherName || "Other taxon")} <span class="small">(other taxon)</span></td><td>${s.otherHils || "–"}</td><td>${s.other}</td><td>${s.other ? Math.round(s.other * s.otherHils) : 0}</td></tr>`;
     const c = s.calc, d = s.stored, diff = (!nb(d.count) && +d.count !== c.count) || (!nb(d.index) && +d.index !== c.index) || (c.avg != null && !nb(d.avg) && Math.abs(+d.avg - c.avg) > 0.006);
     return `<label class="small" style="display:inline-flex;gap:6px;align-items:center;margin-bottom:8px"><input type="checkbox" id="tEmpty"${area.empty ? " checked" : ""}> Show taxa with no count</label>
       <table class="tx"><tr><th>Taxon</th><th>HILS</th><th>Count</th><th>Index</th></tr>${rows}
@@ -1159,7 +1171,7 @@
       for (let n = lo; n <= hi; n++) html += `<div class="trx" data-n="${n}"><span>${n}. ${TAXON[n - 1]}</span><span class="h">${HILS[n - 1]}</span><input inputmode="numeric" data-tn="${n}" value="${esc(v.counts[n])}" aria-label="${n}. ${TAXON[n - 1]} count"><span class="ix"></span></div>`;
       html += "</div>";
     }
-    html += `<div class="grp"><h4><span>Other taxa</span></h4><div class="trx" data-n="0"><span>Total Other Taxa <span class="small">(no HILS)</span></span><span class="h">–</span><input inputmode="numeric" data-tn="0" value="${esc(v.other)}" aria-label="Total other taxa count"><span class="ix"></span></div></div>`;
+    html += `<div class="grp"><h4><span>Other taxa</span></h4><div class="trx" data-n="0"><span>${esc(a[ph].samples[sd].otherName || "Other taxon")} <span class="small">(name and HILS are edited in the Dashboard view)</span></span><span class="h">${a[ph].samples[sd].otherHils || "–"}</span><input inputmode="numeric" data-tn="0" value="${esc(v.other)}" aria-label="Total other taxa count"><span class="ix"></span></div></div>`;
     return `<p class="small" style="margin:0 0 8px">Laid out like the WCCD sheet. Type each count; leave a box empty (or 0) for taxa not found. HILS and Index fill in by themselves, and only taxa with a count are stored.</p>
       <div class="sheetwrap"><div class="sheet">${html}</div>
       <div class="totals"><h3 style="margin-bottom:8px">${SD[sd]} totals</h3>
@@ -1172,8 +1184,11 @@
     const counts = {}, bad = []; let other = 0;
     const num = (t, label) => { const s = String(t).trim(); if (s === "") return 0; if (!/^\d+$/.test(s)) { bad.push(label); return 0; } return Number(s); };
     for (let n = 1; n <= 99; n++) { const c = num(v.counts[n], `${n}. ${TAXON[n - 1]}`); if (c) counts[n] = c; }
-    other = num(v.other, "Total Other Taxa");
-    return { counts, other, bad };
+    other = num(v.other, "Other taxon count");
+    let oh, oname, badH = false;   // B15: only when the editor has the other taxon's HILS / name boxes (otherwise the stored ones are kept)
+    if (v.otherHils !== undefined) { const s = String(v.otherHils).trim(); oh = s === "" ? 0 : Number(s); if (s !== "" && !(/^\d*\.?\d+$/.test(s) && oh <= 10)) { badH = true; oh = 0; } }
+    if (v.otherName !== undefined) oname = String(v.otherName).trim();
+    return { counts, other, bad, oh, oname, badH };
   }
 
   // After every keystroke: update index cells, totals, the "You changed" line and the Review button, without redrawing the page.
@@ -1184,9 +1199,9 @@
     if (E.kind === "taxa") {
       const { counts, other, bad } = readCounts(E.vals), s = a[E.ph].samples[E.sd];
       P.querySelectorAll(".trx[data-n]").forEach((row) => { const n = +row.dataset.n, inp = row.querySelector("input"), c = n ? counts[n] || 0 : other;
-        row.querySelector(".ix").textContent = n && c ? Math.round(c * HILS[n - 1]) : "";
+        row.querySelector(".ix").textContent = n ? (c ? Math.round(c * HILS[n - 1]) : "") : (c && s.otherHils ? Math.round(c * s.otherHils) : "");
         const isBad = inp.value.trim() !== "" && !/^\d+$/.test(inp.value.trim()); inp.classList.toggle("bad-in", isBad); row.classList.toggle("has", c > 0 && !isBad); });
-      const c = calcTotals({ counts, other }), rt = rating(c.avg);
+      const c = calcTotals({ counts, other, otherHils: s.otherHils }), rt = rating(c.avg);
       $("tTaxa").textContent = c.taxa; $("tCount").textContent = c.count; $("tIndex").textContent = fmt(c.index); $("tAvg").textContent = fmt(c.avg, 2);
       $("tRate").innerHTML = rt ? `<span class="hbi" style="background:${rt[2]};margin:0">${rt[1]}</span>` : "–"; $("tEpt").textContent = c.ept;
       for (let n = 1; n <= 99; n++) if ((counts[n] || 0) !== (s.counts[n] || 0)) changed.push(`${TAXON[n - 1]} ${s.counts[n] || 0} → ${counts[n] || 0}`);
@@ -1225,7 +1240,7 @@
   }
 
   // ---- save plans: turn the edited values into changes ----
-  function taxaPlan(a, ph, sd, counts, other) {
+  function taxaPlan(a, ph, sd, counts, other, oh, oname) {
     const S = svc[ph], P = a[ph], s = P.samples[sd], Side = s.Side, G = s.grp.L, grow = s.grp.row, M = P.main.L, out = [];
     const ids = { project: att(M, P.main.row, "ProjectID"), phase: att(M, P.main.row, "PhaseID"), sample: att(G, grow, sd === "down" ? "SampleIDDownstream" : "SampleIDUpstream") };
     const gid = att(G, grow, "globalid"), lab = (n) => `${PH[ph]} ${SD[sd].toLowerCase()} · ${n}. ${TAXON[n - 1]}`;
@@ -1247,11 +1262,13 @@
       for (const t of (want > 0 ? rows.slice(1) : rows)) out.push({ op: "delete", svc: ph, L: T, oid: t.row.attributes[T.def.objectIdField], edit: editDateOf(T, t.row), before: t.row.attributes, label: lab(n), summary: want > 0 ? `duplicate row (count ${t.c})` : `count ${t.c}` });
     }
     // "Total Other Taxa" lives on the sample record
-    const ixO = Object.values(G.fields).find((f) => /^(index|inext)_other_/i.test(f)), hO = Number(att(G, grow, "HILS_OTHER_" + Side)) || 0;
+    const ixO = Object.values(G.fields).find((f) => /^(index|inext)_other_/i.test(f)), hO = oh != null ? oh : (Number(att(G, grow, "HILS_OTHER_" + Side)) || 0);
     const gset = { [G.fields[("COUNT_OTHER_" + Side).toLowerCase()]]: other }; if (ixO) gset[ixO] = Math.round(other * hO);
+    const hF = G.fields[("HILS_OTHER_" + Side).toLowerCase()], nF = G.fields[("OtherTaxonName_" + Side).toLowerCase()];
+    if (hF && oh != null) gset[hF] = oh; if (nF && oname != null) gset[nF] = oname || null;
     const gc = change(ph, G, grow, gset, `${PH[ph]} ${SD[sd].toLowerCase()} sample`); if (gc) out.push(gc);
     // stored totals on the main record: per taxa group (the dashboard reads these) and for the whole sample
-    const c = calcTotals({ counts, other }), mset = {}, put = (name, val) => { const real = M.fields[name.toLowerCase()]; if (real) mset[real] = val; };
+    const c = calcTotals({ counts, other, otherHils: hO }), mset = {}, put = (name, val) => { const real = M.fields[name.toLowerCase()]; if (real) mset[real] = val; };
     for (const [g, , lo, hi] of GROUPS) { let gc2 = 0, gi = 0, gt = 0; for (let n = lo; n <= hi; n++) { const v = counts[n] || 0; if (v) { gc2 += v; gi += Math.round(v * HILS[n - 1]); gt++; } }
       put(`${g}_CountTotal_${Side}`, gc2); put(`${g}_IndexTotal_${Side}`, gi); put(`${g}_TAXATotal_${Side}`, gt); }
     const sfx = sd === "down" ? "_down" : "_up";
@@ -1289,7 +1306,7 @@
       else if (E.kind === "lab") { plan = () => labPlan(a, E.ph, E.vals); what = `${PH[E.ph]} lab results saved`; }
       else { plan = () => sitePlan(a, E.ph, E.vals); what = `${PH[E.ph]} site name and date saved`; }
       const changes = plan(); let extra = "";
-      if (E.kind === "taxa") { const s = a[E.ph].samples[E.sd], { counts, other } = readCounts(E.vals), c1 = calcTotals({ counts, other }), c0 = s.calc;
+      if (E.kind === "taxa") { const s = a[E.ph].samples[E.sd], { counts, other } = readCounts(E.vals), c1 = calcTotals({ counts, other, otherHils: s.otherHils }), c0 = s.calc;
         extra = `<div class="card" style="padding:10px 14px;margin-top:10px"><table class="ovtab"><tr><th></th><th>Now</th><th>After saving</th></tr>
           <tr><td>Organisms</td><td>${c0.count}</td><td>${c1.count}</td></tr><tr><td>Taxa present</td><td>${c0.taxa}</td><td>${c1.taxa}</td></tr><tr><td>Total Index</td><td>${fmt(c0.index)}</td><td>${fmt(c1.index)}</td></tr>
           <tr><td>Avg HILS</td><td>${fmt(c0.avg, 2)} ${hbiBadge(c0.avg)}</td><td>${fmt(c1.avg, 2)} ${hbiBadge(c1.avg)}</td></tr><tr><td>EPT taxa</td><td>${c0.ept}</td><td>${c1.ept}</td></tr></table></div>`; }
@@ -2085,7 +2102,7 @@
       html += `<details class="tg${any ? "" : " empty"}" data-g="${g[0]}"${open ? " open" : ""}><summary style="${cols}"><span class="car">▸</span><span><b>${esc(g[1])}</b>${isEPT(g[2]) ? ' <span class="small">EPT</span>' : ""}</span>${gs.map((x) => x.count ? `<span class="gs"><b>${x.count}</b><br>${x.taxa} taxa · idx ${x.index}</span>` : `<span class="gs">–</span>`).join("")}</summary>${rows}</details>`;
     }
     const oth = ss.map((s) => smp(a, s[0]).other || 0);
-    if (oth.some((v) => v)) html += `<div class="trow" style="${cols}"><span></span><span>Total Other Taxa <span class="small">(no HILS)</span></span>${oth.map((v) => v ? `<span><b>${v}</b></span>` : `<span class="n0">0</span>`).join("")}</div>`;
+    if (oth.some((v) => v)) html += `<div class="trow" style="${cols}"><span></span><span>Other taxon <span class="small">(own HILS)</span></span>${oth.map((v) => v ? `<span><b>${v}</b></span>` : `<span class="n0">0</span>`).join("")}</div>`;
     const tt = ss.map((s) => smp(a, s[0]).calc);
     html += `<div class="thead" style="${cols};padding-top:6px;color:var(--ink)"><span></span><span style="text-align:left"><b>All taxa</b></span>${tt.map((x) => `<span><b>${x.count}</b> · ${x.taxa} taxa<br><span class="small">idx ${x.index} · Avg HILS ${fmt(x.avg, 2)} · EPT ${x.ept}</span></span>`).join("")}</div>`;
     $("tBody").innerHTML = html;
@@ -2434,11 +2451,11 @@
       <tr><td>Organisms</td>${S4.map((_, i) => `<td>${c(i, (x) => x.count)}</td>`).join("")}</tr><tr><td>Taxa present</td>${S4.map((_, i) => `<td>${c(i, (x) => x.taxa)}</td>`).join("")}</tr>
       <tr><td>EPT taxa</td>${S4.map((_, i) => `<td>${c(i, (x) => x.ept)}</td>`).join("")}</tr><tr><td>Total Index</td>${S4.map((_, i) => `<td>${c(i, (x) => fmt(x.index))}</td>`).join("")}</tr>
       <tr><td>Avg HILS</td>${S4.map((_, i) => `<td><b>${c(i, (x) => fmt(x.avg, 2))}</b></td>`).join("")}</tr><tr><td>Water quality (HBI)</td>${S4.map((_, i) => `<td>${c(i, hbiCell)}</td>`).join("")}</tr>
-      ${sm.some((s) => s && s.other) ? `<tr><td>"Total Other Taxa" (no HILS)</td>${S4.map((_, i) => `<td>${c(i, (x, s) => s.other || "–")}</td>`).join("")}</tr>` : ""}</table>
+      ${sm.some((s) => s && s.other) ? `<tr><td>Other taxon (count)</td>${S4.map((_, i) => `<td>${c(i, (x, s) => s.other ? `${s.other}${s.otherName ? " · " + esc(s.otherName) : ""}` : "–")}</td>`).join("")}</tr>` : ""}</table>
       <h3>Location</h3><div class="rmap" id="rMap"></div><p class="small" id="rMapNote"></p>
       <h3>HBI rating scale (Hilsenhoff family-level biotic index, 1988)</h3>
       <table><tr>${RATE.map((r, i) => `<th style="text-align:center">${i ? fmt(RATE[i - 1][0] + 0.01, 2) : "0.00"}–${fmt(r[0], 2)}</th>`).join("")}</tr><tr>${RATE.map((r) => `<td style="text-align:center">${r[1]}</td>`).join("")}</tr></table>
-      <p class="small" style="margin-top:10px">Index = count × HILS for each taxon; Avg HILS = Total Index ÷ organisms (Total Other Taxa included in the count). EPT = mayfly, stonefly and caddisfly families present. Report produced ${today}.</p>
+      <p class="small" style="margin-top:10px">Index = count × HILS for each taxon; Avg HILS = Total Index ÷ organisms (an other taxon counts with its own HILS). EPT = mayfly, stonefly and caddisfly families present. Report produced ${today}.</p>
       <span class="pno">Page 1 of 5</span></div>`;
     // page 2: taxa-group summary (the survey's summary page)
     let rows2 = "";
@@ -2446,7 +2463,7 @@
       rows2 += `<tr><td>${esc(g[1])}${isEPT(g[2]) ? " (EPT)" : ""}</td>${gs.map((x) => x ? `<td>${x.count || "–"}</td><td>${x.taxa || "–"}</td><td>${x.index || "–"}</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}${dPair((i) => gs[i].count)}</tr>`; }
     const p2 = `<div class="paper" id="p2" data-sec="groups">${head("Taxa-group summary")}<p class="small">Count, number of taxa and index (count × HILS) for each taxa group. "Post − Pre" is the change from Pre- to Post-construction at the same location; for Avg HILS a fall (green) means better water quality. ${showEmpty ? "" : "Groups with no organisms in any sample are left out."}</p>
       <table><tr><th rowspan="3">Taxa group</th>${phaseThs(3)}<th colspan="2" rowspan="2" class="dlt phs">Post − Pre</th></tr><tr>${S4.map((s) => sideTh(s, 3)).join("")}</tr><tr>${S4.map(() => `<th>Count</th><th>Taxa</th><th>Index</th>`).join("")}${dSub}</tr>${rows2}
-      ${sm.some((s) => s && s.other) ? `<tr><td>Total Other Taxa (no HILS)</td>${sm.map((s) => s ? `<td>${s.other || "–"}</td><td>–</td><td>–</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}${dPair((i) => sm[i].other || 0)}</tr>` : ""}
+      ${sm.some((s) => s && s.other) ? `<tr><td>Other taxon</td>${sm.map((s) => s ? `<td>${s.other || "–"}</td><td>${s.other ? 1 : "–"}</td><td>${s.other ? Math.round(s.other * s.otherHils) : "–"}</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}${dPair((i) => sm[i].other || 0)}</tr>` : ""}
       <tr class="tot"><td>All groups</td>${sts.map((x) => x ? `<td>${x.count}</td><td>${x.taxa}</td><td>${x.index}</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}${dPair((i) => sts[i].count)}</tr>
       <tr><td>Avg HILS</td>${sts.map((x) => `<td colspan="3" class="ctr">${x ? `${fmt(x.avg, 2)} ${hbiCell(x)}` : "not sampled"}</td>`).join("")}${dPair((i) => sts[i].avg, 2, true)}</tr>
       <tr><td>EPT taxa</td>${sts.map((x) => `<td colspan="3" class="ctr">${x ? x.ept : "–"}</td>`).join("")}${dPair((i) => sts[i].ept)}</tr></table><span class="pno"></span></div>`;
@@ -2456,7 +2473,7 @@
       for (let n = g[2]; n <= g[3]; n++) { const vs = sm.map((s) => s ? s.counts[n] || 0 : null); if (!showEmpty && !vs.some((v) => v)) continue; const h = HILS[n - 1];
         body.push(`<tr><td>${n}. ${esc(TAXON[n - 1])}</td><td>${h}</td>${vs.map((v) => `<td>${v || "–"}</td><td>${v ? Math.round(v * h) : "–"}</td>`).join("")}${dPair((i) => vs[i] || 0)}</tr>`); }
       if (body.length) blocks.push([`<tr class="gh"><td colspan="12">${esc(g[1])}${isEPT(g[2]) ? " (EPT)" : ""}</td></tr>`, ...body]); }
-    if (sm.some((s) => s && s.other)) blocks.push([`<tr class="gh"><td colspan="12">Other</td></tr>`, `<tr><td>Total Other Taxa</td><td>–</td>${sm.map((s) => `<td>${s && s.other ? s.other : "–"}</td><td>–</td>`).join("")}${dPair((i) => sm[i].other || 0)}</tr>`]);
+    if (sm.some((s) => s && s.other)) blocks.push([`<tr class="gh"><td colspan="12">Other</td></tr>`, `<tr><td>Other taxon${[...new Set(sm.filter((s) => s && s.other && s.otherName).map((s) => s.otherName))].map((x) => " · " + esc(x)).join("")}</td><td>own</td>${sm.map((s) => `<td>${s && s.other ? s.other : "–"}</td><td>${s && s.other ? Math.round(s.other * s.otherHils) : "–"}</td>`).join("")}${dPair((i) => sm[i].other || 0)}</tr>`]);
     const thead3 = `<tr><th rowspan="3">Taxon</th><th rowspan="3">HILS</th>${phaseThs(2)}<th colspan="2" rowspan="2" class="dlt phs">Post − Pre</th></tr><tr>${S4.map((s) => sideTh(s, 2)).join("")}</tr><tr>${S4.map(() => `<th>Count</th><th>Index</th>`).join("")}${dSub}</tr>`;
     const totRow = `<tr class="tot"><td>Totals</td><td></td>${sts.map((x) => x ? `<td>${x.count}</td><td>${x.index}</td>` : `<td>–</td><td>–</td>`).join("")}${dPair((i) => sts[i].count)}</tr>`;
     const table3 = (bl, withTot) => `<table>${thead3}${bl.flat().join("")}${withTot ? totRow : ""}</table>`;
@@ -2812,6 +2829,9 @@
     const p = att(L, r, labField(ph, sd, "Prefix" + PFXCODE[t])) || ""; return { txt: p + String(x), num: Math.abs(Number(x)), q: !!p };
   }
   const SKEYS = ["pre_down", "pre_up", "post_down", "post_up"];
+  const GLATIN = { MISC: "worms, leeches, mites", GAS: "Gastropoda", BIV: "Bivalvia", ISO: "Isopoda", AMP: "Amphipoda", DEC: "Decapoda", MAY: "Ephemeroptera", DRA: "Odonata · Anisoptera", DAM: "Odonata · Zygoptera",
+    STO: "Plecoptera", BEE: "Coleoptera", DOB: "Megaloptera", SPO: "Neuroptera", CAD: "Trichoptera", TRU: "Diptera" };
+  const gName = (g, lo, cls) => `<span class="${cls}"><span>${GSHORT[g]}${isEPT(lo) ? '<i class="dept">EPT</i>' : ""}</span><em>${GLATIN[g]}</em></span>`;
   const GSHORT = { MISC: "Miscellaneous", GAS: "Snails", BIV: "Clams", ISO: "Sow bugs", AMP: "Scuds", DEC: "Crayfish", MAY: "Mayflies", DRA: "Dragonflies", DAM: "Damselflies", STO: "Stoneflies", BEE: "Beetles", DOB: "Dobsonflies", SPO: "Spongillaflies", CAD: "Caddisflies", TRU: "True flies" };
 
   function dsOverview(a) {
@@ -2848,7 +2868,7 @@
     if (!s.exists) return `<div class="card" style="border-top:3px solid ${col}"><h3>${SD[sd]}</h3><p class="muted">No ${SD[sd].toLowerCase()} sample yet.</p></div>`;
     const c = s.calc, f = s.field || {}, g = s.geom;
     const bars = GROUPS.map(([gk, name, lo, hi]) => { let n = 0; for (let i = lo; i <= hi; i++) n += s.counts[i] || 0; return [GSHORT[gk] || name, n, name]; });
-    if (s.other) bars.push(["Other taxa (no HILS)", s.other]);
+    if (s.other) bars.push([`Other: ${s.otherName || "other taxon"}`, s.other]);
     return `<div class="card" style="border-top:3px solid ${col};padding:14px 16px">
       <div style="display:flex;align-items:center;gap:10px"><i class="dot" style="background:${col};width:11px;height:11px"></i><h3 style="margin:0;font-size:18px">${SD[sd]}</h3>
         <b class="num" style="margin-left:auto;font-size:30px">${fmt(c.avg, 2)}</b>${hbiChip(c.avg)}</div>
@@ -2956,7 +2976,8 @@
   function dashDirty() { if (!dedit) return false; return dedit.kind === "taxa" ? Object.values(dedit.sides).some((x) => JSON.stringify(x.vals) !== x.orig) : JSON.stringify(dedit.vals) !== dedit.orig; }
   const editHash = (id, kind, ph, sd) => `#/dash/site/${encodeURIComponent(id)}/edit/${kind}/${ph}${sd ? "/" + sd : ""}`;
   const deBtn = (href, label) => `<a class="dbtn acc" href="${href}">${label}</a>`;
-  const taxaStart = (s) => { const counts = {}; for (let n = 1; n <= 99; n++) counts[n] = s.counts[n] ? String(s.counts[n]) : ""; return { counts, other: s.other ? String(s.other) : "" }; };
+  const taxaStart = (s) => { const counts = {}; for (let n = 1; n <= 99; n++) counts[n] = s.counts[n] ? String(s.counts[n]) : ""; const nameOk = !!(s.grp && s.grp.L.fields[("OtherTaxonName_" + s.Side).toLowerCase()]);   // the name box only when the layer has the field
+    return { counts, other: s.other ? String(s.other) : "", otherHils: s.otherHils ? String(s.otherHils) : "", ...(nameOk ? { otherName: s.otherName || "" } : {}) }; };
   const cnum = (x) => { const s = String(x ?? "").trim(); return /^\d+$/.test(s) ? Number(s) : 0; };
   // Two plans that update the same record (both samples' stored totals sit on the phase record) are merged into one update.
   function mergePlan(list) {
@@ -3003,25 +3024,24 @@
       <div class="de-grid"><section class="dpaper" aria-label="${SD[E.sd]} taxa counts">
           <div class="tb"><input class="q" id="deQ" type="search" placeholder="Find a taxon (name or number)…" value="${esc(E.filter.q)}" aria-label="Find a taxon"></div>
           <div class="dtabs-wrap"><nav class="dgtabs" role="tablist" aria-label="Taxa groups">
-              <button type="button" role="tab" data-tab="counts">With counts <b data-tabc="counts"></b></button><button type="button" role="tab" data-tab="all">All taxa</button>
-              <span class="dgsep">Groups</span>
-              ${GROUPS.map(([g, , lo]) => `<button type="button" role="tab" data-tab="${g}">${GSHORT[g]}${isEPT(lo) ? '<i class="dept">EPT</i>' : ""} <b data-tabc="${g}"></b></button>`).join("")}</nav>
+              <button type="button" role="tab" data-tab="counts">Counted taxa <b data-tabc="counts"></b></button><button type="button" role="tab" data-tab="all">All taxa</button>
+              <span class="dgsep">Taxa groups</span>
+              ${GROUPS.map(([g, , lo]) => `<button type="button" role="tab" data-tab="${g}">${gName(g, lo, "gtx")}<b data-tabc="${g}"></b></button>`).join("")}
+              <button type="button" role="tab" data-tab="OTHER"><span class="gtx"><span>Other taxa</span><em>a taxon not on the sheet</em></span><b data-tabc="OTHER"></b></button></nav>
             <div class="dlistcol"><div class="dth"><span>No.</span><span>Taxon</span><span style="text-align:center">HILS</span><span style="text-align:center">Count</span><span style="text-align:right">Index</span></div>
               <div id="deList"></div><div class="de-err" id="deErr"></div></div></div></section>
         <aside class="de-col"><div class="card"><h3>Live figures · ${SD[E.sd].toLowerCase()}</h3><div id="deGauge" class="dsp-gauge" style="padding:0"></div><div id="deFigs"></div></div>
-          <div class="card"><label class="de-other">Other taxa <span class="muted" style="font-size:12px">(no HILS)</span><input class="dpi" id="deOther" inputmode="numeric" autocomplete="off" value="${esc(E.sides[E.sd].vals.other)}" aria-label="Total other taxa"></label></div>
           <div class="card"><h3>Changes <span class="muted" id="deNch" style="font-weight:500"></span></h3><div id="deChg" style="font-size:13px"></div>
             <div class="muted" style="font-size:11.5px;margin-top:8px">Tab or Enter: next box · ↑ ↓: add or take one · nothing is saved until you review and confirm</div></div></aside></div></main>`;
     deWireCommon(a);
     document.querySelectorAll("#dash [data-side]").forEach((b) => b.onclick = () => { location.hash = editHash(a.id, "taxa", E.ph, b.dataset.side); });
     $("deQ").oninput = (e) => { E.filter.q = e.target.value; dtaxaList(a); };
     document.querySelectorAll("#dash [data-tab]").forEach((b) => b.onclick = () => { E.filter.tab = b.dataset.tab; E.filter.q = ""; $("deQ").value = ""; dtaxaList(a); });
-    $("deOther").oninput = (e) => { E.sides[E.sd].vals.other = e.target.value; dtaxaRefresh(a); };
     dtaxaList(a);
   }
   function dtaxaList(a) {
     const E = dedit, v = E.sides[E.sd].vals, s = a[E.ph].samples[E.sd], f = E.filter, q = f.q.trim().toLowerCase();
-    const row = (n) => `<div class="dtr" data-n="${n}"><span class="no">${n}</span><span class="nm">${esc(TAXON[n - 1])}<em class="was"></em></span><span class="h">${HILS[n - 1]}</span>
+    const row = (n) => `<div class="dtr" data-n="${n}"><span class="no">${n}</span><span class="nm"><span class="tn" title="${n}. ${esc(TAXON[n - 1])}">${esc(TAXON[n - 1])}</span><em class="was"></em></span><span class="h">${HILS[n - 1]}</span>
       <span class="cnt"><button type="button" class="stp" data-step="-1" tabindex="-1" aria-label="One less ${esc(TAXON[n - 1])}">−</button><input inputmode="numeric" autocomplete="off" data-dn="${n}" value="${esc(v.counts[n])}" aria-label="${n}. ${esc(TAXON[n - 1])} count"><button type="button" class="stp" data-step="1" tabindex="-1" aria-label="One more ${esc(TAXON[n - 1])}">+</button></span><span class="ix"></span></div>`;
     let html = ""; const folds = [];
     for (const [g, , lo, hi] of GROUPS) {
@@ -3030,38 +3050,59 @@
       const has = (n) => (s.counts[n] || 0) > 0 || cnum(v.counts[n]) > 0;
       const show = q ? ns.filter((n) => String(n) === q || TAXON[n - 1].toLowerCase().includes(q)) : f.tab === "counts" ? ns.filter(has) : ns;
       if (!show.length) { if (!q && f.tab === "counts") folds.push(g); continue; }
-      html += `<div class="dgh"><span>${GSHORT[g]}${isEPT(lo) ? '<span class="dept">EPT</span>' : ""}</span><span class="gt" data-gt="${g}"></span></div>${show.map(row).join("")}`
+      html += `<div class="dgh">${gName(g, lo, "gn")}<span class="gt" data-gt="${g}"></span></div>${show.map(row).join("")}`
         + (!q && f.tab === "counts" && show.length < ns.length ? `<div class="dmore"><button type="button" class="dfold" data-open="${g}">▸ all ${ns.length} ${GSHORT[g].toLowerCase()}</button></div>` : "");
     }
+    // B15: the other taxon (name, own HILS, count) at the end of the list, and on its own tab
+    const oHas = cnum(v.other) > 0 || (s.other || 0) > 0 || String(v.otherName || "").trim() !== "", nameOk = !!(s.grp && s.grp.L.fields[("OtherTaxonName_" + s.Side).toLowerCase()]);
+    const oShow = q ? "other".includes(q) || String(v.otherName || "").toLowerCase().includes(q) : f.tab === "OTHER" || f.tab === "all" || (f.tab === "counts" && oHas);
+    if (oShow) html += `<div class="dgh"><span class="gn"><span>Other taxa</span><em>a taxon not on the WCCD sheet</em></span><span class="gt" data-gt="OTHER"></span></div>
+      <div class="dtr dto"><span class="no">–</span><span class="nm"><input class="dtx" data-oth="name" maxlength="255" autocomplete="off" value="${esc(v.otherName)}" placeholder="${nameOk ? "Taxon name" : "Name: field not added to the layer yet"}"${nameOk ? "" : " disabled"} aria-label="Other taxon name"><em class="was"></em></span>
+        <span class="h"><input class="dpi doh" data-oth="hils" inputmode="decimal" autocomplete="off" value="${esc(v.otherHils)}" placeholder="0–10" aria-label="Other taxon HILS (0 to 10)"></span>
+        <span class="cnt"><button type="button" class="stp" data-ostep="-1" tabindex="-1" aria-label="One less">−</button><input inputmode="numeric" autocomplete="off" data-oth="count" value="${esc(v.other)}" aria-label="Other taxon count"><button type="button" class="stp" data-ostep="1" tabindex="-1" aria-label="One more">+</button></span><span class="ix"></span></div>
+      <div class="dmore" style="font-size:11.5px;color:#5B6B5F;padding:4px 14px 10px">Index = count × its HILS; it counts in the totals and the Avg HILS like any taxon on the sheet.</div>`;
     if (!html) html = q ? `<p style="padding:14px;color:#5B6B5F">No taxon matches “${esc(f.q)}”.</p>` : `<p style="padding:14px;color:#5B6B5F">No counts entered yet. Pick a group on the left, or “All taxa”.</p>`;
     if (folds.length) html += `<div class="dfolds"><span style="font-size:12px;color:#5B6B5F;align-self:center">No counts yet:</span>${folds.map((g) => `<button type="button" class="dfold" data-open="${g}">${GSHORT[g]}</button>`).join("")}</div>`;
     $("deList").innerHTML = html;
     const list = $("deList");
     list.querySelectorAll("[data-open]").forEach((b) => b.onclick = () => { E.filter.tab = b.dataset.open; dtaxaList(a); });
     document.querySelectorAll("#dash [data-tab]").forEach((b) => { const on = !q && b.dataset.tab === f.tab; b.classList.toggle("on", on); b.setAttribute("aria-selected", on); });
-    const inputs = [...list.querySelectorAll("input[data-dn]")];
+    const inputs = [...list.querySelectorAll("input[data-dn], input[data-oth]:not([disabled])")];
+    const OK = { name: "otherName", hils: "otherHils", count: "other" };
+    list.querySelectorAll("input[data-oth]").forEach((el) => el.oninput = () => { v[OK[el.dataset.oth]] = el.value; dtaxaRefresh(a); });
+    list.querySelectorAll("[data-ostep]").forEach((b) => b.onclick = () => { const inp = list.querySelector('[data-oth="count"]'), c = Math.max(0, cnum(inp.value) + +b.dataset.ostep); inp.value = c ? String(c) : ""; v.other = inp.value; dtaxaRefresh(a); inp.focus(); });
     const setN = (inp, val) => { inp.value = val; v.counts[+inp.dataset.dn] = val; dtaxaRefresh(a); };
     inputs.forEach((inp, i) => {
-      inp.oninput = () => { v.counts[+inp.dataset.dn] = inp.value; dtaxaRefresh(a); };
+      if (inp.dataset.dn) inp.oninput = () => { v.counts[+inp.dataset.dn] = inp.value; dtaxaRefresh(a); };
       inp.onfocus = () => inp.select();
       inp.onkeydown = (e) => {
-        if (e.key === "Enter") { e.preventDefault(); const nx = inputs[i + (e.shiftKey ? -1 : 1)]; if (nx) nx.focus(); else $("deOther").focus(); }
-        else if (e.key === "ArrowUp" || e.key === "ArrowDown") { e.preventDefault(); const c = Math.max(0, cnum(inp.value) + (e.key === "ArrowUp" ? 1 : -1)); setN(inp, c ? String(c) : ""); } };
+        if (e.key === "Enter") { e.preventDefault(); const nx = inputs[i + (e.shiftKey ? -1 : 1)]; if (nx) nx.focus(); }
+        else if ((e.key === "ArrowUp" || e.key === "ArrowDown") && (inp.dataset.dn || inp.dataset.oth === "count")) { e.preventDefault(); const c = Math.max(0, cnum(inp.value) + (e.key === "ArrowUp" ? 1 : -1));
+          if (inp.dataset.dn) setN(inp, c ? String(c) : ""); else { inp.value = c ? String(c) : ""; v.other = inp.value; dtaxaRefresh(a); } } };
     });
     list.querySelectorAll(".stp").forEach((b) => b.onclick = () => { const inp = b.parentElement.querySelector("input"), c = Math.max(0, cnum(inp.value) + +b.dataset.step); setN(inp, c ? String(c) : ""); inp.focus(); });
     dtaxaRefresh(a);
   }
   function dtaxaRefresh(a) {
-    const E = dedit, P = a[E.ph], v = E.sides[E.sd].vals, s = P.samples[E.sd], { counts, other, bad } = readCounts(v);
+    const E = dedit, P = a[E.ph], v = E.sides[E.sd].vals, s = P.samples[E.sd], { counts, other, bad, oh, oname } = readCounts(v);
     document.querySelectorAll("#deList .dtr").forEach((r) => { const n = +r.dataset.n, inp = r.querySelector("input"), c = counts[n] || 0, c0 = s.counts[n] || 0, b = inp.value.trim() !== "" && !/^\d+$/.test(inp.value.trim());
       r.querySelector(".ix").textContent = c ? fmt(Math.round(c * HILS[n - 1])) : ""; inp.classList.toggle("bad-d", b);
-      r.classList.toggle("chg", c !== c0 && !b); r.querySelector(".was").textContent = c === c0 || b ? "" : c0 ? (c ? ` was ${c0}` : ` was ${c0} · removed`) : " new"; });
+      r.classList.toggle("chg", c !== c0 && !b); r.querySelector(".was").textContent = c === c0 || b ? "" : c0 ? (c ? `was ${c0}` : `was ${c0} · removed`) : "new"; });
     document.querySelectorAll("#dash [data-tabc]").forEach((el) => { const k = el.dataset.tabc; let c = 0;
-      if (k === "counts") { for (let n = 1; n <= 99; n++) if (counts[n]) c++; el.textContent = c ? `${c} taxa` : ""; return; }
+      if (k === "counts") { for (let n = 1; n <= 99; n++) if (counts[n]) c++; if (other > 0) c++; el.textContent = c ? `${c} taxa` : ""; return; }
+      if (k === "OTHER") { el.textContent = other || ""; el.parentElement.classList.toggle("has", other > 0); return; }
       const G = GROUPS.find((x) => x[0] === k); for (let n = G[2]; n <= G[3]; n++) c += counts[n] || 0; el.textContent = c || ""; el.parentElement.classList.toggle("has", c > 0); });
-    document.querySelectorAll("#deList [data-gt]").forEach((el) => { const G = GROUPS.find((x) => x[0] === el.dataset.gt); let c = 0; for (let n = G[2]; n <= G[3]; n++) c += counts[n] || 0; el.textContent = `${c} organisms`; });
-    const ob = String(v.other).trim() !== "" && !/^\d+$/.test(String(v.other).trim()); $("deOther").classList.toggle("bad-d", ob);
-    const c1 = calcTotals({ counts, other }), c0 = s.calc;
+    document.querySelectorAll('#deList [data-gt]:not([data-gt="OTHER"])').forEach((el) => { const G = GROUPS.find((x) => x[0] === el.dataset.gt); let c = 0; for (let n = G[2]; n <= G[3]; n++) c += counts[n] || 0; el.textContent = `${c} organisms`; });
+    const orow = document.querySelector("#deList .dto");
+    if (orow) { const oc0 = s.other || 0, oh0 = s.otherHils || 0, on0 = s.otherName || "", ci = orow.querySelector('[data-oth="count"]'), hi = orow.querySelector('[data-oth="hils"]'), hs = String(v.otherHils).trim();
+      const cb = ci.value.trim() !== "" && !/^\d+$/.test(ci.value.trim()), hb = hs !== "" && !(/^\d*\.?\d+$/.test(hs) && +hs <= 10), need = other > 0 && hs === "";
+      ci.classList.toggle("bad-d", cb); hi.classList.toggle("bad-d", hb || need);
+      const ch = other !== oc0 || (oh ?? 0) !== oh0 || (oname ?? "") !== on0;
+      orow.classList.toggle("chg", ch && !cb && !hb);
+      orow.querySelector(".was").textContent = ch ? (oc0 || oh0 || on0 ? `was ${on0 ? on0 + " · " : ""}HILS ${oh0 || "–"} · count ${oc0}` : "new") : "";
+      orow.querySelector(".ix").textContent = other && oh ? fmt(Math.round(other * oh)) : "";
+      const gt = document.querySelector('#deList [data-gt="OTHER"]'); if (gt) gt.textContent = `${other} organisms`; }
+    const c1 = calcTotals({ counts, other, otherHils: oh ?? s.otherHils }), c0 = s.calc;
     $("deGauge").innerHTML = dGauge(c1.avg, c0.avg == null ? "Avg HILS" : `Avg HILS (was ${fmt(c0.avg, 2)})`);
     const fig = (l, x0, x1) => `<div class="dfig"><span class="muted">${l}</span><span>${x0 === x1 ? `<b class="num" style="font-size:20px">${x1}</b>` : `<span class="muted">${x0} →</span> <b class="num" style="font-size:20px;color:var(--acc)">${x1}</b>`}</span></div>`;
     $("deFigs").innerHTML = fig("Organisms", fmt(c0.count), fmt(c1.count)) + fig("Taxa present", c0.taxa, c1.taxa) + fig("EPT taxa", c0.ept, c1.ept) + fig("Total Index", fmt(c0.index), fmt(c1.index));
@@ -3069,12 +3110,16 @@
     const chg = [], errs = [];
     for (const x of Object.keys(E.sides)) { const r = readCounts(E.sides[x].vals), s0 = P.samples[x], pre = Object.keys(E.sides).length > 1 ? `${SD[x]}: ` : "";
       for (let n = 1; n <= 99; n++) if ((r.counts[n] || 0) !== (s0.counts[n] || 0)) chg.push(`${pre}${TAXON[n - 1]} ${s0.counts[n] || 0} → ${r.counts[n] || 0}${s0.counts[n] ? "" : " (new taxon)"}`);
-      if (r.other !== s0.other) chg.push(`${pre}Other taxa ${s0.other} → ${r.other}`);
-      if (r.bad.length) errs.push(`${SD[x]}: counts must be whole numbers (${r.bad.join(", ")})`); }
+      if (r.other !== s0.other) chg.push(`${pre}Other taxon count ${s0.other} → ${r.other}`);
+      if (r.oh !== undefined && r.oh !== (s0.otherHils || 0)) chg.push(`${pre}Other taxon HILS ${s0.otherHils || 0} → ${r.oh}`);
+      if (r.oname !== undefined && r.oname !== (s0.otherName || "")) chg.push(`${pre}Other taxon name “${s0.otherName || ""}” → “${r.oname}”`);
+      if (r.other > 0 && String(E.sides[x].vals.otherHils ?? "").trim() === "") errs.push(`${SD[x]}: enter the HILS (0–10) for the other taxon`);
+      if (r.bad.length) errs.push(`${SD[x]}: counts must be whole numbers (${r.bad.join(", ")})`);
+      if (r.badH) errs.push(`${SD[x]}: the other taxon's HILS must be a number from 0 to 10`); }
     $("deNch").textContent = chg.length ? `(${chg.length})` : "";
     $("deChg").innerHTML = chg.length ? chg.slice(0, 10).map((x) => `<div style="padding:3px 0">• ${esc(x)}</div>`).join("") + (chg.length > 10 ? `<div class="muted">and ${chg.length - 10} more</div>` : "") : '<span class="muted">No changes yet.</span>';
     $("deErr").textContent = errs.join(" · ");
-    const rv = $("deReview"); rv.disabled = !chg.length || errs.length > 0; rv.textContent = errs.length ? "Fix the marked counts first" : chg.length ? `Review and save · ${chg.length} change${chg.length === 1 ? "" : "s"}` : "Review and save";
+    const rv = $("deReview"); rv.disabled = !chg.length || errs.length > 0; rv.textContent = !chg.length ? "Review and save" : errs.length ? "Fix the marked boxes first" : `Review and save · ${chg.length} change${chg.length === 1 ? "" : "s"}`;
     document.querySelectorAll("#dash [data-side]").forEach((b) => { const x = b.dataset.side, dirty = JSON.stringify(E.sides[x].vals) !== E.sides[x].orig; b.textContent = SD[x] + (dirty ? " •" : ""); });
   }
 
@@ -3143,9 +3188,9 @@
     try {
       if (E.kind === "taxa") {
         const sides = Object.keys(E.sides).filter((x) => JSON.stringify(E.sides[x].vals) !== E.sides[x].orig);
-        plan = () => mergePlan(sides.flatMap((x) => { const { counts, other } = readCounts(E.sides[x].vals); return taxaPlan(a, E.ph, x, counts, other); }));
+        plan = () => mergePlan(sides.flatMap((x) => { const r = readCounts(E.sides[x].vals); return taxaPlan(a, E.ph, x, r.counts, r.other, r.oh, r.oname); }));
         what = `${PH[E.ph]} ${sides.map((x) => SD[x].toLowerCase()).join(" and ")} counts saved`;
-        extra = sides.map((x) => { const s = a[E.ph].samples[x], { counts, other } = readCounts(E.sides[x].vals), c1 = calcTotals({ counts, other }), c0 = s.calc;
+        extra = sides.map((x) => { const s = a[E.ph].samples[x], { counts, other, oh } = readCounts(E.sides[x].vals), c1 = calcTotals({ counts, other, otherHils: oh ?? s.otherHils }), c0 = s.calc;
           return `<div class="card" style="padding:10px 14px;margin-top:10px"><b>${SD[x]}</b><table class="ovtab"><tr><th></th><th>Now</th><th>After saving</th></tr>
             <tr><td>Organisms</td><td>${c0.count}</td><td>${c1.count}</td></tr><tr><td>Taxa present</td><td>${c0.taxa}</td><td>${c1.taxa}</td></tr><tr><td>Total Index</td><td>${fmt(c0.index)}</td><td>${fmt(c1.index)}</td></tr>
             <tr><td>Avg HILS</td><td>${fmt(c0.avg, 2)} ${hbiBadge(c0.avg)}</td><td>${fmt(c1.avg, 2)} ${hbiBadge(c1.avg)}</td></tr><tr><td>EPT taxa</td><td>${c0.ept}</td><td>${c1.ept}</td></tr></table></div>`; }).join("");
@@ -3210,7 +3255,7 @@
     hideTip();
     if (r !== "new" && r !== "area" && mapS.view) mountMap(null);   // free the map when leaving a page that has one
     if (r !== "explore" && exMapS.view) { try { exMapS.view.destroy(); } catch { /* gone */ } exMapS.view = null; }
-    if (r === "dash") { drawDash(parts); return; }   // B10: the Dashboard view has its own pages
+    if (r === "dash") { try { drawDash(parts); } catch (err) { console.error(err); $("dash").innerHTML = `<div class="load" style="flex-direction:column;text-align:center;padding:20px">This dashboard page could not be shown (${esc(mask(err.message || err))}).<br><a href="#/dash" style="color:var(--acc)">Dashboard home</a> · <a href="#/" style="color:var(--acc)">Classic view</a></div>`; } return; }   // B10: the Dashboard view has its own pages (B15: an error stays on the page)
     leaveDash();
     document.querySelectorAll(".rail a[data-r]").forEach((a) => a.classList.toggle("on", a.dataset.r === r || (r === "area" && a.dataset.r === "home")));
     if (!model.length && r !== "help") { if (svc.pre) say("notice", "No sites were found in the layers."); }
