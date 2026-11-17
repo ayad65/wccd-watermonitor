@@ -200,6 +200,7 @@
   .baseswitch{display:flex;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.2)}
   .baseswitch button{border:0;background:#fff;padding:5px 11px;font:inherit;font-size:12px;cursor:pointer;color:var(--ink)}
   .baseswitch button.on{background:var(--rail);color:#fff;font-weight:600}
+  .btn.danger{border-color:#B3261E;color:#B3261E;background:#fff} .btn.danger:not(:disabled):hover{background:#B3261E;color:#fff} .btn.danger:disabled{opacity:.45}
   /* Files tab (B8) */
   .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px} .fsec h3{margin:0 0 6px;font-size:17px}
   .ftbl{width:100%} .ftbl td{vertical-align:middle} .fbtns{white-space:nowrap;text-align:right} .fbtns .btn{padding:3px 9px;font-size:13px;margin-left:4px}
@@ -427,7 +428,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B8", BUILD_DATE = "16 Nov 2026";
+  const BUILD = "B9", BUILD_DATE = "16 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -828,7 +829,7 @@
     P.querySelectorAll("[data-tab]").forEach((b) => b.onclick = leave(() => { area.tab = b.dataset.tab; delete area.side[area.tab]; }));
     P.querySelectorAll("[data-go]").forEach((b) => b.onclick = leave(() => { const [ph, sd] = b.dataset.go.split(":"); area.tab = ph; area.side[ph] = sd; }));
     P.querySelectorAll("[data-side]").forEach((b) => b.onclick = leave(() => { area.side[area.tab] = b.dataset.side; }));
-    P.querySelectorAll("[data-tool]").forEach((b) => b.onclick = () => { if (leaveOk()) { area.edit = null; if (b.dataset.tool === "comid") openComidTool(a); else openTool(a, b.dataset.tool, b.dataset.ph, b.dataset.sd); } });
+    P.querySelectorAll("[data-tool]").forEach((b) => b.onclick = () => { if (leaveOk()) { area.edit = null; if (b.dataset.tool === "comid") openComidTool(a); else if (b.dataset.tool === "delete") openDeleteSite(a); else openTool(a, b.dataset.tool, b.dataset.ph, b.dataset.sd); } });
     P.querySelectorAll("[data-edit]").forEach((b) => b.onclick = () => startEdit(a, b.dataset.edit, area.tab, b.dataset.sd));
     P.querySelectorAll("[data-ecancel]").forEach((b) => b.onclick = () => { if (leaveOk()) { area.edit = null; drawArea(a.id); } });
     P.querySelectorAll("[data-ereview]").forEach((b) => b.onclick = () => openReview(a));
@@ -876,6 +877,7 @@
       <div class="tools">
         <button class="btn${!a.test && !CFG.idPattern.test(a.id) ? " pri" : ""}" type="button" data-tool="rename">Change the site ID…</button>
         ${a.pre || a.post ? `<button class="btn${a.flags.some((f) => /Stream ID/.test(f)) ? " pri" : ""}" type="button" data-tool="comid">Check the stream ID (COMID)…</button>` : ""}
+        <button class="btn danger" type="button" data-tool="delete">Delete this site…</button>
         ${others.map(({ ph, sd, s }) => `<button class="btn pri" type="button" data-tool="other" data-ph="${ph}" data-sd="${sd}">Review "Other Taxa" (${PH[ph]} ${SD[sd].toLowerCase()}: ${s.other})…</button>`).join("")}
       </div>`;
   }
@@ -1368,7 +1370,10 @@
     const setBase = (k) => { basePref = k; topo.visible = k === "topo"; sat.visible = k === "sat";
       sw.querySelectorAll("button").forEach((b) => { b.classList.toggle("on", b.dataset.b === k); b.setAttribute("aria-pressed", b.dataset.b === k); }); };
     sw.querySelectorAll("button").forEach((b) => b.onclick = (e) => { e.stopPropagation(); setBase(b.dataset.b); });
-    setBase(basePref); view.ui.add(sw, "top-right");
+    ["pointerdown", "pointerup", "click", "dblclick", "wheel"].forEach((ev) => sw.addEventListener(ev, (e) => e.stopPropagation()));   // clicks on the switch never reach the map
+    // The switch sits on top of the map container itself (not in the SDK's UI area), so every map shows it.
+    setBase(basePref); el.style.position = "relative"; sw.style.cssText = "position:absolute;top:10px;right:10px;z-index:5"; el.appendChild(sw);
+    view.when(() => { if (!el.contains(sw)) el.appendChild(sw); }).catch(() => {});
     return { view, gl, flow, Graphic };
   }
   // The create / location forms' map. If it cannot load, the coordinate boxes still work.
@@ -1934,19 +1939,19 @@
   }
   const sitePts = (a) => SAMPLES.map((s) => { const S = smp(a, s[0]), p = S && geomPt(S.geom); return p ? { s, p } : null; }).filter(Boolean);
   // Map: the site's sample points; clicking one keeps only that sample.
-  const exMapS = { view: null };
+  const exMapS = { view: null, token: 0 };
   async function exMap(a) {
     const el = $("exMap"); if (exMapS.view) { try { exMapS.view.destroy(); } catch { /* gone */ } exMapS.view = null; }
-    el.innerHTML = "";
+    el.innerHTML = ""; const token = ++exMapS.token;
     const pts = sitePts(a);
     try {
       const { view, gl, Graphic } = await buildMap(el, pts.length ? [pts[0].p.lon, pts[0].p.lat] : COUNTY_CENTER, pts.length ? 16 : 10);
+      if (token !== exMapS.token || !document.body.contains(el)) { view.destroy(); return; }
       exMapS.view = view;
       addSamplePoints(view, gl, Graphic, pts);
       view.on("click", async (e) => { const r = await view.hitTest(e, { include: [gl] }); const hit = r.results.find((x) => x.graphic && x.graphic.attributes && x.graphic.attributes.key);
-        if (hit) { ex.samples = new Set([hit.graphic.attributes.key]); exFilters(); exSetView("sum"); } });
-      view.on("pointer-move", async (e) => { const r = await view.hitTest(e, { include: [gl] }); const hit = r.results.find((x) => x.graphic && x.graphic.attributes && x.graphic.attributes.key);
-        if (hit) { const s = SAMPLES.find((x) => x[0] === hit.graphic.attributes.key), S = smp(a, s[0]); showTip(e.native, `${swatch(s[2])}<b>${s[1]}</b><br>Avg HILS ${fmt(S.calc.avg, 2)} · ${S.calc.count} organisms<br>Click to show only this sample`); } else hideTip(); });
+        if (hit) { hideTip(); ex.samples = new Set([hit.graphic.attributes.key]); exFilters(); exSetView("sum"); } });
+      pointTips(view, gl, a, "Click to show only this sample in the charts");
     } catch (err) { el.innerHTML = `<p class="small" style="padding:12px">The map could not be shown (${esc(mask(err.message || err))}).</p>` + (pts.length ? `<p class="small" style="padding:0 12px">${pts.map(({ s, p }) => `${s[1]}: ${pt6(p.lat)}, ${pt6(p.lon)}`).join("<br>")}</p>` : ""); }
     if (!pts.length) el.insertAdjacentHTML("beforeend", `<p class="small" style="padding:8px 12px">This site has no sample points yet.</p>`);
   }
@@ -1999,7 +2004,7 @@
   // ==========================================================================================
   // B8: site page Files tab (attachments on the Pre / Post records) and Map tab
   // ==========================================================================================
-  const siteMapS = { view: null };
+  const siteMapS = { view: null, token: 0 };
   async function siteMap(a) {
     const el = $("siteMap"); if (!el) return;
     if (siteMapS.view) { try { siteMapS.view.destroy(); } catch { /* gone */ } siteMapS.view = null; }
@@ -2007,8 +2012,21 @@
     $("siteMapNote").innerHTML = pts.length ? pts.map(({ s, p }) => `<span class="sw2" style="background:${s[2]};display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px"></span>${s[1]} ${pt6(p.lat)}, ${pt6(p.lon)}`).join(" · ")
       + ` · <a href="#" id="siteMapEdit">edit the points</a>` : "No sample points have been entered yet. Use Sample locations on the Pre- or Post-construction tab.";
     const ed = $("siteMapEdit"); if (ed) ed.onclick = (e) => { e.preventDefault(); area.tab = a.pre ? "pre" : "post"; area.side[area.tab] = "loc"; drawArea(a.id); };
-    try { const { view, gl, Graphic } = await buildMap(el, pts.length ? [pts[0].p.lon, pts[0].p.lat] : COUNTY_CENTER, pts.length ? 16 : 10); siteMapS.view = view; addSamplePoints(view, gl, Graphic, pts); }
-    catch (err) { el.innerHTML = `<p class="small" style="padding:12px">The map could not be shown (${esc(mask(err.message || err))}).</p>`; }
+    const token = ++siteMapS.token;   // a quicker redraw wins; an older map that finishes loading late is thrown away
+    try { const { view, gl, Graphic } = await buildMap(el, pts.length ? [pts[0].p.lon, pts[0].p.lat] : COUNTY_CENTER, pts.length ? 16 : 10);
+      if (token !== siteMapS.token || !document.body.contains(el)) { view.destroy(); return; }
+      siteMapS.view = view; addSamplePoints(view, gl, Graphic, pts); pointTips(view, gl, a); }
+    catch (err) { if (token === siteMapS.token) el.innerHTML = `<p class="small" style="padding:12px">The map could not be shown (${esc(mask(err.message || err))}).</p>`; }
+  }
+  // Hovering a sample point shows what it is: sample, coordinates and the app's figures.
+  function pointTips(view, gl, a, extra = "") {
+    view.on("pointer-move", async (e) => { let hit = null;
+      try { const r = await view.hitTest(e, { include: [gl] }); hit = r.results.find((x) => x.graphic && x.graphic.attributes && x.graphic.attributes.key); } catch { /* view gone */ }
+      if (!hit) { hideTip(); view.container && (view.container.style.cursor = ""); return; }
+      const s = SAMPLES.find((x) => x[0] === hit.graphic.attributes.key), S = smp(a, s[0]), p = geomPt(S.geom), c = S.calc, rt = rating(c.avg), P = a[s[0].split("_")[0]];
+      if (view.container) view.container.style.cursor = extra ? "pointer" : "default";
+      showTip(e.native, `${swatch(s[2])}<b>${s[1]}</b> · ${esc(a.id)}<br>${dayText(P.date)}${P.site ? " · " + esc(P.site) : ""}<br>${pt6(p.lat)}, ${pt6(p.lon)}<br>Avg HILS <b>${fmt(c.avg, 2)}</b>${rt ? " (" + rt[1] + ")" : ""} · ${c.count} organisms · ${c.taxa} taxa · EPT ${c.ept}${extra ? "<br>" + extra : ""}`); });
+    view.on("pointer-leave", () => hideTip());
   }
 
   const fileKind = (f) => /pdf/i.test(f.type || f.name) ? "PDF" : /sheet|excel|csv|\.xlsx?$|\.csv$/i.test((f.type || "") + " " + f.name) ? "Excel / CSV" : /image|\.jpe?g$|\.png$/i.test((f.type || "") + " " + f.name) ? "Photo" : "File";
@@ -2098,6 +2116,69 @@
       return `${f.name} removed from the ${PH[ph]} record`;
     });
   }
+  // ---- B8: delete a whole site (any editor; backup file first; typed ID to confirm) ----
+  // Every record of the site, found through the survey links (main record → samples → taxa rows), plus the Lab record.
+  function siteRecords(a) {
+    const out = { lab: [], post: [], pre: [] };
+    for (const ph of ["pre", "post"]) { const P = a[ph]; if (!P) continue; const S = svc[ph], M = P.main.L, gid = normId(att(M, P.main.row, "globalid"));
+      for (const [, Side, grpName] of SIDES) { const G = S.byName[grpName]; if (!G) continue;
+        for (const g of G.rows.filter((r) => normId(att(G, r, "parentglobalid")) === gid)) { const kid = normId(att(G, g, "globalid"));
+          for (const gk of GROUP_KEYS) { const T = S.byName[repeatName(gk, Side)]; if (!T) continue;
+            for (const t of T.rows.filter((r) => normId(att(T, r, "parentglobalid")) === kid)) out[ph].push({ L: T, row: t, label: `${PH[ph]} ${Side === "Down" ? "downstream" : "upstream"} taxa row (${T.name})` }); }
+          out[ph].push({ L: G, row: g, label: `${PH[ph]} ${Side === "Down" ? "downstream" : "upstream"} sample` }); } }
+      out[ph].push({ L: M, row: P.main.row, label: `${PH[ph]} record` }); }
+    if (a.lab) out.lab.push({ L: a.lab.L, row: a.lab.row, label: "Lab record" });
+    return out;
+  }
+  const blobToB64 = (blob) => new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(",")[1]); fr.onerror = rej; fr.readAsDataURL(blob); });
+  function openDeleteSite(a) {
+    const recs = siteRecords(a), n = (k) => recs[k].length, files = ["pre", "post"].flatMap((ph) => a[ph] ? a[ph].files.map((f) => ({ ph, f })) : []);
+    $("ovl").classList.remove("hidden");
+    $("panel").innerHTML = `<h3 id="panelTitle">Delete site ${esc(a.id)}</h3>
+      <p>This permanently deletes everything stored for <b>${esc(a.id)}</b>${a.stream ? " (" + esc(a.stream) + ")" : ""}:</p>
+      <div class="rev"><table><tr><th>Survey</th><th>Records to delete</th></tr>
+        <tr><td>Pre-construction</td><td>${n("pre") ? `${n("pre")} (the record, its samples and ${n("pre") - 1 - (a.pre ? ["down", "up"].filter((sd) => a.pre.samples[sd].grp).length : 0)} taxa rows)` : "none"}</td></tr>
+        <tr><td>Post-construction</td><td>${n("post") ? `${n("post")} (the record, its samples and ${n("post") - 1 - (a.post ? ["down", "up"].filter((sd) => a.post.samples[sd].grp).length : 0)} taxa rows)` : "none"}</td></tr>
+        <tr><td>Lab analysis</td><td>${n("lab") ? "1 (the Lab record)" : "none"}</td></tr>
+        <tr><td>Attached files</td><td>${files.length ? files.map(({ f }) => esc(f.name)).join("<br>") : "none"}</td></tr></table></div>
+      <p class="bad" style="margin-top:8px">This cannot be undone in the app. First the app saves a backup file to your computer with every record and every attached file; the deletion starts only after that.</p>
+      <div class="f"><label for="delId">Type the site ID <b>${esc(a.id)}</b> to confirm</label><input type="text" id="delId" autocomplete="off" spellcheck="false"></div>
+      <div class="small" id="toolStatus"></div>
+      <div class="btns"><button class="btn" type="button" id="tCancel">Cancel</button><button class="btn danger" type="button" id="tGo" disabled>Save backup and delete</button></div>`;
+    $("tCancel").onclick = closeTool;
+    $("delId").oninput = () => { $("tGo").disabled = $("delId").value.trim() !== a.id; };
+    $("delId").focus();
+    $("tGo").onclick = () => runDeleteSite(a, recs, files);
+  }
+  async function runDeleteSite(a, recs, files) {
+    const go = $("tGo"), cancel = $("tCancel"), st = $("toolStatus"), progress = (t) => { st.innerHTML = '<span class="spin"></span>' + esc(t); };
+    go.disabled = true; cancel.disabled = true; $("delId").disabled = true;
+    const done = [];
+    try {
+      // 1. backup: every record (all attributes and the point) and every attached file, as one JSON file
+      progress("Reading the attached files for the backup…");
+      const backup = { app: "WCCD Watershed Monitoring", build: BUILD, site: a.id, stream: a.stream, savedAt: new Date().toISOString(), savedBy: portalUser ? portalUser.username : "", records: {}, files: [] };
+      for (const k of ["pre", "post", "lab"]) backup.records[k] = recs[k].map((r) => ({ layer: r.L.name, layerUrl: r.L.url, attributes: r.row.attributes, geometry: r.row.geometry || null }));
+      for (const { ph, f } of files) { const blob = await fetchFile(a, ph, f.id); backup.files.push({ survey: ph, record: a[ph].oid, name: f.name, contentType: f.type, keywords: f.keywords, size: f.size, base64: await blobToB64(blob) }); }
+      progress("Saving the backup file…");
+      const stamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-");
+      download(`${a.id} backup before delete ${stamp}.json`, "application/json", JSON.stringify(backup, null, 1));
+      await new Promise((r) => setTimeout(r, 800));
+      // 2. delete survey by survey (each all-or-nothing); a removed record cannot be put back, so the order is Lab → Post → Pre
+      for (const k of ["lab", "post", "pre"]) { if (!recs[k].length) continue;
+        const ch = recs[k].map((r) => ({ op: "delete", svc: k, L: r.L, oid: r.row.attributes[r.L.def.objectIdField], edit: editDateOf(r.L, r.row), before: r.row.attributes, label: r.label }));
+        const res = await saveChanges(ch, progress);
+        if (res.wrong.length) throw new Error(`the ${CFG.serviceNames[k]} survey reported: ${res.wrong.join("; ")}`);
+        done.push(CFG.serviceNames[k]); }
+      progress("Reloading the survey data…"); await loadAll();
+      closeTool(); area.edit = null; area.id = null;
+      location.hash = "#/";
+      setTimeout(() => say("okmsg", `Site ${esc(a.id)} was deleted (${done.join(", ")}). The backup file "${esc(a.id)} backup before delete…json" is in your downloads. <a href="#" onclick="this.parentNode.classList.add('hidden');return false">Close</a>`), 50);
+    } catch (err) { console.error(err);
+      st.innerHTML = `<div class="msg error" style="margin-top:10px">Stopped – ${esc(mask(err.message || err).replace(/\. Nothing was saved$/, ""))}.${done.length ? ` Already deleted: ${esc(done.join(", "))}; the rest of the site is still there. The backup file has everything.` : " Nothing was deleted."}</div>`;
+      cancel.disabled = false; cancel.textContent = "Close"; try { await loadAll(); } catch { /* keep */ } }
+  }
+
   async function runFileOp(a, op) {
     const go = $("tGo"), cancel = $("tCancel"), st = $("toolStatus"), progress = (t) => { st.innerHTML = '<span class="spin"></span>' + esc(t); };
     go.disabled = true; cancel.disabled = true;
