@@ -200,6 +200,15 @@
   .baseswitch{display:flex;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.2)}
   .baseswitch button{border:0;background:#fff;padding:5px 11px;font:inherit;font-size:12px;cursor:pointer;color:var(--ink)}
   .baseswitch button.on{background:var(--rail);color:#fff;font-weight:600}
+  /* Files tab (B8) */
+  .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px} .fsec h3{margin:0 0 6px;font-size:17px}
+  .ftbl{width:100%} .ftbl td{vertical-align:middle} .fbtns{white-space:nowrap;text-align:right} .fbtns .btn{padding:3px 9px;font-size:13px;margin-left:4px}
+  .tag.cert{background:#E3F1EA;color:#1B6E3A;border:1px solid #9CCFB3}
+  .fadd{margin-top:10px;padding:10px;border:1px dashed var(--line);border-radius:10px;background:#FBFCFC} .fline{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:4px}
+  .fline select{padding:5px;border-radius:8px;border:1px solid var(--line);font:inherit;font-size:14px}
+  #fViewer{margin-top:16px} .fvhead{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:6px} .fvhead .btn{padding:3px 10px;font-size:13px}
+  .fview{width:100%;height:720px;border:1px solid var(--line);border-radius:10px;background:#fff} .fview.img{height:auto;max-height:720px;object-fit:contain}
+  @media (max-width:900px){ .fgrid{grid-template-columns:1fr} }
   /* Reports (layout L2): Letter pages previewed at 680 × 880 px (80 px per inch), printed at 8.5 × 11 in */
   .rep{display:grid;grid-template-columns:280px minmax(0,1fr);gap:14px;align-items:start}
   .rchecks{position:sticky;top:12px} .rchecks h3{font-size:16px;margin:12px 0 6px} .rchecks h3:first-child{margin-top:0}
@@ -418,7 +427,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B7b", BUILD_DATE = "16 Nov 2026";
+  const BUILD = "B8", BUILD_DATE = "16 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -449,6 +458,11 @@
   const labField = (ph, side, key) => { const k = (ph === "pre" ? "Pre" : "Post") + (side === "down" ? "Down" : "Up") + key; return LABFIX[k] || k; };
   // "<" / ">" box per test: TC, EC, NA, NI came with the survey; the other seven were added in B4 (additions only).
   const PFXCODE = { TotalColiforms: "TC", EscherichiaColi: "EC", Nitrate: "NA", Nitrite: "NI", Acidity: "AC", Conductivity: "CN", DissolvedSolids: "TD", SuspendedSolids: "TS", pH: "PH", Oxygen: "DO", Phosphorus: "PP" };
+  // B8 files: the lab certificate is the PDF tagged with the Survey123 file question's name, so the form shows it too.
+  const CERT_KEY = "upload_document_here", OTHER_KEY = "wccd_app_file";
+  const FILE_ACCEPT = ".pdf,.xlsx,.xls,.csv,.jpg,.jpeg,.png", FILE_MAX = 25 * 1024 * 1024;
+  const isCert = (f) => String(f.keywords || "").split(",").map((s) => s.trim()).includes(CERT_KEY) && /pdf/i.test(f.type || f.name);
+  const fmtSize = (b) => b == null ? "–" : b >= 1048576 ? (b / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(b / 1024)) + " KB";
   const LABUNITS = { TotalColiforms: "MPN/100mL", EscherichiaColi: "MPN/100mL", Nitrate: "mg/L", Nitrite: "mg/L", Acidity: "mg CaCO3/L", Conductivity: "µmhos/cm", DissolvedSolids: "mg/L", SuspendedSolids: "mg/L", pH: "–", Oxygen: "mg/L", Phosphorus: "mg/L" };
   const STAGES = [["pre","down","Pre downstream","var(--s1)"],["pre","up","Pre upstream","var(--s2)"],["pre","lab","Pre lab","var(--s3)"],["post","down","Post downstream","var(--s4)"],["post","up","Post upstream","var(--s5)"],["post","lab","Post lab","var(--s6)"]];
 
@@ -533,6 +547,13 @@
         L.rows = await queryAll(L.url, { returnGeometry: L.isLayer, outSR: 4326 });
         S.counts[L.name] = L.rows.length;
       }));
+      // B8: the files attached to the main records (lab certificates etc.), one request per survey. A failure here never stops the app.
+      const M = S.byName[MAIN[key]]; if (M) M.files = {};
+      if (M && M.def.hasAttachments && M.rows.length) {
+        try { const r = await getJson(M.url + "/queryAttachments", { definitionExpression: "1=1", returnUrl: false });
+          for (const g of r.attachmentGroups || []) M.files[g.parentObjectId] = (g.attachmentInfos || []).map((x) => ({ id: x.id, name: x.name, size: x.size, type: x.contentType, keywords: x.keywords || "" }));
+        } catch (e) { M.filesError = mask(e.message || e); }
+      }
       S.step = "done";
     } catch (err) {
       const m = mask(String((err && err.message) || err)), name = CFG.serviceNames[key];
@@ -606,7 +627,8 @@
       for (const r of M.rows) {
         const a = area(att(M, r, "ProjectID"));
         if (a[ph]) { a.flags.push((ph === "pre" ? "Pre" : "Post") + "-construction has more than one record with this ID."); continue; }
-        a[ph] = { stream: att(M, r, "StreamName"), site: att(M, r, "SiteName"), date: att(M, r, "DateSampled"), oid: r.attributes[M.def.objectIdField], main: { L: M, row: r }, samples: sampleFrom(S, ph, r) };
+        a[ph] = { stream: att(M, r, "StreamName"), site: att(M, r, "SiteName"), date: att(M, r, "DateSampled"), oid: r.attributes[M.def.objectIdField], main: { L: M, row: r }, samples: sampleFrom(S, ph, r),
+                  files: (M.files && M.files[r.attributes[M.def.objectIdField]]) || [] };
       }
     }
     // One Stream ID (COMID) belongs to one stream: the same ID stored for differently named streams cannot be right
@@ -638,6 +660,9 @@
         for (const sd of ["down", "up"]) for (const t of LABTESTS) if (nb(att(L, r, labField(ph, sd, t)))) empty.push((sd === "down" ? "Downstream " : "Upstream ") + LABNAMES[t]);
         const filled = 22 - empty.length;
         st.state = filled === 0 ? "none" : empty.length ? "part" : "full";
+        // B8: lab values entered but no lab certificate attached to that phase's record
+        const P = a[ph], M = P && P.main.L;
+        if (filled > 0 && P && M && M.files && !M.filesError && !P.files.some(isCert)) a.flags.push(`${PH[ph]}: lab results are entered but no lab certificate (PDF) is attached. Attach it on the Files tab.`);
         if (filled === 0) st.notes.push("no " + (ph === "pre" ? "pre" : "post") + "-construction lab values");
         else if (empty.length) st.notes.push("empty: " + empty.join(", "));
         return st;
@@ -794,7 +819,7 @@
       <div class="rhead"><h2>${esc(a.id)}${a.test ? '<span class="tag">test</span>' : ""} · ${esc(a.stream || "no stream")}</h2>
         <span class="small">${esc(a.site && a.site !== a.stream ? a.site + " · " : "")}status <b>${STATUS_TEXT[a.status]}</b> · next: ${esc(a.next)}</span></div>
       <div class="steps">${steps}</div><div class="figs">${figs}</div>${flags}
-      <div class="tabs" role="tablist">${TABS.map(([k, l]) => `<button class="tab${area.tab === k ? " on" : ""}${k === "map" || k === "files" ? " later" : ""}" data-tab="${k}" role="tab" type="button">${l}</button>`).join("")}</div>
+      <div class="tabs" role="tablist">${TABS.map(([k, l]) => `<button class="tab${area.tab === k ? " on" : ""}" data-tab="${k}" role="tab" type="button">${l}${k === "files" ? ` <span class="small">(${["pre", "post"].reduce((t, ph) => t + (a[ph] ? a[ph].files.length : 0), 0)})</span>` : ""}</button>`).join("")}</div>
       <div class="tabbody">${tabHtml(a)}</div>`;
     area.note = null;
     // Changing tabs always starts at the first side tab; a stage circle opens its phase tab at that stage's side tab.
@@ -818,6 +843,8 @@
     const e = P.querySelector("#tEmpty"); if (e) e.onchange = () => { area.empty = e.checked; drawArea(a.id); };
     if (area.edit && (area.edit.kind === "post0" || area.edit.kind === "loc")) bindCreate(area.edit, a, P, () => editorRefresh(a));
     else if (mapS.view) mountMap(null);
+    if (area.tab === "map") siteMap(a); else if (siteMapS.view) { try { siteMapS.view.destroy(); } catch { /* gone */ } siteMapS.view = null; }
+    if (area.tab === "files") bindFiles(a);
     if (area.edit) { editorRefresh(a); const first = P.querySelector("[data-tn],[data-ev],[data-lv],[data-cv]"); if (first && !area.edit.focused) { first.focus(); area.edit.focused = true; } }
   }
 
@@ -828,7 +855,8 @@
   }
 
   function tabHtml(a) {
-    if (area.tab === "map" || area.tab === "files") return `<p class="later-box">${area.tab === "map" ? "The map of the sample points" : "The attached lab reports"} come in a later build.</p>`;
+    if (area.tab === "map") return `<div id="siteMap" class="cmap" style="height:460px"></div><p class="small" id="siteMapNote"></p>`;
+    if (area.tab === "files") return filesTab(a);
     if (area.tab === "pre" || area.tab === "post") return phaseTab(a, area.tab);
     return overviewTab(a);
   }
@@ -1969,6 +1997,117 @@
   }
 
   // ==========================================================================================
+  // B8: site page Files tab (attachments on the Pre / Post records) and Map tab
+  // ==========================================================================================
+  const siteMapS = { view: null };
+  async function siteMap(a) {
+    const el = $("siteMap"); if (!el) return;
+    if (siteMapS.view) { try { siteMapS.view.destroy(); } catch { /* gone */ } siteMapS.view = null; }
+    const pts = sitePts(a);
+    $("siteMapNote").innerHTML = pts.length ? pts.map(({ s, p }) => `<span class="sw2" style="background:${s[2]};display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px"></span>${s[1]} ${pt6(p.lat)}, ${pt6(p.lon)}`).join(" · ")
+      + ` · <a href="#" id="siteMapEdit">edit the points</a>` : "No sample points have been entered yet. Use Sample locations on the Pre- or Post-construction tab.";
+    const ed = $("siteMapEdit"); if (ed) ed.onclick = (e) => { e.preventDefault(); area.tab = a.pre ? "pre" : "post"; area.side[area.tab] = "loc"; drawArea(a.id); };
+    try { const { view, gl, Graphic } = await buildMap(el, pts.length ? [pts[0].p.lon, pts[0].p.lat] : COUNTY_CENTER, pts.length ? 16 : 10); siteMapS.view = view; addSamplePoints(view, gl, Graphic, pts); }
+    catch (err) { el.innerHTML = `<p class="small" style="padding:12px">The map could not be shown (${esc(mask(err.message || err))}).</p>`; }
+  }
+
+  const fileKind = (f) => /pdf/i.test(f.type || f.name) ? "PDF" : /sheet|excel|csv|\.xlsx?$|\.csv$/i.test((f.type || "") + " " + f.name) ? "Excel / CSV" : /image|\.jpe?g$|\.png$/i.test((f.type || "") + " " + f.name) ? "Photo" : "File";
+  const attUrl = (a, ph, id) => `${a[ph].main.L.url}/${a[ph].oid}/attachments${id != null ? "/" + id : ""}`;
+  let fileView = { url: null };
+  function filesTab(a) {
+    const sec = (ph) => {
+      const P = a[ph]; if (!P) return `<div class="fsec"><h3>${PH[ph]}</h3><p class="small">No ${PH[ph].toLowerCase()} record yet.</p></div>`;
+      const M = P.main.L;
+      if (svc[ph].error) return `<div class="fsec"><h3>${PH[ph]}</h3><p class="bad">${esc(svc[ph].error)}</p></div>`;
+      if (!M.def.hasAttachments) return `<div class="fsec"><h3>${PH[ph]}</h3><p class="small">This survey's layer does not accept attached files.</p></div>`;
+      const rows = P.files.length ? P.files.map((f) => `<tr><td>${esc(f.name)}${isCert(f) ? ' <span class="tag cert">lab certificate</span>' : ""}</td><td>${fileKind(f)}</td><td class="num">${fmtSize(f.size)}</td>
+          <td class="fbtns"><button class="btn" type="button" data-fview="${ph}:${f.id}">View</button><button class="btn" type="button" data-fdl="${ph}:${f.id}">Download</button><button class="btn" type="button" data-frm="${ph}:${f.id}">Remove…</button></td></tr>`).join("")
+        : `<tr><td colspan="4" class="small">No files attached yet.</td></tr>`;
+      return `<div class="fsec"><h3>${PH[ph]}</h3>${M.filesError ? `<p class="bad">The attached files could not be read (${esc(M.filesError)}).</p>` : ""}
+        <table class="tx ftbl"><tr><th>File</th><th>Type</th><th class="num">Size</th><th></th></tr>${rows}</table>
+        <div class="fadd"><label class="small" for="fIn-${ph}">Attach a file (PDF, Excel/CSV, JPG or PNG, up to 25 MB)</label>
+          <div class="fline"><input type="file" id="fIn-${ph}" accept="${FILE_ACCEPT}"><select id="fKind-${ph}" aria-label="What the file is"><option value="cert">Lab certificate (PDF)</option><option value="other">Other file</option></select>
+          <button class="btn pri" type="button" data-fadd="${ph}">Attach…</button></div></div></div>`;
+    };
+    return `<p class="small" style="margin:0 0 10px">Files are attached to the Pre- or Post-construction record, as the Survey123 form does. A PDF marked "Lab certificate" is also shown in the Survey123 form's "Upload Document Here" question.</p>
+      <div class="fgrid">${sec("pre")}${sec("post")}</div><div id="fViewer"></div>`;
+  }
+  async function fetchFile(a, ph, id) { const res = await req(attUrl(a, ph, id), { responseType: "blob" }); return res.data; }
+  function bindFiles(a) {
+    const P = $("p-area"), find = (k) => { const [ph, id] = k.split(":"); return { ph, f: a[ph].files.find((x) => String(x.id) === id) }; };
+    P.querySelectorAll("[data-fview]").forEach((b) => b.onclick = async () => { const { ph, f } = find(b.dataset.fview), box = $("fViewer");
+      box.innerHTML = `<p class="small"><span class="spin"></span>Opening ${esc(f.name)}…</p>`;
+      try { const blob = await fetchFile(a, ph, f.id); if (fileView.url) URL.revokeObjectURL(fileView.url); fileView.url = URL.createObjectURL(blob.type ? blob : new Blob([blob], { type: f.type }));
+        const kind = fileKind(f), head = `<div class="fvhead"><b>${esc(f.name)}</b> <span class="small">${PH[ph]} · ${fmtSize(f.size)}</span><a class="btn" href="${fileView.url}" download="${esc(f.name)}">Download</a><button class="btn" type="button" id="fClose">Close</button></div>`;
+        box.innerHTML = head + (kind === "PDF" ? `<iframe class="fview" src="${fileView.url}" title="${esc(f.name)}"></iframe>` : kind === "Photo" ? `<img class="fview img" src="${fileView.url}" alt="${esc(f.name)}">`
+          : `<p class="small">This kind of file cannot be shown in the browser. Use Download to open it in its own program.</p>`);
+        $("fClose").onclick = () => { box.innerHTML = ""; }; box.scrollIntoView({ behavior: "smooth", block: "start" });
+      } catch (err) { box.innerHTML = `<p class="bad">The file could not be opened (${esc(mask(err.message || err))}).</p>`; } });
+    P.querySelectorAll("[data-fdl]").forEach((b) => b.onclick = async () => { const { ph, f } = find(b.dataset.fdl); b.disabled = true;
+      try { const blob = await fetchFile(a, ph, f.id), u = URL.createObjectURL(blob), el = document.createElement("a"); el.href = u; el.download = f.name; document.body.appendChild(el); el.click(); setTimeout(() => { URL.revokeObjectURL(u); el.remove(); }, 1500); }
+      catch (err) { alert("The file could not be downloaded: " + mask(err.message || err)); } b.disabled = false; });
+    P.querySelectorAll("[data-frm]").forEach((b) => b.onclick = () => { const { ph, f } = find(b.dataset.frm); openRemoveFile(a, ph, f); });
+    for (const ph of ["pre", "post"]) { const inp = $("fIn-" + ph), kind = $("fKind-" + ph); if (!inp) continue;
+      inp.onchange = () => { const fl = inp.files[0]; if (fl) kind.value = /\.pdf$/i.test(fl.name) && !a[ph].files.some(isCert) ? "cert" : "other"; }; }
+    P.querySelectorAll("[data-fadd]").forEach((b) => b.onclick = () => openAttach(a, b.dataset.fadd));
+  }
+  function openAttach(a, ph) {
+    const fl = $("fIn-" + ph).files[0], kind = $("fKind-" + ph).value;
+    const problems = [];
+    if (!fl) problems.push("Choose a file first.");
+    else { if (!/\.(pdf|xlsx|xls|csv|jpe?g|png)$/i.test(fl.name)) problems.push("Only PDF, Excel/CSV, JPG and PNG files can be attached.");
+      if (fl.size > FILE_MAX) problems.push(`The file is ${fmtSize(fl.size)}; the limit is ${fmtSize(FILE_MAX)}.`);
+      if (fl.size === 0) problems.push("The file is empty.");
+      if (kind === "cert" && !/\.pdf$/i.test(fl.name)) problems.push("A lab certificate must be a PDF. Choose \"Other file\" for anything else."); }
+    $("ovl").classList.remove("hidden");
+    if (problems.length) { $("panel").innerHTML = `<h3 id="panelTitle">Attach a file</h3><p class="bad">${problems.map(esc).join("<br>")}</p><div class="btns"><button class="btn" type="button" id="tCancel">Close</button></div>`; $("tCancel").onclick = closeTool; return; }
+    const P = a[ph], same = P.files.filter((x) => x.name === fl.name), otherCert = kind === "cert" && P.files.some(isCert);
+    $("panel").innerHTML = `<h3 id="panelTitle">Review and attach</h3><p>Nothing is stored until you click Confirm and attach.</p>
+      <div class="rev"><table><tr><th>Record</th><th>File</th><th>Size</th><th>Attached as</th></tr><tr><td>${PH[ph]} record for ${esc(a.id)}</td><td>${esc(fl.name)}</td><td>${fmtSize(fl.size)}</td><td>${kind === "cert" ? "Lab certificate (shown in the Survey123 form)" : "Other file"}</td></tr></table></div>
+      ${same.length ? `<p class="bad" style="margin-top:8px">A file with this name is already attached to this record. Attaching it again keeps both copies.</p>` : ""}
+      ${otherCert ? `<p class="small" style="margin-top:8px">This record already has a lab certificate; both will be listed.</p>` : ""}
+      <div class="small" id="toolStatus"></div><div class="btns"><button class="btn" type="button" id="tCancel">Cancel</button><button class="btn pri" type="button" id="tGo">Confirm and attach</button></div>`;
+    $("tCancel").onclick = closeTool;
+    $("tGo").onclick = () => runFileOp(a, async (progress) => {
+      progress(`Uploading ${fl.name} (${fmtSize(fl.size)})…`);
+      const fd = new FormData(); fd.append("attachment", fl, fl.name); fd.append("f", "json"); fd.append("keywords", kind === "cert" ? CERT_KEY : OTHER_KEY);
+      const r = (await req(`${P.main.L.url}/${P.oid}/addAttachment`, { method: "post", body: fd })).data, ar = r && r.addAttachmentResult;
+      if (r && r.error) throw new Error(r.error.message || "the upload was refused");
+      if (!ar || !ar.success) throw new Error((ar && ar.error && ar.error.description) || "the upload was refused");
+      progress("Checking the stored file…");
+      const list = await getJson(attUrl(a, ph)), got = (list.attachmentInfos || []).find((x) => x.id === ar.objectId);
+      if (!got) throw new Error("the file was not found on the record afterwards");
+      if (got.size !== fl.size) throw new Error(`the stored file is ${got.size} bytes, the original ${fl.size}`);
+      return `${fl.name} attached to the ${PH[ph]} record and verified (${fmtSize(fl.size)})`;
+    });
+  }
+  function openRemoveFile(a, ph, f) {
+    $("ovl").classList.remove("hidden");
+    $("panel").innerHTML = `<h3 id="panelTitle">Remove an attached file</h3>
+      <p><b>${esc(f.name)}</b> (${fmtSize(f.size)}${isCert(f) ? ", lab certificate" : ""}) will be removed from the ${PH[ph]} record of ${esc(a.id)}.</p>
+      <p class="bad">This deletes the file permanently; it cannot be undone. Download it first if you may need it.</p>
+      <div class="small" id="toolStatus"></div><div class="btns"><button class="btn" type="button" id="tCancel">Cancel</button><button class="btn pri" type="button" id="tGo">Remove permanently</button></div>`;
+    $("tCancel").onclick = closeTool;
+    $("tGo").onclick = () => runFileOp(a, async (progress) => {
+      progress(`Removing ${f.name}…`);
+      const r = (await req(`${a[ph].main.L.url}/${a[ph].oid}/deleteAttachments`, { method: "post", query: { f: "json", attachmentIds: String(f.id) } })).data;
+      if (r && r.error) throw new Error(r.error.message || "the removal was refused");
+      const d = (r && r.deleteAttachmentResults || [])[0]; if (!d || !d.success) throw new Error((d && d.error && d.error.description) || "the removal was refused");
+      progress("Checking…");
+      const list = await getJson(attUrl(a, ph)); if ((list.attachmentInfos || []).some((x) => x.id === f.id)) throw new Error("the file is still attached afterwards");
+      return `${f.name} removed from the ${PH[ph]} record`;
+    });
+  }
+  async function runFileOp(a, op) {
+    const go = $("tGo"), cancel = $("tCancel"), st = $("toolStatus"), progress = (t) => { st.innerHTML = '<span class="spin"></span>' + esc(t); };
+    go.disabled = true; cancel.disabled = true;
+    try { const what = await op(progress); progress("Reloading the survey data…"); await loadAll();
+      area.note = { cls: "okmsg", html: esc(what) + "." }; closeTool(); area.tab = "files"; route(); }
+    catch (err) { console.error(err); st.innerHTML = `<div class="msg error" style="margin-top:10px">Stopped – ${esc(mask(err.message || err))}. Nothing else was changed.</div>`; cancel.disabled = false; cancel.textContent = "Close";
+      try { await loadAll(); } catch { /* keep the old data */ } }
+  }
+
+  // ==========================================================================================
   // B7: Reports (layout L2). Five Letter pages per site, organised by taxa; every figure from calcTotals.
   // ==========================================================================================
   const rp = { area: null, empty: false, wired: false, view: null, skip: new Set() };
@@ -2081,7 +2220,8 @@
     // dates and coordinates break where they should: date / time, latitude / longitude
     const dt2 = (ms) => { const d = new Date(ms); return `${d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}<br>${d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}`; };
     const info = (k) => S4.map((s) => { const [ph, sd] = s[0].split("_"), x = lv(labField(ph, sd, k)); return `<td>${k === "DateTime" ? (nb(x) ? "–" : dt2(x)) : k === "Lat" ? (nb(x) ? "–" : `${pt6(x)}<br>${pt6(lv(labField(ph, sd, "Lon")))}`) : esc(nb(x) ? "–" : x)}</td>`; }).join("");
-    const cert = ["pre", "post"].map((ph) => a[ph] ? `${PH[ph]}: ${esc(mv(ph, "laboratory_name") || "laboratory not entered")}, received ${dayText(mv(ph, "received_on"))}, reported ${dayText(mv(ph, "reported_on"))}` : "").filter(Boolean).join("<br>");
+    const cert = ["pre", "post"].map((ph) => { if (!a[ph]) return ""; const files = a[ph].files.filter(isCert).map((f) => esc(f.name));
+      return `${PH[ph]}: ${esc(mv(ph, "laboratory_name") || "laboratory not entered")}, received ${dayText(mv(ph, "received_on"))}, reported ${dayText(mv(ph, "reported_on"))}<br><span style="color:var(--muted)">Certificate file: ${files.length ? files.join("; ") : "none attached"}</span>`; }).filter(Boolean).join("<br>");
     const notes = ["Pre", "Post"].map((P0) => { const n = lv(P0 + "LabNotes"); return nb(n) ? "" : `<b>${P0}-construction notes:</b> ${esc(n)}`; }).filter(Boolean).join("<br>");
     const p5 = `<div class="paper" data-sec="lab">${head("Lab results")}${!lab ? `<p>No lab results have been entered for this site yet.</p>` : `<p class="small">${cert}</p>
       <table>${colHead}<tr><td>Lab sample ID</td>${info("LabSampleID")}</tr><tr><td>Collected by</td>${info("CollectedBy")}</tr><tr><td>Collected on</td>${info("DateTime")}</tr><tr><td>Coordinates<br><span class="small">latitude, longitude</span></td>${info("Lat")}</tr></table>
