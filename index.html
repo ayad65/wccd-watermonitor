@@ -187,12 +187,48 @@
   .labed input:focus,.labed select:focus,.labed textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
   .ptwrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;align-items:start}
   .cmap{height:380px;border:1px solid var(--line);border-radius:10px;background:var(--soft);overflow:hidden}
-  .ptside .placebtns{display:flex;gap:6px;margin:8px 0 10px}
-  .ptside .ptrow{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px;margin-bottom:10px}
+  .ptside .placebtns{display:flex;gap:8px;margin:8px 0 12px;align-items:center}
+  .pbtn{border:2px solid var(--line);background:#fff;border-radius:999px;padding:4px 12px;font:inherit;font-size:13px;cursor:pointer;transition:transform .12s,box-shadow .12s;color:var(--ink,#10242A)}
+  .pbtn:hover{border-color:var(--pc)}
+  .pbtn.on{background:var(--pc);border-color:var(--pc);color:#fff;font-weight:700;transform:scale(1.12);box-shadow:0 2px 6px rgba(0,0,0,.22)}
+  .pbtn.on .sw{border-color:#fff;box-shadow:none}
+  .ptside .ptrow{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px;margin-bottom:10px} .ptside .ptrow[hidden]{display:none}
   .ptside .ptrow b{grid-column:1/-1;font-size:13px;display:flex;align-items:center;gap:6px}
   .ptside .ptrow label{font-size:12px;color:var(--muted)} .ptside .ptrow .num-in{width:100%;text-align:left}
   .sw{display:inline-block;width:11px;height:11px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);margin-right:4px;vertical-align:-1px}
   #cLook,#cSug{margin-top:6px}
+  /* Explore (layout L2) */
+  .ex{display:grid;grid-template-columns:250px minmax(0,1fr);gap:14px;align-items:start}
+  .filters{position:sticky;top:12px} .filters h3{font-size:16px;margin:12px 0 6px} .filters h3:first-child{margin-top:0}
+  .filters select{width:100%;padding:7px;border-radius:8px;border:1px solid var(--line);font:inherit;font-size:14px}
+  .samp{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:14px;cursor:pointer} .samp i{width:14px;height:14px;border-radius:3px;display:inline-block} .samp input{margin:0}
+  .samp.na{color:#9AABB0;cursor:default}
+  .subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+  .subtab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font:inherit;font-size:14px;cursor:pointer}
+  .subtab.on{background:var(--rail);color:#fff;border-color:var(--rail);font-weight:600}
+  .chartgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px} .chartgrid.two{grid-template-columns:2fr 1fr}
+  .chart{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;position:relative}
+  .chart h3{font-size:16px;margin:0 0 2px} .chart .sub{font-size:12px;color:var(--muted);margin-bottom:6px}
+  .chart svg{display:block;width:100%;height:auto;overflow:visible}
+  .chart svg text{font-family:"Public Sans",system-ui,sans-serif;fill:var(--muted);font-size:11px}
+  .chart svg text.lbl{fill:var(--ink);font-size:12px} .chart svg text.val{fill:var(--ink);font-size:11px;font-weight:600}
+  .chart svg .grid line{stroke:var(--hair);stroke-width:1}
+  .chart svg rect.hit{fill:transparent;cursor:pointer} .chart svg rect.hit:hover{fill:rgba(16,36,42,.05)} .chart svg rect.sel{fill:rgba(240,162,2,.12)}
+  .tip{position:fixed;pointer-events:none;background:#10242A;color:#fff;font-size:12px;line-height:1.4;padding:7px 10px;border-radius:8px;z-index:50;max-width:280px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+  .tip i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+  .clegend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:2px 0 8px} .clegend span{display:inline-flex;align-items:center;gap:5px} .clegend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+  .tbx{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+  .chip{cursor:pointer;font:inherit;font-size:13px} .chip.on{background:var(--rail);color:#fff;border-color:var(--rail)}
+  .trow{display:grid;gap:8px;padding:4px 12px;border-top:1px solid var(--hair);font-size:13px;align-items:center}
+  .trow>span{text-align:right;line-height:1.25} .trow>span:nth-child(2){text-align:left} .trow.zero{color:#9AABB0} .trow .n0{color:#B7C4C7}
+  details.tg{border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:#fff;overflow:hidden}
+  details.tg>summary{list-style:none;cursor:pointer;padding:8px 12px;display:grid;gap:8px;align-items:center;background:#F7F9F8;font-size:14px}
+  details.tg>summary::-webkit-details-marker{display:none} details.tg>summary .car{transition:transform .15s;color:var(--muted)} details.tg[open]>summary .car{transform:rotate(90deg)}
+  details.tg>summary .gs{font-size:12px;text-align:right;color:var(--muted)} details.tg>summary .gs b{color:var(--ink);font-size:13px} details.tg.empty>summary{color:#8FA1A6}
+  .thead{display:grid;gap:8px;padding:0 12px 6px;font-size:12px;color:var(--muted)} .thead span{text-align:right} .thead span:nth-child(2){text-align:left}
+  .thead i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px}
+  @media (max-width:1100px){ .chartgrid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+  @media (max-width:900px){ .ex,.chartgrid.two{grid-template-columns:1fr} .filters{position:static} }
   footer.build{font-size:12px;color:var(--muted);margin-top:28px}
   @media (max-width:900px){ .ptwrap{grid-template-columns:1fr} .labed .fields3{grid-template-columns:1fr} .sheetwrap{grid-template-columns:1fr} .totals{position:static} .fields2{grid-template-columns:1fr} .figs{grid-template-columns:repeat(2,1fr)} .stabs{grid-template-columns:1fr} .stnav{flex-direction:row;flex-wrap:wrap} .sttab{border-radius:10px} .stpanel{border-radius:12px} dl.vals.two{grid-template-columns:max-content 1fr} }
   .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--rail);border-radius:50%;animation:sp 0.8s linear infinite;vertical-align:-2px;margin-right:8px}
@@ -208,7 +244,7 @@
   <a class="mark" href="#/" aria-label="Home"><img src="data:image/jpeg;base64,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" alt="Washington County Conservation District" width="56" height="56"></a>
   <a href="#/" data-r="home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Home</a>
   <a href="#/new" data-r="new"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>New</a>
-  <a href="#/explore" data-r="explore" class="later"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4l-6 2v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Explore</a>
+  <a href="#/explore" data-r="explore"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4l-6 2v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Explore</a>
   <a href="#/reports" data-r="reports" class="later"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/></svg>Reports</a>
   <span class="grow"></span>
   <a href="#/check" data-r="check"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Data check</a>
@@ -248,6 +284,51 @@
 
   <section id="p-area" class="hidden"></section>
   <section id="p-new" class="hidden"></section>
+  <section id="p-explore" class="hidden">
+    <div class="ex">
+      <aside class="card filters">
+        <h3><label for="fArea">Site</label></h3><select id="fArea"></select>
+        <h3>Samples</h3><div id="fSamples"></div>
+        <h3>Taxa</h3><label class="samp"><input type="checkbox" id="fEmpty"> Show taxa with no count</label>
+        <p class="small" style="margin:12px 0 0">Test sites are left out. Colours: Pre = blues, Post = reds, downstream lighter, upstream darker. All figures are calculated by the app from the taxa counts.</p>
+      </aside>
+      <div>
+        <div class="subtabs" id="exTabs" role="tablist">
+          <button class="subtab on" type="button" data-v="sum">Summary</button><button class="subtab" type="button" data-v="grp">Taxa groups</button>
+          <button class="subtab" type="button" data-v="taxa">Taxa browser</button><button class="subtab" type="button" data-v="tbl">Taxa table</button>
+          <button class="subtab" type="button" data-v="lab">Lab tests</button><button class="subtab" type="button" data-v="map">Map</button>
+        </div>
+        <div id="exEmpty" class="later-box hidden"></div>
+        <div id="v-sum">
+          <div class="chartgrid">
+            <div class="chart"><h3>Avg HILS</h3><div class="sub">lower is better · bands = HBI rating</div><div id="cHils"></div></div>
+            <div class="chart"><h3>Organisms counted</h3><div class="sub">total count</div><div id="cCount"></div></div>
+            <div class="chart"><h3>Taxa present</h3><div class="sub">number of families</div><div id="cTaxaN"></div></div>
+            <div class="chart"><h3>EPT taxa</h3><div class="sub">mayflies + stoneflies + caddisflies</div><div id="cEpt"></div></div>
+          </div>
+          <div class="chartgrid two" style="margin-top:12px">
+            <div class="chart"><h3>Top taxa by count</h3><div class="sub">the 8 most numerous taxa across the selected samples</div><div class="clegend" id="lgTop"></div><div id="cTop"></div></div>
+            <div class="chart"><h3>Total Index</h3><div class="sub">sum of count × HILS</div><div id="cIndex"></div></div>
+          </div>
+        </div>
+        <div id="v-grp" class="hidden"><div class="chart"><h3>Organisms by taxa group</h3><div class="sub">click a group to open its taxa in the Taxa browser</div>
+          <div class="tbx" id="grpMeasure"><span class="small">Measure:</span><button class="chip on" type="button" data-m="count">Count</button><button class="chip" type="button" data-m="index">Index</button><button class="chip" type="button" data-m="taxa">Taxa present</button></div>
+          <div class="clegend" id="lgGrp"></div><div id="cGrp"></div></div></div>
+        <div id="v-taxa" class="hidden"><div class="chart"><h3 id="taxaTitle">Taxa browser</h3><div class="sub">count of each taxon per sample · hover for HILS and Index</div>
+          <div class="tbx" id="taxaGroups"></div>
+          <div class="tbx" id="taxaOrder"><span class="small">Sort:</span><button class="chip on" type="button" data-o="num">By number</button><button class="chip" type="button" data-o="total">By total count</button><button class="chip" type="button" data-o="change">Biggest Pre→Post change</button></div>
+          <div class="clegend" id="lgTaxa"></div><div id="cTaxa2"></div></div></div>
+        <div id="v-tbl" class="hidden"><div class="card">
+          <div class="tbx" style="justify-content:space-between"><b>All taxa, grouped as on the WCCD sheet</b><span><button class="btn" type="button" id="tExp">Expand all</button> <button class="btn" type="button" id="tCol">Collapse all</button></span></div>
+          <div class="thead" id="tHead"></div><div id="tBody"></div>
+          <p class="small">Each group line shows count · taxa · index for each sample. Groups with no organisms are greyed. Use "Show taxa with no count" on the left to list every taxon on the sheet.</p></div></div>
+        <div id="v-lab" class="hidden"><div class="chart"><h3 id="labTitle">Lab tests</h3><div class="sub" id="labSub"></div>
+          <div class="tbx" id="labTests"></div><div class="clegend" id="lgLab"></div><div id="cLab"></div><p class="small" id="labNote" style="margin:6px 0 0"></p></div></div>
+        <div id="v-map" class="hidden"><div id="exMap" class="cmap" style="height:440px"></div>
+          <p class="small">Click a point to keep only that sample in the charts; tick the samples on the left to bring the others back.</p></div>
+      </div>
+    </div>
+  </section>
 
   <section id="p-check" class="hidden">
     <p class="small" style="margin-top:0">This page shows what each survey's layer lets this account do, compares what the app expects with what the layers hold, and recomputes every sample's totals from its taxa rows. Nothing is changed.</p>
@@ -275,13 +356,14 @@
   <footer class="build" id="build"></footer>
 </main>
 </div>
+<div class="tip hidden" id="tip" role="tooltip"></div>
 <div class="ovl hidden" id="ovl" role="dialog" aria-modal="true" aria-labelledby="panelTitle"><div class="panel" id="panel"></div></div>
 
 <script type="module">
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B5", BUILD_DATE = "16 Nov 2026";
+  const BUILD = "B6", BUILD_DATE = "16 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -794,7 +876,9 @@
       const src = kind === "post0" ? a.pre : a[ph], g = (x) => src && src.samples[x] && geomPt(src.samples[x].geom), vals = {};
       if (kind === "post0") Object.assign(vals, { stream: a.pre.stream || "", site: a.pre.site || "", date: "" });
       for (const x of ["down", "up"]) { const p = g(x); vals[x + ".lat"] = p ? pt6(p.lat) : ""; vals[x + ".lon"] = p ? pt6(p.lon) : ""; }
-      area.edit = kind === "post0" ? { kind, ph: "post", mode: "post", vals, orig: JSON.stringify(vals), place: "down" } : { kind, ph, vals, orig: JSON.stringify(vals), place: "down" };
+      area.edit = kind === "post0" ? { kind, ph: "post", mode: "post", vals, orig: JSON.stringify(vals), place: "down",
+          siteOwn: !!vals.site && vals.site !== vals.stream, zoomed: vals.stream }   // keep Pre's own site name; stay on Pre's points
+        : { kind, ph, vals, orig: JSON.stringify(vals), place: "down" };
       area.tab = area.edit.ph; if (kind === "loc") area.side[ph] = "loc";
       drawArea(a.id); return;
     }
@@ -1178,10 +1262,11 @@
   function pointsHtml(st, cols) {
     return `<div class="ptwrap"><div id="cmap" class="cmap" aria-label="Map: click to place the selected point"></div><div class="ptside">
       <div class="small" id="cPlaceTxt">Click the map to place the <b>${st.place === "down" ? "downstream" : "upstream"}</b> point, or type it below.</div>
-      <div class="placebtns">${["down", "up"].map((sd) => `<button type="button" class="chip${st.place === sd ? " on" : ""}" data-place="${sd}"><i class="sw" style="background:${cols[sd]}"></i>${SD[sd]}</button>`).join("")}</div>
-      ${["down", "up"].map((sd) => `<div class="ptrow"><b><i class="sw" style="background:${cols[sd]}"></i>${SD[sd]}</b>
-        <label>Latitude<input type="text" inputmode="decimal" class="num-in" data-cv="${sd}.lat" value="${esc(st.vals[sd + ".lat"])}" placeholder="40.2021"></label>
-        <label>Longitude<input type="text" inputmode="decimal" class="num-in" data-cv="${sd}.lon" value="${esc(st.vals[sd + ".lon"])}" placeholder="-80.4003"></label></div>`).join("")}
+      <div class="placebtns" role="group" aria-label="Point to place">${["down", "up"].map((sd) => `<button type="button" class="pbtn${st.place === sd ? " on" : ""}" style="--pc:${cols[sd]}" data-place="${sd}" aria-pressed="${st.place === sd}"><i class="sw" style="background:${cols[sd]}"></i>${SD[sd]}</button>`).join("")}</div>
+      ${["down", "up"].map((sd) => `<div class="ptrow" data-ptrow="${sd}"${st.place === sd ? "" : " hidden"}><b><i class="sw" style="background:${cols[sd]}"></i>${SD[sd]}</b>
+        <label>Latitude<input type="text" inputmode="decimal" class="num-in" data-cv="${sd}.lat" value="${esc(st.vals[sd + ".lat"])}" placeholder="e.g. 40.2021"></label>
+        <label>Longitude<input type="text" inputmode="decimal" class="num-in" data-cv="${sd}.lon" value="${esc(st.vals[sd + ".lon"])}" placeholder="e.g. -80.4003"></label></div>`).join("")}
+      <div class="small" id="cOther"></div>
       <div id="cSug" class="small"></div><div id="cLook" class="small"></div></div></div>`;
   }
 
@@ -1200,10 +1285,17 @@
       const map = new Map({ layers: [new TileLayer({ url: TOPO_URL }), flow, gl] });
       const first = ptOf(st.vals, "down") || ptOf(st.vals, "up");
       const view = new MapView({ container: el, map, center: first ? [first.lon, first.lat] : COUNTY_CENTER, zoom: first ? 16 : 10 });
-      mapS.view = view; mapS.gl = gl; mapS.Graphic = Graphic; mapS.st = st; mapS.cols = cols;
+      mapS.view = view; mapS.gl = gl; mapS.Graphic = Graphic; mapS.st = st; mapS.cols = cols; mapS.flow = flow;
       view.on("click", (e) => { const p = e.mapPoint; if (p) onPick(Math.round(p.latitude * 1e6) / 1e6, Math.round(p.longitude * 1e6) / 1e6); });
       drawMapPts();
+      if (mapS.pendingZoom) { const z = mapS.pendingZoom; mapS.pendingZoom = null; zoomToStream(z); }
     } catch (err) { el.innerHTML = `<p class="small" style="padding:12px">The map could not be shown (${esc(mask(err.message || err))}). Type the coordinates instead.</p>`; }
+  }
+  // Zoom the map to every segment of the chosen stream (waits for the map if it is still loading).
+  async function zoomToStream(name) {
+    if (!mapS.view || !mapS.flow) { mapS.pendingZoom = name; return; }
+    try { const r = await mapS.flow.queryExtent({ where: `GNIS_NAME = '${sq(name)}'`, outSpatialReference: mapS.view.spatialReference });
+      if (r && r.count && r.extent) await mapS.view.goTo(r.extent.expand(1.25)); } catch { /* keep the current view */ }
   }
   function drawMapPts() {
     if (!mapS.gl || !mapS.st) return; mapS.gl.removeAll();
@@ -1230,13 +1322,18 @@
   }
   function bindCreate(st, a, root, refresh) {
     st.touched = st.touched || {};
-    root.querySelectorAll("[data-cv]").forEach((i) => { i.oninput = i.onchange = () => { st.vals[i.dataset.cv] = i.dataset.cv === "id" ? (i.value = i.value.toUpperCase()) : i.value; st.touched[i.dataset.cv] = true; refresh(); };
+    root.querySelectorAll("[data-cv]").forEach((i) => { i.oninput = i.onchange = () => { st.vals[i.dataset.cv] = i.dataset.cv === "id" ? (i.value = i.value.toUpperCase()) : i.value; st.touched[i.dataset.cv] = true;
+        if (i.dataset.cv === "site") st.siteOwn = i.value.trim() !== "" && i.value.trim() !== (matchStream(st.vals.stream) || "");   // typed their own site name
+        refresh(); };
       i.onblur = () => { if (!st.touched[i.dataset.cv]) { st.touched[i.dataset.cv] = true; refresh(); } }; });
-    root.querySelectorAll("[data-place]").forEach((b) => b.onclick = () => { st.place = b.dataset.place; root.querySelectorAll("[data-place]").forEach((x) => x.classList.toggle("on", x === b));
-      $("cPlaceTxt").innerHTML = `Click the map to place the <b>${st.place === "down" ? "downstream" : "upstream"}</b> point, or type it below.`; });
-    const pick = (lat, lon) => { const sd = st.place; st.vals[sd + ".lat"] = pt6(lat); st.vals[sd + ".lon"] = pt6(lon);
+    // Downstream / Upstream: the chosen button stays highlighted, and only that point's coordinates are shown.
+    const choose = (sd) => { st.place = sd;
+      root.querySelectorAll("[data-place]").forEach((x) => { const on = x.dataset.place === sd; x.classList.toggle("on", on); x.setAttribute("aria-pressed", on); });
+      root.querySelectorAll("[data-ptrow]").forEach((r) => { r.hidden = r.dataset.ptrow !== sd; });
+      const t = root.querySelector("#cPlaceTxt"); if (t) t.innerHTML = `Click the map to place the <b>${sd === "down" ? "downstream" : "upstream"}</b> point, or type it below.`; refresh(); };
+    root.querySelectorAll("[data-place]").forEach((b) => b.onclick = () => choose(b.dataset.place));
+    const pick = (lat, lon) => { const sd = st.place; st.vals[sd + ".lat"] = pt6(lat); st.vals[sd + ".lon"] = pt6(lon); st.touched[sd + ".lat"] = st.touched[sd + ".lon"] = true;
       for (const k of ["lat", "lon"]) { const el = root.querySelector(`[data-cv="${sd}.${k}"]`); if (el) el.value = st.vals[`${sd}.${k}`]; }
-      if (sd === "down" && !ptOf(st.vals, "up")) { st.place = "up"; root.querySelector('[data-place="up"]') && root.querySelector('[data-place="up"]').click(); }
       refresh(); };
     st.pick = pick;   // also used by tests
     mountMap(root.querySelector("#cmap"), st, PTCOL[st.mode || st.ph] || PTCOL.pre, pick);
@@ -1257,6 +1354,9 @@
       if (!String(v.stream || "").trim()) { errs.push("Choose the stream"); bad.add("stream"); }
       else if (!stream) { errs.push(`"${v.stream.trim()}" is not in the Washington County stream list`); bad.add("stream"); }
       if (st.streamErr) errs.push(`The stream list could not be read (${st.streamErr})`);
+      // The site name follows the stream until the user types a different one; a newly chosen stream zooms the map to it.
+      if (!st.siteOwn && (v.site || "") !== (stream || "")) { v.site = stream || ""; const el = root.querySelector('[data-cv="site"]'); if (el) el.value = v.site; }
+      if (stream && stream !== st.zoomed) { st.zoomed = stream; zoomToStream(stream); }
       if (!v.date) { errs.push("Enter the date sampled"); bad.add("date"); }
     } else stream = a[st.ph].stream || null;
     ptCheck(v, errs, bad);
@@ -1274,6 +1374,9 @@
       sg.innerHTML = create && n && n !== stream ? `Nearest named stream to the downstream point: <b>${esc(n)}</b> <button type="button" class="btn" style="padding:2px 8px" data-usestream="${esc(n)}">Use it</button>` : "";
       const ub = sg.querySelector("[data-usestream]"); if (ub) ub.onclick = () => { v.stream = ub.dataset.usestream; const el = root.querySelector('[data-cv="stream"]'); if (el) el.value = v.stream; redo(); }; }
     drawMapPts();
+    const oth = root.querySelector("#cOther");   // the hidden point, in one line
+    if (oth) { const o = st.place === "down" ? "up" : "down", p = ptOf(v, o), badO = bad.has(o + ".lat") || bad.has(o + ".lon");
+      oth.innerHTML = `${SD[o]} point: ${badO ? '<span class="bad">needs fixing</span>' : p ? `${pt6(p.lat)}, ${pt6(p.lon)}` : "not placed yet"}`; }
     let plan = null;
     const ready = lookReady(st, stream, down);
     if (!errs.length && ready) { try { plan = create ? createPlan(st, a) : locPlan(st, a); } catch (e) { errs.push(e.message || String(e)); } }
@@ -1597,18 +1700,208 @@
   }
   addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("ovl").classList.contains("hidden") && !$("tCancel").disabled) closeTool(); });
 
+  // ==========================================================================================
+  // B6: Explore (layout L2). Every figure is calculated here from the taxa rows (calcTotals), never read from stored totals.
+  // ==========================================================================================
+  const SAMPLES = [["pre_down", "Pre · downstream", "#6693D8"], ["pre_up", "Pre · upstream", "#24508F"], ["post_down", "Post · downstream", "#DB6F5C"], ["post_up", "Post · upstream", "#A0221B"]];
+  const SHORT = { pre_down: "Pre ↓", pre_up: "Pre ↑", post_down: "Post ↓", post_up: "Post ↑" };
+  const ex = { area: null, samples: new Set(SAMPLES.map((s) => s[0])), empty: false, view: "sum", grpMeasure: "count", taxaGroup: "ALL", order: "num", labTest: "EscherichiaColi", wired: false };
+  const exSites = () => model.filter((a) => !a.test && (a.pre || a.post));
+  const exArea = () => model.find((a) => a.id === ex.area);
+  const smp = (a, key) => { const [ph, sd] = key.split("_"), s = a && a[ph] && a[ph].samples[sd]; return s && s.exists ? s : null; };
+  const exSel = () => { const a = exArea(); return SAMPLES.filter((s) => ex.samples.has(s[0]) && smp(a, s[0])); };
+  const groupStats = (s, g) => { let count = 0, index = 0, taxa = 0; for (let n = g[2]; n <= g[3]; n++) { const v = s.counts[n] || 0; count += v; index += Math.round(v * HILS[n - 1]); if (v) taxa++; } return { count, index, taxa }; };
+  const swatch = (hex) => `<i style="background:${hex}"></i>`;
+
+  // ---- tooltip and plain-SVG charts (from the approved mockup) ----
+  function showTip(e, html) { const tip = $("tip"); tip.innerHTML = html; tip.classList.remove("hidden");
+    tip.style.left = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 8) + "px"; tip.style.top = Math.min(e.clientY + 14, innerHeight - tip.offsetHeight - 8) + "px"; }
+  const hideTip = () => $("tip").classList.add("hidden");
+  function wireTips(el) { el.querySelectorAll("[data-tip]").forEach((r) => { r.addEventListener("mousemove", (e) => showTip(e, decodeURIComponent(r.dataset.tip))); r.addEventListener("mouseleave", hideTip); }); }
+  function niceTicks(m) { const raw = m / 4, p = Math.pow(10, Math.floor(Math.log10(raw))), step = [1, 2, 2.5, 5, 10].find((k) => k * p >= raw) * p; const t = []; for (let v = 0; v <= m + 1e-9; v += step) t.push(+v.toFixed(6)); return t; }
+  const roundTop = (x, y, w, h) => { const r = Math.min(4, h, w / 2); return h <= 0 ? "" : `M${x},${y + h}V${y + r}Q${x},${y} ${x + r},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + h}Z`; };
+  const roundRight = (x, y, w, h) => { const r = Math.min(3.5, w, h / 2); return w <= 0 ? "" : `M${x},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + h - r}Q${x + w},${y + h} ${x + w - r},${y + h}H${x}Z`; };
+  const legend = (el, list) => { el.innerHTML = list.map((s) => `<span><i style="background:${s[2]}"></i>${s[1]}</span>`).join(""); };
+  // Vertical bars, one per sample; optional background bands (HBI scale).
+  function colChart(el, rows, { max, bands, h = 170 } = {}) {
+    const W = Math.max(200, el.clientWidth || 260), H = h, L = 30, B = 22, T = 8, iw = W - L - (bands ? 62 : 6), ih = H - B - T;
+    const m = max || Math.max(1, ...rows.map((r) => r.v || 0)) * 1.1, y = (v) => T + ih - (Math.min(v, m) / m) * ih;
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="img">`;
+    if (bands) { let lo = 0; for (const [hi, name, col] of bands) { const top = y(Math.min(hi, m)), bot = y(lo); if (lo < m) s += `<rect x="${L}" y="${top}" width="${iw}" height="${bot - top}" fill="${col}" opacity=".09"/>` + (bot - top > 8 ? `<text x="${L + iw + 4}" y="${(top + bot) / 2 + 3}" font-size="9">${name}</text>` : ""); lo = hi; } }
+    s += `<g class="grid">` + niceTicks(m).map((t) => `<line x1="${L}" x2="${L + iw}" y1="${y(t)}" y2="${y(t)}"/><text x="${L - 4}" y="${y(t) + 4}" text-anchor="end">${fmt(t, t % 1 ? 1 : 0)}</text>`).join("") + `</g>`;
+    const n = rows.length, slot = iw / Math.max(n, 1), bw = Math.min(30, slot * 0.55);
+    rows.forEach((r, i) => { const x = L + i * slot + (slot - bw) / 2, top = y(r.v || 0), hgt = Math.max(0, T + ih - top);
+      s += `<path d="${roundTop(x, top, bw, hgt)}" fill="${r.hex}"/><text x="${x + bw / 2}" y="${H - 6}" text-anchor="middle">${esc(r.short)}</text>`;
+      s += `<rect class="hit" x="${L + i * slot}" y="${T}" width="${slot}" height="${ih}" data-tip="${encodeURIComponent(r.tip)}"/>`; });
+    el.innerHTML = s + `<line x1="${L}" x2="${L + iw}" y1="${T + ih}" y2="${T + ih}" stroke="#C6D3D0"/></svg>`; wireTips(el);
+  }
+  // Horizontal grouped bars: categories down the side, one thin bar per sample.
+  function barChart(el, cats, series, { onClick } = {}) {
+    const W = Math.max(420, el.clientWidth || 760), L = 190, R = 40, bh = 7, gap = 2, pad = 10, rowH = series.length * (bh + gap) - gap + pad * 2, H = cats.length * rowH + 26, iw = W - L - R;
+    const m = Math.max(1, ...cats.flatMap((c) => series.map((sr) => c.vals[sr[0]] || 0))) * 1.05, x = (v) => L + (v / m) * iw;
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="img"><g class="grid">` + niceTicks(m).map((t) => `<line x1="${x(t)}" x2="${x(t)}" y1="0" y2="${H - 22}"/><text x="${x(t)}" y="${H - 6}" text-anchor="middle">${fmt(t, t % 1 ? 1 : 0)}</text>`).join("") + `</g>`;
+    cats.forEach((c, i) => { const y0 = i * rowH;
+      s += `<text class="lbl" x="${L - 8}" y="${y0 + rowH / 2 + 4}" text-anchor="end">${esc(c.label)}</text>`;
+      series.forEach((sr, j) => { const v = c.vals[sr[0]] || 0, yy = y0 + pad + j * (bh + gap); if (v > 0) s += `<path d="${roundRight(L, yy, x(v) - L, bh)}" fill="${sr[2]}"/>`; });
+      const best = Math.max(...series.map((sr) => c.vals[sr[0]] || 0)); if (best > 0) s += `<text class="val" x="${x(best) + 5}" y="${y0 + pad + 6}">${fmt(best)}</text>`;
+      s += `<rect class="hit" x="0" y="${y0}" width="${W}" height="${rowH}" data-key="${c.key}" data-tip="${encodeURIComponent(c.tip)}"/>`;
+      if (i) s += `<line x1="${L}" x2="${W - R}" y1="${y0}" y2="${y0}" stroke="#EEF2F1"/>`; });
+    el.innerHTML = s + `<line x1="${L}" x2="${L}" y1="0" y2="${H - 22}" stroke="#C6D3D0"/></svg>`; wireTips(el);
+    if (onClick) el.querySelectorAll("rect.hit").forEach((r) => r.addEventListener("click", () => onClick(r.dataset.key)));
+  }
+
+  // ---- views ----
+  function exSummary(a, ss) {
+    const mk = (f, d, label) => ss.map((s) => { const S = smp(a, s[0]), x = S.calc, v = f(x), rt = rating(x.avg), P = a[s[0].split("_")[0]];
+      return { v, hex: s[2], short: SHORT[s[0]], tip: `${swatch(s[2])}<b>${s[1]}</b><br>${esc(P.site || P.stream || "")} · ${dayText(P.date)}<br>${label}: <b>${fmt(v, d)}</b>` + (label === "Avg HILS" && rt ? ` (${rt[1]})` : "") }; });
+    colChart($("cHils"), mk((x) => x.avg, 2, "Avg HILS"), { max: 10, bands: RATE });
+    colChart($("cCount"), mk((x) => x.count, 0, "Organisms")); colChart($("cTaxaN"), mk((x) => x.taxa, 0, "Taxa present"));
+    colChart($("cEpt"), mk((x) => x.ept, 0, "EPT taxa")); colChart($("cIndex"), mk((x) => x.index, 0, "Total Index"), { h: 230 });
+    const tot = {}; for (const s of ss) for (const [n, v] of Object.entries(smp(a, s[0]).counts)) tot[n] = (tot[n] || 0) + v;
+    const top = Object.keys(tot).filter((n) => tot[n] > 0).sort((p, q) => tot[q] - tot[p]).slice(0, 8);
+    legend($("lgTop"), ss);
+    if (top.length) barChart($("cTop"), top.map((n) => taxonCat(a, +n, ss)), ss); else $("cTop").innerHTML = `<p class="small">No taxa counted in the selected samples.</p>`;
+  }
+  function taxonCat(a, n, ss) {
+    const h = HILS[n - 1], vals = {}, g = GROUPS.find((x) => n >= x[2] && n <= x[3]);
+    for (const s of ss) vals[s[0]] = smp(a, s[0]).counts[n] || 0;
+    return { key: n, label: `${n}. ${TAXON[n - 1]}`, vals, tip: `<b>${n}. ${esc(TAXON[n - 1])}</b> · ${esc(g[1])}<br>HILS ${h}<br>` + ss.map((s) => `${swatch(s[2])}${s[1]}: <b>${vals[s[0]]}</b> (index ${Math.round(vals[s[0]] * h)})`).join("<br>") };
+  }
+  function exGroups(a, ss) {
+    const m = ex.grpMeasure;
+    const cats = GROUPS.map((g) => { const vals = {}, gs = {}; for (const s of ss) { gs[s[0]] = groupStats(smp(a, s[0]), g); vals[s[0]] = gs[s[0]][m]; }
+      return { key: g[0], label: g[1], vals, any: ss.some((s) => gs[s[0]].count > 0), tip: `<b>${esc(g[1])}</b>${isEPT(g[2]) ? " · EPT" : ""}<br>` + ss.map((s) => `${swatch(s[2])}${s[1]}: count <b>${gs[s[0]].count}</b> · taxa ${gs[s[0]].taxa} · index ${gs[s[0]].index}`).join("<br>") + `<br>Click to open in the Taxa browser` }; })
+      .filter((c) => ex.empty || c.any);
+    legend($("lgGrp"), ss);
+    if (cats.length) barChart($("cGrp"), cats, ss, { onClick: (k) => { ex.taxaGroup = k; exSetView("taxa"); } }); else $("cGrp").innerHTML = `<p class="small">No organisms in the selected samples.</p>`;
+  }
+  function exTaxa(a, ss) {
+    const btns = [["ALL", "All groups"]].concat(GROUPS.map((g) => [g[0], g[1].split(" – ")[0]]));
+    $("taxaGroups").innerHTML = `<span class="small">Group:</span>` + btns.map(([k, l]) => `<button class="chip${ex.taxaGroup === k ? " on" : ""}" type="button" data-g="${k}">${esc(l)}</button>`).join("");
+    $("taxaGroups").querySelectorAll(".chip").forEach((b) => b.onclick = () => { ex.taxaGroup = b.dataset.g; exDraw(); });
+    const g = GROUPS.find((x) => x[0] === ex.taxaGroup);
+    $("taxaTitle").textContent = g ? `Taxa browser · ${g[1]}` : "Taxa browser · all taxa";
+    let ns = []; for (let n = g ? g[2] : 1; n <= (g ? g[3] : 99); n++) ns.push(n);
+    const tot = (n) => ss.reduce((t, s) => t + (smp(a, s[0]).counts[n] || 0), 0);
+    if (!ex.empty) ns = ns.filter((n) => tot(n) > 0);
+    const sumOf = (keys, n) => keys.reduce((t, k) => t + ((smp(a, k) || { counts: {} }).counts[n] || 0), 0);
+    const chg = (n) => Math.abs(sumOf(["post_down", "post_up"], n) - sumOf(["pre_down", "pre_up"], n));
+    if (ex.order === "total") ns.sort((p, q) => tot(q) - tot(p)); else if (ex.order === "change") ns.sort((p, q) => chg(q) - chg(p));
+    legend($("lgTaxa"), ss);
+    if (!ns.length) { $("cTaxa2").innerHTML = `<p class="small">No organisms of this group in the selected samples. Tick "Show taxa with no count" to list its taxa anyway.</p>`; return; }
+    barChart($("cTaxa2"), ns.map((n) => taxonCat(a, n, ss)), ss);
+  }
+  function exTable(a, ss) {
+    const cols = `grid-template-columns:22px minmax(150px,1.5fr) repeat(${ss.length},minmax(70px,1fr))`;
+    $("tHead").innerHTML = `<span></span><span>Group / taxon</span>` + ss.map((s) => `<span><i style="background:${s[2]}"></i>${SHORT[s[0]]}</span>`).join(""); $("tHead").setAttribute("style", cols);
+    const prevOpen = new Set([...document.querySelectorAll("#tBody details.tg[open]")].map((d) => d.dataset.g)), first = !document.querySelector("#tBody details.tg") || ex.tblSite !== a.id;
+    ex.tblSite = a.id;
+    let html = "";
+    for (const g of GROUPS) {
+      const gs = ss.map((s) => groupStats(smp(a, s[0]), g)), any = gs.some((x) => x.count > 0); let rows = "";
+      for (let n = g[2]; n <= g[3]; n++) { const vs = ss.map((s) => smp(a, s[0]).counts[n] || 0); if (!ex.empty && !vs.some((v) => v)) continue; const h = HILS[n - 1];
+        rows += `<div class="trow${vs.some((v) => v) ? "" : " zero"}" style="${cols}"><span></span><span>${n}. ${esc(TAXON[n - 1])} <span class="small">HILS ${h}</span></span>${vs.map((v) => v ? `<span><b>${v}</b><br><span class="small">idx ${Math.round(v * h)}</span></span>` : `<span class="n0">0</span>`).join("")}</div>`; }
+      if (!rows) rows = `<div class="trow" style="${cols}"><span></span><span class="small" style="grid-column:2/-1;text-align:left">No organisms in this group. Tick "Show taxa with no count" to list its taxa.</span></div>`;
+      const open = first ? any : prevOpen.has(g[0]);
+      html += `<details class="tg${any ? "" : " empty"}" data-g="${g[0]}"${open ? " open" : ""}><summary style="${cols}"><span class="car">▸</span><span><b>${esc(g[1])}</b>${isEPT(g[2]) ? ' <span class="small">EPT</span>' : ""}</span>${gs.map((x) => x.count ? `<span class="gs"><b>${x.count}</b><br>${x.taxa} taxa · idx ${x.index}</span>` : `<span class="gs">–</span>`).join("")}</summary>${rows}</details>`;
+    }
+    const oth = ss.map((s) => smp(a, s[0]).other || 0);
+    if (oth.some((v) => v)) html += `<div class="trow" style="${cols}"><span></span><span>Total Other Taxa <span class="small">(no HILS)</span></span>${oth.map((v) => v ? `<span><b>${v}</b></span>` : `<span class="n0">0</span>`).join("")}</div>`;
+    const tt = ss.map((s) => smp(a, s[0]).calc);
+    html += `<div class="thead" style="${cols};padding-top:6px;color:var(--ink)"><span></span><span style="text-align:left"><b>All taxa</b></span>${tt.map((x) => `<span><b>${x.count}</b> · ${x.taxa} taxa<br><span class="small">idx ${x.index} · Avg HILS ${fmt(x.avg, 2)} · EPT ${x.ept}</span></span>`).join("")}</div>`;
+    $("tBody").innerHTML = html;
+  }
+  function exLab(a) {
+    const ss = SAMPLES.filter((s) => ex.samples.has(s[0]) && a[s[0].split("_")[0]]), lab = a.lab, lv = (f) => lab ? att(lab.L, lab.row, f) : undefined;
+    $("labTests").innerHTML = `<span class="small">Test:</span>` + LABTESTS.map((t) => `<button class="chip${ex.labTest === t ? " on" : ""}" type="button" data-t="${t}">${LABNAMES[t]}</button>`).join("");
+    $("labTests").querySelectorAll(".chip").forEach((b) => b.onclick = () => { ex.labTest = b.dataset.t; exDraw(); });
+    const t = ex.labTest; $("labTitle").textContent = `Lab tests · ${LABNAMES[t]}`; $("labSub").textContent = `units: ${LABUNITS[t]} · from the lab certificate`;
+    legend($("lgLab"), ss);
+    if (svc.lab.error || !lab) { $("cLab").innerHTML = `<p class="small">${svc.lab.error ? esc(svc.lab.error) : "No lab results have been entered for this site."}</p>`; $("labNote").textContent = ""; return; }
+    const qual = [];
+    const rows = ss.map((s) => { const [ph, sd] = s[0].split("_"), v = lv(labField(ph, sd, t)), pre = lv(labField(ph, sd, "Prefix" + PFXCODE[t])) || "";
+      if (pre && !nb(v)) qual.push(`${s[1]} is "${pre}${v}"`);
+      return { v: nb(v) ? 0 : Math.abs(Number(v)), hex: s[2], short: (pre || "") + SHORT[s[0]], tip: `${swatch(s[2])}<b>${s[1]}</b><br>${LABNAMES[t]}: <b>${nb(v) ? "not reported" : esc(pre + v)}</b> ${LABUNITS[t]}` + (pre === ">" ? "<br>above the lab's upper limit" : pre === "<" ? "<br>below the lab's reporting limit" : "") }; });
+    colChart($("cLab"), rows, { h: 230 });
+    $("labNote").textContent = (qual.length ? "Marked values are limits, not measurements: " + qual.join("; ") + ". " : "") + (t === "Acidity" ? "Acidity is negative on the certificates (the sample is alkaline), so bars show its size." : "");
+  }
+  // Map: the site's sample points, coloured as everywhere else; clicking one keeps only that sample.
+  const exMapS = { view: null };
+  async function exMap(a) {
+    const el = $("exMap"); if (exMapS.view) { try { exMapS.view.destroy(); } catch { /* gone */ } exMapS.view = null; }
+    el.innerHTML = "";
+    const pts = SAMPLES.map((s) => { const S = smp(a, s[0]), p = S && geomPt(S.geom); return p ? { s, p } : null; }).filter(Boolean);
+    try {
+      const [Map, MapView, TileLayer, FeatureLayer, GraphicsLayer, Graphic] = await $arcgis.import(["@arcgis/core/Map.js", "@arcgis/core/views/MapView.js", "@arcgis/core/layers/TileLayer.js", "@arcgis/core/layers/FeatureLayer.js", "@arcgis/core/layers/GraphicsLayer.js", "@arcgis/core/Graphic.js"]);
+      if (!Map || !MapView) throw new Error("the map library is not available");
+      const gl = new GraphicsLayer();
+      const flow = new FeatureLayer({ url: FLOW_URL, renderer: { type: "simple", symbol: { type: "simple-line", color: [27, 95, 170, 0.85], width: 1.6 } },
+        labelingInfo: [{ labelExpressionInfo: { expression: "$feature.GNIS_NAME" }, labelPlacement: "center-along", minScale: 40000, symbol: { type: "text", color: "#173A70", haloColor: "white", haloSize: 1.5, font: { size: 10 } } }] });
+      const view = new MapView({ container: el, map: new Map({ layers: [new TileLayer({ url: TOPO_URL }), flow, gl] }), center: pts.length ? [pts[0].p.lon, pts[0].p.lat] : COUNTY_CENTER, zoom: pts.length ? 16 : 10 });
+      exMapS.view = view;
+      for (const { s, p } of pts) gl.add(new Graphic({ geometry: { type: "point", longitude: p.lon, latitude: p.lat }, attributes: { key: s[0] },
+        symbol: { type: "simple-marker", color: s[2], size: 14, outline: { color: "#ffffff", width: 2 } }, popupTemplate: null }));
+      if (pts.length > 1) view.when(() => view.goTo(gl.graphics.toArray(), { animate: false }).then(() => { if (view.zoom > 17) view.zoom = 17; }).catch(() => {}));
+      view.on("click", async (e) => { const r = await view.hitTest(e, { include: [gl] }); const hit = r.results.find((x) => x.graphic && x.graphic.attributes && x.graphic.attributes.key);
+        if (hit) { ex.samples = new Set([hit.graphic.attributes.key]); exFilters(); exSetView("sum"); } });
+      view.on("pointer-move", async (e) => { const r = await view.hitTest(e, { include: [gl] }); const hit = r.results.find((x) => x.graphic && x.graphic.attributes && x.graphic.attributes.key);
+        if (hit) { const s = SAMPLES.find((x) => x[0] === hit.graphic.attributes.key), S = smp(a, s[0]); showTip(e.native, `${swatch(s[2])}<b>${s[1]}</b><br>Avg HILS ${fmt(S.calc.avg, 2)} · ${S.calc.count} organisms<br>Click to show only this sample`); } else hideTip(); });
+    } catch (err) { el.innerHTML = `<p class="small" style="padding:12px">The map could not be shown (${esc(mask(err.message || err))}).</p>` + (pts.length ? `<p class="small" style="padding:0 12px">${pts.map(({ s, p }) => `${s[1]}: ${pt6(p.lat)}, ${pt6(p.lon)}`).join("<br>")}</p>` : ""); }
+    if (!pts.length) el.insertAdjacentHTML("beforeend", `<p class="small" style="padding:8px 12px">This site has no sample points yet.</p>`);
+  }
+
+  function exFilters() {
+    const a = exArea();
+    $("fSamples").innerHTML = SAMPLES.map((s) => { const ok = !!smp(a, s[0]);
+      return `<label class="samp${ok ? "" : " na"}"><input type="checkbox" data-k="${s[0]}"${ok && ex.samples.has(s[0]) ? " checked" : ""}${ok ? "" : " disabled"}><i style="background:${s[2]}"></i>${s[1]}${ok ? "" : ' <span class="small">(not entered)</span>'}</label>`; }).join("");
+    $("fSamples").querySelectorAll("input").forEach((c) => c.onchange = () => {
+      if (c.checked) ex.samples.add(c.dataset.k); else if (exSel().length > 1) ex.samples.delete(c.dataset.k); else c.checked = true;   // keep at least one sample
+      exDraw(); });
+  }
+  function exSetView(v) { ex.view = v; document.querySelectorAll("#exTabs .subtab").forEach((b) => b.classList.toggle("on", b.dataset.v === v));
+    ["sum", "grp", "taxa", "tbl", "lab", "map"].forEach((k) => $("v-" + k).classList.toggle("hidden", k !== v || !!$("exEmpty").dataset.on)); exDraw(); }
+  function exDraw() {
+    hideTip(); const a = exArea(); if (!a) return;
+    const ss = exSel(), noData = !ss.length && ex.view !== "lab" && ex.view !== "map";
+    $("exEmpty").classList.toggle("hidden", !noData); $("exEmpty").textContent = noData ? `${a.id} has no macroinvertebrate samples entered yet.` : "";
+    ["sum", "grp", "taxa", "tbl", "lab", "map"].forEach((k) => $("v-" + k).classList.toggle("hidden", k !== ex.view || noData));
+    if (noData) return;
+    ({ sum: () => exSummary(a, ss), grp: () => exGroups(a, ss), taxa: () => exTaxa(a, ss), tbl: () => exTable(a, ss), lab: () => exLab(a), map: () => exMap(a) })[ex.view]();
+  }
+  function drawExplore() {
+    $("ptitle").textContent = "Explore";
+    const sites = exSites();
+    if (!sites.length) { $("fArea").innerHTML = ""; $("exEmpty").classList.remove("hidden"); $("exEmpty").textContent = "No sites with data yet."; ["sum", "grp", "taxa", "tbl", "lab", "map"].forEach((k) => $("v-" + k).classList.add("hidden")); return; }
+    if (!sites.some((a) => a.id === ex.area)) ex.area = sites[0].id;
+    $("fArea").innerHTML = sites.map((a) => `<option value="${esc(a.id)}"${a.id === ex.area ? " selected" : ""}>${esc(a.id)} · ${esc(a.stream || "no stream")}</option>`).join("");
+    if (!ex.wired) { ex.wired = true;
+      $("fArea").onchange = (e) => { ex.area = e.target.value; ex.samples = new Set(SAMPLES.map((s) => s[0])); exFilters(); exDraw(); };
+      $("fEmpty").onchange = (e) => { ex.empty = e.target.checked; exDraw(); };
+      document.querySelectorAll("#exTabs .subtab").forEach((b) => b.onclick = () => exSetView(b.dataset.v));
+      document.querySelectorAll("#grpMeasure .chip").forEach((b) => b.onclick = () => { ex.grpMeasure = b.dataset.m; document.querySelectorAll("#grpMeasure .chip").forEach((x) => x.classList.toggle("on", x === b)); exDraw(); });
+      document.querySelectorAll("#taxaOrder .chip").forEach((b) => b.onclick = () => { ex.order = b.dataset.o; document.querySelectorAll("#taxaOrder .chip").forEach((x) => x.classList.toggle("on", x === b)); exDraw(); });
+      $("tExp").onclick = () => document.querySelectorAll("#tBody details.tg").forEach((d) => d.open = true);
+      $("tCol").onclick = () => document.querySelectorAll("#tBody details.tg").forEach((d) => d.open = false);
+      let rsz; addEventListener("resize", () => { clearTimeout(rsz); rsz = setTimeout(() => { if (!$("p-explore").classList.contains("hidden") && ex.view !== "map") exDraw(); }, 150); });
+    }
+    exFilters(); exSetView(ex.view);
+  }
+
   // ---------------- routes ----------------
-  const LATER = { explore: "Explore", reports: "Reports" };
+  const LATER = { reports: "Reports" };
   function route() {
     const parts = location.hash.replace(/^#\/?/, "").split("/"), r = parts[0] || "home";
-    for (const id of ["home", "area", "new", "check", "help", "later"]) $("p-" + id).classList.add("hidden");
+    for (const id of ["home", "area", "new", "explore", "check", "help", "later"]) $("p-" + id).classList.add("hidden");
+    hideTip();
     if (r !== "new" && r !== "area" && mapS.view) mountMap(null);   // free the map when leaving a page that has one
+    if (r !== "explore" && exMapS.view) { try { exMapS.view.destroy(); } catch { /* gone */ } exMapS.view = null; }
     document.querySelectorAll(".rail a[data-r]").forEach((a) => a.classList.toggle("on", a.dataset.r === r || (r === "area" && a.dataset.r === "home")));
     if (!model.length && r !== "help") { if (svc.pre) say("notice", "No sites were found in the layers."); }
     if (r === "area") { const id = decodeURIComponent(parts.slice(1).join("/"));
       if (area.id !== id) { area.id = id; if (!area.keepTab) { area.tab = "overview"; area.side = {}; } } area.keepTab = false;
       $("p-area").classList.remove("hidden"); drawArea(id); window.scrollTo(0, 0); }
     else if (r === "new") { $("p-new").classList.remove("hidden"); drawNew(); window.scrollTo(0, 0); }
+    else if (r === "explore") { $("p-explore").classList.remove("hidden"); drawExplore(); }
     else if (r === "check") { $("ptitle").textContent = "Data check"; $("p-check").classList.remove("hidden"); drawCheck(); }
     else if (r === "help") { $("ptitle").textContent = "Help"; $("p-help").classList.remove("hidden"); }
     else if (LATER[r]) { $("ptitle").textContent = LATER[r]; $("laterTitle").textContent = LATER[r]; $("p-later").classList.remove("hidden"); }
