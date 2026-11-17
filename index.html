@@ -456,6 +456,42 @@
   @media (max-width:1100px){ .de-grid,.de-grid.lab{grid-template-columns:minmax(0,1fr)} .de-col,.dpdf{position:static} .dpdf{height:70vh} .dlf.c5{grid-template-columns:1fr 1fr} .dsd{grid-column:1/-1;padding:0} }
   @media (max-width:820px){ .dtabs-wrap{grid-template-columns:minmax(0,1fr)} .dgtabs{flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid #D6DFD3} .dgtabs button{width:auto} .dgsep{display:none} }
   @media (max-width:640px){ .dth,.dtr{grid-template-columns:34px minmax(0,1fr) 150px} .dth span:nth-child(3),.dth span:nth-child(5),.dtr .h,.dtr .ix{display:none} .dlt{grid-template-columns:1fr 1fr} .dlth{display:none} .dlf.c3{grid-template-columns:1fr} }
+  /* B17: Explore in the Dashboard view */
+  .dx-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px} .dx-head h2{font-size:28px;margin:2px 0 0}
+  .dx-views{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .dxv{border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--ink);border-radius:999px;padding:7px 15px;font:inherit;font-size:13px;cursor:pointer} .dxv:hover{border-color:var(--acc)} .dxv.on{background:var(--acc);color:#0B0F0C;border-color:var(--acc);font-weight:700}
+  .dx-grid{display:grid;grid-template-columns:236px minmax(0,1fr);gap:16px;align-items:start}
+  .dx-side{position:sticky;top:16px;padding:14px} .dx-lbl{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 5px} .dx-lbl:first-child{margin-top:0}
+  .dx-sel{width:100%;background:#0F1511;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;font-size:13px}
+  .dxs{display:flex;align-items:center;gap:8px;width:100%;margin:4px 0;padding:7px 10px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;text-align:left}
+  .dxs i{width:11px;height:11px;border-radius:50%;background:var(--c);flex:none} .dxs span{margin-left:auto;font-size:11.5px;color:var(--muted)}
+  .dxs.on{color:var(--ink);border-color:color-mix(in srgb,var(--c) 55%,transparent);background:color-mix(in srgb,var(--c) 12%,transparent)} .dxs:disabled{opacity:.4;cursor:default}
+  .dx-tog{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;cursor:pointer}
+  .dx-body{min-width:0} .dx-card{padding:14px 16px} .dx-ch{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px} .dx-ch h3{margin:0}
+  .dx-svg{width:100%;height:auto;display:block;overflow:visible} .dx-hit{cursor:pointer}
+  .dx-sumhead{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:10px;align-items:center;margin-bottom:12px}
+  .dx-two{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px} .dx-two.lab{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);margin-top:10px}
+  .dx-chips{display:flex;gap:4px;flex-wrap:wrap}
+  .dxc{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:3px 10px;font:inherit;font-size:12px;cursor:pointer} .dxc:hover{color:var(--ink)} .dxc.on{background:var(--c);border-color:var(--c);color:#0B0F0C;font-weight:700}
+  .dx-donut{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px}
+  .dx-bar{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+  .dxg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:26px}
+  .dxgb{padding:8px 4px;border-top:1px solid rgba(255,255,255,.06);border-radius:8px;cursor:pointer} .dxgb:hover,.dxgb:focus-visible{background:rgba(200,227,90,.05);outline:none}
+  .dxgh{display:flex;justify-content:space-between;align-items:flex-end;gap:8px;margin-bottom:3px} .dxgh .gn{display:flex;flex-direction:column;line-height:1.15} .dxgh .gn>span{font-weight:700;font-size:13.5px} .dxgh .gn em{font-size:10.5px;color:var(--muted)}
+  .dxb{display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:6px;align-items:center;margin-top:3px} .dxb b{font-size:11px;text-align:right}
+  .dxb .tr,.dxtc .tr{height:7px;border-radius:4px;background:rgba(255,255,255,.05);position:relative;display:block} .dxb .tr i,.dxtc .tr i{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+  .dxp{padding-bottom:6px} .dxp-tb{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:12px 14px} .dxp-l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#5B6B5F;margin-right:4px}
+  .dxtr{display:grid;gap:10px;align-items:center;padding:6px 14px;border-top:1px solid #DDE5DA;font-size:13px}
+  .dxth{font-size:11px;color:#5B6B5F;text-transform:uppercase;letter-spacing:.05em;border-top:1px solid #D6DFD3}
+  .dxtr .no{color:#5B6B5F;font-size:12px} .dxtr .h{text-align:center;color:#5B6B5F;font-size:12px} .dxtr .nm{min-width:0;display:flex;flex-direction:column;line-height:1.2}
+  .dxtr .tn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .dxtr .nm em{font-size:10.5px;color:#7B887E}
+  .dxtc{display:grid;grid-template-columns:minmax(0,1fr) 30px;gap:6px;align-items:center} .dxtc .tr{background:#E3EADF} .dxtc b{font-size:12px;text-align:right}
+  .dxtv{text-align:right;font-size:12.5px} .dxtr.z{color:#9AA79C}
+  .dxd>summary{list-style:none;cursor:pointer;background:#EAF0E4} .dxd>summary::-webkit-details-marker{display:none} .dxd.empty>summary{color:#7B887E}
+  .dxd>summary .gn{display:flex;flex-direction:column;line-height:1.15} .dxd>summary .gn>span{font:700 14px "Barlow Semi Condensed",sans-serif;color:#1F3A2A} .dxd>summary .gn em{font:italic 400 10.5px "Public Sans",sans-serif;color:#5B6B5F}
+  .dxtot{background:#E2EAD9;font-weight:600}
+  .dx-lt{width:100%;border-collapse:collapse;font-size:12.5px} .dx-lt th{font-size:11px;color:var(--muted);font-weight:600;text-align:left;padding:4px 0} .dx-lt td{padding:6px 0;border-top:1px solid rgba(255,255,255,.06)} .dx-lt td+td,.dx-lt th+th{text-align:center} .dx-lt tr.on td{color:var(--acc)}
+  @media (max-width:1100px){ .dx-grid{grid-template-columns:minmax(0,1fr)} .dx-side{position:static} .dx-two,.dx-two.lab{grid-template-columns:minmax(0,1fr)} .dxg{grid-template-columns:minmax(0,1fr)} .dx-views{margin-left:0} .dx-sumhead{grid-template-columns:1fr 1fr} }
   /* B14: on phones the dashboard menu becomes a bar along the bottom, so it never covers the page */
   @media (max-width:640px){ .drail{top:auto;bottom:0;right:0;width:auto;height:60px;flex-direction:row;justify-content:space-around;padding:4px 2px;border-right:0;border-top:1px solid var(--line)}
     .drail .logo,.drail .grow,.drail a[href="#/help"]{display:none} .drail a{width:auto;flex:1;padding:4px 0;font-size:10px} .drail a.classic{border-top:0;padding-top:4px}
@@ -608,7 +644,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B16", BUILD_DATE = "17 Nov 2026";
+  const BUILD = "B17", BUILD_DATE = "17 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -2682,7 +2718,7 @@
       : `<div class="muted">No site has both Pre- and Post-construction samples yet, so there is no change to show.</div>`;
     const tiles = [["#/dash/sites", "Sites", "Every site and its progress on the map", `${k.sites.length} site${k.sites.length === 1 ? "" : "s"} · ${k.done} complete`, "home"],
       ["#/new", "New site", "Start a site or its post-construction record", "Map + stream picker", "plus"],
-      ["#/explore", "Explore", "Charts, taxa browser and comparisons", "6 views", "explore"],
+      ["#/dash/explore", "Explore", "Charts, taxa browser and comparisons", "6 views", "explore"],
       ["#/reports", "Reports", "Print, PDF, Word and Excel", "5 Letter pages per site", "report"],
       ["#/check", "Data check", "Permissions, fields and totals", k.flags ? `${k.flags} flag${k.flags === 1 ? "" : "s"} to review` : "No flags on any site", "check"]];
     const curve = "M0,100 C260,10 420,150 700,60 C930,-10 1080,100 1280,30";
@@ -2691,7 +2727,7 @@
           <path d="${curve} L1280,150 L0,150 Z" fill="#0B0F0C"/><path d="${curve}" stroke="#C8E35A" stroke-width="6" fill="none" filter="url(#dlGlow)" opacity=".85" vector-effect="non-scaling-stroke"/>
           <path d="${curve}" stroke="#C8E35A" stroke-width="2.2" fill="none" vector-effect="non-scaling-stroke"/></svg>
         <div class="dl-top"><a class="dl-brand" href="#/dash"><img src="${DLOGO}" width="64" height="64" alt=""><div><div class="ttl">Washington County Conservation District</div><div class="muted">Watershed Monitoring</div></div></a>
-          <nav class="dl-nav" aria-label="Dashboard"><a href="#/dash/sites">Sites</a><a href="#/explore">Explore</a><a href="#/reports">Reports</a><a href="#/help">Help</a><a href="#/" data-classic>Classic view</a>
+          <nav class="dl-nav" aria-label="Dashboard"><a href="#/dash/sites">Sites</a><a href="#/dash/explore">Explore</a><a href="#/reports">Reports</a><a href="#/help">Help</a><a href="#/" data-classic>Classic view</a>
             <span class="chip" style="color:var(--ink)">Signed in · ${esc(user)}</span><button type="button" id="dSignOut">Sign out</button></nav></div>
         <div class="dl-body"><div>${dashBanner()}
             <div class="dl-kick">STREAM ASSESSMENT · STAFF PORTAL</div>
@@ -2715,7 +2751,7 @@
     document.querySelectorAll("#dash [data-classic]").forEach((x) => x.addEventListener("click", () => setViewPref("classic")));
   }
   const drail = (on) => `<nav class="drail" aria-label="Dashboard"><a class="logo" href="#/dash" title="Dashboard home"><img src="${DLOGO}" width="46" height="46" alt="Dashboard home"></a>
-    ${[["#/dash/sites", "home", "Sites"], ["#/new", "plus", "New site"], ["#/explore", "explore", "Explore"], ["#/reports", "report", "Reports"], ["#/check", "check", "Data check"]].map(([h, k, l]) => `<a href="${h}"${k === on ? ' class="on" aria-current="page"' : ""}>${dico(k)}<span>${l}</span></a>`).join("")}
+    ${[["#/dash/sites", "home", "Sites"], ["#/new", "plus", "New site"], ["#/dash/explore", "explore", "Explore"], ["#/reports", "report", "Reports"], ["#/check", "check", "Data check"]].map(([h, k, l]) => `<a href="${h}"${k === on ? ' class="on" aria-current="page"' : ""}>${dico(k)}<span>${l}</span></a>`).join("")}
     <span class="grow"></span><a href="#/help">${dico("help", "currentColor", 18)}<span>Help</span></a><a class="classic" href="#/" data-classic>${dico("back", "currentColor", 18)}<span>Classic<br>view</span></a></nav>`;
 
   function dashSites() {
@@ -3232,21 +3268,214 @@
       try { await loadAll(); } catch { /* keep the old data on screen */ }
     }
   }
+
+  // ---------------- B17: Explore in the Dashboard view (#/dash/explore) ----------------
+  // Same figures as the classic Explore (calcTotals / groupStats / labVal); read-only.
+  const PDSC = { pre_down: "#3AAE9C", pre_up: "#1F7A6C", post_down: "#9DB32A", post_up: "#5F7D12" };   // deeper tones of the sample colours, for the light panels
+  const DSS = { pre_down: "Pre ↓", pre_up: "Pre ↑", post_down: "Post ↓", post_up: "Post ↑" };
+  const DXV = [["sum", "Summary"], ["grp", "Taxa groups"], ["taxa", "Taxa browser"], ["tbl", "Table"], ["lab", "Lab"], ["map", "Map"]];
+  const DXPAL = ["#E8F07E", "#7FD8C8", "#C8E35A", "#2FA08E", "#B9CC3C", "#9FE8DA", "#F2B33D", "#7FC243", "#5FB3D9", "#D9E77A"];
+  const dx = { site: null, cmp: "", samples: new Set(SKEYS), empty: false, view: "sum", measure: "count", donut: null, grp: "ALL", order: "num", test: "EscherichiaColi" };
+  // Coming back to Explore from another page starts on its defaults (the chosen site is kept), as the classic Explore does.
+  function dxReset() { Object.assign(dx, { samples: new Set(SKEYS), empty: false, view: "sum", measure: "count", donut: null, grp: "ALL", order: "num", test: "EscherichiaColi" }); }
+  const dxSites = () => model.filter((a) => !a.test && (a.pre || a.post));
+  const dxSel = (a) => SKEYS.filter((k) => dx.samples.has(k) && smp(a, k));
+  const tipA = (html) => ` data-tip="${encodeURIComponent(html)}"`;
+  const tsw = (c) => `<i style="background:${c}"></i>`;
+  const otherStats = (s) => ({ count: s.other || 0, index: Math.round((s.other || 0) * (s.otherHils || 0)), taxa: s.other > 0 ? 1 : 0 });
+
+  function dashExplore() {
+    const sites = dxSites();
+    if (!sites.length) { $("dash").innerHTML = `${drail("explore")}<main class="dsp-main"><div class="card">No sites with data yet.</div></main>`; dashWire(); return; }
+    if (!sites.some((x) => x.id === dx.site)) dx.site = sites[0].id;
+    if (dx.cmp === dx.site || (dx.cmp && !sites.some((x) => x.id === dx.cmp))) dx.cmp = "";
+    const a = sites.find((x) => x.id === dx.site), opt = (x) => `<option value="${esc(x.id)}">${esc(x.id)} · ${esc(x.stream || "no stream")}</option>`;
+    $("dash").innerHTML = `${drail("explore")}<main class="dsp-main">${dashBanner()}
+      <div class="dx-head"><div><div class="muted" style="font-size:12px">Explore · every figure calculated by the app</div><h2 class="ttl">${esc(a.id)} · ${esc(a.stream || "no stream")}</h2></div>
+        <nav class="dx-views" aria-label="Explore views">${DXV.map(([k, l]) => `<button type="button" class="dxv${dx.view === k ? " on" : ""}" data-dxv="${k}" aria-pressed="${dx.view === k}">${l}</button>`).join("")}</nav></div>
+      <div class="dx-grid"><aside class="card dx-side">
+          <label class="dx-lbl" for="dxSite">Site</label><select id="dxSite" class="dx-sel">${sites.map(opt).join("")}</select>
+          <label class="dx-lbl" for="dxCmp">Compare with</label><select id="dxCmp" class="dx-sel"><option value="">(no comparison)</option>${sites.filter((x) => x.id !== a.id).map(opt).join("")}</select>
+          <div class="dx-lbl">Samples</div><div id="dxSamples"></div>
+          <label class="dx-tog"><input type="checkbox" id="dxEmpty"${dx.empty ? " checked" : ""}> Show taxa with no count</label>
+          <p class="muted" style="font-size:11.5px;margin:10px 0">Click a sample on a chart to keep only that sample; turn the others back on here.</p>
+          <a class="dbtn" href="${siteHash(a.id)}">Open the site page</a></aside>
+        <section id="dxBody" class="dx-body" aria-live="polite"></section></div></main>`;
+    dashWire();
+    $("dxSite").value = a.id; $("dxCmp").value = dx.cmp;
+    $("dxSite").onchange = (e) => { dx.site = e.target.value; dx.samples = new Set(SKEYS); dx.donut = null; dashExplore(); };
+    $("dxCmp").onchange = (e) => { dx.cmp = e.target.value; dxDraw(); };
+    $("dxEmpty").onchange = (e) => { dx.empty = e.target.checked; dxDraw(); };
+    document.querySelectorAll("#dash [data-dxv]").forEach((b) => b.onclick = () => { dx.view = b.dataset.dxv; document.querySelectorAll("#dash [data-dxv]").forEach((x) => { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", x === b); }); dxDraw(); });
+    dxSamplesDraw(a); dxDraw();
+  }
+  function dxSamplesDraw(a) {
+    $("dxSamples").innerHTML = SKEYS.map((k) => { const na = !smp(a, k), on = !na && dx.samples.has(k);
+      return `<button type="button" class="dxs${on ? " on" : ""}" data-dxs="${k}" style="--c:${DSC[k]}"${na ? " disabled" : ""} aria-pressed="${on}"><i></i>${DSN[k]}<span>${na ? "not entered" : on ? "on" : "off"}</span></button>`; }).join("");
+    document.querySelectorAll("#dash [data-dxs]").forEach((b) => b.onclick = () => { const k = b.dataset.dxs;
+      if (dx.samples.has(k)) { if (dxSel(a).length > 1) dx.samples.delete(k); } else dx.samples.add(k);   // at least one sample stays on
+      dxSamplesDraw(a); dxDraw(); });
+  }
+  function dxPick(k) { const a = dxSites().find((x) => x.id === dx.site); if (!a || !smp(a, k)) return; dx.samples = new Set([k]); dxSamplesDraw(a); dxDraw(); }
+  function dxDraw() {
+    hideTip(); dashMapFree();
+    const a = dxSites().find((x) => x.id === dx.site), box = $("dxBody"); if (!a || !box) return;
+    const ss = dxSel(a);
+    if (!ss.length && dx.view !== "lab" && dx.view !== "map") { box.innerHTML = `<div class="card">${esc(a.id)} has no macroinvertebrate samples entered yet.</div>`; return; }
+    box.innerHTML = ({ sum: dxSummary, grp: dxGroups, taxa: dxTaxa, tbl: dxTable, lab: dxLab, map: dsMapTab })[dx.view](a);
+    wireTips(box);
+    box.querySelectorAll("[data-pick]").forEach((el) => el.onclick = () => dxPick(el.dataset.pick));
+    box.querySelectorAll("[data-dxm]").forEach((b) => b.onclick = () => { dx.measure = b.dataset.dxm; dxDraw(); });
+    box.querySelectorAll("[data-dxd]").forEach((b) => b.onclick = () => { dx.donut = b.dataset.dxd; dxDraw(); });
+    box.querySelectorAll("[data-dxg]").forEach((b) => b.onclick = () => { dx.grp = b.dataset.dxg; dx.view = "taxa"; document.querySelectorAll("#dash [data-dxv]").forEach((x) => x.classList.toggle("on", x.dataset.dxv === "taxa")); dxDraw(); });
+    box.querySelectorAll("[data-dxgrp]").forEach((b) => b.onclick = () => { dx.grp = b.dataset.dxgrp; dxDraw(); });
+    box.querySelectorAll("[data-dxo]").forEach((b) => b.onclick = () => { dx.order = b.dataset.dxo; dxDraw(); });
+    box.querySelectorAll("[data-dxt]").forEach((b) => b.onclick = () => { dx.test = b.dataset.dxt; dxDraw(); });
+    const ex = $("dxExp"), co = $("dxCol"); if (ex) ex.onclick = () => box.querySelectorAll("details").forEach((d) => d.open = true); if (co) co.onclick = () => box.querySelectorAll("details").forEach((d) => d.open = false);
+    if (dx.view === "map") { box.querySelectorAll(".ds-sw button").forEach((b) => b.onclick = () => dashBase(b.dataset.b)); box.querySelectorAll("[data-cl]").forEach((b) => b.onclick = () => { const [tb, sd] = b.dataset.cl.split(":"); toClassic(a.id, tb, sd || null); }); dashBase(dash.base); dsMountMap(a); }
+  }
+
+  // ---- Summary ----
+  function dxSummary(a) {
+    const S = Object.fromEntries(SKEYS.map((k) => [k, smp(a, k)])), ss = dxSel(a), n = SKEYS.filter((k) => S[k]).length, org = SKEYS.reduce((t, k) => t + (S[k] ? S[k].calc.count : 0), 0);
+    const pd = S.post_down, ept = pd && pd.calc.taxa ? pd.calc.ept / pd.calc.taxa : null, full = a.stages.filter((s) => s.state === "full").length;
+    const ch = S.pre_down && S.post_down && S.pre_down.calc.avg != null && S.post_down.calc.avg != null ? S.post_down.calc.avg - S.pre_down.calc.avg : null;
+    const labs = ["pre", "post"].filter((ph) => a.stages.some((s) => s.ph === ph && s.side === "lab" && s.state !== "none")).length;
+    const head = `<div class="dx-sumhead"><div><div class="num" style="font-size:44px;font-weight:700;line-height:1">${n} sample${n === 1 ? "" : "s"}</div>
+        <div class="muted" style="font-size:13px">${fmt(org)} organisms · ${[a.pre && "Pre", a.post && "Post"].filter(Boolean).join(" and ")}-construction · lab results for ${labs === 2 ? "both phases" : labs ? "one phase" : "neither phase"}</div></div>
+      ${dRing(ept, "#E8F07E", ept == null ? "–" : Math.round(ept * 100) + "%", "EPT share · Post ↓", pd ? `${pd.calc.ept} of ${pd.calc.taxa} taxa` : "not entered")}
+      ${dRing(full / 6, "#C8E35A", `${full}/6`, "Stages complete", full === 6 ? "all entered" : `${6 - full} to go`)}
+      ${dRing(ch == null ? null : Math.min(1, Math.abs(ch) / 4), ch != null && ch < 0 ? "#7FD8C8" : "#F07E3A", ch == null ? "–" : signed(ch), "Avg HILS · down", ch == null ? "needs Pre and Post" : ch < 0 ? "better after (lower)" : ch > 0 ? "worse after (higher)" : "no change")}</div>`;
+    // Avg HILS line across the samples, on the HBI bands; the compared site dashed
+    const W = 600, H = 250, X = (i) => 50 + i * ((W - 110) / 3), Y = (q) => 16 + (Math.min(10, Math.max(0, q)) / 10) * (H - 48);
+    const cmp = dx.cmp ? dxSites().find((x) => x.id === dx.cmp) : null;
+    const ptsA = SKEYS.map((k, i) => ({ k, i, s: S[k] })).filter((p) => p.s && p.s.calc.avg != null && ss.includes(p.k));
+    const ptsB = cmp ? SKEYS.map((k, i) => ({ k, i, s: smp(cmp, k) })).filter((p) => p.s && p.s.calc.avg != null) : [];
+    const tipS = (site, p) => `${tsw(DSC[p.k])}<b>${DSN[p.k]}</b> · ${esc(site.id)}<br>Avg HILS <b>${fmt(p.s.calc.avg, 2)}</b> ${drating(p.s.calc.avg)[1]}<br>${p.s.calc.count} organisms · ${p.s.calc.taxa} taxa · EPT ${p.s.calc.ept}`;
+    let lo = 0; const bands = DRATE.map((r) => { const y0 = Y(lo), y1 = Y(r[0]); lo = r[0]; return `<rect x="40" y="${y0}" width="${W - 70}" height="${y1 - y0}" fill="${r[2]}" opacity=".08"/><rect x="${W - 26}" y="${y0 + 1}" width="5" height="${Math.max(1, y1 - y0 - 2)}" rx="2" fill="${r[2]}" opacity=".85"${tipA(r[1])}/>`; }).join("");
+    const line = `<div class="card dx-card"><div class="dx-ch"><h3>Avg HILS by sample</h3><div class="lg"><span><i class="dot" style="background:#C8E35A"></i>${esc(a.id)}</span>${cmp ? `<span><i style="display:inline-block;width:14px;border-top:2px dashed #7FD8C8"></i>${esc(cmp.id)} (compare)</span>` : ""}</div></div>
+      <svg viewBox="0 0 ${W} ${H}" class="dx-svg" role="img" aria-label="Avg HILS by sample">${bands}
+        ${[0, 2.5, 5, 7.5, 10].map((q) => `<text x="34" y="${Y(q) + 4}" text-anchor="end" font-size="11" fill="#93A397">${q}</text>`).join("")}
+        ${ptsB.length > 1 ? `<path d="${smoothPath(ptsB.map((p) => [X(p.i), Y(p.s.calc.avg)]))}" stroke="#7FD8C8" stroke-width="2" stroke-dasharray="6 5" fill="none" opacity=".85"/>` : ""}
+        ${ptsB.map((p) => `<circle cx="${X(p.i)}" cy="${Y(p.s.calc.avg)}" r="4" fill="#0B0F0C" stroke="#7FD8C8" stroke-width="2"${tipA(tipS(cmp, p))}/>`).join("")}
+        ${ptsA.length > 1 ? `<path d="${smoothPath(ptsA.map((p) => [X(p.i), Y(p.s.calc.avg)]))}" stroke="#C8E35A" stroke-width="8" fill="none" opacity=".15"/><path d="${smoothPath(ptsA.map((p) => [X(p.i), Y(p.s.calc.avg)]))}" stroke="#C8E35A" stroke-width="3" fill="none"/>` : ""}
+        ${ptsA.map((p) => `<circle cx="${X(p.i)}" cy="${Y(p.s.calc.avg)}" r="9" fill="${DSC[p.k]}" opacity=".25"/><circle class="dx-hit" cx="${X(p.i)}" cy="${Y(p.s.calc.avg)}" r="6" fill="${DSC[p.k]}" stroke="#0B0F0C" stroke-width="2" data-pick="${p.k}"${tipA(tipS(a, p) + "<br>Click to show only this sample")}/>
+          <text x="${X(p.i)}" y="${Y(p.s.calc.avg) - 13}" text-anchor="middle" font-size="12" font-weight="700" fill="#EEF3E9">${fmt(p.s.calc.avg, 2)}</text>`).join("")}
+        ${SKEYS.map((k, i) => `<text x="${X(i)}" y="${H - 6}" text-anchor="middle" font-size="11" fill="#93A397">${DSN[k]}</text>`).join("")}</svg>
+      <div class="muted" style="font-size:11px">lower is better · bands and the strip on the right = HBI rating${cmp ? " · dashed = compared site" : ""}</div></div>`;
+    // taxa-group donut for one sample
+    if (!dx.donut || !ss.includes(dx.donut)) dx.donut = ss.includes("post_down") ? "post_down" : ss[0];
+    const sd = S[dx.donut], gl = GROUPS.map((g) => [GSHORT[g[0]], groupStats(sd, g).count]).concat(sd.other ? [[`Other: ${sd.otherName || "other taxon"}`, sd.other]] : []).filter((x) => x[1] > 0).sort((p, q) => q[1] - p[1]);
+    const tot = gl.reduce((t, x) => t + x[1], 0) || 1; let a0 = -Math.PI / 2;
+    const donut = gl.map((g, i) => { const a1 = a0 + g[1] / tot * 2 * Math.PI, d = darc(84, 84, 62, a0 + 0.015, Math.max(a0 + 0.02, a1 - 0.015)); a0 = a1;
+      return `<path d="${d}" stroke="${DXPAL[i % DXPAL.length]}" stroke-width="20" fill="none"${tipA(`<b>${esc(g[0])}</b><br>${g[1]} organisms · ${Math.round(g[1] / tot * 100)}%`)}/>`; }).join("");
+    const dcard = `<div class="card dx-card"><div class="dx-ch"><h3>Taxa groups</h3><span class="dx-chips">${ss.map((k) => `<button type="button" class="dxc${k === dx.donut ? " on" : ""}" data-dxd="${k}" style="--c:${DSC[k]}">${DSS[k]}</button>`).join("")}</span></div>
+      <div class="dx-donut"><svg viewBox="0 0 168 168" width="168" height="168" role="img" aria-label="Organisms per taxa group">${donut}<text x="84" y="82" text-anchor="middle" font-size="24" font-weight="700" fill="#EEF3E9" font-family="Barlow Semi Condensed">${sd.calc.count}</text><text x="84" y="99" text-anchor="middle" font-size="11" fill="#93A397">organisms</text></svg>
+        <div style="flex:1;min-width:150px">${gl.slice(0, 6).map((g, i) => `<div style="font-size:12px;margin:6px 0"><span>${esc(g[0])}</span><span style="float:right"><b>${g[1]}</b> · ${Math.round(g[1] / tot * 100)}%</span>
+          <div style="height:5px;border-radius:4px;background:rgba(255,255,255,.06);margin-top:3px"><div style="height:5px;border-radius:4px;width:${g[1] / tot * 100}%;background:${DXPAL[i % DXPAL.length]}"></div></div></div>`).join("")}</div></div></div>`;
+    return head + `<div class="dx-two">${line}${dcard}</div>`;
+  }
+  // smooth line through points (Catmull-Rom), kept between the first and last point
+  function smoothPath(p) { if (p.length < 2) return ""; let d = `M${p[0][0]},${p[0][1]}`;
+    for (let i = 0; i < p.length - 1; i++) { const p0 = p[i - 1] || p[i], p1 = p[i], p2 = p[i + 1], p3 = p[i + 2] || p2;
+      d += ` C${p1[0] + (p2[0] - p0[0]) / 6},${p1[1] + (p2[1] - p0[1]) / 6} ${p2[0] - (p3[0] - p1[0]) / 6},${p2[1] - (p3[1] - p1[1]) / 6} ${p2[0]},${p2[1]}`; } return d; }
+
+  // ---- Taxa groups ----
+  function dxGroups(a) {
+    const ss = dxSel(a), m = dx.measure, ml = { count: "Count", index: "Index", taxa: "Taxa present" };
+    const rows = GROUPS.map((g) => ({ g, vals: ss.map((k) => groupStats(smp(a, k), g)[m]) })).filter((r) => dx.empty || r.vals.some((x) => x > 0));
+    const oth = ss.some((k) => smp(a, k).other > 0) ? ss.map((k) => otherStats(smp(a, k))[m]) : null;
+    const mx = Math.max(1, ...rows.flatMap((r) => r.vals), ...(oth || []));
+    const bars = (vals, label) => ss.map((k, i) => `<div class="dxb"${tipA(`${tsw(DSC[k])}<b>${DSN[k]}</b> · ${esc(label)}<br>${ml[m]}: <b>${fmt(vals[i])}</b>`)}><span class="tr">${vals[i] ? `<i style="width:${Math.max(1.5, vals[i] / mx * 100)}%;background:${DSC[k]};box-shadow:0 0 6px ${DSC[k]}"></i>` : ""}</span><b>${vals[i] ? fmt(vals[i]) : ""}</b></div>`).join("");
+    const block = (title, sub, vals, label, g, ept) => `<div class="dxgb"${g ? ` data-dxg="${g}" role="button" tabindex="0" title="Open ${esc(label)} in the Taxa browser"` : ""}>
+        <div class="dxgh"><span class="gn"><span>${title}${ept ? '<i class="dept">EPT</i>' : ""}</span><em>${sub}</em></span><span class="muted" style="font-size:11px">${vals.map((x) => fmt(x)).join(" · ")}</span></div>${bars(vals, label)}</div>`;
+    return `<div class="dx-bar"><span class="muted" style="font-size:12px">Measure</span>${Object.entries(ml).map(([k, l]) => `<button type="button" class="dxc${k === m ? " on" : ""}" data-dxm="${k}" style="--c:#EEF3E9">${l}</button>`).join("")}
+        <span class="lg" style="margin-left:auto">${ss.map((k) => `<span><i class="dot" style="background:${DSC[k]}"></i>${DSS[k]}</span>`).join("")}</span></div>
+      <div class="card dx-card dxg">${rows.map((r) => block(GSHORT[r.g[0]], GLATIN[r.g[0]], r.vals, GSHORT[r.g[0]], r.g[0], isEPT(r.g[2]))).join("")}
+        ${oth ? block("Other taxa", "a taxon not on the sheet", oth, "Other taxa", "OTHER", false) : ""}${!rows.length && !oth ? '<p class="muted">Nothing counted in the selected samples.</p>' : ""}</div>
+      <div class="muted" style="font-size:11.5px;margin-top:6px">Click a group to open it in the Taxa browser.</div>`;
+  }
+
+  // ---- Taxa browser (light panel) ----
+  function dxTaxa(a) {
+    const ss = dxSel(a), g0 = dx.grp, inG = (n) => g0 === "ALL" || (GROUPS.find((x) => x[0] === g0) || [0, 0, 0, -1])[2] <= n && n <= (GROUPS.find((x) => x[0] === g0) || [0, 0, 0, -1])[3];
+    let rows = []; for (let n = 1; n <= 99; n++) { if (g0 === "OTHER" || !inG(n)) continue; const vals = ss.map((k) => smp(a, k).counts[n] || 0); if (!dx.empty && !vals.some((x) => x)) continue; rows.push({ n, vals }); }
+    const ch = (r) => { const v = (k) => ss.includes(k) ? r.vals[ss.indexOf(k)] : 0; return Math.abs(v("post_down") + v("post_up") - v("pre_down") - v("pre_up")); };
+    if (dx.order === "total") rows.sort((p, q) => q.vals.reduce((t, x) => t + x, 0) - p.vals.reduce((t, x) => t + x, 0) || p.n - q.n);
+    else if (dx.order === "change") rows.sort((p, q) => ch(q) - ch(p) || p.n - q.n);
+    const oth = (g0 === "ALL" || g0 === "OTHER") && ss.some((k) => smp(a, k).other > 0);
+    const mx = Math.max(1, ...rows.flatMap((r) => r.vals), ...(oth ? ss.map((k) => smp(a, k).other || 0) : []));
+    const cols = `grid-template-columns:30px minmax(0,1.4fr) 40px repeat(${ss.length},minmax(0,1fr))`;
+    const cell = (k, c, h, label) => `<span class="dxtc"${tipA(`${tsw(PDSC[k])}<b>${DSN[k]}</b> · ${esc(label)}<br>count <b>${c}</b>${h != null ? ` · HILS ${h} · index ${Math.round(c * h)}` : ""}`)}><span class="tr">${c ? `<i style="width:${Math.max(2, c / mx * 100)}%;background:${PDSC[k]}"></i>` : ""}</span><b>${c || ""}</b></span>`;
+    const grpOf = (n) => GROUPS.find((x) => n >= x[2] && n <= x[3]);
+    return `<div class="dpaper dxp"><div class="dxp-tb"><span class="dxp-l">Group</span>${[["ALL", "All groups"], ...GROUPS.map((g) => [g[0], GSHORT[g[0]]]), ["OTHER", "Other taxa"]].map(([k, l]) => `<button type="button" class="dchip${k === g0 ? " on" : ""}" data-dxgrp="${k}">${l}</button>`).join("")}</div>
+      <div class="dxp-tb" style="padding-top:0"><span class="dxp-l">Sort</span>${[["num", "By number"], ["total", "By total count"], ["change", "Biggest Pre→Post change"]].map(([k, l]) => `<button type="button" class="dchip${k === dx.order ? " on" : ""}" data-dxo="${k}">${l}</button>`).join("")}</div>
+      <div class="dxtr dxth" style="${cols}"><span>No.</span><span>Taxon</span><span style="text-align:center">HILS</span>${ss.map((k) => `<span style="color:${PDSC[k]};font-weight:700">${DSS[k]}</span>`).join("")}</div>
+      ${rows.map((r) => `<div class="dxtr" style="${cols}"><span class="no">${r.n}</span><span class="nm"><span class="tn">${esc(TAXON[r.n - 1])}</span><em>${GSHORT[grpOf(r.n)[0]]}</em></span><span class="h">${HILS[r.n - 1]}</span>${ss.map((k, i) => cell(k, r.vals[i], HILS[r.n - 1], TAXON[r.n - 1])).join("")}</div>`).join("")}
+      ${oth ? `<div class="dxtr" style="${cols}"><span class="no">–</span><span class="nm"><span class="tn">Other taxon</span><em>${esc([...new Set(ss.map((k) => smp(a, k).otherName).filter(Boolean))].join(", ") || "not on the sheet")}</em></span><span class="h">own</span>${ss.map((k) => { const s = smp(a, k); return cell(k, s.other || 0, s.otherHils || null, s.otherName || "Other taxon"); }).join("")}</div>` : ""}
+      ${!rows.length && !oth ? `<p style="padding:14px;color:#5B6B5F">No taxa with a count in this group for the selected samples. Turn on “Show taxa with no count” to list them all.</p>` : ""}
+      <div style="padding:8px 14px;font-size:11.5px;color:#5B6B5F">${rows.length + (oth ? 1 : 0)} taxa · hover a cell for its HILS and index</div></div>`;
+  }
+
+  // ---- Table (light panel, grouped as on the WCCD sheet) ----
+  function dxTable(a) {
+    const ss = dxSel(a), cols = `grid-template-columns:minmax(0,1.6fr) 40px repeat(${ss.length},minmax(0,1fr))`;
+    const trip = (st) => `<b>${st.count || "–"}</b> · ${st.taxa || "–"} · ${st.index || "–"}`;
+    const body = GROUPS.map((g) => { const gs = ss.map((k) => groupStats(smp(a, k), g)), any = gs.some((x) => x.count);
+      if (!any && !dx.empty) return "";
+      let tr = ""; for (let n = g[2]; n <= g[3]; n++) { const vs = ss.map((k) => smp(a, k).counts[n] || 0); if (!dx.empty && !vs.some((x) => x)) continue;
+        tr += `<div class="dxtr${vs.some((x) => x) ? "" : " z"}" style="${cols}"><span class="nm"><span class="tn">${n}. ${esc(TAXON[n - 1])}</span></span><span class="h">${HILS[n - 1]}</span>${vs.map((c) => `<span class="dxtv">${c ? `<b>${c}</b> · ${Math.round(c * HILS[n - 1])}` : "–"}</span>`).join("")}</div>`; }
+      return `<details class="dxd${any ? "" : " empty"}"${any ? " open" : ""}><summary class="dxtr" style="${cols}"><span class="gn"><span>${GSHORT[g[0]]}${isEPT(g[2]) ? '<i class="dept">EPT</i>' : ""}</span><em>${GLATIN[g[0]]}</em></span><span></span>${gs.map((x) => `<span class="dxtv">${trip(x)}</span>`).join("")}</summary>${tr}</details>`; }).join("");
+    const oth = ss.some((k) => smp(a, k).other > 0) ? `<details class="dxd" open><summary class="dxtr" style="${cols}"><span class="gn"><span>Other taxa</span><em>a taxon not on the sheet</em></span><span></span>${ss.map((k) => `<span class="dxtv">${trip(otherStats(smp(a, k)))}</span>`).join("")}</summary>
+        <div class="dxtr" style="${cols}"><span class="nm"><span class="tn">${esc([...new Set(ss.map((k) => smp(a, k).otherName).filter(Boolean))].join(", ") || "Other taxon")}</span></span><span class="h">own</span>${ss.map((k) => { const s = smp(a, k); return `<span class="dxtv">${s.other ? `<b>${s.other}</b> · ${Math.round(s.other * (s.otherHils || 0))}` : "–"}</span>`; }).join("")}</div></details>` : "";
+    const tots = ss.map((k) => smp(a, k).calc);
+    return `<div class="dpaper dxp"><div class="dxp-tb" style="justify-content:space-between"><span style="font:700 15px 'Barlow Semi Condensed';color:#1F3A2A">All taxa, grouped as on the WCCD sheet</span><span><button type="button" class="dchip" id="dxExp">Expand all</button> <button type="button" class="dchip" id="dxCol">Collapse all</button></span></div>
+      <div class="dxtr dxth" style="${cols}"><span>Group / taxon</span><span style="text-align:center">HILS</span>${ss.map((k) => `<span class="dxtv" style="color:${PDSC[k]};font-weight:700">${DSS[k]}</span>`).join("")}</div>
+      ${body}${oth}
+      <div class="dxtr dxtot" style="${cols}"><span>Totals · Avg HILS</span><span></span>${tots.map((c) => `<span class="dxtv"><b>${c.count}</b> · ${c.taxa} · ${fmt(c.index)}<br><span style="font-size:11px">Avg ${fmt(c.avg, 2)} ${drating(c.avg) ? drating(c.avg)[1] : ""}</span></span>`).join("")}</div>
+      <div style="padding:8px 14px;font-size:11.5px;color:#5B6B5F">Group lines show count · taxa · index for each sample; taxa lines show count · index. Groups with nothing counted are folded.</div></div>`;
+  }
+
+  // ---- Lab ----
+  function dxLab(a) {
+    if (svc.lab.error) return `<div class="card">${esc(svc.lab.error)}</div>`;
+    if (!a.lab) return `<div class="card">No lab results have been entered for ${esc(a.id)} yet.</div>`;
+    const t0 = dx.test, ss = SKEYS.filter((k) => dx.samples.has(k));
+    const vals = Object.fromEntries(SKEYS.map((k) => { const [ph, sd] = k.split("_"); return [k, labVal(a, ph, sd, t0)]; }));
+    const mx = Math.max(1, ...SKEYS.filter((k) => vals[k] && ss.includes(k)).map((k) => vals[k].num)) * 1.15, W = 520, H = 300, Y = (q) => H - 34 - q / mx * (H - 80);
+    const ticks = niceTicks(mx).filter((q) => q <= mx);
+    const bars = SKEYS.map((k, i) => { const x = 66 + i * 112, v0 = vals[k], c = DSC[k];
+      if (!ss.includes(k)) return `<rect x="${x}" y="${H - 37}" width="78" height="3" fill="#2B3730"/><text x="${x + 39}" y="${H - 44}" text-anchor="middle" font-size="11" fill="#93A397">off</text>`;
+      if (!v0) return `<rect x="${x}" y="${H - 37}" width="78" height="3" fill="#2B3730"/><text x="${x + 39}" y="${H - 44}" text-anchor="middle" font-size="11" fill="#93A397">not entered</text>`;
+      const y = Y(v0.num), lim = v0.q;
+      return `<rect x="${x}" y="${y}" width="78" height="${H - 34 - y}" rx="8" fill="${c}" opacity="${lim ? 0.35 : 0.92}" style="filter:drop-shadow(0 0 8px ${c})"${tipA(`${tsw(c)}<b>${DSN[k]}</b><br>${LABNAMES[t0]}: <b>${esc(v0.txt)}</b> ${LABUNITS[t0] === "–" ? "" : LABUNITS[t0]}${lim ? "<br>a limit, not an exact measurement" : ""}`)}/>
+        ${lim ? `<line x1="${x}" x2="${x + 78}" y1="${y}" y2="${y}" stroke="${c}" stroke-width="2.5" stroke-dasharray="6 4"/>` : ""}<text x="${x + 39}" y="${y - 8}" text-anchor="middle" font-size="15" font-weight="700" fill="#EEF3E9" font-family="Barlow Semi Condensed">${esc(v0.txt)}</text>`; }).join("");
+    const arrow = (p, q) => !p || !q ? "" : q.num > p.num ? "▲" : q.num < p.num ? "▼" : "=";
+    const cellT = (ph0, sd) => { const p = labVal(a, "pre", sd, ph0), q = labVal(a, "post", sd, ph0); return `<td>${p ? esc(p.txt) : "–"} → <b class="acc">${q ? esc(q.txt) : "–"}</b> <span class="muted">${arrow(p, q)}</span></td>`; };
+    return `<div class="dx-bar" style="flex-wrap:wrap">${LABTESTS.map((tt) => `<button type="button" class="dxc${tt === t0 ? " on" : ""}" data-dxt="${tt}" style="--c:#EEF3E9">${LABNAMES[tt]}</button>`).join("")}</div>
+      <div class="dx-two lab"><div class="card dx-card"><h3>${LABNAMES[t0]} <span class="muted" style="font-weight:400;font-size:12px">${LABUNITS[t0] === "–" ? "" : LABUNITS[t0]}</span></h3>
+          <svg viewBox="0 0 ${W} ${H}" class="dx-svg" role="img" aria-label="${LABNAMES[t0]} by sample">${ticks.map((q) => `<line x1="44" x2="${W - 10}" y1="${Y(q)}" y2="${Y(q)}" stroke="rgba(255,255,255,.06)"/><text x="38" y="${Y(q) + 4}" text-anchor="end" font-size="10.5" fill="#93A397">${fmt(q, Number.isInteger(q) ? 0 : q < 1 ? 2 : 1)}</text>`).join("")}
+            ${bars}${SKEYS.map((k, i) => `<text x="${105 + i * 112}" y="${H - 12}" text-anchor="middle" font-size="11" fill="#93A397">${DSN[k]}</text>`).join("")}</svg>
+          <div class="muted" style="font-size:11px">faded bar with a dashed top = a limit (“&lt;” below the reporting limit, “&gt;” above the upper limit)${t0 === "Acidity" ? " · Acidity is negative on the certificates, so bars show its size" : ""}</div></div>
+        <div class="card dx-card"><h3>All tests · Pre → Post</h3><table class="dx-lt"><tr><th>Test</th><th>Downstream</th><th>Upstream</th></tr>
+          ${LABTESTS.map((tt) => `<tr class="${tt === t0 ? "on" : ""}"><td>${LABNAMES[tt]}</td>${cellT(tt, "down")}${cellT(tt, "up")}</tr>`).join("")}</table></div></div>`;
+  }
   function drawDash(parts) {
     hideTip(); document.body.classList.add("dashmode"); $("dash").hidden = false; setViewPref("dash");
     document.title = "WCCD Watershed Monitoring · Dashboard";
     const sub = parts[1];
     if (sub !== "site" || parts[3] !== "edit") dedit = null;
-    if (sub === "sites") dashSites();
+    if (sub === "explore") { dashMapFree(); if (dash.lastSub !== "explore") dxReset(); if (DXV.some((x) => x[0] === parts[2])) dx.view = parts[2]; dashExplore(); }   // #/dash/explore/<view> opens that view
+    else if (sub === "sites") dashSites();
     else if (sub === "site" && parts[3] === "edit") { dashMapFree(); const a = model.find((x) => x.id === decodeURIComponent(parts[2] || ""));
       if (a) dashEdit(a, parts[4], parts[5], parts[6]); else dashSite(decodeURIComponent(parts[2] || ""), "overview"); }
     else if (sub === "site") { dashMapFree(); dedit = null; dashSite(decodeURIComponent(parts[2] || ""), parts[3] || "overview"); }
     else { dashMapFree(); dashLanding(); }
-    window.scrollTo(0, 0);
+    dash.lastSub = sub; window.scrollTo(0, 0);
   }
   function leaveDash() {
     if (!document.body.classList.contains("dashmode")) return;
-    dashMapFree(); dedit = null; document.body.classList.remove("dashmode"); $("dash").hidden = true; $("dash").innerHTML = ""; document.title = "WCCD Watershed Monitoring";
+    dashMapFree(); dedit = null; dash.lastSub = null; document.body.classList.remove("dashmode"); $("dash").hidden = true; $("dash").innerHTML = ""; document.title = "WCCD Watershed Monitoring";
   }
   // Opening the app: go straight to the dashboard when the address asks for it, or when it was the last interface used.
   if (/^#\/dash/.test(location.hash) || ((!location.hash || location.hash === "#/" || location.hash === "#") && viewPref() === "dash")) {
