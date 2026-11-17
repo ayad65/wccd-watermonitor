@@ -205,7 +205,8 @@
   .rchecks{position:sticky;top:12px} .rchecks h3{font-size:16px;margin:12px 0 6px} .rchecks h3:first-child{margin-top:0}
   .rchecks select{width:100%;padding:7px;border-radius:8px;border:1px solid var(--line);font:inherit;font-size:14px}
   .rchecks label{display:flex;gap:8px;align-items:center;font-size:14px;padding:3px 0}
-  .paper{background:#fff;width:100%;max-width:680px;min-height:880px;overflow:hidden;margin:0 auto 18px;box-shadow:0 1px 4px rgba(0,0,0,.15);padding:34px 38px 30px;font-size:11.5px;position:relative;box-sizing:border-box;color:var(--ink)}
+  .pages{overflow-x:auto;min-width:0}
+  .paper{background:#fff;width:680px;min-width:680px;min-height:880px;overflow:hidden;margin:0 auto 18px;box-shadow:0 1px 4px rgba(0,0,0,.15);padding:34px 38px 30px;font-size:11.5px;position:relative;box-sizing:border-box;color:var(--ink)}
   .paper h1{font-size:26px;margin:4px 0} .paper h2{font-size:19px;margin:0 0 4px} .paper h3{font-size:14px;margin:12px 0 4px}
   .paper p{margin:4px 0}
   .paper table{border-collapse:collapse;width:100%;font-size:10.5px}
@@ -215,6 +216,8 @@
   .paper .pno{position:absolute;bottom:12px;right:38px;font-size:10px;color:var(--muted)}
   .paper .rhd{display:flex;gap:10px;align-items:center;border-bottom:3px solid var(--rail);padding-bottom:6px;margin-bottom:10px;font-size:11px}
   #p3 td{white-space:nowrap}
+  .paper .r4{display:grid;grid-template-columns:1fr 1.15fr;gap:12px;align-items:stretch} .paper .r4l{display:flex;flex-direction:column;gap:4px}
+  .paper td.dlt{background:#F7F9F8} .paper th.dlt{background:#E4ECEA} .paper .up{color:#1B6E3A} .paper .dn{color:#B3261E}
   .paper .rmap{height:200px;border:1px solid #D3DCDA;border-radius:6px;overflow:hidden;position:relative;background:#EEF2F1}
   .paper .rmap img{width:100%;height:100%;object-fit:cover;display:block}
   .paper .hbi{font-size:10px;padding:0 5px}
@@ -415,7 +418,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B7", BUILD_DATE = "16 Nov 2026";
+  const BUILD = "B7a", BUILD_DATE = "16 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -1800,8 +1803,9 @@
     el.innerHTML = s + `<line x1="${L}" x2="${L + iw}" y1="${T + ih}" y2="${T + ih}" stroke="#C6D3D0"/></svg>`; wireTips(el);
   }
   // Horizontal grouped bars: categories down the side, one thin bar per sample.
-  function barChart(el, cats, series, { onClick, bh = 7, gap = 2, pad = 10 } = {}) {
-    const W = Math.max(420, el.clientWidth || 760), L = 190, R = 40, rowH = series.length * (bh + gap) - gap + pad * 2, H = cats.length * rowH + 26, iw = W - L - R;
+  function barChart(el, cats, series, { onClick, bh = 7, gap = 2, pad = 10, L = 190, height, minW = 420 } = {}) {
+    if (height) { const per = (height - 26) / Math.max(cats.length, 1); bh = Math.max(3, Math.min(16, (per - 2 * pad - (series.length - 1) * gap) / Math.max(series.length, 1))); }   // fill a given height
+    const W = Math.max(minW, el.clientWidth || 760), R = 34, rowH = series.length * (bh + gap) - gap + pad * 2, H = cats.length * rowH + 26, iw = W - L - R;
     const m = Math.max(1, ...cats.flatMap((c) => series.map((sr) => c.vals[sr[0]] || 0))) * 1.05, x = (v) => L + (v / m) * iw;
     let s = `<svg viewBox="0 0 ${W} ${H}" role="img"><g class="grid">` + niceTicks(m).map((t) => `<line x1="${x(t)}" x2="${x(t)}" y1="0" y2="${H - 22}"/><text x="${x(t)}" y="${H - 6}" text-anchor="middle">${fmt(t, t % 1 ? 1 : 0)}</text>`).join("") + `</g>`;
     cats.forEach((c, i) => { const y0 = i * rowH;
@@ -1991,6 +1995,13 @@
     const head = (t) => `<div class="rhd"><img src="${logo}" width="34" height="34" alt=""><div><b>Washington County Conservation District</b> · Watershed Monitoring Report<br>${esc(a.id)} · ${esc(a.stream || "")}</div></div><h2>${t}</h2>`;
     const colHead = `<tr><th></th>${S4.map((s) => `<th><span class="sw2" style="background:${s[2]}"></span>${s[1]}</th>`).join("")}</tr>`;
     const hbiCell = (x) => { const r = rating(x.avg); return r ? `<span class="hbi" style="background:${r[2]}">${r[1]}</span>` : "–"; };
+    // Change columns: Post − Pre for the downstream pair (samples 0 → 2) and the upstream pair (1 → 3). For Avg HILS, lower is better (green).
+    const signed = (v, d = 0) => v > 0 ? "+" + fmt(v, d) : v < 0 ? "−" + fmt(-v, d) : fmt(0, d);
+    const dCell = (pre, post, d = 0, lowerBetter = false) => (pre == null || post == null || Number.isNaN(pre) || Number.isNaN(post)) ? `<td class="dlt">–</td>`
+      : `<td class="dlt${lowerBetter && post !== pre ? (post < pre ? " up" : " dn") : ""}">${signed(post - pre, d)}</td>`;
+    const dPair = (f, d = 0, lowerBetter = false) => [[0, 2], [1, 3]].map(([i, j]) => dCell(sm[i] ? f(i) : null, sm[j] ? f(j) : null, d, lowerBetter)).join("");
+    const dHead = (what, rows = 1) => `<th colspan="2" class="dlt" style="text-align:center"${rows > 1 ? "" : ""}>Change Post − Pre${what ? "<br>" + what : ""}</th>`;
+    const dSub = `<th class="dlt">Down</th><th class="dlt">Up</th>`;
     const siteLine = ["pre", "post"].map((ph) => a[ph] ? `${PH[ph]} sampled ${dayText(a[ph].date)}${a[ph].site && a[ph].site !== a.stream ? ` (${esc(a[ph].site)})` : ""}` : `${PH[ph]}: not sampled yet`).join(" · ");
     const today = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     const p1 = `<div class="paper"><div class="rhd" style="font-size:12px"><img src="${logo}" width="48" height="48" alt=""><div><b>Washington County Conservation District</b><br>Watershed Monitoring Report</div></div>
@@ -2008,38 +2019,44 @@
     // page 2: taxa-group summary (the survey's summary page)
     let rows2 = "";
     for (const g of GROUPS) { const gs = sm.map((s) => s ? groupStats(s, g) : null); if (!showEmpty && !gs.some((x) => x && x.count)) continue;
-      rows2 += `<tr><td>${esc(g[1])}${isEPT(g[2]) ? " (EPT)" : ""}</td>${gs.map((x) => x ? `<td>${x.count || "–"}</td><td>${x.taxa || "–"}</td><td>${x.index || "–"}</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}</tr>`; }
-    const p2 = `<div class="paper">${head("Taxa-group summary")}<p class="small">Count, number of taxa and index (count × HILS) for each taxa group. ${showEmpty ? "" : "Groups with no organisms in any sample are left out."}</p>
-      <table><tr><th rowspan="2">Taxa group</th>${S4.map((s) => `<th colspan="3" style="text-align:center"><span class="sw2" style="background:${s[2]}"></span>${s[1]}</th>`).join("")}</tr><tr>${S4.map(() => `<th>Count</th><th>Taxa</th><th>Index</th>`).join("")}</tr>${rows2}
-      ${sm.some((s) => s && s.other) ? `<tr><td>Total Other Taxa (no HILS)</td>${sm.map((s) => s ? `<td>${s.other || "–"}</td><td>–</td><td>–</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}</tr>` : ""}
-      <tr class="tot"><td>All groups</td>${sts.map((x) => x ? `<td>${x.count}</td><td>${x.taxa}</td><td>${x.index}</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}</tr>
-      <tr><td>Avg HILS · EPT taxa</td>${sts.map((x) => `<td colspan="3" style="text-align:center">${x ? `${fmt(x.avg, 2)}${rating(x.avg) ? " (" + rating(x.avg)[1] + ")" : ""} · EPT ${x.ept}` : "not sampled"}</td>`).join("")}</tr></table><span class="pno">Page 2 of 5</span></div>`;
+      rows2 += `<tr><td>${esc(g[1])}${isEPT(g[2]) ? " (EPT)" : ""}</td>${gs.map((x) => x ? `<td>${x.count || "–"}</td><td>${x.taxa || "–"}</td><td>${x.index || "–"}</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}${dPair((i) => gs[i].count)}</tr>`; }
+    const p2 = `<div class="paper" id="p2">${head("Taxa-group summary")}<p class="small">Count, number of taxa and index (count × HILS) for each taxa group. The last two columns give the change in count from Pre- to Post-construction at the same location; for Avg HILS a fall (green) means better water quality. ${showEmpty ? "" : "Groups with no organisms in any sample are left out."}</p>
+      <table><tr><th rowspan="2">Taxa group</th>${S4.map((s) => `<th colspan="3" style="text-align:center"><span class="sw2" style="background:${s[2]}"></span>${s[1]}</th>`).join("")}${dHead("(count)")}</tr><tr>${S4.map(() => `<th>Count</th><th>Taxa</th><th>Index</th>`).join("")}${dSub}</tr>${rows2}
+      ${sm.some((s) => s && s.other) ? `<tr><td>Total Other Taxa (no HILS)</td>${sm.map((s) => s ? `<td>${s.other || "–"}</td><td>–</td><td>–</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}${dPair((i) => sm[i].other || 0)}</tr>` : ""}
+      <tr class="tot"><td>All groups</td>${sts.map((x) => x ? `<td>${x.count}</td><td>${x.taxa}</td><td>${x.index}</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}${dPair((i) => sts[i].count)}</tr>
+      <tr><td>Avg HILS · EPT taxa</td>${sts.map((x) => `<td colspan="3" style="text-align:center">${x ? `${fmt(x.avg, 2)}${rating(x.avg) ? " (" + rating(x.avg)[1] + ")" : ""} · EPT ${x.ept}` : "not sampled"}</td>`).join("")}<td colspan="2" class="dlt"></td></tr>
+      <tr><td>Change in Avg HILS</td><td colspan="12" class="small" style="text-align:left">Post − Pre</td>${dPair((i) => sts[i].avg, 2, true)}</tr>
+      <tr><td>Change in EPT taxa</td><td colspan="12" class="small" style="text-align:left">Post − Pre</td>${dPair((i) => sts[i].ept)}</tr></table><span class="pno">Page 2 of 5</span></div>`;
     // page 3: every taxon, fitted to one page
     const blocks = [];
     for (const g of GROUPS) { const body = [];
       for (let n = g[2]; n <= g[3]; n++) { const vs = sm.map((s) => s ? s.counts[n] || 0 : null); if (!showEmpty && !vs.some((v) => v)) continue; const h = HILS[n - 1];
-        body.push(`<tr><td>${n}. ${esc(TAXON[n - 1])}</td><td>${h}</td>${vs.map((v) => `<td>${v || "–"}</td><td>${v ? Math.round(v * h) : "–"}</td>`).join("")}</tr>`); }
-      if (body.length) blocks.push([`<tr class="gh"><td colspan="10">${esc(g[1])}${isEPT(g[2]) ? " (EPT)" : ""}</td></tr>`, ...body]); }
-    if (sm.some((s) => s && s.other)) blocks.push([`<tr class="gh"><td colspan="10">Other</td></tr>`, `<tr><td>Total Other Taxa</td><td>–</td>${sm.map((s) => `<td>${s && s.other ? s.other : "–"}</td><td>–</td>`).join("")}</tr>`]);
-    const thead3 = `<tr><th rowspan="2">Taxon</th><th rowspan="2">HILS</th>${S4.map((s) => `<th colspan="2" style="text-align:center">${s[1].replace(" · ", "<br>")}</th>`).join("")}</tr><tr>${S4.map(() => `<th>Cnt</th><th>Idx</th>`).join("")}</tr>`;
-    const totRow = `<tr class="tot"><td>Totals</td><td></td>${sts.map((x) => x ? `<td>${x.count}</td><td>${x.index}</td>` : `<td>–</td><td>–</td>`).join("")}</tr>`;
+        body.push(`<tr><td>${n}. ${esc(TAXON[n - 1])}</td><td>${h}</td>${vs.map((v) => `<td>${v || "–"}</td><td>${v ? Math.round(v * h) : "–"}</td>`).join("")}${dPair((i) => vs[i] || 0)}</tr>`); }
+      if (body.length) blocks.push([`<tr class="gh"><td colspan="12">${esc(g[1])}${isEPT(g[2]) ? " (EPT)" : ""}</td></tr>`, ...body]); }
+    if (sm.some((s) => s && s.other)) blocks.push([`<tr class="gh"><td colspan="12">Other</td></tr>`, `<tr><td>Total Other Taxa</td><td>–</td>${sm.map((s) => `<td>${s && s.other ? s.other : "–"}</td><td>–</td>`).join("")}${dPair((i) => sm[i].other || 0)}</tr>`]);
+    const thead3 = `<tr><th rowspan="2">Taxon</th><th rowspan="2">HILS</th>${S4.map((s) => `<th colspan="2" style="text-align:center">${s[1].replace(" · ", "<br>")}</th>`).join("")}${dHead("(count)")}</tr><tr>${S4.map(() => `<th>Cnt</th><th>Idx</th>`).join("")}<th class="dlt">↓</th><th class="dlt">↑</th></tr>`;
+    const totRow = `<tr class="tot"><td>Totals</td><td></td>${sts.map((x) => x ? `<td>${x.count}</td><td>${x.index}</td>` : `<td>–</td><td>–</td>`).join("")}${dPair((i) => sts[i].count)}</tr>`;
     const table3 = (bl, withTot) => `<table>${thead3}${bl.flat().join("")}${withTot ? totRow : ""}</table>`;
-    const p3 = `<div class="paper" id="p3">${head("Detailed taxa")}<p class="small">${showEmpty ? "Every taxon on the WCCD sheet" : "Every taxon found"}, with its HILS, count and index for each sample.</p><div id="p3body">${blocks.length ? table3(blocks, true) : "<p>No taxa counted yet.</p>"}</div><span class="pno">Page 3 of 5</span></div>`;
+    const p3 = `<div class="paper" id="p3">${head("Detailed taxa")}<p class="small">${showEmpty ? "Every taxon on the WCCD sheet" : "Every taxon found"}, with its HILS, count and index for each sample, and the change in count from Pre- to Post-construction downstream (↓) and upstream (↑).</p><div id="p3body">${blocks.length ? table3(blocks, true) : "<p>No taxa counted yet.</p>"}</div><span class="pno">Page 3 of 5</span></div>`;
     // page 4: charts (the Explore summary charts, all samples)
     const p4 = `<div class="paper">${head("Charts")}<div class="clegend">${S4.filter((_, i) => sm[i]).map((s) => `<span><i style="background:${s[2]}"></i>${s[1]}</span>`).join("")}</div>
-      <div class="chartgrid"><div class="chart"><h3>Avg HILS</h3><div class="sub">lower is better · bands = HBI rating</div><div id="rcHils"></div></div><div class="chart"><h3>Organisms counted</h3><div id="rcCount"></div></div>
+      <div class="r4"><div class="r4l"><div class="chart"><h3>Avg HILS</h3><div class="sub">lower is better · bands = HBI rating</div><div id="rcHils"></div></div><div class="chart"><h3>Organisms counted</h3><div id="rcCount"></div></div>
         <div class="chart"><h3>Taxa present</h3><div id="rcTaxa"></div></div><div class="chart"><h3>EPT taxa</h3><div id="rcEpt"></div></div></div>
-      <div class="chart" style="margin-top:8px"><h3>Organisms by taxa group</h3><div id="rcGrp"></div></div><span class="pno">Page 4 of 5</span></div>`;
+      <div class="chart r4r"><h3>Organisms by taxa group</h3><div class="sub">count per sample</div><div id="rcGrp"></div></div></div><span class="pno">Page 4 of 5</span></div>`;
     // page 5: lab results, with the certificate details
     const lp = (ph, sd, t) => { const v = lv(labField(ph, sd, t)), p = lv(labField(ph, sd, "Prefix" + PFXCODE[t])) || ""; return nb(v) ? "–" : esc(p + v); };
+    const labDelta = (t) => ["down", "up"].map((sd) => { const a0 = lv(labField("pre", sd, t)), b0 = lv(labField("post", sd, t)), pa = lv(labField("pre", sd, "Prefix" + PFXCODE[t])), pb = lv(labField("post", sd, "Prefix" + PFXCODE[t]));
+      if (nb(a0) || nb(b0)) return `<td class="dlt">–</td>`; if (pa || pb) return `<td class="dlt small">limit</td>`;
+      const dec = Math.max(...[a0, b0].map((x) => (String(x).split(".")[1] || "").length)); return `<td class="dlt">${signed(Number(b0) - Number(a0), Math.min(dec, 3))}</td>`; }).join("");
     const info = (k) => S4.map((s) => { const [ph, sd] = s[0].split("_"), x = lv(labField(ph, sd, k)); return `<td>${k === "DateTime" ? (nb(x) ? "–" : whenText(x)) : k === "Lat" ? (nb(x) ? "–" : `${pt6(x)}, ${pt6(lv(labField(ph, sd, "Lon")))}`) : esc(nb(x) ? "–" : x)}</td>`; }).join("");
     const cert = ["pre", "post"].map((ph) => a[ph] ? `${PH[ph]}: ${esc(mv(ph, "laboratory_name") || "laboratory not entered")}, received ${dayText(mv(ph, "received_on"))}, reported ${dayText(mv(ph, "reported_on"))}` : "").filter(Boolean).join("<br>");
     const notes = ["Pre", "Post"].map((P0) => { const n = lv(P0 + "LabNotes"); return nb(n) ? "" : `<b>${P0}-construction notes:</b> ${esc(n)}`; }).filter(Boolean).join("<br>");
     const p5 = `<div class="paper">${head("Lab results")}${!lab ? `<p>No lab results have been entered for this site yet.</p>` : `<p class="small">${cert}</p>
       <table>${colHead}<tr><td>Lab sample ID</td>${info("LabSampleID")}</tr><tr><td>Collected by</td>${info("CollectedBy")}</tr><tr><td>Collected on</td>${info("DateTime")}</tr><tr><td>Lab sample coordinates</td>${info("Lat")}</tr></table>
-      <h3>Results</h3><table><tr><th>Test</th><th>Units</th>${S4.map((s) => `<th>${s[1]}</th>`).join("")}</tr>${LABTESTS.map((t) => `<tr><td>${LABNAMES[t]}</td><td>${LABUNITS[t]}</td>${S4.map((s) => { const [ph, sd] = s[0].split("_"); return `<td>${lp(ph, sd, t)}</td>`; }).join("")}</tr>`).join("")}</table>
-      <p class="small">"&lt;" = below the lab's reporting limit, "&gt;" = above its upper limit. Acidity is negative when the sample is alkaline.</p>${notes ? `<p class="small" style="margin-top:8px">${notes}</p>` : ""}`}<span class="pno">Page 5 of 5</span></div>`;
+      <h3>Results</h3><table><tr><th rowspan="2">Test</th><th rowspan="2">Units</th>${S4.map((s) => `<th rowspan="2">${s[1]}</th>`).join("")}${dHead("")}</tr><tr>${dSub}</tr>${LABTESTS.map((t) => `<tr><td>${LABNAMES[t]}</td><td>${LABUNITS[t]}</td>${S4.map((s) => { const [ph, sd] = s[0].split("_"); return `<td>${lp(ph, sd, t)}</td>`; }).join("")}${labDelta(t)}</tr>`).join("")}</table>
+      <p class="small">"&lt;" = below the lab's reporting limit, "&gt;" = above its upper limit; a change involving such a value is shown as "limit", because the true value is not known. Acidity is negative when the sample is alkaline.</p>${notes ? `<p class="small" style="margin-top:8px">${notes}</p>` : ""}`}<span class="pno">Page 5 of 5</span></div>`;
     $("pages").innerHTML = p1 + p2 + p3 + p4 + p5;
+    fitPage($("p2"));   // page 2 shrinks to one page the same way
     // page 3 fitting: shrink, and if still too long, two tables side by side split between groups
     const pg3 = $("p3"); let f = fitPage(pg3), cols = 1;
     if (pg3.scrollHeight > 882 && blocks.length > 1) {
@@ -2051,11 +2068,13 @@
     // page 4 charts
     const ss = S4.filter((_, i) => sm[i]), mk = (fn, d, label) => ss.map((s) => { const x = smp(a, s[0]).calc, v = fn(x); return { v, hex: s[2], short: SHORT[s[0]], tip: `${swatch(s[2])}<b>${s[1]}</b><br>${label}: <b>${fmt(v, d)}</b>` }; });
     if (ss.length) {
-      colChart($("rcHils"), mk((x) => x.avg, 2, "Avg HILS"), { max: 10, bands: RATE, h: 160 }); colChart($("rcCount"), mk((x) => x.count, 0, "Organisms"), { h: 160 });
-      colChart($("rcTaxa"), mk((x) => x.taxa, 0, "Taxa present"), { h: 160 }); colChart($("rcEpt"), mk((x) => x.ept, 0, "EPT taxa"), { h: 160 });
-      const cats = GROUPS.map((g) => { const vals = {}; for (const s of ss) vals[s[0]] = groupStats(smp(a, s[0]), g).count; return { key: g[0], label: g[1], vals, any: ss.some((s) => vals[s[0]] > 0), tip: `<b>${esc(g[1])}</b>` }; }).filter((x) => x.any);
-      if (cats.length) barChart($("rcGrp"), cats, ss, { bh: 5, gap: 1, pad: 4 });
-      const p4 = $("rcGrp").closest(".paper"); if (p4.scrollHeight > 882) { const svg = $("rcGrp").querySelector("svg"); if (svg) svg.style.maxHeight = (880 - (p4.scrollHeight - svg.getBoundingClientRect().height) - 4) + "px"; }   // squeeze the group chart if a site has many groups
+      // left column: the four bar charts stacked; right column: the group chart, as tall as the four together
+      colChart($("rcHils"), mk((x) => x.avg, 2, "Avg HILS"), { max: 10, bands: RATE, h: 130 }); colChart($("rcCount"), mk((x) => x.count, 0, "Organisms"), { h: 130 });
+      colChart($("rcTaxa"), mk((x) => x.taxa, 0, "Taxa present"), { h: 130 }); colChart($("rcEpt"), mk((x) => x.ept, 0, "EPT taxa"), { h: 130 });
+      const cats = GROUPS.map((g) => { const vals = {}; for (const s of ss) vals[s[0]] = groupStats(smp(a, s[0]), g).count;
+        return { key: g[0], label: g[1].split(" – ")[0].replace(" & Alderflies", ""), vals, any: ss.some((s) => vals[s[0]] > 0), tip: `<b>${esc(g[1])}</b>` }; }).filter((x) => x.any);
+      const left = document.querySelector(".r4l"), right = $("rcGrp"), Hpx = left.getBoundingClientRect().height - 40;   // minus the chart's own title
+      if (cats.length) barChart(right, cats, ss, { L: 92, minW: 200, pad: 5, gap: 1, height: Math.max(200, Hpx) });
     }
     reportMap(a);
   }
