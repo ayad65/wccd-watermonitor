@@ -399,6 +399,46 @@
   .dsview{width:100%;height:72vh;border:0;border-radius:10px;background:#fff} .dsview.img{height:auto;max-height:72vh;object-fit:contain;background:transparent}
   @media (max-width:1100px){ .dsp-g4{grid-template-columns:1fr 1fr} .dsp-g2,.dsp-g2.even{grid-template-columns:1fr} .dsp-tabs{margin-left:0;width:100%} }
   @media (max-width:640px){ .dsp-main{margin-left:0;padding:12px 16px 24px} .dsp-g4{grid-template-columns:1fr} .dbar{grid-template-columns:96px minmax(0,1fr) 30px} }
+  /* B13: dashboard editors (light "paper" forms) */
+  .de-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px} .de-head h2{font-size:28px;margin:2px 0 0} .de-btns{margin-left:auto;display:flex;gap:8px;align-items:center}
+  .de-sides{font-size:13px} .dash .btnp{cursor:pointer;font:inherit;font-weight:700} .dash .btnp:disabled{opacity:.45;cursor:not-allowed;filter:none}
+  .de-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start} .de-grid.lab{grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr)}
+  .de-col{position:sticky;top:16px;display:grid;gap:12px}
+  .dpaper{background:#F4F7F0;color:#142019;border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.5);overflow:hidden}
+  .dpaper .tb{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:14px}
+  .dpaper .q{flex:1;min-width:220px;height:40px;border-radius:12px;border:1px solid #D6DFD3;background:#fff;padding:0 12px;font:inherit;font-size:14px;color:#142019}
+  .dchip{padding:7px 12px;border-radius:999px;border:1px solid #D6DFD3;background:#fff;color:#142019;cursor:pointer;font:inherit;font-size:13px} .dchip.on{background:#1F3A2A;color:#fff;border-color:#1F3A2A}
+  .dth,.dtr{display:grid;grid-template-columns:44px minmax(0,1fr) 52px 178px 60px;gap:10px;align-items:center;padding:6px 14px}
+  .dth{font-size:11px;color:#5B6B5F;text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+  .dtr{border-top:1px solid #DDE5DA} .dtr .no{color:#5B6B5F;font-size:12px} .dtr .nm{font-size:14px} .dtr .h{text-align:center;color:#5B6B5F;font-size:12px} .dtr .ix{text-align:right;font-size:13px}
+  .dtr.chg{background:#FFF3CC;box-shadow:inset 3px 0 0 #E2A82B} .was{font-style:normal;font-size:11px;color:#9A6A00;margin-left:6px}
+  .cnt{display:flex;align-items:center;gap:6px}
+  .stp{width:34px;height:34px;border-radius:10px;border:1px solid #D6DFD3;background:#fff;color:#5B6B5F;font-size:18px;line-height:1;cursor:pointer} .stp:hover{border-color:#8DB320;color:#142019}
+  .cnt input,.dpi{width:78px;height:36px;border-radius:10px;border:1px solid #D6DFD3;background:#fff;text-align:center;font:600 17px "Public Sans",sans-serif;color:#142019}
+  .cnt input:focus,.dpi:focus,.dpaper .q:focus,.dtx:focus,.dta:focus{outline:none;border:2px solid #8DB320;box-shadow:0 0 0 4px rgba(157,191,46,.25)}
+  .bad-d{border:2px solid #C2410C !important;background:#FFF1EC !important} .chg-d{background:#FFF3CC !important}
+  .dgh{display:flex;justify-content:space-between;padding:10px 14px 4px;border-top:1px solid #D6DFD3;font:700 15px "Barlow Semi Condensed",sans-serif;color:#1F3A2A} .dgh .gt{font:500 12px "Public Sans",sans-serif;color:#5B6B5F}
+  .dept{font:600 10px "Public Sans",sans-serif;color:#5E7F1E;border:1px solid #9DBF2E;border-radius:999px;padding:0 6px;margin-left:6px;vertical-align:2px}
+  .dfolds{padding:10px 14px 14px;border-top:1px solid #D6DFD3;display:flex;flex-wrap:wrap;gap:6px} .dmore{padding:2px 14px 8px}
+  .dfold{padding:4px 10px;border-radius:999px;border:1px dashed #BFCBBB;background:transparent;font:inherit;font-size:12px;color:#4E5E52;cursor:pointer} .dfold:hover{border-color:#8DB320;color:#142019}
+  .de-err{color:#C2410C;font-size:12.5px;padding:6px 14px 10px} .de-err:empty{display:none}
+  .de-other{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .dfig{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-top:1px solid var(--line);font-size:13px}
+  .dnote{margin:0 0 12px;padding:10px 14px;border-radius:12px;background:rgba(124,203,74,.14);border:1px solid rgba(124,203,74,.5);font-size:13px} .dnote.bad{background:rgba(229,72,77,.16);border-color:rgba(229,72,77,.5)}
+  .dsec{font:700 15px "Barlow Semi Condensed",sans-serif;color:#1F3A2A;padding:14px 14px 6px} .dsec span{font:400 12px "Public Sans",sans-serif;color:#5B6B5F}
+  .dnew{margin:14px 14px 0;padding:8px 12px;border-radius:10px;background:#E7F0D6;font-size:13px}
+  .dlf{display:grid;gap:10px;padding:0 14px 8px;align-items:end} .dlf.c3{grid-template-columns:2fr 1fr 1fr} .dlf.c5{grid-template-columns:76px 1fr 1fr 1.45fr 1fr 1fr}
+  .dlf label{display:block;font-size:11px;color:#5B6B5F;margin-bottom:3px} .dsd{font-size:12px;color:#5B6B5F;padding-bottom:9px}
+  .dtx{width:100%;height:34px;border-radius:9px;border:1px solid #D6DFD3;background:#fff;padding:0 10px;font:inherit;font-size:13.5px;color:#142019}
+  .dta{width:100%;min-height:64px;border-radius:9px;border:1px solid #D6DFD3;background:#fff;padding:8px 10px;font:inherit;font-size:13.5px;color:#142019;resize:vertical}
+  .dlt{display:grid;grid-template-columns:140px 92px minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:center;padding:4px 14px;border-top:1px solid #DDE5DA;font-size:13.5px}
+  .dlt .u{font-size:12px;color:#5B6B5F} .dlth{font-size:11px;color:#5B6B5F;text-transform:uppercase;letter-spacing:.05em;border-top:0}
+  .dlc{display:flex;align-items:center;gap:6px} .dlc .dpi{width:92px;height:32px;font-size:15px}
+  .dseg{display:inline-flex;border:1px solid #D6DFD3;border-radius:8px;overflow:hidden;flex:none} .dseg button{width:25px;height:30px;border:0;background:#fff;color:#5B6B5F;cursor:pointer;font:inherit;font-size:12px}
+  .dseg button.on{background:#1F3A2A;color:#fff;font-weight:700}
+  .dpdf{position:sticky;top:16px;height:calc(100vh - 110px);display:flex;flex-direction:column} .dpdfbox{flex:1;min-height:0} .dpdfbox iframe{width:100%;height:100%;border:0;border-radius:8px;background:#fff}
+  @media (max-width:1100px){ .de-grid,.de-grid.lab{grid-template-columns:1fr} .de-col,.dpdf{position:static} .dpdf{height:70vh} .dlf.c5{grid-template-columns:1fr 1fr} .dsd{grid-column:1/-1;padding:0} }
+  @media (max-width:640px){ .dth,.dtr{grid-template-columns:34px minmax(0,1fr) 150px} .dth span:nth-child(3),.dth span:nth-child(5),.dtr .h,.dtr .ix{display:none} .dlt{grid-template-columns:1fr 1fr} .dlth{display:none} .dlf.c3{grid-template-columns:1fr} }
   @media print{ #dash{display:none !important} }
 </style>
 </head>
@@ -545,7 +585,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B12", BUILD_DATE = "17 Nov 2026";
+  const BUILD = "B13", BUILD_DATE = "17 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -1068,7 +1108,7 @@
 
   // ---------------- editing (B3): taxa sheet, field readings, site name and date ----------------
   const editButtons = () => `<div class="btns ebar"><span class="small" id="eChanged"></span><button class="btn" type="button" data-ecancel>Cancel</button><button class="btn pri" type="button" data-ereview disabled>Review and save</button></div>`;
-  const isDirty = () => (!!area.edit && JSON.stringify(area.edit.vals) !== area.edit.orig) || (!!nw.st && JSON.stringify(nw.st.vals) !== nw.st.orig);
+  const isDirty = () => (!!area.edit && JSON.stringify(area.edit.vals) !== area.edit.orig) || (!!nw.st && JSON.stringify(nw.st.vals) !== nw.st.orig) || dashDirty();
   const leaveOk = () => !isDirty() || confirm("You have changes that are not saved. Discard them?");
   // Local noon for a date typed without a time (the convention used on the lime app), so it shows the same day everywhere.
   const noonMs = (t) => { const d = /^(\d{4})-(\d\d)-(\d\d)$/.exec(t || ""); return d ? new Date(+d[1], +d[2] - 1, +d[3], 12).getTime() : null; };
@@ -2802,7 +2842,7 @@
       <div class="muted" style="display:flex;gap:14px;flex-wrap:wrap;font-size:12px;margin-top:8px;border-top:1px solid var(--line);padding-top:8px">
         <span>Point ${zeroGeom(g) ? '<span style="color:#F07E3A">not entered</span>' : `${pt6(g.y)}, ${pt6(g.x)}`}</span>
         <span>${nb(f.ph) && nb(f.temp) && nb(f.cond) ? "No field readings" : `pH ${fmt(f.ph, 1)} · ${fmt(f.temp, 1)} °C · ${fmt(f.cond)} µS/cm`}</span></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">${clBtn(`${ph}:${sd}`, "Edit taxa counts", true)}${clBtn(`${ph}:loc`, "Sample locations")}${clBtn(`${ph}:field`, "Field readings")}</div></div>`;
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">${deBtn(editHash(a.id, "taxa", ph, sd), "Edit taxa counts")}${clBtn(`${ph}:loc`, "Sample locations")}${clBtn(`${ph}:field`, "Field readings")}</div></div>`;
   }
   function dsPhase(a, ph) {
     const P = a[ph];
@@ -2821,7 +2861,7 @@
       <div class="muted" style="font-size:12px;margin-top:8px">Left = downstream, right = upstream · “&lt;” below the reporting limit, “&gt;” above the upper limit. Lab notes: ${esc(att(lab.L, lab.row, (ph === "pre" ? "Pre" : "Post") + "LabNotes") || "none")}</div>`;
     const labCard = `<div class="card" style="margin-top:14px"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><h3 style="margin:0">Lab results · ${PH[ph]}</h3>
         <span class="muted" style="font-size:12px">${esc(v("laboratory_name") || "laboratory not entered")} · received ${dayText(v("received_on"))} · reported ${dayText(v("reported_on"))}</span>
-        <span style="margin-left:auto;display:flex;gap:8px">${cert ? `<button type="button" class="dbtn" data-dfview="${ph}:${cert.id}">Open certificate (PDF)</button>` : '<span class="muted" style="font-size:12px">no certificate attached</span>'}${clBtn(`${ph}:lab`, lab ? "Edit lab results" : "Enter lab results", true)}</span></div>${labHtml}</div>`;
+        <span style="margin-left:auto;display:flex;gap:8px">${cert ? `<button type="button" class="dbtn" data-dfview="${ph}:${cert.id}">Open certificate (PDF)</button>` : '<span class="muted" style="font-size:12px">no certificate attached</span>'}${deBtn(editHash(a.id, "lab", ph), lab ? "Edit lab results" : "Enter lab results")}</span></div>${labHtml}</div>`;
     return `${strip}<div class="dsp-g2 even" style="margin-top:14px">${dsSample(a, ph, "down", mx)}${dsSample(a, ph, "up", mx)}</div>${labCard}<div id="dsViewer"></div>`;
   }
   function dsFiles(a) {
@@ -2871,12 +2911,12 @@
     if (!DTABS.some((t) => t[0] === tab)) tab = "overview";
     const nFiles = ["pre", "post"].reduce((t, ph) => t + (a[ph] ? a[ph].files.length : 0), 0);
     const body = tab === "pre" || tab === "post" ? dsPhase(a, tab) : tab === "files" ? dsFiles(a) : tab === "map" ? dsMapTab(a) : dsOverview(a);
-    $("dash").innerHTML = `${drail("home")}<main class="dsp-main"><a class="dsp-back" href="#/dash/sites">← Monitoring sites</a>${dashBanner()}
+    $("dash").innerHTML = `${drail("home")}<main class="dsp-main"><a class="dsp-back" href="#/dash/sites">← Monitoring sites</a>${dashBanner()}${dash.note ? `<div class="dnote${dash.note.bad ? " bad" : ""}" role="status">${dash.note.html}</div>` : ""}
       <div class="dsp-head"><h2 class="ttl">${esc(a.id)}${a.test ? ' <span class="dtag">test</span>' : ""} · ${esc(a.stream || "no stream")}</h2>
         <span class="chip">Pre ${a.pre ? dayText(a.pre.date) : "–"}</span><span class="chip">Post ${a.post ? dayText(a.post.date) : "–"}</span><span class="chip" style="${a.status === "done" ? "color:var(--acc);border-color:rgba(200,227,90,.4)" : ""}">${STATUS_TEXT[a.status]}</span>
         <nav class="dsp-tabs" aria-label="Site page">${DTABS.map(([k, l]) => `<a href="${siteHash(a.id, k)}"${k === tab ? ' class="on" aria-current="page"' : ""}>${l}${k === "files" ? ` (${nFiles})` : ""}</a>`).join("")}</nav></div>
       ${a.site && a.site !== a.stream ? `<div class="muted" style="margin:-8px 0 12px">${esc(a.site)}</div>` : ""}${body}</main>`;
-    dashWire();
+    dash.note = null; dashWire();
     document.querySelectorAll("#dash [data-cl]").forEach((b) => b.onclick = () => { const [t, sd] = b.dataset.cl.split(":"); toClassic(a.id, t, sd || null); });
     const find = (k) => { const [ph, fid] = k.split(":"); return { ph, f: a[ph].files.find((x) => String(x.id) === fid) }; };
     document.querySelectorAll("#dash [data-dfview]").forEach((b) => b.onclick = async () => { const { ph, f } = find(b.dataset.dfview), box = $("dsViewer"); if (!f || !box) return;
@@ -2894,18 +2934,243 @@
     document.querySelectorAll("#dash .ds-sw button").forEach((b) => b.onclick = () => dashBase(b.dataset.b));
     if (tab === "map") { dashBase(dash.base); dsMountMap(a); }
   }
+
+  // ---------------- B13: editing in the Dashboard view (taxa counts, lab results) ----------------
+  // Light "paper" forms; the save uses the same plans (taxaPlan, labPlan), review panel and safe save as the classic editors.
+  let dedit = null;
+  function dashDirty() { if (!dedit) return false; return dedit.kind === "taxa" ? Object.values(dedit.sides).some((x) => JSON.stringify(x.vals) !== x.orig) : JSON.stringify(dedit.vals) !== dedit.orig; }
+  const editHash = (id, kind, ph, sd) => `#/dash/site/${encodeURIComponent(id)}/edit/${kind}/${ph}${sd ? "/" + sd : ""}`;
+  const deBtn = (href, label) => `<a class="dbtn acc" href="${href}">${label}</a>`;
+  const taxaStart = (s) => { const counts = {}; for (let n = 1; n <= 99; n++) counts[n] = s.counts[n] ? String(s.counts[n]) : ""; return { counts, other: s.other ? String(s.other) : "" }; };
+  const cnum = (x) => { const s = String(x ?? "").trim(); return /^\d+$/.test(s) ? Number(s) : 0; };
+  // Two plans that update the same record (both samples' stored totals sit on the phase record) are merged into one update.
+  function mergePlan(list) {
+    const out = [];
+    for (const c of list) { const same = !c.op ? out.find((o) => !o.op && o.L === c.L && o.oid === c.oid) : null;
+      if (same) { Object.assign(same.set, c.set); same.before = { ...c.before, ...same.before }; if (c.names) same.names = { ...(same.names || {}), ...c.names }; } else out.push({ ...c, set: { ...c.set }, before: { ...c.before } }); }
+    return out;
+  }
+  function dashEditFail(a, ph, msg) { $("dash").innerHTML = `${drail("home")}<main class="dsp-main"><a class="dsp-back" href="${siteHash(a.id, ph)}">← Back to the site</a><div class="card" style="margin-top:12px">${esc(msg)}</div></main>`; dashWire(); }
+  function dashEdit(a, kind, ph, sd) {
+    const P = a[ph]; if (!P) return dashEditFail(a, ph, `There is no ${PH[ph] ? PH[ph].toLowerCase() : ""} record yet.`);
+    if (kind === "taxa") {
+      if (svc[ph].error) return dashEditFail(a, ph, svc[ph].error);
+      const sides = ["down", "up"].filter((x) => P.samples[x].exists && P.samples[x].grp);
+      if (!sides.length) return dashEditFail(a, ph, "This phase has no sample records to edit yet.");
+      if (!sides.includes(sd)) sd = sides[0];
+      if (!dedit || dedit.kind !== "taxa" || dedit.id !== a.id || dedit.ph !== ph) {
+        dedit = { kind, id: a.id, ph, sd, sides: {}, filter: { q: "", ept: false, mode: null, open: {} } };
+        for (const x of sides) { const v = taxaStart(P.samples[x]); dedit.sides[x] = { vals: v, orig: JSON.stringify(v) }; } }
+      if (dedit.sd !== sd) { dedit.filter.open = {}; dedit.filter.mode = null; }
+      dedit.sd = sd; if (dedit.filter.mode == null) dedit.filter.mode = Object.keys(P.samples[sd].counts).length ? "counts" : "all";
+      dtaxaDraw(a);
+    } else if (kind === "lab") {
+      if (svc.lab.error) return dashEditFail(a, ph, svc.lab.error);
+      if (!labL()) return dashEditFail(a, ph, "The Lab survey's layer was not found.");
+      if (!dedit || dedit.kind !== "lab" || dedit.id !== a.id || dedit.ph !== ph) { const v = labStartVals(a, ph); dedit = { kind, id: a.id, ph, vals: v, orig: JSON.stringify(v) }; }
+      dlabDraw(a);
+    } else dashEditFail(a, ph, "Unknown editor.");
+  }
+  const deHead = (a, title, sideSw) => `<div class="de-head"><div><a class="dsp-back" href="${siteHash(a.id, dedit.ph)}">← ${esc(a.id)} · ${esc(a.stream || "no stream")} · ${PH[dedit.ph]}</a><h2 class="ttl">${title}</h2></div>${sideSw || ""}
+    <span class="de-btns"><button type="button" class="dbtn" id="deCancel">Cancel</button><button type="button" class="btnp" id="deReview" disabled>Review and save</button></span></div>`;
+  function deWireCommon(a) {
+    dashWire();
+    $("deCancel").onclick = () => { if (dashDirty() && !confirm("Discard the changes you made here?")) return; const ph = dedit.ph; dedit = null; location.hash = siteHash(a.id, ph); };
+    $("deReview").onclick = () => dashReview(a);
+  }
+
+  // ---- taxa counts ----
+  function dtaxaDraw(a) {
+    const E = dedit, P = a[E.ph], sides = Object.keys(E.sides);
+    const sw = `<div class="ds-sw de-sides" role="group" aria-label="Sample">${sides.map((x) => { const dirty = JSON.stringify(E.sides[x].vals) !== E.sides[x].orig;
+      return `<button type="button" data-side="${x}" class="${x === E.sd ? "on" : ""}">${SD[x]}${dirty ? " •" : ""}</button>`; }).join("")}</div>`;
+    $("dash").innerHTML = `${drail("home")}<main class="dsp-main">${deHead(a, "Edit taxa counts", sw)}
+      <div class="de-grid"><section class="dpaper" aria-label="${SD[E.sd]} taxa counts">
+          <div class="tb"><input class="q" id="deQ" type="search" placeholder="Find a taxon (name or number)…" value="${esc(E.filter.q)}" aria-label="Find a taxon">
+            <button type="button" class="dchip${E.filter.mode === "all" ? " on" : ""}" data-mode="all">All taxa</button><button type="button" class="dchip${E.filter.mode === "counts" ? " on" : ""}" data-mode="counts">With counts</button>
+            <button type="button" class="dchip${E.filter.ept ? " on" : ""}" id="deEpt">EPT only</button></div>
+          <div class="dth"><span>No.</span><span>Taxon</span><span style="text-align:center">HILS</span><span>Count</span><span style="text-align:right">Index</span></div>
+          <div id="deList"></div><div class="de-err" id="deErr"></div></section>
+        <aside class="de-col"><div class="card"><h3>Live figures · ${SD[E.sd].toLowerCase()}</h3><div id="deGauge" class="dsp-gauge" style="padding:0"></div><div id="deFigs"></div></div>
+          <div class="card"><label class="de-other">Other taxa <span class="muted" style="font-size:12px">(no HILS)</span><input class="dpi" id="deOther" inputmode="numeric" autocomplete="off" value="${esc(E.sides[E.sd].vals.other)}" aria-label="Total other taxa"></label></div>
+          <div class="card"><h3>Changes <span class="muted" id="deNch" style="font-weight:500"></span></h3><div id="deChg" style="font-size:13px"></div>
+            <div class="muted" style="font-size:11.5px;margin-top:8px">Tab or Enter: next box · ↑ ↓: add or take one · nothing is saved until you review and confirm</div></div></aside></div></main>`;
+    deWireCommon(a);
+    document.querySelectorAll("#dash [data-side]").forEach((b) => b.onclick = () => { location.hash = editHash(a.id, "taxa", E.ph, b.dataset.side); });
+    $("deQ").oninput = (e) => { E.filter.q = e.target.value; dtaxaList(a); };
+    document.querySelectorAll("#dash [data-mode]").forEach((b) => b.onclick = () => { E.filter.mode = b.dataset.mode; E.filter.open = {}; document.querySelectorAll("#dash [data-mode]").forEach((x) => x.classList.toggle("on", x === b)); dtaxaList(a); });
+    $("deEpt").onclick = (e) => { E.filter.ept = !E.filter.ept; e.currentTarget.classList.toggle("on", E.filter.ept); dtaxaList(a); };
+    $("deOther").oninput = (e) => { E.sides[E.sd].vals.other = e.target.value; dtaxaRefresh(a); };
+    dtaxaList(a);
+  }
+  function dtaxaList(a) {
+    const E = dedit, v = E.sides[E.sd].vals, s = a[E.ph].samples[E.sd], f = E.filter, q = f.q.trim().toLowerCase();
+    const row = (n) => `<div class="dtr" data-n="${n}"><span class="no">${n}</span><span class="nm">${esc(TAXON[n - 1])}<em class="was"></em></span><span class="h">${HILS[n - 1]}</span>
+      <span class="cnt"><button type="button" class="stp" data-step="-1" tabindex="-1" aria-label="One less ${esc(TAXON[n - 1])}">−</button><input inputmode="numeric" autocomplete="off" data-dn="${n}" value="${esc(v.counts[n])}" aria-label="${n}. ${esc(TAXON[n - 1])} count"><button type="button" class="stp" data-step="1" tabindex="-1" aria-label="One more ${esc(TAXON[n - 1])}">+</button></span><span class="ix"></span></div>`;
+    let html = ""; const folds = [];
+    for (const [g, , lo, hi] of GROUPS) {
+      if (f.ept && !isEPT(lo)) continue;
+      const ns = []; for (let n = lo; n <= hi; n++) ns.push(n);
+      const has = (n) => (s.counts[n] || 0) > 0 || cnum(v.counts[n]) > 0;
+      const show = q ? ns.filter((n) => String(n) === q || TAXON[n - 1].toLowerCase().includes(q)) : f.mode === "all" || f.open[g] ? ns : ns.filter(has);
+      if (!show.length) { if (!q) folds.push(g); continue; }
+      html += `<div class="dgh"><span>${GSHORT[g]}${isEPT(lo) ? '<span class="dept">EPT</span>' : ""}</span><span class="gt" data-gt="${g}"></span></div>${show.map(row).join("")}`
+        + (!q && f.mode !== "all" && !f.open[g] && show.length < ns.length ? `<div class="dmore"><button type="button" class="dfold" data-open="${g}">▸ show all ${ns.length} ${GSHORT[g].toLowerCase()}</button></div>` : "");
+    }
+    if (q && !html) html = `<p style="padding:14px;color:#5B6B5F">No taxon matches “${esc(f.q)}”.</p>`;
+    if (folds.length) html += `<div class="dfolds">${folds.map((g) => { const G = GROUPS.find((x) => x[0] === g); let c = 0; for (let n = G[2]; n <= G[3]; n++) c += cnum(v.counts[n]); return `<button type="button" class="dfold" data-open="${g}">▸ ${GSHORT[g]} · ${c}</button>`; }).join("")}</div>`;
+    $("deList").innerHTML = html;
+    const list = $("deList");
+    list.querySelectorAll("[data-open]").forEach((b) => b.onclick = () => { E.filter.open[b.dataset.open] = true; dtaxaList(a); const first = list.querySelector(`.dgh [data-gt="${b.dataset.open}"]`); if (first) first.closest(".dgh").scrollIntoView({ block: "nearest" }); });
+    const inputs = [...list.querySelectorAll("input[data-dn]")];
+    const setN = (inp, val) => { inp.value = val; v.counts[+inp.dataset.dn] = val; dtaxaRefresh(a); };
+    inputs.forEach((inp, i) => {
+      inp.oninput = () => { v.counts[+inp.dataset.dn] = inp.value; dtaxaRefresh(a); };
+      inp.onfocus = () => inp.select();
+      inp.onkeydown = (e) => {
+        if (e.key === "Enter") { e.preventDefault(); const nx = inputs[i + (e.shiftKey ? -1 : 1)]; if (nx) nx.focus(); else $("deOther").focus(); }
+        else if (e.key === "ArrowUp" || e.key === "ArrowDown") { e.preventDefault(); const c = Math.max(0, cnum(inp.value) + (e.key === "ArrowUp" ? 1 : -1)); setN(inp, c ? String(c) : ""); } };
+    });
+    list.querySelectorAll(".stp").forEach((b) => b.onclick = () => { const inp = b.parentElement.querySelector("input"), c = Math.max(0, cnum(inp.value) + +b.dataset.step); setN(inp, c ? String(c) : ""); inp.focus(); });
+    dtaxaRefresh(a);
+  }
+  function dtaxaRefresh(a) {
+    const E = dedit, P = a[E.ph], v = E.sides[E.sd].vals, s = P.samples[E.sd], { counts, other, bad } = readCounts(v);
+    document.querySelectorAll("#deList .dtr").forEach((r) => { const n = +r.dataset.n, inp = r.querySelector("input"), c = counts[n] || 0, c0 = s.counts[n] || 0, b = inp.value.trim() !== "" && !/^\d+$/.test(inp.value.trim());
+      r.querySelector(".ix").textContent = c ? fmt(Math.round(c * HILS[n - 1])) : ""; inp.classList.toggle("bad-d", b);
+      r.classList.toggle("chg", c !== c0 && !b); r.querySelector(".was").textContent = c === c0 || b ? "" : c0 ? (c ? ` was ${c0}` : ` was ${c0} · removed`) : " new"; });
+    document.querySelectorAll("#deList [data-gt]").forEach((el) => { const G = GROUPS.find((x) => x[0] === el.dataset.gt); let c = 0; for (let n = G[2]; n <= G[3]; n++) c += counts[n] || 0; el.textContent = `${c} organisms`; });
+    const ob = String(v.other).trim() !== "" && !/^\d+$/.test(String(v.other).trim()); $("deOther").classList.toggle("bad-d", ob);
+    const c1 = calcTotals({ counts, other }), c0 = s.calc;
+    $("deGauge").innerHTML = dGauge(c1.avg, c0.avg == null ? "Avg HILS" : `Avg HILS (was ${fmt(c0.avg, 2)})`);
+    const fig = (l, x0, x1) => `<div class="dfig"><span class="muted">${l}</span><span>${x0 === x1 ? `<b class="num" style="font-size:20px">${x1}</b>` : `<span class="muted">${x0} →</span> <b class="num" style="font-size:20px;color:var(--acc)">${x1}</b>`}</span></div>`;
+    $("deFigs").innerHTML = fig("Organisms", fmt(c0.count), fmt(c1.count)) + fig("Taxa present", c0.taxa, c1.taxa) + fig("EPT taxa", c0.ept, c1.ept) + fig("Total Index", fmt(c0.index), fmt(c1.index));
+    // changes on both samples (switching keeps them)
+    const chg = [], errs = [];
+    for (const x of Object.keys(E.sides)) { const r = readCounts(E.sides[x].vals), s0 = P.samples[x], pre = Object.keys(E.sides).length > 1 ? `${SD[x]}: ` : "";
+      for (let n = 1; n <= 99; n++) if ((r.counts[n] || 0) !== (s0.counts[n] || 0)) chg.push(`${pre}${TAXON[n - 1]} ${s0.counts[n] || 0} → ${r.counts[n] || 0}${s0.counts[n] ? "" : " (new taxon)"}`);
+      if (r.other !== s0.other) chg.push(`${pre}Other taxa ${s0.other} → ${r.other}`);
+      if (r.bad.length) errs.push(`${SD[x]}: counts must be whole numbers (${r.bad.join(", ")})`); }
+    $("deNch").textContent = chg.length ? `(${chg.length})` : "";
+    $("deChg").innerHTML = chg.length ? chg.slice(0, 10).map((x) => `<div style="padding:3px 0">• ${esc(x)}</div>`).join("") + (chg.length > 10 ? `<div class="muted">and ${chg.length - 10} more</div>` : "") : '<span class="muted">No changes yet.</span>';
+    $("deErr").textContent = errs.join(" · ");
+    const rv = $("deReview"); rv.disabled = !chg.length || errs.length > 0; rv.textContent = errs.length ? "Fix the marked counts first" : chg.length ? `Review and save · ${chg.length} change${chg.length === 1 ? "" : "s"}` : "Review and save";
+    document.querySelectorAll("#dash [data-side]").forEach((b) => { const x = b.dataset.side, dirty = JSON.stringify(E.sides[x].vals) !== E.sides[x].orig; b.textContent = SD[x] + (dirty ? " •" : ""); });
+  }
+
+  // ---- lab results ----
+  function dlabDraw(a) {
+    const E = dedit, ph = E.ph, v = E.vals, L = labL(), ok = (fl) => has(L, fl), M = a[ph].main.L, mr = a[ph].main.row, P = a[ph];
+    const tx = (key, type, extra = "") => `<input class="dtx" type="${type}" data-lv="${key}" value="${esc(v[key])}" ${extra}>`;
+    const fallId = (sd) => att(M, mr, sd === "down" ? "lab_sample_id_downstream" : "lab_sample_id_upstream"), fallBy = att(M, mr, "collected_by");
+    const sampleCells = (sd) => LABROWS.map(([k, key, label]) => { const fl = labField(ph, sd, key);
+      if (!ok(fl)) return `<div><label>${label}</label><span class="muted" style="font-size:12px">not in the layer</span></div>`;
+      const ph0x = k === "id" && fallId(sd) ? ` placeholder="${esc(fallId(sd))}"` : k === "by" && fallBy ? ` placeholder="${esc(fallBy)}"` : k === "lat" ? ' placeholder="40.1234"' : k === "lon" ? ' placeholder="-80.1234"' : "";
+      return `<div><label>${label}</label>${tx(`${sd}.${k}`, k === "when" ? "datetime-local" : "text", `aria-label="${SD[sd]} ${label}"${k === "lat" || k === "lon" ? ' inputmode="decimal"' : ' maxlength="255"'}${ph0x}`)}</div>`; }).join("");
+    const cell = (sd, tt) => { const pf = labField(ph, sd, "Prefix" + PFXCODE[tt]), key = `${sd}.p.${tt}`, cur = v[key] || "";
+      return `<span class="dlc">${ok(pf) ? `<span class="dseg" role="group" aria-label="${SD[sd]} ${LABNAMES[tt]}: limit">${[["<", "below the reporting limit"], ["", "measured value"], [">", "above the upper limit"]].map(([x, tl]) => `<button type="button" tabindex="-1" data-pf="${key}" data-val="${esc(x)}" title="${tl}" class="${cur === x ? "on" : ""}">${x || "="}</button>`).join("")}</span>` : ""}
+        <input class="dpi" data-lv="${sd}.v.${tt}" inputmode="decimal" autocomplete="off" value="${esc(v[`${sd}.v.${tt}`])}" aria-label="${SD[sd]} ${LABNAMES[tt]}"><em class="was" data-was="${sd}.v.${tt}"></em></span>`; };
+    const cert = P.files.find(isCert);
+    $("dash").innerHTML = `${drail("home")}<main class="dsp-main">${deHead(a, a.lab ? "Edit lab results" : "Enter lab results")}
+      <div class="de-grid lab"><section class="dpaper dlabf" aria-label="Lab results">
+          ${a.lab ? "" : `<div class="dnew">This site has no record in the Lab survey yet. Saving creates it (project ID ${esc(a.id)}).</div>`}
+          <div class="dsec">Certificate <span>(stored with the ${PH[ph].toLowerCase()} record)</span></div>
+          <div class="dlf c3"><div><label for="deName">Laboratory</label>${tx("name", "text", 'id="deName" maxlength="255"')}</div><div><label>Received on</label>${tx("recv", "date", 'aria-label="Received on"')}</div><div><label>Reported on</label>${tx("rep", "date", 'aria-label="Reported on"')}</div></div>
+          <div class="dsec">Samples</div>
+          ${["down", "up"].map((sd) => `<div class="dlf c5"><span class="dsd">${SD[sd]}</span>${sampleCells(sd)}</div>`).join("")}
+          <div class="dsec">Results <span>(type “&lt;” or “&gt;” before a number to mark a limit)</span></div>
+          <div class="dlt dlth"><span>Test</span><span>Units</span><span>Downstream</span><span>Upstream</span></div>
+          ${LABTESTS.map((tt) => `<div class="dlt"><span>${LABNAMES[tt]}</span><span class="u">${LABUNITS[tt]}</span>${cell("down", tt)}${cell("up", tt)}</div>`).join("")}
+          <div class="dsec">Lab notes</div>
+          <div style="padding:0 14px 14px">${ok((ph === "pre" ? "Pre" : "Post") + "LabNotes") ? `<textarea class="dta" data-lv="notes" maxlength="1000" aria-label="Lab notes" placeholder="e.g. H4: pH and DO tested outside the 15-minute holding time.">${esc(v.notes)}</textarea>` : '<span class="muted">The notes field is not in the layer.</span>'}</div>
+          <div class="de-err" id="deErr"></div>
+          <div class="muted" style="font-size:11.5px;padding:0 14px 14px;color:#5B6B5F">Tab follows the certificate: certificate, downstream sample, upstream sample, all downstream results, then all upstream results · &lt; below the reporting limit · = measured · &gt; above the upper limit</div></section>
+        <aside class="card dpdf"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><b style="font-size:13px">Lab certificate</b>${cert ? `<span class="muted" style="font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(cert.name)}</span>` : ""}</div>
+          <div id="dePdf" class="dpdfbox">${cert ? '<span class="muted">Opening the certificate…</span>' : `<p class="muted">No certificate is attached to the ${PH[ph].toLowerCase()} record.</p>${clBtn("files:", "Attach the certificate", true)}`}</div></aside></div></main>`;
+    deWireCommon(a);
+    document.querySelectorAll("#dash [data-cl]").forEach((b) => b.onclick = () => { if (dashDirty() && !confirm("Leave without saving the lab results?")) return; dedit = null; const [tb, sd] = b.dataset.cl.split(":"); toClassic(a.id, tb, sd || null); });
+    const form = document.querySelector("#dash .dlabf");
+    form.querySelectorAll("[data-lv]").forEach((el) => el.oninput = el.onchange = () => {
+      const k = el.dataset.lv;
+      if (/\.v\./.test(k)) { const m = /^\s*([<>])\s*/.exec(el.value), pk = k.replace(".v.", ".p."); if (m && form.querySelector(`[data-pf="${pk}"]`)) { v[pk] = m[1]; el.value = el.value.slice(m[0].length); dlabSeg(pk); } }
+      v[k] = el.value; dlabRefresh(a); });
+    form.querySelectorAll("[data-pf]").forEach((b) => b.onclick = () => { v[b.dataset.pf] = b.dataset.val; dlabSeg(b.dataset.pf); dlabRefresh(a); });
+    form.onkeydown = (e) => { if (e.key !== "Tab" || e.ctrlKey || e.altKey) return;
+      const list = [...form.querySelectorAll("[data-lv]")].sort((x, y) => labOrder(x.dataset.lv) - labOrder(y.dataset.lv)), i = list.indexOf(document.activeElement);
+      const nx = i < 0 ? null : list[i + (e.shiftKey ? -1 : 1)]; if (nx) { e.preventDefault(); nx.focus(); if (nx.select && nx.type === "text") nx.select(); } };
+    dlabRefresh(a);
+    if (cert) (async () => { const box = $("dePdf"); try { const blob = await fetchFile(a, ph, cert.id); if (!box || !document.body.contains(box)) return;
+        if (fileView.url) URL.revokeObjectURL(fileView.url); fileView.url = URL.createObjectURL(blob.type ? blob : new Blob([blob], { type: "application/pdf" }));
+        box.innerHTML = `<iframe src="${fileView.url}" title="${esc(cert.name)}"></iframe>`; } catch (err) { if (box) box.innerHTML = `<p class="muted">The certificate could not be opened (${esc(mask(err.message || err))}).</p>`; } })();
+  }
+  function dlabSeg(pk) { const v = dedit.vals; document.querySelectorAll(`#dash [data-pf="${pk}"]`).forEach((b) => b.classList.toggle("on", (v[pk] || "") === b.dataset.val)); }
+  function dlabRefresh(a) {
+    const E = dedit, v = E.vals, o = JSON.parse(E.orig), { errs, bad } = labCheck(v, E.ph);
+    document.querySelectorAll("#dash .dlabf [data-lv]").forEach((el) => { const k = el.dataset.lv, ch = String(v[k] ?? "") !== String(o[k] ?? "");
+      el.classList.toggle("bad-d", bad.has(k)); el.classList.toggle("chg-d", ch && !bad.has(k)); });
+    document.querySelectorAll("#dash .dlabf [data-was]").forEach((w) => { const k = w.dataset.was, pk = k.replace(".v.", ".p."), ch = String(v[k] ?? "") !== String(o[k] ?? "") || String(v[pk] ?? "") !== String(o[pk] ?? "");
+      w.textContent = ch ? (o[k] === "" ? "new" : `was ${(o[pk] || "") + o[k]}`) : ""; });
+    let n = 0; for (const k of Object.keys(v)) if (String(v[k] ?? "") !== String(o[k] ?? "")) n++;
+    let planErr = ""; if (!errs.length && n) { try { labPlan(a, E.ph, v); } catch (err) { planErr = err.message || String(err); } }
+    $("deErr").textContent = [...errs, planErr].filter(Boolean).join(" · ");
+    const rv = $("deReview"); rv.disabled = !n || errs.length > 0 || !!planErr;
+    rv.textContent = errs.length ? `Fix ${bad.size} value${bad.size === 1 ? "" : "s"} first` : n ? `Review and save · ${n} change${n === 1 ? "" : "s"}` : "Review and save";
+  }
+
+  // ---- review and save (same review panel and safe save as the classic editors) ----
+  function dashReview(a) {
+    const E = dedit; let plan, what, extra = "";
+    try {
+      if (E.kind === "taxa") {
+        const sides = Object.keys(E.sides).filter((x) => JSON.stringify(E.sides[x].vals) !== E.sides[x].orig);
+        plan = () => mergePlan(sides.flatMap((x) => { const { counts, other } = readCounts(E.sides[x].vals); return taxaPlan(a, E.ph, x, counts, other); }));
+        what = `${PH[E.ph]} ${sides.map((x) => SD[x].toLowerCase()).join(" and ")} counts saved`;
+        extra = sides.map((x) => { const s = a[E.ph].samples[x], { counts, other } = readCounts(E.sides[x].vals), c1 = calcTotals({ counts, other }), c0 = s.calc;
+          return `<div class="card" style="padding:10px 14px;margin-top:10px"><b>${SD[x]}</b><table class="ovtab"><tr><th></th><th>Now</th><th>After saving</th></tr>
+            <tr><td>Organisms</td><td>${c0.count}</td><td>${c1.count}</td></tr><tr><td>Taxa present</td><td>${c0.taxa}</td><td>${c1.taxa}</td></tr><tr><td>Total Index</td><td>${fmt(c0.index)}</td><td>${fmt(c1.index)}</td></tr>
+            <tr><td>Avg HILS</td><td>${fmt(c0.avg, 2)} ${hbiBadge(c0.avg)}</td><td>${fmt(c1.avg, 2)} ${hbiBadge(c1.avg)}</td></tr><tr><td>EPT taxa</td><td>${c0.ept}</td><td>${c1.ept}</td></tr></table></div>`; }).join("");
+      } else { plan = () => labPlan(a, E.ph, E.vals); what = `${PH[E.ph]} lab results saved`; }
+      const changes = plan();
+      $("ovl").classList.remove("hidden");
+      $("panel").innerHTML = `<h3 id="panelTitle">Review and save</h3><p>${esc(a.id)} · ${esc(PH[E.ph])} · ${E.kind === "taxa" ? "taxa counts" : "lab results"}. Nothing is stored until you click Confirm and save.</p>
+        ${extra}${changes.length ? reviewHtml(changes) : '<p class="bad">Nothing to save.</p>'}<div class="small" id="toolStatus"></div>
+        <div class="btns"><button class="btn" type="button" id="tCancel">Back to editing</button><button class="btn pri" type="button" id="tGo"${changes.length ? "" : " disabled"}>Confirm and save</button></div>`;
+      $("tCancel").onclick = closeTool;
+      $("tGo").onclick = () => dashRunSave(plan, what, siteHash(a.id, E.ph));
+    } catch (err) { alert("This cannot be saved: " + (err.message || err)); }
+  }
+  async function dashRunSave(makePlan, what, back) {
+    const go = $("tGo"), cancel = $("tCancel"), st = $("toolStatus"), progress = (x) => { st.innerHTML = '<span class="spin"></span>' + esc(x); };
+    go.disabled = true; cancel.disabled = true;
+    try {
+      const plan = makePlan(), res = await saveChanges(plan, progress);
+      progress("Reloading the survey data…"); await loadAll();
+      dash.note = res.wrong.length ? { bad: true, html: `Saved, but the check afterwards found differences:<br>${res.wrong.map(esc).join("<br>")}<br>Tell the administrator (${CFG.admin}).` }
+        : { html: `Saved and verified (${res.written} records, ${res.fields} values): ${esc(what)}.` };
+      closeTool(); dedit = null;
+      if (location.hash === back) route(); else location.hash = back;
+    } catch (err) {
+      console.error(err);
+      st.innerHTML = `<div class="msg error" style="margin-top:10px">Save stopped – ${esc(mask(err.message || err))}.</div>`;
+      cancel.disabled = false; cancel.textContent = "Close";
+      try { await loadAll(); } catch { /* keep the old data on screen */ }
+    }
+  }
   function drawDash(parts) {
     hideTip(); document.body.classList.add("dashmode"); $("dash").hidden = false; setViewPref("dash");
     document.title = "WCCD Watershed Monitoring · Dashboard";
     const sub = parts[1];
+    if (sub !== "site" || parts[3] !== "edit") dedit = null;
     if (sub === "sites") dashSites();
-    else if (sub === "site") { dashMapFree(); dashSite(decodeURIComponent(parts[2] || ""), parts[3] || "overview"); }
+    else if (sub === "site" && parts[3] === "edit") { dashMapFree(); const a = model.find((x) => x.id === decodeURIComponent(parts[2] || ""));
+      if (a) dashEdit(a, parts[4], parts[5], parts[6]); else dashSite(decodeURIComponent(parts[2] || ""), "overview"); }
+    else if (sub === "site") { dashMapFree(); dedit = null; dashSite(decodeURIComponent(parts[2] || ""), parts[3] || "overview"); }
     else { dashMapFree(); dashLanding(); }
     window.scrollTo(0, 0);
   }
   function leaveDash() {
     if (!document.body.classList.contains("dashmode")) return;
-    dashMapFree(); document.body.classList.remove("dashmode"); $("dash").hidden = true; $("dash").innerHTML = ""; document.title = "WCCD Watershed Monitoring";
+    dashMapFree(); dedit = null; document.body.classList.remove("dashmode"); $("dash").hidden = true; $("dash").innerHTML = ""; document.title = "WCCD Watershed Monitoring";
   }
   // Opening the app: go straight to the dashboard when the address asks for it, or when it was the last interface used.
   if (/^#\/dash/.test(location.hash) || ((!location.hash || location.hash === "#/" || location.hash === "#") && viewPref() === "dash")) {
@@ -2944,7 +3209,10 @@
   let lastHash = location.hash;
   addEventListener("hashchange", () => {
     if (!svc.pre) return;
-    if (isDirty() && !confirm("You have changes that are not saved. Discard them?")) { history.replaceState(null, "", lastHash || "#/"); return; }
+    // B13: switching between downstream and upstream inside a dashboard editor keeps the changes, so it does not ask
+    const editKey = (h) => (/^#\/dash\/site\/[^/]+\/edit\/[^/]+\/[^/]+/.exec(h || "") || [])[0];
+    const sameEdit = !!editKey(lastHash) && editKey(lastHash) === editKey(location.hash);
+    if (!sameEdit && isDirty() && !confirm("You have changes that are not saved. Discard them?")) { history.replaceState(null, "", lastHash || "#/"); return; }
     if (area.edit && !location.hash.startsWith("#/area/" + encodeURIComponent(area.id))) area.edit = null;
     if (nw.st && !location.hash.startsWith("#/new")) nw.st = null;
     lastHash = location.hash; route();
