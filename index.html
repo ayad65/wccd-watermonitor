@@ -492,6 +492,17 @@
   .dxtot{background:#E2EAD9;font-weight:600}
   .dx-lt{width:100%;border-collapse:collapse;font-size:12.5px} .dx-lt th{font-size:11px;color:var(--muted);font-weight:600;text-align:left;padding:4px 0} .dx-lt td{padding:6px 0;border-top:1px solid rgba(255,255,255,.06)} .dx-lt td+td,.dx-lt th+th{text-align:center} .dx-lt tr.on td{color:var(--acc)}
   @media (max-width:1100px){ .dx-grid{grid-template-columns:minmax(0,1fr)} .dx-side{position:static} .dx-two,.dx-two.lab{grid-template-columns:minmax(0,1fr)} .dxg{grid-template-columns:minmax(0,1fr)} .dx-views{margin-left:0} .dx-sumhead{grid-template-columns:1fr 1fr} }
+  /* B18 */
+  .dseg{cursor:pointer;transition:transform .16s ease,stroke-width .16s ease} .dseg:hover{transform:translate(var(--tx),var(--ty));stroke-width:calc(var(--w) * 1.3);filter:drop-shadow(0 0 6px rgba(255,255,255,.25))}
+  .dx-dsvg{overflow:visible;flex:none} .dx-dlist{flex:1;min-width:140px} .dx-donut.col{flex-direction:column;align-items:stretch} .dx-donut.col .dx-dsvg{align-self:center}
+  .dx-dcmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px} .dx-dsite{font-weight:700;font-size:13px;margin-bottom:4px;padding-left:8px;border-left:3px solid #C8E35A} .dx-dsite.cmp{border-left-color:#7FD8C8}
+  .dxp-head{display:flex;align-items:flex-end;gap:10px;padding:12px 14px 8px} .dxp-head .gn{display:flex;flex-direction:column;line-height:1.1} .dxp-head .gn>span{font:700 17px "Barlow Semi Condensed",sans-serif;color:#1F3A2A} .dxp-head .gn em{font-size:11.5px;color:#5B6B5F;margin-top:2px}
+  .dxp .dgtabs button b{font-size:11px}
+  .dx-mapwrap{height:calc(100vh - 190px)} .dx-minfo{position:absolute;left:14px;top:14px;z-index:5;width:290px;padding:12px 14px}
+  .dx-mrow{display:flex;align-items:center;gap:8px;padding:5px 0;border-top:1px solid rgba(255,255,255,.08);font-size:13px} .dx-mrow span:first-of-type{flex:1;display:flex;flex-direction:column;line-height:1.15} .dx-mrow small{font-size:11px;color:var(--muted)}
+  .dx-msize{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:var(--muted)} .dx-msize span{display:inline-flex;align-items:center;gap:4px}
+  .dx-msize i{display:inline-block;border-radius:50%;background:rgba(200,227,90,.55);border:2px solid #C8E35A}
+  @media (max-width:1000px){ .dx-minfo{position:static;width:auto;margin:10px} .dx-dcmp{grid-template-columns:1fr} }
   /* B14: on phones the dashboard menu becomes a bar along the bottom, so it never covers the page */
   @media (max-width:640px){ .drail{top:auto;bottom:0;right:0;width:auto;height:60px;flex-direction:row;justify-content:space-around;padding:4px 2px;border-right:0;border-top:1px solid var(--line)}
     .drail .logo,.drail .grow,.drail a[href="#/help"]{display:none} .drail a{width:auto;flex:1;padding:4px 0;font-size:10px} .drail a.classic{border-top:0;padding-top:4px}
@@ -644,7 +655,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B17", BUILD_DATE = "17 Nov 2026";
+  const BUILD = "B18", BUILD_DATE = "17 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -3045,7 +3056,7 @@
         dedit = { kind, id: a.id, ph, sd, sides: {}, filter: { q: "", tab: null } };
         for (const x of sides) { const v = taxaStart(P.samples[x], labNameOk(ph, x)); dedit.sides[x] = { vals: v, orig: JSON.stringify(v) }; } }
       if (dedit.sd !== sd) dedit.filter.tab = null;
-      dedit.sd = sd; if (dedit.filter.tab == null) dedit.filter.tab = Object.keys(P.samples[sd].counts).length ? "counts" : "all";
+      dedit.sd = sd; if (dedit.filter.tab == null) dedit.filter.tab = "MISC";   // B18: group tabs open on Miscellaneous
       dtaxaDraw(a);
     } else if (kind === "lab") {
       if (svc.lab.error) return dashEditFail(a, ph, svc.lab.error);
@@ -3275,9 +3286,9 @@
   const DSS = { pre_down: "Pre ↓", pre_up: "Pre ↑", post_down: "Post ↓", post_up: "Post ↑" };
   const DXV = [["sum", "Summary"], ["grp", "Taxa groups"], ["taxa", "Taxa browser"], ["tbl", "Table"], ["lab", "Lab"], ["map", "Map"]];
   const DXPAL = ["#E8F07E", "#7FD8C8", "#C8E35A", "#2FA08E", "#B9CC3C", "#9FE8DA", "#F2B33D", "#7FC243", "#5FB3D9", "#D9E77A"];
-  const dx = { site: null, cmp: "", samples: new Set(SKEYS), empty: false, view: "sum", measure: "count", donut: null, grp: "ALL", order: "num", test: "EscherichiaColi" };
+  const dx = { site: null, cmp: "", samples: new Set(SKEYS), empty: false, view: "sum", measure: "count", donut: null, grp: "MISC", order: "num", test: "EscherichiaColi" };
   // Coming back to Explore from another page starts on its defaults (the chosen site is kept), as the classic Explore does.
-  function dxReset() { Object.assign(dx, { samples: new Set(SKEYS), empty: false, view: "sum", measure: "count", donut: null, grp: "ALL", order: "num", test: "EscherichiaColi" }); }
+  function dxReset() { Object.assign(dx, { samples: new Set(SKEYS), empty: false, view: "sum", measure: "count", donut: null, grp: "MISC", order: "num", test: "EscherichiaColi" }); }
   const dxSites = () => model.filter((a) => !a.test && (a.pre || a.post));
   const dxSel = (a) => SKEYS.filter((k) => dx.samples.has(k) && smp(a, k));
   const tipA = (html) => ` data-tip="${encodeURIComponent(html)}"`;
@@ -3297,7 +3308,7 @@
           <label class="dx-lbl" for="dxSite">Site</label><select id="dxSite" class="dx-sel">${sites.map(opt).join("")}</select>
           <label class="dx-lbl" for="dxCmp">Compare with</label><select id="dxCmp" class="dx-sel"><option value="">(no comparison)</option>${sites.filter((x) => x.id !== a.id).map(opt).join("")}</select>
           <div class="dx-lbl">Samples</div><div id="dxSamples"></div>
-          <label class="dx-tog"><input type="checkbox" id="dxEmpty"${dx.empty ? " checked" : ""}> Show taxa with no count</label>
+          <label class="dx-tog" id="dxEmptyWrap"><input type="checkbox" id="dxEmpty"${dx.empty ? " checked" : ""}> Show taxa with no count</label>
           <p class="muted" style="font-size:11.5px;margin:10px 0">Click a sample on a chart to keep only that sample; turn the others back on here.</p>
           <a class="dbtn" href="${siteHash(a.id)}">Open the site page</a></aside>
         <section id="dxBody" class="dx-body" aria-live="polite"></section></div></main>`;
@@ -3316,23 +3327,28 @@
       if (dx.samples.has(k)) { if (dxSel(a).length > 1) dx.samples.delete(k); } else dx.samples.add(k);   // at least one sample stays on
       dxSamplesDraw(a); dxDraw(); });
   }
-  function dxPick(k) { const a = dxSites().find((x) => x.id === dx.site); if (!a || !smp(a, k)) return; dx.samples = new Set([k]); dxSamplesDraw(a); dxDraw(); }
+  function dxPick(k) { const a = dxSites().find((x) => x.id === dx.site); if (!a || !smp(a, k)) return;
+    dx.samples = dx.samples.size === 1 && dx.samples.has(k) ? new Set(SKEYS) : new Set([k]);   // B18: a second click on the same point shows all samples again
+    dxSamplesDraw(a); dxDraw(); }
   function dxDraw() {
     hideTip(); dashMapFree();
     const a = dxSites().find((x) => x.id === dx.site), box = $("dxBody"); if (!a || !box) return;
-    const ss = dxSel(a);
+    const ss = dxSel(a), ew = $("dxEmptyWrap"); if (ew) ew.hidden = !["grp", "taxa", "tbl"].includes(dx.view);   // B18: only where taxa with no count can be listed
     if (!ss.length && dx.view !== "lab" && dx.view !== "map") { box.innerHTML = `<div class="card">${esc(a.id)} has no macroinvertebrate samples entered yet.</div>`; return; }
-    box.innerHTML = ({ sum: dxSummary, grp: dxGroups, taxa: dxTaxa, tbl: dxTable, lab: dxLab, map: dsMapTab })[dx.view](a);
+    box.innerHTML = ({ sum: dxSummary, grp: dxGroups, taxa: dxTaxa, tbl: dxTable, lab: dxLab, map: dxMap })[dx.view](a);
     wireTips(box);
     box.querySelectorAll("[data-pick]").forEach((el) => el.onclick = () => dxPick(el.dataset.pick));
     box.querySelectorAll("[data-dxm]").forEach((b) => b.onclick = () => { dx.measure = b.dataset.dxm; dxDraw(); });
     box.querySelectorAll("[data-dxd]").forEach((b) => b.onclick = () => { dx.donut = b.dataset.dxd; dxDraw(); });
+    box.querySelectorAll(".dseg").forEach((p) => { const sv = p.ownerSVGElement, cn = sv.querySelector(".dcn"), cl = sv.querySelector(".dcl");
+      p.addEventListener("mouseenter", () => { cn.textContent = p.dataset.dn; cl.textContent = p.dataset.dl; });
+      p.addEventListener("mouseleave", () => { cn.textContent = cn.dataset.orig; cl.textContent = cl.dataset.orig; }); });
     box.querySelectorAll("[data-dxg]").forEach((b) => b.onclick = () => { dx.grp = b.dataset.dxg; dx.view = "taxa"; document.querySelectorAll("#dash [data-dxv]").forEach((x) => x.classList.toggle("on", x.dataset.dxv === "taxa")); dxDraw(); });
     box.querySelectorAll("[data-dxgrp]").forEach((b) => b.onclick = () => { dx.grp = b.dataset.dxgrp; dxDraw(); });
     box.querySelectorAll("[data-dxo]").forEach((b) => b.onclick = () => { dx.order = b.dataset.dxo; dxDraw(); });
     box.querySelectorAll("[data-dxt]").forEach((b) => b.onclick = () => { dx.test = b.dataset.dxt; dxDraw(); });
     const ex = $("dxExp"), co = $("dxCol"); if (ex) ex.onclick = () => box.querySelectorAll("details").forEach((d) => d.open = true); if (co) co.onclick = () => box.querySelectorAll("details").forEach((d) => d.open = false);
-    if (dx.view === "map") { box.querySelectorAll(".ds-sw button").forEach((b) => b.onclick = () => dashBase(b.dataset.b)); box.querySelectorAll("[data-cl]").forEach((b) => b.onclick = () => { const [tb, sd] = b.dataset.cl.split(":"); toClassic(a.id, tb, sd || null); }); dashBase(dash.base); dsMountMap(a); }
+    if (dx.view === "map") { box.querySelectorAll(".ds-sw button").forEach((b) => b.onclick = () => dashBase(b.dataset.b)); box.querySelectorAll("[data-cl]").forEach((b) => b.onclick = () => { const [tb, sd] = b.dataset.cl.split(":"); toClassic(a.id, tb, sd || null); }); dashBase(dash.base); dxMountMap(a); }
   }
 
   // ---- Summary ----
@@ -3359,21 +3375,32 @@
         ${ptsB.length > 1 ? `<path d="${smoothPath(ptsB.map((p) => [X(p.i), Y(p.s.calc.avg)]))}" stroke="#7FD8C8" stroke-width="2" stroke-dasharray="6 5" fill="none" opacity=".85"/>` : ""}
         ${ptsB.map((p) => `<circle cx="${X(p.i)}" cy="${Y(p.s.calc.avg)}" r="4" fill="#0B0F0C" stroke="#7FD8C8" stroke-width="2"${tipA(tipS(cmp, p))}/>`).join("")}
         ${ptsA.length > 1 ? `<path d="${smoothPath(ptsA.map((p) => [X(p.i), Y(p.s.calc.avg)]))}" stroke="#C8E35A" stroke-width="8" fill="none" opacity=".15"/><path d="${smoothPath(ptsA.map((p) => [X(p.i), Y(p.s.calc.avg)]))}" stroke="#C8E35A" stroke-width="3" fill="none"/>` : ""}
-        ${ptsA.map((p) => `<circle cx="${X(p.i)}" cy="${Y(p.s.calc.avg)}" r="9" fill="${DSC[p.k]}" opacity=".25"/><circle class="dx-hit" cx="${X(p.i)}" cy="${Y(p.s.calc.avg)}" r="6" fill="${DSC[p.k]}" stroke="#0B0F0C" stroke-width="2" data-pick="${p.k}"${tipA(tipS(a, p) + "<br>Click to show only this sample")}/>
+        ${ptsA.map((p) => `<circle cx="${X(p.i)}" cy="${Y(p.s.calc.avg)}" r="9" fill="${DSC[p.k]}" opacity=".25"/><circle class="dx-hit" cx="${X(p.i)}" cy="${Y(p.s.calc.avg)}" r="6" fill="${DSC[p.k]}" stroke="#0B0F0C" stroke-width="2" data-pick="${p.k}"${tipA(tipS(a, p) + (ss.length === 1 ? "<br>Click again to show all samples" : "<br>Click to show only this sample"))}/>
           <text x="${X(p.i)}" y="${Y(p.s.calc.avg) - 13}" text-anchor="middle" font-size="12" font-weight="700" fill="#EEF3E9">${fmt(p.s.calc.avg, 2)}</text>`).join("")}
         ${SKEYS.map((k, i) => `<text x="${X(i)}" y="${H - 6}" text-anchor="middle" font-size="11" fill="#93A397">${DSN[k]}</text>`).join("")}</svg>
       <div class="muted" style="font-size:11px">lower is better · bands and the strip on the right = HBI rating${cmp ? " · dashed = compared site" : ""}</div></div>`;
-    // taxa-group donut for one sample
+    // taxa-group donut for one sample, and (B18) the compared site's same sample beside it
     if (!dx.donut || !ss.includes(dx.donut)) dx.donut = ss.includes("post_down") ? "post_down" : ss[0];
-    const sd = S[dx.donut], gl = GROUPS.map((g) => [GSHORT[g[0]], groupStats(sd, g).count]).concat(sd.other ? [[`Other: ${sd.otherName || "other taxon"}`, sd.other]] : []).filter((x) => x[1] > 0).sort((p, q) => q[1] - p[1]);
-    const tot = gl.reduce((t, x) => t + x[1], 0) || 1; let a0 = -Math.PI / 2;
-    const donut = gl.map((g, i) => { const a1 = a0 + g[1] / tot * 2 * Math.PI, d = darc(84, 84, 62, a0 + 0.015, Math.max(a0 + 0.02, a1 - 0.015)); a0 = a1;
-      return `<path d="${d}" stroke="${DXPAL[i % DXPAL.length]}" stroke-width="20" fill="none"${tipA(`<b>${esc(g[0])}</b><br>${g[1]} organisms · ${Math.round(g[1] / tot * 100)}%`)}/>`; }).join("");
-    const dcard = `<div class="card dx-card"><div class="dx-ch"><h3>Taxa groups</h3><span class="dx-chips">${ss.map((k) => `<button type="button" class="dxc${k === dx.donut ? " on" : ""}" data-dxd="${k}" style="--c:${DSC[k]}">${DSS[k]}</button>`).join("")}</span></div>
-      <div class="dx-donut"><svg viewBox="0 0 168 168" width="168" height="168" role="img" aria-label="Organisms per taxa group">${donut}<text x="84" y="82" text-anchor="middle" font-size="24" font-weight="700" fill="#EEF3E9" font-family="Barlow Semi Condensed">${sd.calc.count}</text><text x="84" y="99" text-anchor="middle" font-size="11" fill="#93A397">organisms</text></svg>
-        <div style="flex:1;min-width:150px">${gl.slice(0, 6).map((g, i) => `<div style="font-size:12px;margin:6px 0"><span>${esc(g[0])}</span><span style="float:right"><b>${g[1]}</b> · ${Math.round(g[1] / tot * 100)}%</span>
-          <div style="height:5px;border-radius:4px;background:rgba(255,255,255,.06);margin-top:3px"><div style="height:5px;border-radius:4px;width:${g[1] / tot * 100}%;background:${DXPAL[i % DXPAL.length]}"></div></div></div>`).join("")}</div></div></div>`;
+    const cmpS = cmp ? smp(cmp, dx.donut) : null;
+    const dcard = `<div class="card dx-card"><div class="dx-ch"><h3>Taxa groups · ${DSN[dx.donut]}</h3><span class="dx-chips">${ss.map((k) => `<button type="button" class="dxc${k === dx.donut ? " on" : ""}" data-dxd="${k}" style="--c:${DSC[k]}">${DSS[k]}</button>`).join("")}</span></div>
+      ${cmp ? `<div class="dx-dcmp"><div><div class="dx-dsite">${esc(a.id)}</div>${dxDonut(S[dx.donut], 140, 4)}</div><div><div class="dx-dsite cmp">${esc(cmp.id)} <span class="muted">(compare)</span></div>${cmpS ? dxDonut(cmpS, 140, 4) : `<p class="muted" style="font-size:13px">No ${DSN[dx.donut].toLowerCase()} sample at ${esc(cmp.id)}.</p>`}</div></div>`
+        : dxDonut(S[dx.donut], 168, 6, true)}
+      <div class="muted" style="font-size:11px;margin-top:4px">Hover a slice to see its count and share.</div></div>`;
     return head + `<div class="dx-two">${line}${dcard}</div>`;
+  }
+  // B18: a donut of organisms per taxa group for one sample; hovering a slice pulls it out and shows its count and share in the middle
+  function dxDonut(sd, size, nList, wide) {
+    const gl = GROUPS.map((g) => [GSHORT[g[0]], groupStats(sd, g).count]).concat(sd.other ? [[`Other: ${sd.otherName || "other taxon"}`, sd.other]] : []).filter((x) => x[1] > 0).sort((p, q) => q[1] - p[1]);
+    const tot = gl.reduce((s, x) => s + x[1], 0) || 1, c = size / 2, r = size * 0.37, w = size * 0.12; let a0 = -Math.PI / 2;
+    const segs = gl.map((g, i) => { const a1 = a0 + g[1] / tot * 2 * Math.PI, mid = (a0 + a1) / 2, d = darc(c, c, r, a0 + 0.015, Math.max(a0 + 0.02, a1 - 0.015)); a0 = a1;
+      return `<path class="dseg" d="${d}" stroke="${DXPAL[i % DXPAL.length]}" stroke-width="${w}" fill="none" style="--tx:${(Math.cos(mid) * size * 0.05).toFixed(1)}px;--ty:${(Math.sin(mid) * size * 0.05).toFixed(1)}px;--w:${w}px"
+        data-dn="${g[1]}" data-dl="${esc(g[0])} · ${Math.round(g[1] / tot * 100)}%"${tipA(`<b>${esc(g[0])}</b><br>${g[1]} organisms · ${Math.round(g[1] / tot * 100)}%`)}/>`; }).join("");
+    const svg = `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" class="dx-dsvg" role="img" aria-label="Organisms per taxa group">${segs}
+      <text class="dcn" x="${c}" y="${c - 2}" text-anchor="middle" font-size="${size * 0.14}" font-weight="700" fill="#EEF3E9" font-family="Barlow Semi Condensed" data-orig="${sd.calc.count}">${sd.calc.count}</text>
+      <text class="dcl" x="${c}" y="${c + size * 0.09}" text-anchor="middle" font-size="${Math.max(9, size * 0.065)}" fill="#93A397" data-orig="organisms">organisms</text></svg>`;
+    const list = `<div class="dx-dlist">${gl.slice(0, nList).map((g, i) => `<div style="font-size:12px;margin:5px 0"><span>${esc(g[0])}</span><span style="float:right"><b>${g[1]}</b> · ${Math.round(g[1] / tot * 100)}%</span>
+      <div style="height:5px;border-radius:4px;background:rgba(255,255,255,.06);margin-top:3px"><div style="height:5px;border-radius:4px;width:${g[1] / tot * 100}%;background:${DXPAL[i % DXPAL.length]}"></div></div></div>`).join("")}</div>`;
+    return `<div class="dx-donut${wide ? "" : " col"}">${svg}${list}</div>`;
   }
   // smooth line through points (Catmull-Rom), kept between the first and last point
   function smoothPath(p) { if (p.length < 2) return ""; let d = `M${p[0][0]},${p[0][1]}`;
@@ -3396,6 +3423,13 @@
       <div class="muted" style="font-size:11.5px;margin-top:6px">Click a group to open it in the Taxa browser.</div>`;
   }
 
+  // B18: the group side tabs used by the Taxa browser and the Table (as in the taxa editor)
+  function dxGroupTabs(a, ss) {
+    const tot = (g) => ss.reduce((s, k) => s + groupStats(smp(a, k), g).count, 0), oth = ss.reduce((s, k) => s + (smp(a, k).other || 0), 0);
+    const btn = (k, inner, n) => `<button type="button" role="tab" data-dxgrp="${k}" class="${k === dx.grp ? "on" : ""}${n ? " has" : ""}" aria-selected="${k === dx.grp}">${inner}<b>${n || ""}</b></button>`;
+    return `<nav class="dgtabs" role="tablist" aria-label="Taxa groups">${btn("ALL", "All taxa", 0)}<span class="dgsep">Taxa groups</span>
+      ${GROUPS.map((g) => btn(g[0], gName(g[0], g[2], "gtx"), tot(g))).join("")}${btn("OTHER", `<span class="gtx"><span>Other taxa</span><em>a taxon not on the sheet</em></span>`, oth)}</nav>`;
+  }
   // ---- Taxa browser (light panel) ----
   function dxTaxa(a) {
     const ss = dxSel(a), g0 = dx.grp, inG = (n) => g0 === "ALL" || (GROUPS.find((x) => x[0] === g0) || [0, 0, 0, -1])[2] <= n && n <= (GROUPS.find((x) => x[0] === g0) || [0, 0, 0, -1])[3];
@@ -3408,32 +3442,78 @@
     const cols = `grid-template-columns:30px minmax(0,1.4fr) 40px repeat(${ss.length},minmax(0,1fr))`;
     const cell = (k, c, h, label) => `<span class="dxtc"${tipA(`${tsw(PDSC[k])}<b>${DSN[k]}</b> · ${esc(label)}<br>count <b>${c}</b>${h != null ? ` · HILS ${h} · index ${Math.round(c * h)}` : ""}`)}><span class="tr">${c ? `<i style="width:${Math.max(2, c / mx * 100)}%;background:${PDSC[k]}"></i>` : ""}</span><b>${c || ""}</b></span>`;
     const grpOf = (n) => GROUPS.find((x) => n >= x[2] && n <= x[3]);
-    return `<div class="dpaper dxp"><div class="dxp-tb"><span class="dxp-l">Group</span>${[["ALL", "All groups"], ...GROUPS.map((g) => [g[0], GSHORT[g[0]]]), ["OTHER", "Other taxa"]].map(([k, l]) => `<button type="button" class="dchip${k === g0 ? " on" : ""}" data-dxgrp="${k}">${l}</button>`).join("")}</div>
+    const gT = g0 === "ALL" ? "All taxa" : g0 === "OTHER" ? "Other taxa" : GSHORT[g0], gL = g0 === "ALL" ? "every group" : g0 === "OTHER" ? "a taxon not on the sheet" : GLATIN[g0];
+    return `<div class="dpaper dxp"><div class="dtabs-wrap">${dxGroupTabs(a, ss)}<div class="dlistcol">
+      <div class="dxp-head"><span class="gn"><span>${gT}</span><em>${gL}</em></span></div>
       <div class="dxp-tb" style="padding-top:0"><span class="dxp-l">Sort</span>${[["num", "By number"], ["total", "By total count"], ["change", "Biggest Pre→Post change"]].map(([k, l]) => `<button type="button" class="dchip${k === dx.order ? " on" : ""}" data-dxo="${k}">${l}</button>`).join("")}</div>
       <div class="dxtr dxth" style="${cols}"><span>No.</span><span>Taxon</span><span style="text-align:center">HILS</span>${ss.map((k) => `<span style="color:${PDSC[k]};font-weight:700">${DSS[k]}</span>`).join("")}</div>
       ${rows.map((r) => `<div class="dxtr" style="${cols}"><span class="no">${r.n}</span><span class="nm"><span class="tn">${esc(TAXON[r.n - 1])}</span><em>${GSHORT[grpOf(r.n)[0]]}</em></span><span class="h">${HILS[r.n - 1]}</span>${ss.map((k, i) => cell(k, r.vals[i], HILS[r.n - 1], TAXON[r.n - 1])).join("")}</div>`).join("")}
       ${oth ? `<div class="dxtr" style="${cols}"><span class="no">–</span><span class="nm"><span class="tn">Other taxon</span><em>${esc([...new Set(ss.map((k) => smp(a, k).otherName).filter(Boolean))].join(", ") || "not on the sheet")}</em></span><span class="h">own</span>${ss.map((k) => { const s = smp(a, k); return cell(k, s.other || 0, s.otherHils || null, s.otherName || "Other taxon"); }).join("")}</div>` : ""}
-      ${!rows.length && !oth ? `<p style="padding:14px;color:#5B6B5F">No taxa with a count in this group for the selected samples. Turn on “Show taxa with no count” to list them all.</p>` : ""}
-      <div style="padding:8px 14px;font-size:11.5px;color:#5B6B5F">${rows.length + (oth ? 1 : 0)} taxa · hover a cell for its HILS and index</div></div>`;
+      ${!rows.length && !oth ? `<p style="padding:14px;color:#5B6B5F">No taxa with a count in ${g0 === "ALL" ? "any group" : "this group"} for the selected samples. Turn on “Show taxa with no count” on the left to list them all.</p>` : ""}
+      <div style="padding:8px 14px;font-size:11.5px;color:#5B6B5F">${rows.length + (oth ? 1 : 0)} taxa · hover a cell for its HILS and index</div></div></div></div>`;
   }
 
   // ---- Table (light panel, grouped as on the WCCD sheet) ----
   function dxTable(a) {
     const ss = dxSel(a), cols = `grid-template-columns:minmax(0,1.6fr) 40px repeat(${ss.length},minmax(0,1fr))`;
     const trip = (st) => `<b>${st.count || "–"}</b> · ${st.taxa || "–"} · ${st.index || "–"}`;
-    const body = GROUPS.map((g) => { const gs = ss.map((k) => groupStats(smp(a, k), g)), any = gs.some((x) => x.count);
-      if (!any && !dx.empty) return "";
+    const showG = (k) => dx.grp === "ALL" || dx.grp === k;
+    const body = GROUPS.map((g) => { if (!showG(g[0])) return ""; const gs = ss.map((k) => groupStats(smp(a, k), g)), any = gs.some((x) => x.count);
+      if (!any && !dx.empty && dx.grp === "ALL") return "";
       let tr = ""; for (let n = g[2]; n <= g[3]; n++) { const vs = ss.map((k) => smp(a, k).counts[n] || 0); if (!dx.empty && !vs.some((x) => x)) continue;
         tr += `<div class="dxtr${vs.some((x) => x) ? "" : " z"}" style="${cols}"><span class="nm"><span class="tn">${n}. ${esc(TAXON[n - 1])}</span></span><span class="h">${HILS[n - 1]}</span>${vs.map((c) => `<span class="dxtv">${c ? `<b>${c}</b> · ${Math.round(c * HILS[n - 1])}` : "–"}</span>`).join("")}</div>`; }
-      return `<details class="dxd${any ? "" : " empty"}"${any ? " open" : ""}><summary class="dxtr" style="${cols}"><span class="gn"><span>${GSHORT[g[0]]}${isEPT(g[2]) ? '<i class="dept">EPT</i>' : ""}</span><em>${GLATIN[g[0]]}</em></span><span></span>${gs.map((x) => `<span class="dxtv">${trip(x)}</span>`).join("")}</summary>${tr}</details>`; }).join("");
-    const oth = ss.some((k) => smp(a, k).other > 0) ? `<details class="dxd" open><summary class="dxtr" style="${cols}"><span class="gn"><span>Other taxa</span><em>a taxon not on the sheet</em></span><span></span>${ss.map((k) => `<span class="dxtv">${trip(otherStats(smp(a, k)))}</span>`).join("")}</summary>
+      return `<details class="dxd${any ? "" : " empty"}"${any || dx.grp !== "ALL" ? " open" : ""}><summary class="dxtr" style="${cols}"><span class="gn"><span>${GSHORT[g[0]]}${isEPT(g[2]) ? '<i class="dept">EPT</i>' : ""}</span><em>${GLATIN[g[0]]}</em></span><span></span>${gs.map((x) => `<span class="dxtv">${trip(x)}</span>`).join("")}</summary>${tr}</details>`; }).join("");
+    const oth = showG("OTHER") && ss.some((k) => smp(a, k).other > 0) ? `<details class="dxd" open><summary class="dxtr" style="${cols}"><span class="gn"><span>Other taxa</span><em>a taxon not on the sheet</em></span><span></span>${ss.map((k) => `<span class="dxtv">${trip(otherStats(smp(a, k)))}</span>`).join("")}</summary>
         <div class="dxtr" style="${cols}"><span class="nm"><span class="tn">${esc([...new Set(ss.map((k) => smp(a, k).otherName).filter(Boolean))].join(", ") || "Other taxon")}</span></span><span class="h">own</span>${ss.map((k) => { const s = smp(a, k); return `<span class="dxtv">${s.other ? `<b>${s.other}</b> · ${Math.round(s.other * (s.otherHils || 0))}` : "–"}</span>`; }).join("")}</div></details>` : "";
     const tots = ss.map((k) => smp(a, k).calc);
-    return `<div class="dpaper dxp"><div class="dxp-tb" style="justify-content:space-between"><span style="font:700 15px 'Barlow Semi Condensed';color:#1F3A2A">All taxa, grouped as on the WCCD sheet</span><span><button type="button" class="dchip" id="dxExp">Expand all</button> <button type="button" class="dchip" id="dxCol">Collapse all</button></span></div>
+    const gT = dx.grp === "ALL" ? "All taxa, grouped as on the WCCD sheet" : dx.grp === "OTHER" ? "Other taxa" : GSHORT[dx.grp], gL = dx.grp === "ALL" ? "" : dx.grp === "OTHER" ? "a taxon not on the sheet" : GLATIN[dx.grp];
+    return `<div class="dpaper dxp"><div class="dtabs-wrap">${dxGroupTabs(a, ss)}<div class="dlistcol">
+      <div class="dxp-head" style="justify-content:space-between"><span class="gn"><span>${gT}</span>${gL ? `<em>${gL}</em>` : ""}</span>${dx.grp === "ALL" ? `<span><button type="button" class="dchip" id="dxExp">Expand all</button> <button type="button" class="dchip" id="dxCol">Collapse all</button></span>` : ""}</div>
       <div class="dxtr dxth" style="${cols}"><span>Group / taxon</span><span style="text-align:center">HILS</span>${ss.map((k) => `<span class="dxtv" style="color:${PDSC[k]};font-weight:700">${DSS[k]}</span>`).join("")}</div>
-      ${body}${oth}
+      ${body || (oth ? "" : `<p style="padding:14px;color:#5B6B5F">Nothing counted in this group for the selected samples.</p>`)}${oth}
       <div class="dxtr dxtot" style="${cols}"><span>Totals · Avg HILS</span><span></span>${tots.map((c) => `<span class="dxtv"><b>${c.count}</b> · ${c.taxa} · ${fmt(c.index)}<br><span style="font-size:11px">Avg ${fmt(c.avg, 2)} ${drating(c.avg) ? drating(c.avg)[1] : ""}</span></span>`).join("")}</div>
-      <div style="padding:8px 14px;font-size:11.5px;color:#5B6B5F">Group lines show count · taxa · index for each sample; taxa lines show count · index. Groups with nothing counted are folded.</div></div>`;
+      <div style="padding:8px 14px;font-size:11.5px;color:#5B6B5F">Group lines show count · taxa · index for each sample; taxa lines show count · index. The totals row is for all groups.</div></div></div></div>`;
+  }
+
+  // ---- B18: Map, with each sample's point sized by its Avg HILS and labelled ----
+  const dxSize = (avg) => avg == null ? 14 : Math.round(12 + Math.min(10, Math.max(0, avg)) * 3.2);   // Avg HILS 0 → 12 px … 10 → 44 px (bigger = poorer)
+  function dxMap(a) {
+    const ss = dxSel(a), P = (k) => a[k.split("_")[0]];
+    const rows = ss.map((k) => { const s = smp(a, k), r = drating(s.calc.avg), g = geomPt(s.geom);
+      return `<div class="dx-mrow"><i class="dot" style="background:${DSC[k]};width:11px;height:11px"></i><span>${DSN[k]}<small>${dayText(P(k).date)}${g ? "" : " · no point"}</small></span><b>${fmt(s.calc.avg, 2)}</b>${r ? `<span class="dhbi" style="background:${r[2]}">${r[1]}</span>` : ""}</div>`; }).join("");
+    return `<div class="dsp-mapwrap dx-mapwrap"><div class="dsp-map" id="dspMap" aria-label="Map of the site's sample points"></div>
+      <div class="glass see dx-minfo"><div class="ttl" style="font-size:18px;font-weight:700">${esc(a.id)} · ${esc(a.stream || "no stream")}</div>
+        <div class="muted" style="font-size:12px;margin-bottom:6px">${a.site && a.site !== a.stream ? esc(a.site) + " · " : ""}${STATUS_TEXT[a.status]}</div>${rows}
+        <div class="dx-msize"><span class="muted" style="font-size:11px">Point size = Avg HILS</span>${[[3, "3 · excellent"], [6, "6 · fair"], [9, "9 · very poor"]].map(([v0, l]) => `<span><i style="width:${dxSize(v0) * 0.6}px;height:${dxSize(v0) * 0.6}px"></i>${l}</span>`).join("")}</div></div>
+      <div class="glass see dsp-maplg"><div class="lg">${SKEYS.map((k) => `<span><i class="dot" style="background:${DSC[k]};width:11px;height:11px"></i>${DSN[k]}</span>`).join("")}<span><i class="dot" style="border:2.5px solid #E5484D;width:11px;height:11px"></i>ring = HBI rating</span><span><i style="display:inline-block;width:18px;height:2px;background:#9FE8DA"></i>monitored stream</span></div>
+        <div class="ds-sw" role="group" aria-label="Basemap"><button type="button" data-b="sat">Satellite</button><button type="button" data-b="topo">Map</button></div>${clBtn("map:", "Edit the points")}</div></div>
+      <p class="muted" id="dspMapNote" style="font-size:12px"></p>`;
+  }
+  async function dxMountMap(a) {
+    const el = $("dspMap"); if (!el) return; dashMapFree(); const token = dash.token, ss = dxSel(a);
+    const pts = ss.map((k) => { const s = smp(a, k), g = geomPt(s.geom); return g ? { k, s, g } : null; }).filter(Boolean);
+    $("dspMapNote").textContent = pts.length ? pts.map((p) => `${DSN[p.k]}: ${pt6(p.g.lat)}, ${pt6(p.g.lon)}`).join(" · ") : "None of the selected samples has a point yet.";
+    try {
+      const { Map, MapView, Graphic, sat, hill, topo, roads, gl, layers } = await dashLayers([a.stream]);
+      const info = document.querySelector("#dash .dx-minfo"), padL = info && innerWidth > 1000 ? Math.round(info.getBoundingClientRect().width + 36) : 30;
+      const view = new MapView({ container: el, map: new Map({ layers }), center: pts.length ? [pts[0].g.lon, pts[0].g.lat] : COUNTY_CENTER, zoom: pts.length ? 17 : 10, padding: { top: 50, left: padL, right: 50, bottom: 90 } });
+      if (token !== dash.token || !document.body.contains(el)) { view.destroy(); return; }
+      dash.map = view; dash.layers = { sat, hill, topo, roads }; dashBase(dash.base);
+      const marks = [];
+      for (const p of pts) { const geometry = { type: "point", longitude: p.g.lon, latitude: p.g.lat }, r = drating(p.s.calc.avg), size = dxSize(p.s.calc.avg), pre = p.k.startsWith("pre");
+        gl.add(new Graphic({ geometry, attributes: { key: p.k }, symbol: { type: "simple-marker", color: [8, 12, 9, 0.35], size: size + 14, outline: null } }));
+        const m = new Graphic({ geometry, attributes: { key: p.k }, symbol: { type: "simple-marker", color: DSC[p.k], size, outline: { color: r ? r[2] : "#0B0F0C", width: 3.5 } } }); gl.add(m); marks.push(m);
+        // Pre labels to the left, Post labels to the right, so samples taken at the same spot stay readable
+        gl.add(new Graphic({ geometry, attributes: { key: p.k }, symbol: { type: "text", text: `${DSS[p.k]} · ${fmt(p.s.calc.avg, 2)}${r ? "\n" + r[1] : ""}`, color: "#EEF3E9", haloColor: [8, 12, 9, 0.92], haloSize: 2.2,
+          xoffset: (pre ? -1 : 1) * (size / 2 + 8), yoffset: 4, horizontalAlignment: pre ? "right" : "left", font: { size: 11.5, weight: "bold", family: "sans-serif" } } })); }
+      view.when(() => { if (token === dash.token) dashFit(view, marks, 18, 17); }).catch(() => {});
+      view.on("pointer-move", async (e) => { let hit = null;
+        try { const rr = await view.hitTest(e, { include: [gl] }); hit = rr.results.find((x) => x.graphic && x.graphic.attributes && x.graphic.attributes.key); } catch { /* view gone */ }
+        if (token !== dash.token) return; if (!hit) { hideTip(); el.style.cursor = ""; return; }
+        const k = hit.graphic.attributes.key, S = smp(a, k), g = geomPt(S.geom), c = S.calc, rt = drating(c.avg), P = a[k.split("_")[0]];
+        showTip(e.native, `<i style="background:${DSC[k]}"></i><b>${DSN[k]}</b> · ${esc(a.id)}<br>${dayText(P.date)}<br>${pt6(g.lat)}, ${pt6(g.lon)}<br>Avg HILS <b>${fmt(c.avg, 2)}</b>${rt ? ` <span style="color:${rt[2]}">${rt[1]}</span>` : ""} · ${c.count} organisms · ${c.taxa} taxa · EPT ${c.ept}`); });
+      view.on("pointer-leave", () => hideTip());
+    } catch (err) { if (token === dash.token) el.innerHTML = `<p class="muted" style="padding:14px">The map could not be shown (${esc(mask(err.message || err))}). The points are listed below.</p>`; }
   }
 
   // ---- Lab ----
