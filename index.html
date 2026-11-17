@@ -215,7 +215,10 @@
   .paper tr.gh td{background:#F4F7F6;font-weight:700} .paper tr.tot td{font-weight:700;border-top:2px solid #10242A}
   .paper .pno{position:absolute;bottom:12px;right:38px;font-size:10px;color:var(--muted)}
   .paper .rhd{display:flex;gap:10px;align-items:center;border-bottom:3px solid var(--rail);padding-bottom:6px;margin-bottom:10px;font-size:11px}
-  #p3 td{white-space:nowrap}
+  .paper td,.paper th{white-space:nowrap} .paper th{vertical-align:bottom} .paper th.phs,.paper th.sd,.paper td.ctr{text-align:center} .paper th.phs{background:#E4ECEA}
+  .paper.skip{opacity:.4} .paper .hbi{font-size:9px} .paper td .small,.paper td.small{font-size:.85em}
+  .rsec{display:flex;align-items:center;gap:6px;padding:2px 0} .rgo{border:0;background:none;padding:2px 0;font:inherit;font-size:14px;color:var(--ink);text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+  .rgo:hover{text-decoration-color:var(--ink)}
   .paper .r4{display:grid;grid-template-columns:1fr 1.15fr;gap:12px;align-items:stretch} .paper .r4l{display:flex;flex-direction:column;gap:4px}
   .paper td.dlt{background:#F7F9F8} .paper th.dlt{background:#E4ECEA} .paper .up{color:#1B6E3A} .paper .dn{color:#B3261E}
   .paper .rmap{height:200px;border:1px solid #D3DCDA;border-radius:6px;overflow:hidden;position:relative;background:#EEF2F1}
@@ -230,7 +233,7 @@
     main,.page{margin:0 !important;padding:0 !important;max-width:none !important} .rep{display:block}
     section:not(#p-reports){display:none !important}
     .paper{zoom:1.2;width:680px;max-width:none;height:880px;min-height:0;margin:0;box-shadow:none;break-after:page;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    .paper:last-child{break-after:auto} .paper .baseswitch{display:none !important}
+    .paper.lastinc{break-after:auto} .paper.skip{display:none !important} .paper .baseswitch{display:none !important}
   }
   /* Explore (layout L2) */
   .ex{display:grid;grid-template-columns:250px minmax(0,1fr);gap:14px;align-items:start}
@@ -324,12 +327,9 @@
       <div class="card rchecks">
         <h3><label for="rArea">Site</label></h3><select id="rArea"></select>
         <h3>Sections</h3>
-        <label><input type="checkbox" checked disabled> 1 Cover, summary, map, HBI scale</label>
-        <label><input type="checkbox" checked disabled> 2 Taxa-group summary</label>
-        <label><input type="checkbox" checked disabled> 3 Detailed taxa (by taxon)</label>
-        <label><input type="checkbox" checked disabled> 4 Charts</label>
-        <label><input type="checkbox" checked disabled> 5 Lab results</label>
-        <label><input type="checkbox" id="rEmpty"> List taxa with no count on page 3</label>
+        <p class="small" style="margin:0 0 4px">Click a name to go to its page. Untick a box to leave that page out of the printout, Word copy and Excel tables.</p>
+        <div id="rSecs"></div>
+        <label style="margin-top:8px"><input type="checkbox" id="rEmpty"> List taxa with no count (detailed taxa)</label>
         <div class="btns" style="justify-content:flex-start;flex-wrap:wrap;margin-top:12px">
           <button class="btn pri" type="button" id="rPrint">Print / Save PDF</button>
           <button class="btn" type="button" id="rWord">Word copy</button>
@@ -418,7 +418,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B7a", BUILD_DATE = "16 Nov 2026";
+  const BUILD = "B7b", BUILD_DATE = "16 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -1791,10 +1791,14 @@
   const legend = (el, list) => { el.innerHTML = list.map((s) => `<span><i style="background:${s[2]}"></i>${s[1]}</span>`).join(""); };
   // Vertical bars, one per sample; optional background bands (HBI scale).
   function colChart(el, rows, { max, bands, h = 170 } = {}) {
-    const W = Math.max(200, el.clientWidth || 260), H = h, L = 30, B = 22, T = 8, iw = W - L - (bands ? 62 : 6), ih = H - B - T;
+    const W = Math.max(200, el.clientWidth || 260), H = h, L = 30, B = 22, T = 8, iw = W - L - (bands ? 16 : 6), ih = H - B - T;
     const m = max || Math.max(1, ...rows.map((r) => r.v || 0)) * 1.1, y = (v) => T + ih - (Math.min(v, m) / m) * ih;
     let s = `<svg viewBox="0 0 ${W} ${H}" role="img">`;
-    if (bands) { let lo = 0; for (const [hi, name, col] of bands) { const top = y(Math.min(hi, m)), bot = y(lo); if (lo < m) s += `<rect x="${L}" y="${top}" width="${iw}" height="${bot - top}" fill="${col}" opacity=".09"/>` + (bot - top > 8 ? `<text x="${L + iw + 4}" y="${(top + bot) / 2 + 3}" font-size="9">${name}</text>` : ""); lo = hi; } }
+    if (bands) { let lo = 0; for (const [hi, , col] of bands) { const top = y(Math.min(hi, m)), bot = y(lo); if (lo < m) s += `<rect x="${L}" y="${top}" width="${iw}" height="${bot - top}" fill="${col}" opacity=".09"/>`; lo = hi; }
+      // the scale's two ends, written along the right edge: "Excellent" (blue) at the bottom, "Very poor" (red) at the top
+      const xl = L + iw + 10, lowCol = bands[0][2], highCol = bands[bands.length - 1][2];
+      s += `<text transform="translate(${xl},${T + ih}) rotate(-90)" font-size="8" font-weight="600" style="fill:${lowCol}" text-anchor="start">${bands[0][1]}</text>`
+        + `<text transform="translate(${xl},${T}) rotate(-90)" font-size="8" font-weight="600" style="fill:${highCol}" text-anchor="end">${bands[bands.length - 1][1]}</text>`; }
     s += `<g class="grid">` + niceTicks(m).map((t) => `<line x1="${L}" x2="${L + iw}" y1="${y(t)}" y2="${y(t)}"/><text x="${L - 4}" y="${y(t) + 4}" text-anchor="end">${fmt(t, t % 1 ? 1 : 0)}</text>`).join("") + `</g>`;
     const n = rows.length, slot = iw / Math.max(n, 1), bw = Math.min(30, slot * 0.55);
     rows.forEach((r, i) => { const x = L + i * slot + (slot - bw) / 2, top = y(r.v || 0), hgt = Math.max(0, T + ih - top);
@@ -1967,12 +1971,35 @@
   // ==========================================================================================
   // B7: Reports (layout L2). Five Letter pages per site, organised by taxa; every figure from calcTotals.
   // ==========================================================================================
-  const rp = { area: null, empty: false, wired: false, view: null };
+  const rp = { area: null, empty: false, wired: false, view: null, skip: new Set() };
   const logoSrc = () => (document.querySelector('img[alt="Washington County Conservation District"]') || {}).src || "";
-  // Shrink a page's tables until the page fits one Letter page (880 px tall in the preview), never below 6.5 px.
-  function fitPage(p) { let f = 10.5; const tbs = [...p.querySelectorAll("table")];
-    while (p.scrollHeight > 882 && f > 6.5) { f -= 0.25; for (const tb of tbs) { tb.style.fontSize = f + "px"; tb.querySelectorAll("td,th").forEach((c) => { c.style.paddingTop = c.style.paddingBottom = f < 9 ? "0.5px" : "1px"; c.style.paddingLeft = c.style.paddingRight = f < 8 ? "3px" : "5px"; c.style.lineHeight = "1.15"; }); } }
+  // Shrink a page's tables until the page fits one Letter page (880 px tall, 680 px wide in the preview), never below `min` px.
+  const overflows = (p) => p.scrollHeight > 882 || p.scrollWidth > p.clientWidth + 1;
+  function fitPage(p, min = 6.5) { let f = 10.5; const tbs = [...p.querySelectorAll("table")];
+    for (const tb of tbs) { tb.style.fontSize = ""; tb.querySelectorAll("td,th").forEach((c) => { c.style.padding = ""; c.style.lineHeight = ""; }); }   // start from full size each time
+    while (overflows(p) && f > min) { f -= 0.25; for (const tb of tbs) { tb.style.fontSize = f + "px"; tb.querySelectorAll("td,th").forEach((c) => { c.style.paddingTop = c.style.paddingBottom = f < 9 ? "0.5px" : "1px"; c.style.paddingLeft = c.style.paddingRight = f < 8 ? "3px" : "5px"; c.style.lineHeight = "1.15"; }); } }
     return f; }
+  // Sections: each name jumps to its page; its box includes the page in (or leaves it out of) the printout, Word copy and Excel tables.
+  const SECS = [["cover", "Cover, summary, map, HBI scale"], ["groups", "Taxa-group summary"], ["taxa", "Detailed taxa (by taxon)"], ["charts", "Charts"], ["lab", "Lab results"]];
+  function reportSections() {
+    const papers = [...document.querySelectorAll("#pages .paper")];
+    $("rSecs").innerHTML = SECS.map(([k, label], i) => { const n = papers.filter((p) => p.dataset.sec === k).length;
+      return `<div class="rsec"><input type="checkbox" id="rs-${k}" data-sec="${k}"${rp.skip.has(k) ? "" : " checked"} aria-label="Include ${label} in the printout">
+        <button type="button" class="rgo" data-go="${k}" title="Go to this page">${i + 1} ${label}${n > 1 ? ` <span class="small">(${n} pages)</span>` : ""}</button></div>`; }).join("");
+    $("rSecs").querySelectorAll("[data-go]").forEach((b) => b.onclick = () => { const p = papers.find((x) => x.dataset.sec === b.dataset.go); if (p) p.scrollIntoView({ behavior: "smooth", block: "start" }); });
+    $("rSecs").querySelectorAll("input[data-sec]").forEach((c) => c.onchange = () => {
+      if (!c.checked && SECS.filter(([k]) => !rp.skip.has(k)).length <= 1) { c.checked = true; return; }   // keep at least one section
+      if (c.checked) rp.skip.delete(c.dataset.sec); else rp.skip.add(c.dataset.sec); renumber(); });
+    renumber();
+  }
+  function renumber() {
+    const papers = [...document.querySelectorAll("#pages .paper")];
+    papers.forEach((p) => p.classList.toggle("skip", rp.skip.has(p.dataset.sec)));
+    const inc = papers.filter((p) => !p.classList.contains("skip"));
+    papers.forEach((p) => { p.classList.remove("lastinc"); const i = inc.indexOf(p), no = p.querySelector(".pno");
+      if (no) no.textContent = i < 0 ? "Left out of the printout (tick it on the left to include it)" : `Page ${i + 1} of ${inc.length}${p.dataset.note ? " · " + p.dataset.note : ""}`; });
+    if (inc.length) inc[inc.length - 1].classList.add("lastinc");
+  }
   function drawReports() {
     $("ptitle").textContent = "Reports";
     const sites = exSites();
@@ -1993,7 +2020,10 @@
     const c = (i, f) => sts[i] ? f(sts[i], sm[i]) : "–";
     const lab = a.lab, lv = (f) => lab ? att(lab.L, lab.row, f) : undefined, mv = (ph, f) => a[ph] ? att(a[ph].main.L, a[ph].main.row, f) : undefined;
     const head = (t) => `<div class="rhd"><img src="${logo}" width="34" height="34" alt=""><div><b>Washington County Conservation District</b> · Watershed Monitoring Report<br>${esc(a.id)} · ${esc(a.stream || "")}</div></div><h2>${t}</h2>`;
-    const colHead = `<tr><th></th>${S4.map((s) => `<th><span class="sw2" style="background:${s[2]}"></span>${s[1]}</th>`).join("")}</tr>`;
+    // Grouped headers: Pre-construction / Post-construction over Downstream / Upstream (nothing wraps mid-word).
+    const sideTh = (s, span = 1) => `<th${span > 1 ? ` colspan="${span}"` : ""} class="sd"><span class="sw2" style="background:${s[2]}"></span>${s[0].endsWith("down") ? "Downstream" : "Upstream"}</th>`;
+    const phaseThs = (span) => `<th colspan="${2 * span}" class="phs">Pre-construction</th><th colspan="${2 * span}" class="phs">Post-construction</th>`;
+    const colHead = `<tr><th rowspan="2"></th>${phaseThs(1)}</tr><tr>${S4.map((s) => sideTh(s)).join("")}</tr>`;
     const hbiCell = (x) => { const r = rating(x.avg); return r ? `<span class="hbi" style="background:${r[2]}">${r[1]}</span>` : "–"; };
     // Change columns: Post − Pre for the downstream pair (samples 0 → 2) and the upstream pair (1 → 3). For Avg HILS, lower is better (green).
     const signed = (v, d = 0) => v > 0 ? "+" + fmt(v, d) : v < 0 ? "−" + fmt(-v, d) : fmt(0, d);
@@ -2004,7 +2034,7 @@
     const dSub = `<th class="dlt">Down</th><th class="dlt">Up</th>`;
     const siteLine = ["pre", "post"].map((ph) => a[ph] ? `${PH[ph]} sampled ${dayText(a[ph].date)}${a[ph].site && a[ph].site !== a.stream ? ` (${esc(a[ph].site)})` : ""}` : `${PH[ph]}: not sampled yet`).join(" · ");
     const today = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-    const p1 = `<div class="paper"><div class="rhd" style="font-size:12px"><img src="${logo}" width="48" height="48" alt=""><div><b>Washington County Conservation District</b><br>Watershed Monitoring Report</div></div>
+    const p1 = `<div class="paper" data-sec="cover"><div class="rhd" style="font-size:12px"><img src="${logo}" width="48" height="48" alt=""><div><b>Washington County Conservation District</b><br>Watershed Monitoring Report</div></div>
       <h1>${esc(a.stream || "")} · ${esc(a.id)}</h1><p>${siteLine}</p>
       <h3>Summary (macroinvertebrates)</h3><table>${colHead}
       <tr><td>Organisms</td>${S4.map((_, i) => `<td>${c(i, (x) => x.count)}</td>`).join("")}</tr><tr><td>Taxa present</td>${S4.map((_, i) => `<td>${c(i, (x) => x.taxa)}</td>`).join("")}</tr>
@@ -2020,13 +2050,12 @@
     let rows2 = "";
     for (const g of GROUPS) { const gs = sm.map((s) => s ? groupStats(s, g) : null); if (!showEmpty && !gs.some((x) => x && x.count)) continue;
       rows2 += `<tr><td>${esc(g[1])}${isEPT(g[2]) ? " (EPT)" : ""}</td>${gs.map((x) => x ? `<td>${x.count || "–"}</td><td>${x.taxa || "–"}</td><td>${x.index || "–"}</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}${dPair((i) => gs[i].count)}</tr>`; }
-    const p2 = `<div class="paper" id="p2">${head("Taxa-group summary")}<p class="small">Count, number of taxa and index (count × HILS) for each taxa group. The last two columns give the change in count from Pre- to Post-construction at the same location; for Avg HILS a fall (green) means better water quality. ${showEmpty ? "" : "Groups with no organisms in any sample are left out."}</p>
-      <table><tr><th rowspan="2">Taxa group</th>${S4.map((s) => `<th colspan="3" style="text-align:center"><span class="sw2" style="background:${s[2]}"></span>${s[1]}</th>`).join("")}${dHead("(count)")}</tr><tr>${S4.map(() => `<th>Count</th><th>Taxa</th><th>Index</th>`).join("")}${dSub}</tr>${rows2}
+    const p2 = `<div class="paper" id="p2" data-sec="groups">${head("Taxa-group summary")}<p class="small">Count, number of taxa and index (count × HILS) for each taxa group. "Post − Pre" is the change from Pre- to Post-construction at the same location; for Avg HILS a fall (green) means better water quality. ${showEmpty ? "" : "Groups with no organisms in any sample are left out."}</p>
+      <table><tr><th rowspan="3">Taxa group</th>${phaseThs(3)}<th colspan="2" rowspan="2" class="dlt phs">Post − Pre</th></tr><tr>${S4.map((s) => sideTh(s, 3)).join("")}</tr><tr>${S4.map(() => `<th>Count</th><th>Taxa</th><th>Index</th>`).join("")}${dSub}</tr>${rows2}
       ${sm.some((s) => s && s.other) ? `<tr><td>Total Other Taxa (no HILS)</td>${sm.map((s) => s ? `<td>${s.other || "–"}</td><td>–</td><td>–</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}${dPair((i) => sm[i].other || 0)}</tr>` : ""}
       <tr class="tot"><td>All groups</td>${sts.map((x) => x ? `<td>${x.count}</td><td>${x.taxa}</td><td>${x.index}</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}${dPair((i) => sts[i].count)}</tr>
-      <tr><td>Avg HILS · EPT taxa</td>${sts.map((x) => `<td colspan="3" style="text-align:center">${x ? `${fmt(x.avg, 2)}${rating(x.avg) ? " (" + rating(x.avg)[1] + ")" : ""} · EPT ${x.ept}` : "not sampled"}</td>`).join("")}<td colspan="2" class="dlt"></td></tr>
-      <tr><td>Change in Avg HILS</td><td colspan="12" class="small" style="text-align:left">Post − Pre</td>${dPair((i) => sts[i].avg, 2, true)}</tr>
-      <tr><td>Change in EPT taxa</td><td colspan="12" class="small" style="text-align:left">Post − Pre</td>${dPair((i) => sts[i].ept)}</tr></table><span class="pno">Page 2 of 5</span></div>`;
+      <tr><td>Avg HILS</td>${sts.map((x) => `<td colspan="3" class="ctr">${x ? `${fmt(x.avg, 2)} ${hbiCell(x)}` : "not sampled"}</td>`).join("")}${dPair((i) => sts[i].avg, 2, true)}</tr>
+      <tr><td>EPT taxa</td>${sts.map((x) => `<td colspan="3" class="ctr">${x ? x.ept : "–"}</td>`).join("")}${dPair((i) => sts[i].ept)}</tr></table><span class="pno"></span></div>`;
     // page 3: every taxon, fitted to one page
     const blocks = [];
     for (const g of GROUPS) { const body = [];
@@ -2034,43 +2063,53 @@
         body.push(`<tr><td>${n}. ${esc(TAXON[n - 1])}</td><td>${h}</td>${vs.map((v) => `<td>${v || "–"}</td><td>${v ? Math.round(v * h) : "–"}</td>`).join("")}${dPair((i) => vs[i] || 0)}</tr>`); }
       if (body.length) blocks.push([`<tr class="gh"><td colspan="12">${esc(g[1])}${isEPT(g[2]) ? " (EPT)" : ""}</td></tr>`, ...body]); }
     if (sm.some((s) => s && s.other)) blocks.push([`<tr class="gh"><td colspan="12">Other</td></tr>`, `<tr><td>Total Other Taxa</td><td>–</td>${sm.map((s) => `<td>${s && s.other ? s.other : "–"}</td><td>–</td>`).join("")}${dPair((i) => sm[i].other || 0)}</tr>`]);
-    const thead3 = `<tr><th rowspan="2">Taxon</th><th rowspan="2">HILS</th>${S4.map((s) => `<th colspan="2" style="text-align:center">${s[1].replace(" · ", "<br>")}</th>`).join("")}${dHead("(count)")}</tr><tr>${S4.map(() => `<th>Cnt</th><th>Idx</th>`).join("")}<th class="dlt">↓</th><th class="dlt">↑</th></tr>`;
+    const thead3 = `<tr><th rowspan="3">Taxon</th><th rowspan="3">HILS</th>${phaseThs(2)}<th colspan="2" rowspan="2" class="dlt phs">Post − Pre</th></tr><tr>${S4.map((s) => sideTh(s, 2)).join("")}</tr><tr>${S4.map(() => `<th>Count</th><th>Index</th>`).join("")}${dSub}</tr>`;
     const totRow = `<tr class="tot"><td>Totals</td><td></td>${sts.map((x) => x ? `<td>${x.count}</td><td>${x.index}</td>` : `<td>–</td><td>–</td>`).join("")}${dPair((i) => sts[i].count)}</tr>`;
     const table3 = (bl, withTot) => `<table>${thead3}${bl.flat().join("")}${withTot ? totRow : ""}</table>`;
-    const p3 = `<div class="paper" id="p3">${head("Detailed taxa")}<p class="small">${showEmpty ? "Every taxon on the WCCD sheet" : "Every taxon found"}, with its HILS, count and index for each sample, and the change in count from Pre- to Post-construction downstream (↓) and upstream (↑).</p><div id="p3body">${blocks.length ? table3(blocks, true) : "<p>No taxa counted yet.</p>"}</div><span class="pno">Page 3 of 5</span></div>`;
+    const p3intro = `<p class="small">${showEmpty ? "Every taxon on the WCCD sheet" : "Every taxon found"}, with its HILS, count and index for each sample, and the change in count from Pre- to Post-construction at the same location (Post − Pre).</p>`;
+    const p3 = `<div class="paper" id="p3" data-sec="taxa">${head("Detailed taxa")}${p3intro}<div id="p3body">${blocks.length ? table3(blocks, true) : "<p>No taxa counted yet.</p>"}</div><span class="pno"></span></div>`;
     // page 4: charts (the Explore summary charts, all samples)
-    const p4 = `<div class="paper">${head("Charts")}<div class="clegend">${S4.filter((_, i) => sm[i]).map((s) => `<span><i style="background:${s[2]}"></i>${s[1]}</span>`).join("")}</div>
+    const p4 = `<div class="paper" data-sec="charts">${head("Charts")}<div class="clegend">${S4.filter((_, i) => sm[i]).map((s) => `<span><i style="background:${s[2]}"></i>${s[1]}</span>`).join("")}</div>
       <div class="r4"><div class="r4l"><div class="chart"><h3>Avg HILS</h3><div class="sub">lower is better · bands = HBI rating</div><div id="rcHils"></div></div><div class="chart"><h3>Organisms counted</h3><div id="rcCount"></div></div>
         <div class="chart"><h3>Taxa present</h3><div id="rcTaxa"></div></div><div class="chart"><h3>EPT taxa</h3><div id="rcEpt"></div></div></div>
-      <div class="chart r4r"><h3>Organisms by taxa group</h3><div class="sub">count per sample</div><div id="rcGrp"></div></div></div><span class="pno">Page 4 of 5</span></div>`;
+      <div class="chart r4r"><h3>Organisms by taxa group</h3><div class="sub">count per sample</div><div id="rcGrp"></div></div></div><span class="pno"></span></div>`;
     // page 5: lab results, with the certificate details
     const lp = (ph, sd, t) => { const v = lv(labField(ph, sd, t)), p = lv(labField(ph, sd, "Prefix" + PFXCODE[t])) || ""; return nb(v) ? "–" : esc(p + v); };
     const labDelta = (t) => ["down", "up"].map((sd) => { const a0 = lv(labField("pre", sd, t)), b0 = lv(labField("post", sd, t)), pa = lv(labField("pre", sd, "Prefix" + PFXCODE[t])), pb = lv(labField("post", sd, "Prefix" + PFXCODE[t]));
       if (nb(a0) || nb(b0)) return `<td class="dlt">–</td>`; if (pa || pb) return `<td class="dlt small">limit</td>`;
       const dec = Math.max(...[a0, b0].map((x) => (String(x).split(".")[1] || "").length)); return `<td class="dlt">${signed(Number(b0) - Number(a0), Math.min(dec, 3))}</td>`; }).join("");
-    const info = (k) => S4.map((s) => { const [ph, sd] = s[0].split("_"), x = lv(labField(ph, sd, k)); return `<td>${k === "DateTime" ? (nb(x) ? "–" : whenText(x)) : k === "Lat" ? (nb(x) ? "–" : `${pt6(x)}, ${pt6(lv(labField(ph, sd, "Lon")))}`) : esc(nb(x) ? "–" : x)}</td>`; }).join("");
+    // dates and coordinates break where they should: date / time, latitude / longitude
+    const dt2 = (ms) => { const d = new Date(ms); return `${d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}<br>${d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}`; };
+    const info = (k) => S4.map((s) => { const [ph, sd] = s[0].split("_"), x = lv(labField(ph, sd, k)); return `<td>${k === "DateTime" ? (nb(x) ? "–" : dt2(x)) : k === "Lat" ? (nb(x) ? "–" : `${pt6(x)}<br>${pt6(lv(labField(ph, sd, "Lon")))}`) : esc(nb(x) ? "–" : x)}</td>`; }).join("");
     const cert = ["pre", "post"].map((ph) => a[ph] ? `${PH[ph]}: ${esc(mv(ph, "laboratory_name") || "laboratory not entered")}, received ${dayText(mv(ph, "received_on"))}, reported ${dayText(mv(ph, "reported_on"))}` : "").filter(Boolean).join("<br>");
     const notes = ["Pre", "Post"].map((P0) => { const n = lv(P0 + "LabNotes"); return nb(n) ? "" : `<b>${P0}-construction notes:</b> ${esc(n)}`; }).filter(Boolean).join("<br>");
-    const p5 = `<div class="paper">${head("Lab results")}${!lab ? `<p>No lab results have been entered for this site yet.</p>` : `<p class="small">${cert}</p>
-      <table>${colHead}<tr><td>Lab sample ID</td>${info("LabSampleID")}</tr><tr><td>Collected by</td>${info("CollectedBy")}</tr><tr><td>Collected on</td>${info("DateTime")}</tr><tr><td>Lab sample coordinates</td>${info("Lat")}</tr></table>
-      <h3>Results</h3><table><tr><th rowspan="2">Test</th><th rowspan="2">Units</th>${S4.map((s) => `<th rowspan="2">${s[1]}</th>`).join("")}${dHead("")}</tr><tr>${dSub}</tr>${LABTESTS.map((t) => `<tr><td>${LABNAMES[t]}</td><td>${LABUNITS[t]}</td>${S4.map((s) => { const [ph, sd] = s[0].split("_"); return `<td>${lp(ph, sd, t)}</td>`; }).join("")}${labDelta(t)}</tr>`).join("")}</table>
-      <p class="small">"&lt;" = below the lab's reporting limit, "&gt;" = above its upper limit; a change involving such a value is shown as "limit", because the true value is not known. Acidity is negative when the sample is alkaline.</p>${notes ? `<p class="small" style="margin-top:8px">${notes}</p>` : ""}`}<span class="pno">Page 5 of 5</span></div>`;
+    const p5 = `<div class="paper" data-sec="lab">${head("Lab results")}${!lab ? `<p>No lab results have been entered for this site yet.</p>` : `<p class="small">${cert}</p>
+      <table>${colHead}<tr><td>Lab sample ID</td>${info("LabSampleID")}</tr><tr><td>Collected by</td>${info("CollectedBy")}</tr><tr><td>Collected on</td>${info("DateTime")}</tr><tr><td>Coordinates<br><span class="small">latitude, longitude</span></td>${info("Lat")}</tr></table>
+      <h3>Results</h3><table><tr><th rowspan="2">Test</th><th rowspan="2">Units</th>${phaseThs(1)}<th colspan="2" class="dlt phs">Post − Pre</th></tr><tr>${S4.map((s) => sideTh(s)).join("")}${dSub}</tr>${LABTESTS.map((t) => `<tr><td>${LABNAMES[t]}</td><td>${LABUNITS[t]}</td>${S4.map((s) => { const [ph, sd] = s[0].split("_"); return `<td>${lp(ph, sd, t)}</td>`; }).join("")}${labDelta(t)}</tr>`).join("")}</table>
+      <p class="small">"&lt;" = below the lab's reporting limit, "&gt;" = above its upper limit; a change involving such a value is shown as "limit", because the true value is not known. Acidity is negative when the sample is alkaline.</p>${notes ? `<p class="small" style="margin-top:8px">${notes}</p>` : ""}`}<span class="pno"></span></div>`;
     $("pages").innerHTML = p1 + p2 + p3 + p4 + p5;
-    fitPage($("p2"));   // page 2 shrinks to one page the same way
-    // page 3 fitting: shrink, and if still too long, two tables side by side split between groups
-    const pg3 = $("p3"); let f = fitPage(pg3), cols = 1;
-    if (pg3.scrollHeight > 882 && blocks.length > 1) {
-      const total = blocks.reduce((t, b) => t + b.length, 0); let acc = 0, cut = blocks.length;
-      for (let i = 0; i < blocks.length; i++) { acc += blocks[i].length; if (acc >= total / 2) { cut = i + 1; break; } }
-      $("p3body").innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">${table3(blocks.slice(0, cut), false)}${table3(blocks.slice(cut), true)}</div>`;
-      f = fitPage(pg3); cols = 2; }
-    pg3.querySelector(".pno").textContent = `Page 3 of 5 · fitted to one page${cols === 2 ? ", two columns" : ""} (printed text about ${(f * 72 / 80).toFixed(1)} pt)`;
+    for (const p of document.querySelectorAll("#pages .paper:not(#p3)")) fitPage(p);   // any page whose tables run long shrinks to fit (most need nothing)
+    // page 3: one page if it stays readable (about 8 pt or more); otherwise two pages, split between taxa groups
+    const pg3 = $("p3"); let f = fitPage(pg3, 9);
+    if (overflows(pg3) && blocks.length > 1) {
+      // split the rows evenly (the first page also holds the introduction); a group cut in two repeats its name on the next page
+      const rows = blocks.flatMap((b) => b.map((html, j) => ({ html, head: b[0], first: j === 0 }))), cut = Math.max(1, Math.round(rows.length / 2) - 1);
+      let k = cut; if (rows[k] && rows[k].first) k = cut; else if (rows[k - 1] && rows[k - 1].first) k = cut - 1;   // never leave a group name alone at the bottom
+      const partA = rows.slice(0, k).map((r) => r.html), restRows = rows.slice(k);
+      const partB = restRows.length && !restRows[0].first ? [restRows[0].head.replace(/(<td[^>]*>)(.*?)(<\/td>)/, "$1$2 (continued)$3"), ...restRows.map((r) => r.html)] : restRows.map((r) => r.html);
+      $("p3body").innerHTML = table3([partA], false);
+      pg3.insertAdjacentHTML("afterend", `<div class="paper" id="p3b" data-sec="taxa">${head("Detailed taxa (continued)")}<div>${table3([partB], true)}</div><span class="pno"></span></div>`);
+      f = fitPage(pg3); const fb = fitPage($("p3b"));
+      $("p3b").dataset.note = `printed text about ${(fb * 72 / 80).toFixed(1)} pt`;
+    }
+    pg3.dataset.note = `printed text about ${(f * 72 / 80).toFixed(1)} pt`;
+    reportSections();
     // page 4 charts
     const ss = S4.filter((_, i) => sm[i]), mk = (fn, d, label) => ss.map((s) => { const x = smp(a, s[0]).calc, v = fn(x); return { v, hex: s[2], short: SHORT[s[0]], tip: `${swatch(s[2])}<b>${s[1]}</b><br>${label}: <b>${fmt(v, d)}</b>` }; });
     if (ss.length) {
       // left column: the four bar charts stacked; right column: the group chart, as tall as the four together
-      colChart($("rcHils"), mk((x) => x.avg, 2, "Avg HILS"), { max: 10, bands: RATE, h: 130 }); colChart($("rcCount"), mk((x) => x.count, 0, "Organisms"), { h: 130 });
-      colChart($("rcTaxa"), mk((x) => x.taxa, 0, "Taxa present"), { h: 130 }); colChart($("rcEpt"), mk((x) => x.ept, 0, "EPT taxa"), { h: 130 });
+      colChart($("rcHils"), mk((x) => x.avg, 2, "Avg HILS"), { max: 10, bands: RATE, h: 160 }); colChart($("rcCount"), mk((x) => x.count, 0, "Organisms"), { h: 125 });
+      colChart($("rcTaxa"), mk((x) => x.taxa, 0, "Taxa present"), { h: 125 }); colChart($("rcEpt"), mk((x) => x.ept, 0, "EPT taxa"), { h: 125 });
       const cats = GROUPS.map((g) => { const vals = {}; for (const s of ss) vals[s[0]] = groupStats(smp(a, s[0]), g).count;
         return { key: g[0], label: g[1].split(" – ")[0].replace(" & Alderflies", ""), vals, any: ss.some((s) => vals[s[0]] > 0), tip: `<b>${esc(g[1])}</b>` }; }).filter((x) => x.any);
       const left = document.querySelector(".r4l"), right = $("rcGrp"), Hpx = left.getBoundingClientRect().height - 40;   // minus the chart's own title
@@ -2129,11 +2168,12 @@
     const a = model.find((x) => x.id === rp.area); if (!a) return;
     const msg = $("rMsg"), old = msg.innerHTML; msg.innerHTML = '<span class="spin"></span>Preparing the file…';
     const pages = $("pages").cloneNode(true), live = $("pages");
+    pages.querySelectorAll(".paper.skip").forEach((p) => p.remove());   // left-out sections stay out of the files too
     const style = `body{font-family:Arial,sans-serif;font-size:10pt;color:#10242A} table{border-collapse:collapse;margin:4pt 0 10pt} td,th{border:1px solid #9FB0AD;padding:2pt 5pt;font-size:9pt;text-align:right} td:first-child,th:first-child{text-align:left} th{background:#EEF2F1} tr.gh td{background:#F4F7F6;font-weight:bold} tr.tot td{font-weight:bold} h1{font-size:20pt} h2{font-size:15pt;margin-top:18pt} h3{font-size:11pt} .small{font-size:8pt;color:#47606A} .hbi{color:#fff;padding:0 4pt}`;
     const name = `${a.id} ${a.stream || ""} report`.trim().replace(/[^\w .-]+/g, "");
     if (kind === "word") {
       const url = await reportMapPng(); const m = pages.querySelector("#rMap"); if (m) m.outerHTML = url ? `<img src="${url}" width="600" alt="Map of the sample points">` : "";
-      const liveSvgs = live.querySelectorAll(".chart svg"), copySvgs = pages.querySelectorAll(".chart svg");
+      const liveSvgs = live.querySelectorAll(".paper:not(.skip) .chart svg"), copySvgs = pages.querySelectorAll(".chart svg");
       for (let i = 0; i < liveSvgs.length; i++) { const png = await svgToPng(liveSvgs[i]); copySvgs[i].outerHTML = png ? `<img src="${png.url}" width="${Math.min(600, png.w)}" alt="chart">` : ""; }
       pages.querySelectorAll(".pno").forEach((x) => x.remove()); pages.querySelectorAll(".rhd img").forEach((x) => x.setAttribute("width", "40"));
       const html = [...pages.querySelectorAll(".paper")].map((p, i) => (i ? `<br clear="all" style="page-break-before:always">` : "") + p.innerHTML).join("");
