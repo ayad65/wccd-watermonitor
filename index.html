@@ -237,6 +237,38 @@
   .paper .chart{border:0;padding:0} .paper .chartgrid{grid-template-columns:1fr 1fr;gap:10px}
   .paper .chart h3{font-size:13px;margin:6px 0 0}
   .paper .sw2{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:0}
+  /* B20: the report in the new design's colours, on white Letter pages (680 × 880 preview; 0.6 in side margins) */
+  .paper.rp20{padding:0;font:11px/1.4 "Public Sans",system-ui,sans-serif;color:#142019}
+  .rp20 .rphd{position:absolute;left:48px;right:48px;top:34px;display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:3px solid #C8E35A}
+  .rp20 .rphd b{display:block;font:700 14px "Barlow Semi Condensed",sans-serif} .rp20 .rphd span{display:block;font-size:10px;color:#5B6B5F}
+  .rp20 .rphd-r{margin-left:auto;text-align:right} .rp20 .rphd-r b{font:700 10.5px "Public Sans",sans-serif}
+  .rp20 .rpbody{position:absolute;left:48px;right:48px;top:96px;bottom:46px;overflow:hidden}
+  .rp20 .rpfoot{position:absolute;left:48px;right:48px;bottom:18px;display:flex;justify-content:space-between;gap:10px;font-size:9px;color:#5B6B5F;border-top:1px solid #DCE4D8;padding-top:5px}
+  .rp20 .rpfoot .pno{position:static;font-size:9px;color:#5B6B5F;white-space:nowrap}
+  .rp20 h1.rpt{font:700 30px/1.1 "Barlow Semi Condensed",sans-serif;margin:0} .rp20 .rpsub{font-size:11px;color:#5B6B5F;margin-top:2px}
+  .rp20 .rstat{margin-left:6px;padding:1px 8px;border-radius:999px;background:#E6EEDA;color:#142019;font-weight:700;font-size:9.5px} .rp20 .rstat.on{background:#C8E35A;color:#0B0F0C}
+  .rp20 h3.rph{font:700 17px "Barlow Semi Condensed",sans-serif;margin:12px 0 5px} .rp20 h3.rph span{font:400 10px "Public Sans",sans-serif;color:#5B6B5F;margin-left:8px}
+  .rp20 .rsw{display:inline-block;border-radius:50%;border:1px solid rgba(20,32,25,.55);vertical-align:-1px;margin-right:4px}
+  .rp20 .rhbi{display:inline-block;padding:1px 7px;border-radius:999px;color:#0B0F0C;font-size:9.5px;font-weight:700}
+  .rp20 .rcards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px} .rp20 .rcard{border:1px solid #DCE4D8;border-top:5px solid;border-radius:8px;padding:8px 9px}
+  .rp20 .rcard-t{font-size:10px;font-weight:700} .rp20 .rcard-d{font-size:9.5px;color:#5B6B5F} .rp20 .rcard-n{font:700 28px/1.05 "Barlow Semi Condensed",sans-serif;margin-top:4px}
+  .rp20 .rdumb{display:flex;align-items:center;gap:8px;font-size:10px} .rp20 .rdumb-l{width:84px;flex:none;color:#5B6B5F} .rp20 .rdumb-l b{color:#142019} .rp20 .rdumb-x{color:#5B6B5F;padding:6px 0}
+  .rp20 .up{color:#2E7D32} .rp20 .dn{color:#B3261E}
+  .rp20 .rmap{height:262px;border:1px solid #DCE4D8;border-radius:8px;overflow:hidden;position:relative;background:#2E3F28}
+  .rp20 .rmapnote{font-size:9.5px;color:#5B6B5F;margin-top:5px;display:grid;grid-template-columns:1fr 1fr;gap:2px 14px}
+  .rp20 table.rt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:10px}
+  .rp20 .rt th,.rp20 .rt td{border:0;border-bottom:1px solid #DCE4D8;padding:3px 5px;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rp20 .rt th{background:#fff;font-weight:600;vertical-align:bottom} .rp20 .rt th.phs{background:#E6EEDA;text-align:center} .rp20 .rt th.sd{text-align:center;font-size:8.5px;padding-left:2px;padding-right:2px;text-overflow:clip}
+  .rp20 .rt td:first-child,.rp20 .rt th:first-child{text-align:left}
+  .rp20 .rt td.dlt,.rp20 .rt th.dlt{background:#F3F7EE} .rp20 .rt th.phs.dlt{background:#EDF3E3} .rp20 .rt td.dlt.up{color:#2E7D32;font-weight:700} .rp20 .rt td.dlt.dn{color:#B3261E;font-weight:700}
+  .rp20 .rt tr.tot td{font-weight:700;border-top:2px solid #142019}
+  .rp20 .rt tr.gh td{background:#E6EEDA;font-weight:700;padding-top:4px;text-align:left} .rp20 .rt tr.gh td span{font-weight:400;color:#5B6B5F}
+  .rp20 .rtx{font-size:10.5px} .rp20 .rmu{color:#5B6B5F} .rp20 .rsm{font-size:9.5px;color:#5B6B5F} .rp20 .rept{font-size:8.5px;font-weight:700;color:#6E8F12}
+  .rp20 .rcharts{display:grid;grid-template-columns:300px minmax(0,1fr);gap:14px;align-items:start} .rp20 .rminis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+  .rp20 .rch{font-size:10px;font-weight:700} .rp20 .rch span{font-weight:400;color:#5B6B5F} .rp20 .chart{border:0;padding:0}
+  .rp20 .rscale{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;font-size:9.5px;text-align:center} .rp20 .rscale i{display:block;height:12px;border-radius:3px} .rp20 .rscale b{display:block} .rp20 .rscale span{color:#5B6B5F}
+  .rp20 .rcerts{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:10px} .rp20 .rcert{border:1px solid #DCE4D8;border-left:4px solid;border-radius:6px;padding:6px 9px}
+  .rp20 .baseswitch button.on{background:#1F3A2A}
   @page{size:letter;margin:0}
   @media print{
     body{background:#fff} .rail,header.top,#status,footer.build,.rchecks,.back,#tip,.ovl{display:none !important}
@@ -400,6 +432,14 @@
   @media (max-width:1100px){ .dsp-g4{grid-template-columns:1fr 1fr} .dsp-g2,.dsp-g2.even{grid-template-columns:1fr} .dsp-tabs{margin-left:0;width:100%} }
   @media (max-width:640px){ .dsp-main{margin-left:0;padding:12px 16px 24px} .dsp-g4{grid-template-columns:1fr} .dbar{grid-template-columns:96px minmax(0,1fr) 30px} }
   /* B13: dashboard editors (light "paper" forms) */
+  /* B20: Save / Cancel sit at the end of the form they finish, in a bar that stays in view at the bottom of that panel */
+  .dbar{position:sticky;bottom:12px;z-index:6;margin:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-radius:14px;background:#fff;color:#142019;border:2px solid var(--acc);box-shadow:0 0 0 4px rgba(200,227,90,.18),0 -6px 20px rgba(0,0,0,.22)}
+  .dbar-st{flex:1;min-width:160px;font-size:12.5px;color:#5B6B5F} .dbar-st .bad{color:#C2410C} .dbar-st b{color:#142019}
+  .dbar .dbtn{background:#fff;color:#142019;border-color:#C9D3C4;font-size:13px;padding:7px 14px} .dbar .dbtn:hover{border-color:#1F3A2A}
+  .dash .dbar .btnp{background:#1F3A2A;border-color:#1F3A2A;color:#fff;padding:8px 16px;font-size:13.5px}
+  .dn-form .dbar{margin:12px 0 0}
+  .dpaper:has(.dbar){overflow:clip}   /* overflow:hidden would stop the bar from sticking */ #dash .dbar .dbar-st{text-align:left}
+  @media (max-width:640px){ .dbar{bottom:70px} .dbar .btnp{flex:1;justify-content:center} }
   .de-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px} .de-head h2{font-size:28px;margin:2px 0 0} .de-btns{margin-left:auto;display:flex;gap:8px;align-items:center}
   .de-sides{font-size:13px} .dash .btnp{cursor:pointer;font:inherit;font-weight:700} .dash .btnp:disabled{opacity:.45;cursor:not-allowed;filter:none}
   .de-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start} .de-grid.lab{grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr)}
@@ -447,15 +487,15 @@
   .dlf label{display:block;font-size:11px;color:#5B6B5F;margin-bottom:3px} .dsd{font-size:12px;color:#5B6B5F;padding-bottom:9px}
   .dtx{width:100%;height:34px;border-radius:9px;border:1px solid #D6DFD3;background:#fff;padding:0 10px;font:inherit;font-size:13.5px;color:#142019}
   .dta{width:100%;min-height:64px;border-radius:9px;border:1px solid #D6DFD3;background:#fff;padding:8px 10px;font:inherit;font-size:13.5px;color:#142019;resize:vertical}
-  .dlt{display:grid;grid-template-columns:140px 92px minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:center;padding:4px 14px;border-top:1px solid #DDE5DA;font-size:13.5px}
-  .dlt .u{font-size:12px;color:#5B6B5F} .dlth{font-size:11px;color:#5B6B5F;text-transform:uppercase;letter-spacing:.05em;border-top:0}
+  .dlrow{display:grid;grid-template-columns:140px 92px minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:center;padding:4px 14px;border-top:1px solid #DDE5DA;font-size:13.5px}
+  .dlrow .u{font-size:12px;color:#5B6B5F} .dlrowh{font-size:11px;color:#5B6B5F;text-transform:uppercase;letter-spacing:.05em;border-top:0}
   .dlc{display:flex;align-items:center;gap:6px} .dlc .dpi{width:92px;height:32px;font-size:15px}
   .dseg{display:inline-flex;border:1px solid #D6DFD3;border-radius:8px;overflow:hidden;flex:none} .dseg button{width:25px;height:30px;border:0;background:#fff;color:#5B6B5F;cursor:pointer;font:inherit;font-size:12px}
   .dseg button.on{background:#1F3A2A;color:#fff;font-weight:700}
   .dpdf{position:sticky;top:16px;height:calc(100vh - 110px);display:flex;flex-direction:column} .dpdfbox{flex:1;min-height:0} .dpdfbox iframe{width:100%;height:100%;border:0;border-radius:8px;background:#fff}
   @media (max-width:1100px){ .de-grid,.de-grid.lab{grid-template-columns:minmax(0,1fr)} .de-col,.dpdf{position:static} .dpdf{height:70vh} .dlf.c5{grid-template-columns:1fr 1fr} .dsd{grid-column:1/-1;padding:0} }
   @media (max-width:820px){ .dtabs-wrap{grid-template-columns:minmax(0,1fr)} .dgtabs{flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid #D6DFD3} .dgtabs button{width:auto} .dgsep{display:none} }
-  @media (max-width:640px){ .dth,.dtr{grid-template-columns:34px minmax(0,1fr) 150px} .dth span:nth-child(3),.dth span:nth-child(5),.dtr .h,.dtr .ix{display:none} .dlt{grid-template-columns:1fr 1fr} .dlth{display:none} .dlf.c3{grid-template-columns:1fr} }
+  @media (max-width:640px){ .dth,.dtr{grid-template-columns:34px minmax(0,1fr) 150px} .dth span:nth-child(3),.dth span:nth-child(5),.dtr .h,.dtr .ix{display:none} .dlrow{grid-template-columns:1fr 1fr} .dlrowh{display:none} .dlf.c3{grid-template-columns:1fr} }
   /* B17: Explore in the Dashboard view */
   .dx-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px} .dx-head h2{font-size:28px;margin:2px 0 0}
   .dx-views{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
@@ -498,6 +538,18 @@
   .dx-dcmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px} .dx-dsite{font-weight:700;font-size:13px;margin-bottom:4px;padding-left:8px;border-left:3px solid #C8E35A} .dx-dsite.cmp{border-left-color:#7FD8C8}
   .dxp-head{display:flex;align-items:flex-end;gap:10px;padding:12px 14px 8px} .dxp-head .gn{display:flex;flex-direction:column;line-height:1.1} .dxp-head .gn>span{font:700 17px "Barlow Semi Condensed",sans-serif;color:#1F3A2A} .dxp-head .gn em{font-size:11.5px;color:#5B6B5F;margin-top:2px}
   .dxp .dgtabs button b{font-size:11px}
+  /* B20: Explore's Taxa browser and Table in the dark dashboard colours (same layout; the editors keep their light paper) */
+  .dxp.dk{background:var(--surf);color:var(--ink);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .dxp.dk .dtabs-wrap{border-top-color:var(--line)} .dxp.dk .dgtabs{background:var(--surf2);border-right-color:var(--line)}
+  .dxp.dk .dgtabs button{color:var(--ink)} .dxp.dk .dgtabs button:hover{background:rgba(200,227,90,.08)} .dxp.dk .dgtabs button.on{background:var(--acc);color:#0B0F0C}
+  .dxp.dk .dgtabs button b{color:var(--acc)} .dxp.dk .dgtabs button.on b{color:#0B0F0C} .dxp.dk .dgtabs button:not(.has):not(.on){color:var(--muted)}
+  .dxp.dk .dgtabs button[data-dxgrp="ALL"]:not(.on){color:var(--ink);font-weight:600} .dxp.dk .dgsep{color:var(--muted)}
+  .dxp.dk .dgtabs button.on .dept{color:#0B0F0C;border-color:#0B0F0C} .dxp.dk .dept{color:var(--acc);border-color:rgba(200,227,90,.55)}
+  .dxp.dk .dchip{background:transparent;border-color:var(--line);color:var(--ink)} .dxp.dk .dchip.on{background:var(--acc);color:#0B0F0C;border-color:var(--acc);font-weight:700}
+  .dxp.dk .dxp-l,.dxp.dk .dxth,.dxp.dk .dxtr .no,.dxp.dk .dxtr .h,.dxp.dk .dxtr .nm em,.dxp.dk .dxp-head .gn em,.dxp.dk .dxd>summary .gn em,.dxp.dk .dxnote{color:var(--muted)}
+  .dxp.dk .dxtr{border-top-color:rgba(255,255,255,.07)} .dxp.dk .dxth{border-top-color:var(--line)} .dxp.dk .dxtc .tr{background:rgba(255,255,255,.07)}
+  .dxp.dk .dxtr.z,.dxp.dk .dxd.empty>summary{color:#6E7D72} .dxp.dk .dxd>summary{background:rgba(200,227,90,.06)} .dxp.dk .dxd>summary:hover{background:rgba(200,227,90,.1)}
+  .dxp.dk .dxd>summary .gn>span,.dxp.dk .dxp-head .gn>span{color:var(--ink)} .dxp.dk .dxtot{background:rgba(200,227,90,.12);color:var(--ink)}
   .dx-mapwrap{height:calc(100vh - 190px)} .dx-minfo{position:absolute;left:14px;top:14px;z-index:5;width:290px;padding:12px 14px}
   .dx-mrow{display:flex;align-items:center;gap:8px;padding:5px 0;border-top:1px solid rgba(255,255,255,.08);font-size:13px} .dx-mrow span:first-of-type{flex:1;display:flex;flex-direction:column;line-height:1.15} .dx-mrow small{font-size:11px;color:var(--muted)}
   .dx-msize{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:var(--muted)} .dx-msize span{display:inline-flex;align-items:center;gap:4px}
@@ -530,9 +582,10 @@
   .dn-place .pbtn.on{background:var(--pc);color:#fff;border-color:var(--pc);transform:scale(1.04);box-shadow:0 4px 12px rgba(0,0,0,.18)} .dn-place .pbtn .sw{width:10px;height:10px;border-radius:50%;display:inline-block;border:1.5px solid #fff}
   .dn-hint,.dn-note{font-size:12px;color:#5B6B5F;margin:6px 0} .dn-note:empty{display:none} .dn-note .btn{font-size:12px} .dn-note .bad{color:#C2410C}
   .dn-status{margin-top:10px;font-size:12.5px;color:#2F3D33;padding:8px 10px;border-radius:10px;background:#E8EFE2} .dn-status .bad{color:#C2410C}
+  .dn-mapsw{position:absolute;right:14px;bottom:30px;z-index:5;padding:8px 10px}
   .dn-mapcol{position:sticky;top:16px} .dn-map{height:calc(100vh - 130px);min-height:440px;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
   @media (max-width:1100px){ .dck-grid,.dck-two,.drp-wrap,.dn-grid{grid-template-columns:minmax(0,1fr)} .drp-side,.dn-mapcol{position:static} .dn-map{height:60vh} }
-  @media print{ body.drep #dash{display:block !important;background:#fff;min-height:0} body.drep #dash .drail,body.drep #dash .drp-side,body.drep .ovl,body.drep #tip{display:none !important}
+  @media print{ body.drep #dash{display:block !important;background:#fff;min-height:0} body.drep #drpPrev{display:block !important} body.drep #dash .drail,body.drep #dash .drp-side,body.drep .ovl,body.drep #tip{display:none !important}
     body.drep #dash .dsp-main{margin:0 !important;padding:0 !important;background:#fff !important;min-height:0} body.drep .drp-wrap{display:block} body.drep .drp-prev{border:0;padding:0;background:none;overflow:visible} body.drep .drp-prev .paper{box-shadow:none} }
   /* B14: on phones the dashboard menu becomes a bar along the bottom, so it never covers the page */
   @media (max-width:640px){ .drail{top:auto;bottom:0;right:0;width:auto;height:60px;flex-direction:row;justify-content:space-around;padding:4px 2px;border-right:0;border-top:1px solid var(--line)}
@@ -686,7 +739,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B19", BUILD_DATE = "17 Nov 2026";
+  const BUILD = "B20", BUILD_DATE = "17 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -1663,12 +1716,30 @@
     if (!el) return;
     try {
       const first = ptOf(st.vals, "down") || ptOf(st.vals, "up");
-      const { view, gl, flow, Graphic } = await buildMap(el, first ? [first.lon, first.lat] : COUNTY_CENTER, first ? 16 : 10);
-      mapS.view = view; mapS.gl = gl; mapS.Graphic = Graphic; mapS.st = st; mapS.cols = cols; mapS.flow = flow;
+      const dashPick = el.classList.contains("dn-map");   // B20: the dashboard New site page uses the dashboard map
+      const { view, gl, flow, Graphic } = dashPick ? await buildDashPick(el, first ? [first.lon, first.lat] : COUNTY_CENTER, first ? 16 : 10, st)
+        : await buildMap(el, first ? [first.lon, first.lat] : COUNTY_CENTER, first ? 16 : 10);
+      if (dashPick) cols = { down: DSC.pre_down, up: DSC.pre_up };   // the dashboard sample colours
+      mapS.dash = dashPick; mapS.view = view; mapS.gl = gl; mapS.Graphic = Graphic; mapS.st = st; mapS.cols = cols; mapS.flow = flow;
       view.on("click", (e) => { const p = e.mapPoint; if (p) onPick(Math.round(p.latitude * 1e6) / 1e6, Math.round(p.longitude * 1e6) / 1e6); });
       drawMapPts();
       if (mapS.pendingZoom) { const z = mapS.pendingZoom; mapS.pendingZoom = null; zoomToStream(z); }
     } catch (err) { el.innerHTML = `<p class="small" style="padding:12px">The map could not be shown (${esc(mask(err.message || err))}). Type the coordinates instead.</p>`; }
+  }
+  // B20: the New site map in the dashboard: the dashboard layers (dimmed imagery + hillshade + roads, or the dimmed map), the flowlines with the
+  // monitored streams (and the stream typed in the form) highlighted, and the dashboard Satellite / Map switch over the map.
+  async function buildDashPick(el, center, zoom, st) {
+    const names = model.filter((a) => !a.test).map((a) => a.stream).concat([matchStream(st.vals.stream) || ""]);
+    const { Map, MapView, Graphic, sat, hill, topo, roads, gl, layers, flow } = await dashLayers(names);
+    const view = new MapView({ container: el, map: new Map({ layers }), center, zoom });
+    dash.layers = { sat, hill, topo, roads };
+    const sw = document.createElement("div"); sw.className = "glass see dn-mapsw";
+    sw.innerHTML = `<div class="ds-sw" role="group" aria-label="Basemap"><button type="button" data-b="sat">Satellite</button><button type="button" data-b="topo">Map</button></div>`;
+    sw.querySelectorAll("button").forEach((b) => b.onclick = (e) => { e.stopPropagation(); dashBase(b.dataset.b); });
+    ["pointerdown", "pointerup", "click", "dblclick", "wheel"].forEach((ev) => sw.addEventListener(ev, (e) => e.stopPropagation()));
+    el.style.position = "relative"; el.appendChild(sw); dashBase(dash.base);
+    view.when(() => { if (!el.contains(sw)) el.appendChild(sw); dashBase(dash.base); }).catch(() => {});
+    return { view, gl, flow, Graphic };
   }
   // Zoom the map to every segment of the chosen stream (waits for the map if it is still loading).
   async function zoomToStream(name) {
@@ -1680,8 +1751,10 @@
     if (!mapS.gl || !mapS.st) return; mapS.gl.removeAll();
     for (const sd of ["down", "up"]) { const p = ptOf(mapS.st.vals, sd); if (!p) continue;
       const geometry = { type: "point", longitude: p.lon, latitude: p.lat };
-      mapS.gl.add(new mapS.Graphic({ geometry, symbol: { type: "simple-marker", color: mapS.cols[sd], size: 13, outline: { color: "#ffffff", width: 2 } } }));
-      mapS.gl.add(new mapS.Graphic({ geometry, symbol: { type: "text", text: sd === "down" ? "D" : "U", color: "#ffffff", font: { size: 8, weight: "bold" }, yoffset: -3 } })); }
+      if (mapS.dash) mapS.gl.add(new mapS.Graphic({ geometry, symbol: { type: "simple-marker", color: [8, 12, 9, 0.35], size: 26, outline: null } }));
+      mapS.gl.add(new mapS.Graphic({ geometry, symbol: { type: "simple-marker", color: mapS.cols[sd], size: mapS.dash ? 16 : 13, outline: { color: mapS.dash ? "#0B0F0C" : "#ffffff", width: mapS.dash ? 2.5 : 2 } } }));
+      mapS.gl.add(new mapS.Graphic({ geometry, symbol: mapS.dash ? { type: "text", text: SD[sd], color: "#EEF3E9", haloColor: [8, 12, 9, 0.92], haloSize: 2.2, xoffset: 14, yoffset: -4, horizontalAlignment: "left", font: { size: 12, weight: "bold", family: "sans-serif" } }
+        : { type: "text", text: sd === "down" ? "D" : "U", color: "#ffffff", font: { size: 8, weight: "bold" }, yoffset: -3 } })); }
   }
 
   // ---- create form: a new site (Pre record) or a site's Post record ----
@@ -2473,13 +2546,13 @@
   const rp = { area: null, empty: false, wired: false, view: null, skip: new Set() };
   const logoSrc = () => (document.querySelector('img[alt="Washington County Conservation District"]') || {}).src || "";
   // Shrink a page's tables until the page fits one Letter page (880 px tall, 680 px wide in the preview), never below `min` px.
-  const overflows = (p) => p.scrollHeight > 882 || p.scrollWidth > p.clientWidth + 1;
+  const overflows = (p) => { const b = p.querySelector(".rpbody"); return b ? b.scrollHeight > b.clientHeight + 1 || b.scrollWidth > b.clientWidth + 1 : p.scrollHeight > 882 || p.scrollWidth > p.clientWidth + 1; };
   function fitPage(p, min = 6.5) { let f = 10.5; const tbs = [...p.querySelectorAll("table")];
     for (const tb of tbs) { tb.style.fontSize = ""; tb.querySelectorAll("td,th").forEach((c) => { c.style.padding = ""; c.style.lineHeight = ""; }); }   // start from full size each time
     while (overflows(p) && f > min) { f -= 0.25; for (const tb of tbs) { tb.style.fontSize = f + "px"; tb.querySelectorAll("td,th").forEach((c) => { c.style.paddingTop = c.style.paddingBottom = f < 9 ? "0.5px" : "1px"; c.style.paddingLeft = c.style.paddingRight = f < 8 ? "3px" : "5px"; c.style.lineHeight = "1.15"; }); } }
     return f; }
   // Sections: each name jumps to its page; its box includes the page in (or leaves it out of) the printout, Word copy and Excel tables.
-  const SECS = [["cover", "Cover, summary, map, HBI scale"], ["groups", "Taxa-group summary"], ["taxa", "Detailed taxa (by taxon)"], ["charts", "Charts"], ["lab", "Lab results"]];
+  const SECS = [["cover", "Summary"], ["stats", "Summary table and charts"], ["groups", "Taxa groups"], ["taxa", "Every taxon"], ["lab", "Lab results"]];   // B20 order
   function reportSections() {
     const papers = [...document.querySelectorAll("#pages .paper")];
     $("rSecs").innerHTML = SECS.map(([k, label], i) => { const n = papers.filter((p) => p.dataset.sec === k).length;
@@ -2512,147 +2585,201 @@
       $("rPrint").onclick = printReport; $("rWord").onclick = () => exportReport("word"); $("rExcel").onclick = () => exportReport("excel"); }
     buildReport();
   }
+  // B20: the report reorganised in the new design's colours on white Letter pages (approved mockup R1–R3):
+  // 1 Summary (sample cards, change, map) · 2 Summary table and charts · 3 Taxa groups · 4… Every taxon (as many pages as needed) · last Lab results.
+  // Colours: the dashboard sample colours (DSC) with a dark outline, the dashboard HBI colours (DRATE), lime rules and light lime table headings.
+  const RPC = { ink: "#142019", mut: "#5B6B5F", line: "#DCE4D8", tint: "#F3F7EE", tint2: "#E6EEDA", acc: "#C8E35A", ept: "#6E8F12" };
+  const RPN = { pre_down: "Downstream", pre_up: "Upstream", post_down: "Downstream", post_up: "Upstream" };
+  const rsw = (k, w = 9) => `<i class="rsw" style="width:${w}px;height:${w}px;background:${DSC[k]}"></i>`;
+  const rHbiChip = (v) => { const r = drating(v); return r ? `<span class="rhbi" style="background:${r[2]}">${r[1]}</span>` : "–"; };
+  const rSgn = (d, dec = 0) => (d > 0 ? "+" : d < 0 ? "−" : "") + fmt(Math.abs(d), dec);
   function buildReport() {
     hideTip();
     const a = model.find((x) => x.id === rp.area); if (!a) return;
-    const S4 = SAMPLES, sm = S4.map((s) => smp(a, s[0])), sts = sm.map((s) => s ? s.calc : null), showEmpty = rp.empty, logo = logoSrc();
-    const c = (i, f) => sts[i] ? f(sts[i], sm[i]) : "–";
+    const K = SKEYS, sm = K.map((k) => smp(a, k)), sts = sm.map((s) => s ? s.calc : null), showEmpty = rp.empty, logo = logoSrc();
     const lab = a.lab, lv = (f) => lab ? att(lab.L, lab.row, f) : undefined, mv = (ph, f) => a[ph] ? att(a[ph].main.L, a[ph].main.row, f) : undefined;
-    const head = (t) => `<div class="rhd"><img src="${logo}" width="34" height="34" alt=""><div><b>Washington County Conservation District</b> · Watershed Monitoring Report<br>${esc(a.id)} · ${esc(a.stream || "")}</div></div><h2>${t}</h2>`;
-    // Grouped headers: Pre-construction / Post-construction over Downstream / Upstream (nothing wraps mid-word).
-    const sideTh = (s, span = 1) => `<th${span > 1 ? ` colspan="${span}"` : ""} class="sd"><span class="sw2" style="background:${s[2]}"></span>${s[0].endsWith("down") ? "Downstream" : "Upstream"}</th>`;
-    const phaseThs = (span) => `<th colspan="${2 * span}" class="phs">Pre-construction</th><th colspan="${2 * span}" class="phs">Post-construction</th>`;
-    const colHead = `<tr><th rowspan="2"></th>${phaseThs(1)}</tr><tr>${S4.map((s) => sideTh(s)).join("")}</tr>`;
-    const hbiCell = (x) => { const r = rating(x.avg); return r ? `<span class="hbi" style="background:${r[2]}">${r[1]}</span>` : "–"; };
-    // Change columns: Post − Pre for the downstream pair (samples 0 → 2) and the upstream pair (1 → 3). For Avg HILS, lower is better (green).
-    const signed = (v, d = 0) => v > 0 ? "+" + fmt(v, d) : v < 0 ? "−" + fmt(-v, d) : fmt(0, d);
-    const dCell = (pre, post, d = 0, lowerBetter = false) => (pre == null || post == null || Number.isNaN(pre) || Number.isNaN(post)) ? `<td class="dlt">–</td>`
-      : `<td class="dlt${lowerBetter && post !== pre ? (post < pre ? " up" : " dn") : ""}">${signed(post - pre, d)}</td>`;
-    const dPair = (f, d = 0, lowerBetter = false) => [[0, 2], [1, 3]].map(([i, j]) => dCell(sm[i] ? f(i) : null, sm[j] ? f(j) : null, d, lowerBetter)).join("");
-    const dHead = (what, rows = 1) => `<th colspan="2" class="dlt" style="text-align:center"${rows > 1 ? "" : ""}>Change Post − Pre${what ? "<br>" + what : ""}</th>`;
-    const dSub = `<th class="dlt">Down</th><th class="dlt">Up</th>`;
-    const siteLine = ["pre", "post"].map((ph) => a[ph] ? `${PH[ph]} sampled ${dayText(a[ph].date)}${a[ph].site && a[ph].site !== a.stream ? ` (${esc(a[ph].site)})` : ""}` : `${PH[ph]}: not sampled yet`).join(" · ");
     const today = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-    const p1 = `<div class="paper" data-sec="cover"><div class="rhd" style="font-size:12px"><img src="${logo}" width="48" height="48" alt=""><div><b>Washington County Conservation District</b><br>Watershed Monitoring Report</div></div>
-      <h1>${esc(a.stream || "")} · ${esc(a.id)}</h1><p>${siteLine}</p>
-      <h3>Summary (macroinvertebrates)</h3><table>${colHead}
-      <tr><td>Organisms</td>${S4.map((_, i) => `<td>${c(i, (x) => x.count)}</td>`).join("")}</tr><tr><td>Taxa present</td>${S4.map((_, i) => `<td>${c(i, (x) => x.taxa)}</td>`).join("")}</tr>
-      <tr><td>EPT taxa</td>${S4.map((_, i) => `<td>${c(i, (x) => x.ept)}</td>`).join("")}</tr><tr><td>Total Index</td>${S4.map((_, i) => `<td>${c(i, (x) => fmt(x.index))}</td>`).join("")}</tr>
-      <tr><td>Avg HILS</td>${S4.map((_, i) => `<td><b>${c(i, (x) => fmt(x.avg, 2))}</b></td>`).join("")}</tr><tr><td>Water quality (HBI)</td>${S4.map((_, i) => `<td>${c(i, hbiCell)}</td>`).join("")}</tr>
-      ${sm.some((s) => s && s.other) ? `<tr><td>Other taxon (count)</td>${S4.map((_, i) => `<td>${c(i, (x, s) => s.other ? `${s.other}${s.otherName ? " · " + esc(s.otherName) : ""}` : "–")}</td>`).join("")}</tr>` : ""}</table>
-      <h3>Location</h3><div class="rmap" id="rMap"></div><p class="small" id="rMapNote"></p>
-      <h3>HBI rating scale (Hilsenhoff family-level biotic index, 1988)</h3>
-      <table><tr>${RATE.map((r, i) => `<th style="text-align:center">${i ? fmt(RATE[i - 1][0] + 0.01, 2) : "0.00"}–${fmt(r[0], 2)}</th>`).join("")}</tr><tr>${RATE.map((r) => `<td style="text-align:center">${r[1]}</td>`).join("")}</tr></table>
-      <p class="small" style="margin-top:10px">Index = count × HILS for each taxon; Avg HILS = Total Index ÷ organisms (an other taxon counts with its own HILS). EPT = mayfly, stonefly and caddisfly families present. Report produced ${today}.</p>
-      <span class="pno">Page 1 of 5</span></div>`;
-    // page 2: taxa-group summary (the survey's summary page)
-    let rows2 = "";
-    for (const g of GROUPS) { const gs = sm.map((s) => s ? groupStats(s, g) : null); if (!showEmpty && !gs.some((x) => x && x.count)) continue;
-      rows2 += `<tr><td>${esc(g[1])}${isEPT(g[2]) ? " (EPT)" : ""}</td>${gs.map((x) => x ? `<td>${x.count || "–"}</td><td>${x.taxa || "–"}</td><td>${x.index || "–"}</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}${dPair((i) => gs[i].count)}</tr>`; }
-    const p2 = `<div class="paper" id="p2" data-sec="groups">${head("Taxa-group summary")}<p class="small">Count, number of taxa and index (count × HILS) for each taxa group. "Post − Pre" is the change from Pre- to Post-construction at the same location; for Avg HILS a fall (green) means better water quality. ${showEmpty ? "" : "Groups with no organisms in any sample are left out."}</p>
-      <table><tr><th rowspan="3">Taxa group</th>${phaseThs(3)}<th colspan="2" rowspan="2" class="dlt phs">Post − Pre</th></tr><tr>${S4.map((s) => sideTh(s, 3)).join("")}</tr><tr>${S4.map(() => `<th>Count</th><th>Taxa</th><th>Index</th>`).join("")}${dSub}</tr>${rows2}
-      ${sm.some((s) => s && s.other) ? `<tr><td>Other taxon</td>${sm.map((s) => s ? `<td>${s.other || "–"}</td><td>${s.other ? 1 : "–"}</td><td>${s.other ? Math.round(s.other * s.otherHils) : "–"}</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}${dPair((i) => sm[i].other || 0)}</tr>` : ""}
-      <tr class="tot"><td>All groups</td>${sts.map((x) => x ? `<td>${x.count}</td><td>${x.taxa}</td><td>${x.index}</td>` : `<td>–</td><td>–</td><td>–</td>`).join("")}${dPair((i) => sts[i].count)}</tr>
-      <tr><td>Avg HILS</td>${sts.map((x) => `<td colspan="3" class="ctr">${x ? `${fmt(x.avg, 2)} ${hbiCell(x)}` : "not sampled"}</td>`).join("")}${dPair((i) => sts[i].avg, 2, true)}</tr>
-      <tr><td>EPT taxa</td>${sts.map((x) => `<td colspan="3" class="ctr">${x ? x.ept : "–"}</td>`).join("")}${dPair((i) => sts[i].ept)}</tr></table><span class="pno"></span></div>`;
-    // page 3: every taxon, fitted to one page
-    const blocks = [];
-    for (const g of GROUPS) { const body = [];
+    let pageNo = 0;
+    const page = (sec, secName, body, id = "") => { pageNo++; return `<div class="paper rp20" data-sec="${sec}"${id ? ` id="${id}"` : ""}>
+      <div class="rphd"><img src="${logo}" width="36" height="36" alt=""><div><b>Washington County Conservation District</b><span>Watershed Monitoring Report</span></div>
+        <div class="rphd-r"><b>${esc(a.id)} · ${esc(a.stream || "no stream")}</b><span>${esc(secName)}</span></div></div>
+      <div class="rpbody">${body}</div>
+      <div class="rpfoot"><span>Every figure calculated by the app from the survey records · produced ${today}</span><span class="pno"></span></div></div>`; };
+    const H = (t, sub = "") => `<h3 class="rph">${t}${sub ? `<span>${sub}</span>` : ""}</h3>`;
+    // shared table headings: Pre / Post over the four samples, plus the change columns
+    const dHead = (span = 1) => `<th colspan="${2 * span}" class="phs">Pre-construction</th><th colspan="${2 * span}" class="phs">Post-construction</th>`;
+    const sideThs = (span = 1) => K.map((k) => `<th class="sd"${span > 1 ? ` colspan="${span}"` : ""}>${rsw(k)}${RPN[k]}</th>`).join("");
+    const chgCell = (pre, post, d = 0, lowerBetter = false) => (pre == null || post == null || Number.isNaN(pre) || Number.isNaN(post)) ? `<td class="dlt">–</td>`
+      : `<td class="dlt${lowerBetter && post !== pre ? (post < pre ? " up" : " dn") : ""}">${rSgn(post - pre, d)}</td>`;
+    const chgPair = (f, d = 0, lowerBetter = false) => [[0, 2], [1, 3]].map(([i, j]) => chgCell(sm[i] ? f(i) : null, sm[j] ? f(j) : null, d, lowerBetter)).join("");
+    const cHead = `<th colspan="2" class="phs dlt">Change Post − Pre</th>`, cSub = `<th class="dlt">Down</th><th class="dlt">Up</th>`;
+    const dates = ["pre", "post"].map((ph) => a[ph] ? `${PH[ph]} sampled ${dayText(a[ph].date)}${a[ph].site && a[ph].site !== a.stream ? ` (${esc(a[ph].site)})` : ""}` : `${PH[ph]}: not sampled yet`).join(" · ");
+    const comid = [mv("pre", "StreamID"), mv("post", "StreamID")].find((x) => !nb(x));
+
+    // ---- page 1: summary ----
+    const card = (k, i) => { const s = sm[i], c = sts[i], ph = k.split("_")[0];
+      return `<div class="rcard" style="border-top-color:${DSC[k]}"><div class="rcard-t">${rsw(k)}${DSN[k]}</div><div class="rcard-d">${a[ph] ? dayText(a[ph].date) : "not sampled"}</div>
+        ${s && c.count ? `<div class="rcard-n">${fmt(c.avg, 2)}</div><div class="rcard-d">Avg HILS</div>${rHbiChip(c.avg)}<div class="rcard-d" style="margin-top:6px">${c.count} organisms · ${c.taxa} taxa · ${c.ept} EPT</div>`
+          : `<div class="rcard-d" style="margin-top:14px">${s ? "no organisms counted yet" : "no sample yet"}</div>`}</div>`; };
+    const X = (q) => 18 + (1 - Math.min(10, Math.max(0, q)) / 10) * 500;
+    const grad = `<defs><linearGradient id="rpHbiG">${DRATE.slice().reverse().map((r, i) => `<stop offset="${i / 6}" stop-color="${r[2]}" stop-opacity=".55"/>`).join("")}</linearGradient></defs>`;
+    const dumb = (sd) => { const p = sts[K.indexOf("pre_" + sd)], q = sts[K.indexOf("post_" + sd)];
+      if (!p || !q || p.avg == null || q.avg == null) return `<div class="rdumb"><span class="rdumb-l"><b>${SD[sd]}</b><br>${p && p.avg != null ? fmt(p.avg, 2) : "–"} → ${q && q.avg != null ? fmt(q.avg, 2) : "–"}</span><span class="rdumb-x">Needs both Pre- and Post-construction samples.</span></div>`;
+      return `<div class="rdumb"><span class="rdumb-l"><b>${SD[sd]}</b><br>${fmt(p.avg, 2)} → ${fmt(q.avg, 2)}</span><svg width="536" height="26" viewBox="0 0 536 26">${grad}<rect x="18" y="9" width="500" height="8" rx="4" fill="url(#rpHbiG)"/>
+        <line x1="${X(p.avg)}" x2="${X(q.avg)}" y1="13" y2="13" stroke="${RPC.ink}" stroke-width="2.5"/><circle cx="${X(p.avg)}" cy="13" r="6.5" fill="${DSC["pre_" + sd]}" stroke="${RPC.ink}" stroke-width="1.2"/><circle cx="${X(q.avg)}" cy="13" r="7.5" fill="${DSC["post_" + sd]}" stroke="${RPC.ink}" stroke-width="1.2"/></svg>
+        <b class="${q.avg < p.avg ? "up" : q.avg > p.avg ? "dn" : ""}">${rSgn(q.avg - p.avg, 2)}</b></div>`; };
+    const p1 = page("cover", "Summary", `<h1 class="rpt">${esc(a.stream || "no stream")} · ${esc(a.id)}</h1>
+      <div class="rpsub">${dates}${comid ? ` · Stream ID (COMID) ${esc(comid)}` : ""} <span class="rstat${a.status === "done" ? " on" : ""}">${STATUS_TEXT[a.status]}</span></div>
+      ${H("Macroinvertebrate results", "one card per sample · Avg HILS: lower is better")}<div class="rcards">${K.map(card).join("")}</div>
+      ${H("Change after construction", "Avg HILS on the HBI scale · very poor on the left, excellent on the right")}${dumb("down")}${dumb("up")}
+      ${H("Location", "sample points on satellite imagery · WCCD flowlines, the monitored stream highlighted")}<div class="rmap" id="rMap"></div><div class="rmapnote" id="rMapNote"></div>`);
+
+    // ---- page 2: summary table, charts, HBI scale ----
+    const rowsT = [["Organisms", (x) => x.count, 0], ["Taxa present", (x) => x.taxa, 0], ["EPT taxa", (x) => x.ept, 0], ["Total index", (x) => x.index, 0], ["Avg HILS", (x) => x.avg, 2]];
+    const sumBody = rowsT.map(([l, f, d]) => `<tr><td>${l}</td>${sts.map((x) => `<td>${x ? (d ? `<b>${fmt(f(x), d)}</b>` : fmt(f(x), d)) : "–"}</td>`).join("")}${chgPair((i) => f(sts[i]), d, d === 2)}</tr>`).join("")
+      + `<tr><td>Water quality (HBI)</td>${sts.map((x) => `<td>${x ? rHbiChip(x.avg) : "–"}</td>`).join("")}<td class="dlt"></td><td class="dlt"></td></tr>`
+      + (sm.some((s) => s && s.other) ? `<tr><td>Other taxon</td>${sm.map((s) => `<td>${s && s.other ? `${s.other}${s.otherName ? `<br><span class="rsm">${esc(s.otherName)}</span>` : ""}` : "–"}</td>`).join("")}${chgPair((i) => sm[i].other || 0)}</tr>` : "");
+    const have = K.map((k, i) => ({ k, c: sts[i] })).filter((x) => x.c && x.c.count);
+    const bandsChart = () => { const W = 296, Hh = 176, Y = (q) => 12 + (1 - q / 10) * (Hh - 36), bw = 44, gap = (W - 40 - have.length * bw) / Math.max(1, have.length), bx = (i) => 34 + gap / 2 + i * (bw + gap);
+      return `<svg width="${W}" height="${Hh}" viewBox="0 0 ${W} ${Hh}">${DRATE.map((r, i) => { const lo = i ? DRATE[i - 1][0] : 0; return `<rect x="30" y="${Y(r[0])}" width="${W - 32}" height="${Y(lo) - Y(r[0])}" fill="${r[2]}" opacity=".16"/>`; }).join("")}
+        ${[0, 2.5, 5, 7.5, 10].map((t) => `<text x="25" y="${Y(t) + 3}" text-anchor="end" font-size="9" fill="${RPC.mut}">${t}</text>`).join("")}
+        ${have.map(({ k, c }, i) => `<rect x="${bx(i)}" y="${Y(c.avg)}" width="${bw}" height="${Y(0) - Y(c.avg)}" rx="3" fill="${DSC[k]}" stroke="${RPC.ink}" stroke-width=".7"/><text x="${bx(i) + bw / 2}" y="${Y(c.avg) - 4}" text-anchor="middle" font-size="10" font-weight="700" fill="${RPC.ink}">${fmt(c.avg, 2)}</text>
+          <text x="${bx(i) + bw / 2}" y="${Hh - 6}" text-anchor="middle" font-size="9" fill="${RPC.mut}">${DSS[k]}</text>`).join("")}</svg>`; };
+    const miniChart = (f) => { const w = 92, h = 104, mx = Math.max(1, ...have.map((x) => f(x.c))) * 1.15, Yb = (q) => h - 20 - q / mx * (h - 34), bw = Math.min(16, (w - 10) / Math.max(1, have.length) - 5);
+      return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${have.map(({ k, c }, i) => `<rect x="${6 + i * (bw + 5)}" y="${Yb(f(c))}" width="${bw}" height="${h - 20 - Yb(f(c))}" rx="2" fill="${DSC[k]}" stroke="${RPC.ink}" stroke-width=".6"/><text x="${6 + i * (bw + 5) + bw / 2}" y="${Yb(f(c)) - 3}" text-anchor="middle" font-size="8.5" fill="${RPC.ink}">${f(c)}</text>`).join("")}<line x1="2" x2="${w - 2}" y1="${h - 20}" y2="${h - 20}" stroke="${RPC.line}"/>${have.map(({ k }, i) => `<text x="${6 + i * (bw + 5) + bw / 2}" y="${h - 8}" text-anchor="middle" font-size="7.5" fill="${RPC.mut}">${DSS[k].replace("Post ", "Po").replace("Pre ", "Pr")}</text>`).join("")}</svg>`; };
+    const p2 = page("stats", "Summary table and charts", `${H("Summary by sample", "change columns: Post − Pre at the same location; for Avg HILS a fall (green) means better water")}
+      <table class="rt"><colgroup><col style="width:24%"><col><col><col><col><col style="width:11%"><col style="width:11%"></colgroup>
+        <tr><th></th>${dHead()}${cHead}</tr><tr><th></th>${sideThs()}${cSub}</tr>${sumBody}</table>
+      ${H("Charts", "the dashboard's sample colours: teal = Pre, lime = Post")}
+      ${have.length ? `<div class="rcharts"><div class="chart"><div class="rch">Avg HILS <span>· bands = HBI rating · lower is better</span></div>${bandsChart()}</div>
+        <div class="rminis">${[["Organisms", (c) => c.count], ["Taxa present", (c) => c.taxa], ["EPT taxa", (c) => c.ept]].map(([l, f]) => `<div class="chart"><div class="rch">${l}</div>${miniChart(f)}</div>`).join("")}</div></div>` : `<p class="rsm">No organisms counted yet.</p>`}
+      ${H("HBI rating scale", "Hilsenhoff family-level biotic index, 1988")}
+      <div class="rscale">${DRATE.map((r, i) => `<div><i style="background:${r[2]}"></i><b>${r[1]}</b><span>${i ? fmt(DRATE[i - 1][0] + 0.01, 2) : "0.00"}–${fmt(r[0], 2)}</span></div>`).join("")}</div>
+      <p class="rsm" style="margin-top:12px">Index = count × HILS for each taxon; Avg HILS = total index ÷ organisms (an other taxon counts with its own HILS). EPT = mayfly, stonefly and caddisfly families present.</p>`);
+
+    // ---- page 3: taxa groups (count per sample) + chart ----
+    const gRows = GROUPS.map((g) => ({ g, gs: sm.map((s) => s ? groupStats(s, g) : null) })).filter(({ gs }) => showEmpty || gs.some((x) => x && x.count));
+    const anyOther = sm.some((s) => s && s.other);
+    const grpTable = `<table class="rt"><colgroup><col style="width:31%"><col><col><col><col><col style="width:11%"><col style="width:11%"></colgroup>
+        <tr><th></th>${dHead()}${cHead}</tr><tr><th style="text-align:left">Taxa group</th>${sideThs()}${cSub}</tr>
+        ${gRows.map(({ g, gs }) => `<tr><td>${esc(GSHORT[g[0]] || g[1])}${isEPT(g[2]) ? ' <span class="rept">EPT</span>' : ""} <span class="rsm">· ${esc(GLATIN[g[0]] || "")}</span></td>${gs.map((x) => `<td>${x && x.count ? x.count : "–"}</td>`).join("")}${chgPair((i) => gs[i].count)}</tr>`).join("")}
+        ${anyOther ? `<tr><td>Other taxon <span class="rsm">· not on the sheet</span></td>${sm.map((s) => `<td>${s && s.other ? s.other : "–"}</td>`).join("")}${chgPair((i) => sm[i].other || 0)}</tr>` : ""}
+        <tr class="tot"><td>All groups</td>${sts.map((x) => `<td>${x ? x.count : "–"}</td>`).join("")}${chgPair((i) => sts[i].count)}</tr></table>`;
+    const chartRows = gRows.filter(({ gs }) => gs.some((x) => x && x.count)).map(({ g, gs }) => ({ label: GSHORT[g[0]] || g[1], vals: gs.map((x) => x ? x.count : 0) }));
+    if (anyOther) chartRows.push({ label: "Other taxon", vals: sm.map((s) => s ? s.other || 0 : 0) });
+    const grpChart = () => { const mx = Math.max(1, ...chartRows.flatMap((r) => r.vals)), rowH = 4 * 3.2 + 4, W = 584, L = 96, Hh = chartRows.length * rowH + 22, bw = (v) => v / mx * (W - L - 40);
+      return `<svg width="${W}" height="${Hh}" viewBox="0 0 ${W} ${Hh}">${chartRows.map((r, i) => `<text x="${L - 6}" y="${i * rowH + 11}" text-anchor="end" font-size="9" fill="${RPC.ink}">${esc(r.label)}</text>
+        ${r.vals.map((v, j) => v ? `<rect x="${L}" y="${i * rowH + 2 + j * 3.2}" width="${Math.max(1.5, bw(v))}" height="2.8" fill="${DSC[K[j]]}" stroke="${RPC.ink}" stroke-width=".35"/>` : "").join("")}
+        <text x="${L + bw(Math.max(...r.vals)) + 4}" y="${i * rowH + 11}" font-size="8.5" fill="${RPC.mut}">${Math.max(...r.vals)}</text>`).join("")}
+        <line x1="${L}" x2="${L}" y1="0" y2="${Hh - 18}" stroke="${RPC.line}"/><text x="${L}" y="${Hh - 4}" font-size="8.5" fill="${RPC.mut}">bars in sample order: Pre ↓, Pre ↑, Post ↓, Post ↑ · the number is the largest count in the group</text></svg>`; };
+    const p3 = page("groups", "Taxa groups", `${H("Organisms by taxa group", `count per sample${showEmpty ? "" : " · groups with no organisms in any sample are left out"}`)}${grpTable}
+      ${chartRows.length ? `${H("Chart")}<div class="chart">${grpChart()}</div>` : ""}`);
+
+    // ---- pages 4…: every taxon, as many pages as it needs (filled by measuring below) ----
+    const taxRows = [];
+    for (const g of GROUPS) { const list = [];
       for (let n = g[2]; n <= g[3]; n++) { const vs = sm.map((s) => s ? s.counts[n] || 0 : null); if (!showEmpty && !vs.some((v) => v)) continue; const h = HILS[n - 1];
-        body.push(`<tr><td>${n}. ${esc(TAXON[n - 1])}</td><td>${h}</td>${vs.map((v) => `<td>${v || "–"}</td><td>${v ? Math.round(v * h) : "–"}</td>`).join("")}${dPair((i) => vs[i] || 0)}</tr>`); }
-      if (body.length) blocks.push([`<tr class="gh"><td colspan="12">${esc(g[1])}${isEPT(g[2]) ? " (EPT)" : ""}</td></tr>`, ...body]); }
-    if (sm.some((s) => s && s.other)) blocks.push([`<tr class="gh"><td colspan="12">Other</td></tr>`, `<tr><td>Other taxon${[...new Set(sm.filter((s) => s && s.other && s.otherName).map((s) => s.otherName))].map((x) => " · " + esc(x)).join("")}</td><td>own</td>${sm.map((s) => `<td>${s && s.other ? s.other : "–"}</td><td>${s && s.other ? Math.round(s.other * s.otherHils) : "–"}</td>`).join("")}${dPair((i) => sm[i].other || 0)}</tr>`]);
-    const thead3 = `<tr><th rowspan="3">Taxon</th><th rowspan="3">HILS</th>${phaseThs(2)}<th colspan="2" rowspan="2" class="dlt phs">Post − Pre</th></tr><tr>${S4.map((s) => sideTh(s, 2)).join("")}</tr><tr>${S4.map(() => `<th>Count</th><th>Index</th>`).join("")}${dSub}</tr>`;
-    const totRow = `<tr class="tot"><td>Totals</td><td></td>${sts.map((x) => x ? `<td>${x.count}</td><td>${x.index}</td>` : `<td>–</td><td>–</td>`).join("")}${dPair((i) => sts[i].count)}</tr>`;
-    const table3 = (bl, withTot) => `<table>${thead3}${bl.flat().join("")}${withTot ? totRow : ""}</table>`;
-    const p3intro = `<p class="small">${showEmpty ? "Every taxon on the WCCD sheet" : "Every taxon found"}, with its HILS, count and index for each sample, and the change in count from Pre- to Post-construction at the same location (Post − Pre).</p>`;
-    const p3 = `<div class="paper" id="p3" data-sec="taxa">${head("Detailed taxa")}${p3intro}<div id="p3body">${blocks.length ? table3(blocks, true) : "<p>No taxa counted yet.</p>"}</div><span class="pno"></span></div>`;
-    // page 4: charts (the Explore summary charts, all samples)
-    const p4 = `<div class="paper" data-sec="charts">${head("Charts")}<div class="clegend">${S4.filter((_, i) => sm[i]).map((s) => `<span><i style="background:${s[2]}"></i>${s[1]}</span>`).join("")}</div>
-      <div class="r4"><div class="r4l"><div class="chart"><h3>Avg HILS</h3><div class="sub">lower is better · bands = HBI rating</div><div id="rcHils"></div></div><div class="chart"><h3>Organisms counted</h3><div id="rcCount"></div></div>
-        <div class="chart"><h3>Taxa present</h3><div id="rcTaxa"></div></div><div class="chart"><h3>EPT taxa</h3><div id="rcEpt"></div></div></div>
-      <div class="chart r4r"><h3>Organisms by taxa group</h3><div class="sub">count per sample</div><div id="rcGrp"></div></div></div><span class="pno"></span></div>`;
-    // page 5: lab results, with the certificate details
-    const lp = (ph, sd, t) => { const v = lv(labField(ph, sd, t)), p = lv(labField(ph, sd, "Prefix" + PFXCODE[t])) || ""; return nb(v) ? "–" : esc(p + v); };
+        list.push(`<tr><td>${n}. ${esc(TAXON[n - 1])}</td><td class="rmu">${h}</td>${vs.map((v) => `<td>${v || "–"}</td><td class="rmu">${v ? Math.round(v * h) : "–"}</td>`).join("")}${chgPair((i) => vs[i] || 0)}</tr>`); }
+      if (list.length) { const gh = `${esc(GSHORT[g[0]] || g[1])}${isEPT(g[2]) ? " · EPT" : ""} <span>· ${esc(GLATIN[g[0]] || "")}</span>`; list.forEach((r, j) => taxRows.push({ gh, html: r, first: j === 0 })); } }
+    if (anyOther) taxRows.push({ gh: "Other <span>· a taxon not on the sheet</span>", first: true, html: `<tr><td>Other taxon${[...new Set(sm.filter((s) => s && s.other && s.otherName).map((s) => s.otherName))].map((x) => " · " + esc(x)).join("")}</td><td class="rmu">own</td>${sm.map((s) => `<td>${s && s.other ? s.other : "–"}</td><td class="rmu">${s && s.other ? Math.round(s.other * s.otherHils) : "–"}</td>`).join("")}${chgPair((i) => sm[i].other || 0)}</tr>` });
+    const taxHead = `<colgroup><col style="width:23%"><col style="width:6%"><col><col><col><col><col><col><col><col><col style="width:7.5%"><col style="width:7.5%"></colgroup>
+      <tr><th></th><th></th>${dHead(2)}<th colspan="2" class="phs dlt">Post − Pre</th></tr><tr><th></th><th></th>${sideThs(2)}<th colspan="2" class="dlt"></th></tr>
+      <tr><th style="text-align:left">Taxon</th><th>HILS</th>${K.map(() => `<th>Count</th><th class="rmu">Index</th>`).join("")}${cSub}</tr>`;
+    const taxTot = `<tr class="tot"><td>Totals</td><td></td>${sts.map((x) => x ? `<td>${x.count}</td><td class="rmu">${x.index}</td>` : `<td>–</td><td>–</td>`).join("")}${chgPair((i) => sts[i].count)}</tr>`;
+    const taxIntro = `<p class="rsm">${showEmpty ? "Every taxon on the WCCD sheet" : "Every taxon found"}: its HILS, and the count and index (count × HILS) for each sample; the change columns are the change in count from Pre- to Post-construction at the same location.</p>`;
+
+    // ---- last page: lab results ----
+    const lp = (ph, sd, t) => { const v = lv(labField(ph, sd, t)), p = lv(labField(ph, sd, "Prefix" + PFXCODE[t])) || ""; return nb(v) ? "–" : (p ? `<b>${esc(p + v)}</b>` : esc(String(v))); };
     const labDelta = (t) => ["down", "up"].map((sd) => { const a0 = lv(labField("pre", sd, t)), b0 = lv(labField("post", sd, t)), pa = lv(labField("pre", sd, "Prefix" + PFXCODE[t])), pb = lv(labField("post", sd, "Prefix" + PFXCODE[t]));
-      if (nb(a0) || nb(b0)) return `<td class="dlt">–</td>`; if (pa || pb) return `<td class="dlt small">limit</td>`;
-      const dec = Math.max(...[a0, b0].map((x) => (String(x).split(".")[1] || "").length)); return `<td class="dlt">${signed(Number(b0) - Number(a0), Math.min(dec, 3))}</td>`; }).join("");
-    // dates and coordinates break where they should: date / time, latitude / longitude
+      if (nb(a0) || nb(b0)) return `<td class="dlt">–</td>`; if (pa || pb) return `<td class="dlt rmu">limit</td>`;
+      const dec = Math.max(...[a0, b0].map((x) => (String(x).split(".")[1] || "").length)); return `<td class="dlt">${rSgn(Number(b0) - Number(a0), Math.min(dec, 3))}</td>`; }).join("");
     const dt2 = (ms) => { const d = new Date(ms); return `${d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}<br>${d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}`; };
-    const info = (k) => S4.map((s) => { const [ph, sd] = s[0].split("_"), x = lv(labField(ph, sd, k)); return `<td>${k === "DateTime" ? (nb(x) ? "–" : dt2(x)) : k === "Lat" ? (nb(x) ? "–" : `${pt6(x)}<br>${pt6(lv(labField(ph, sd, "Lon")))}`) : esc(nb(x) ? "–" : x)}</td>`; }).join("");
-    const cert = ["pre", "post"].map((ph) => { if (!a[ph]) return ""; const files = a[ph].files.filter(isCert).map((f) => esc(f.name));
-      return `${PH[ph]}: ${esc(mv(ph, "laboratory_name") || "laboratory not entered")}, received ${dayText(mv(ph, "received_on"))}, reported ${dayText(mv(ph, "reported_on"))}<br><span style="color:var(--muted)">Certificate file: ${files.length ? files.join("; ") : "none attached"}</span>`; }).filter(Boolean).join("<br>");
+    const info = (k) => K.map((key) => { const [ph, sd] = key.split("_"), x = lv(labField(ph, sd, k)); return `<td>${k === "DateTime" ? (nb(x) ? "–" : dt2(x)) : k === "Lat" ? (nb(x) ? "–" : `${pt6(x)}<br>${pt6(lv(labField(ph, sd, "Lon")))}`) : esc(nb(x) ? "–" : x)}</td>`; }).join("");
+    const certBox = (ph) => { if (!a[ph]) return ""; const files = a[ph].files.filter(isCert).map((f) => esc(f.name));
+      return `<div class="rcert" style="border-left-color:${DSC[ph + "_up"]}"><b>${PH[ph]}</b><br>${esc(mv(ph, "laboratory_name") || "laboratory not entered")}<br><span class="rmu">received ${dayText(mv(ph, "received_on"))} · reported ${dayText(mv(ph, "reported_on"))}<br>Certificate: ${files.length ? files.join("; ") : "none attached"}</span></div>`; };
     const notes = ["Pre", "Post"].map((P0) => { const n = lv(P0 + "LabNotes"); return nb(n) ? "" : `<b>${P0}-construction notes:</b> ${esc(n)}`; }).filter(Boolean).join("<br>");
-    const p5 = `<div class="paper" data-sec="lab">${head("Lab results")}${!lab ? `<p>No lab results have been entered for this site yet.</p>` : `<p class="small">${cert}</p>
-      <table>${colHead}<tr><td>Lab sample ID</td>${info("LabSampleID")}</tr><tr><td>Collected by</td>${info("CollectedBy")}</tr><tr><td>Collected on</td>${info("DateTime")}</tr><tr><td>Coordinates<br><span class="small">latitude, longitude</span></td>${info("Lat")}</tr></table>
-      <h3>Results</h3><table><tr><th rowspan="2">Test</th><th rowspan="2">Units</th>${phaseThs(1)}<th colspan="2" class="dlt phs">Post − Pre</th></tr><tr>${S4.map((s) => sideTh(s)).join("")}${dSub}</tr>${LABTESTS.map((t) => `<tr><td>${LABNAMES[t]}</td><td>${LABUNITS[t]}</td>${S4.map((s) => { const [ph, sd] = s[0].split("_"); return `<td>${lp(ph, sd, t)}</td>`; }).join("")}${labDelta(t)}</tr>`).join("")}</table>
-      <p class="small">"&lt;" = below the lab's reporting limit, "&gt;" = above its upper limit; a change involving such a value is shown as "limit", because the true value is not known. Acidity is negative when the sample is alkaline.</p>${notes ? `<p class="small" style="margin-top:8px">${notes}</p>` : ""}`}<span class="pno"></span></div>`;
-    $("pages").innerHTML = p1 + p2 + p3 + p4 + p5;
-    for (const p of document.querySelectorAll("#pages .paper:not(#p3)")) fitPage(p);   // any page whose tables run long shrinks to fit (most need nothing)
-    // page 3: one page if it stays readable (about 8 pt or more); otherwise two pages, split between taxa groups
-    const pg3 = $("p3"); let f = fitPage(pg3, 9);
-    if (overflows(pg3) && blocks.length > 1) {
-      // split the rows evenly (the first page also holds the introduction); a group cut in two repeats its name on the next page
-      const rows = blocks.flatMap((b) => b.map((html, j) => ({ html, head: b[0], first: j === 0 }))), cut = Math.max(1, Math.round(rows.length / 2) - 1);
-      let k = cut; if (rows[k] && rows[k].first) k = cut; else if (rows[k - 1] && rows[k - 1].first) k = cut - 1;   // never leave a group name alone at the bottom
-      const partA = rows.slice(0, k).map((r) => r.html), restRows = rows.slice(k);
-      const partB = restRows.length && !restRows[0].first ? [restRows[0].head.replace(/(<td[^>]*>)(.*?)(<\/td>)/, "$1$2 (continued)$3"), ...restRows.map((r) => r.html)] : restRows.map((r) => r.html);
-      $("p3body").innerHTML = table3([partA], false);
-      pg3.insertAdjacentHTML("afterend", `<div class="paper" id="p3b" data-sec="taxa">${head("Detailed taxa (continued)")}<div>${table3([partB], true)}</div><span class="pno"></span></div>`);
-      f = fitPage(pg3); const fb = fitPage($("p3b"));
-      $("p3b").dataset.note = `printed text about ${(fb * 72 / 80).toFixed(1)} pt`;
+    const pLab = () => page("lab", "Lab results", !lab ? `${H("Laboratory")}<p>No lab results have been entered for this site yet.</p>` : `${H("Laboratory")}<div class="rcerts">${certBox("pre")}${certBox("post")}</div>
+      ${H("Samples")}<table class="rt"><colgroup><col style="width:24%"><col><col><col><col></colgroup><tr><th></th>${dHead()}</tr><tr><th></th>${sideThs()}</tr>
+        <tr><td>Lab sample ID</td>${info("LabSampleID")}</tr><tr><td>Collected by</td>${info("CollectedBy")}</tr><tr><td>Collected on</td>${info("DateTime")}</tr><tr><td>Coordinates <span class="rsm">latitude, longitude</span></td>${info("Lat")}</tr></table>
+      ${H("Results", "&lt; below the reporting limit · &gt; above the upper limit (shown in bold)")}<table class="rt"><colgroup><col style="width:19%"><col style="width:13%"><col><col><col><col><col style="width:10%"><col style="width:10%"></colgroup>
+        <tr><th></th><th></th>${dHead()}<th colspan="2" class="phs dlt">Post − Pre</th></tr><tr><th style="text-align:left">Test</th><th style="text-align:left">Units</th>${sideThs()}${cSub}</tr>
+        ${LABTESTS.map((t) => `<tr><td>${LABNAMES[t]}</td><td class="rmu" style="text-align:left">${LABUNITS[t]}</td>${K.map((key) => { const [ph, sd] = key.split("_"); return `<td>${lp(ph, sd, t)}</td>`; }).join("")}${labDelta(t)}</tr>`).join("")}</table>
+      <p class="rsm">A change involving a value at a reporting limit is shown as “limit”, because the true value is not known. Acidity is negative when the sample is alkaline.</p>${notes ? `<p class="rsm" style="margin-top:8px">${notes}</p>` : ""}`);
+
+    $("pages").innerHTML = p1 + p2 + p3;
+    // fill the taxa pages row by row, starting a new page when the next row would run past the bottom margin
+    const fits = (p) => p.querySelector(".rpbody").scrollHeight <= p.querySelector(".rpbody").clientHeight + 1;
+    if (!taxRows.length) $("pages").insertAdjacentHTML("beforeend", page("taxa", "Every taxon", `${H("Every taxon found")}<p>No taxa counted yet.</p>`, "p3"));
+    let i = 0, part = 0;
+    while (i < taxRows.length) {
+      part++; $("pages").insertAdjacentHTML("beforeend", page("taxa", "Every taxon", `${H(part === 1 ? "Every taxon found" : "Every taxon found (continued)")}${part === 1 ? taxIntro : ""}<table class="rt rtx">${taxHead}</table>`, part === 1 ? "p3" : ""));
+      const pg = $("pages").lastElementChild, tb = pg.querySelector("table").appendChild(document.createElement("tbody")); let added = 0;   // rows go in their own tbody, so each can be taken back
+      while (i < taxRows.length) {
+        const r = taxRows[i], ghRow = r.first || !added ? `<tr class="gh"><td colspan="12">${r.gh}${r.first ? "" : " (continued)"}</td></tr>` : "";
+        tb.insertAdjacentHTML("beforeend", ghRow + r.html);
+        const last = i === taxRows.length - 1; if (last) tb.insertAdjacentHTML("beforeend", taxTot);
+        if (fits(pg)) { i++; added++; continue; }
+        // does not fit: take the row back (and its group heading, and the totals); a group heading never sits alone at the bottom
+        if (last) tb.lastElementChild.remove(); tb.lastElementChild.remove(); if (ghRow) tb.lastElementChild.remove();
+        if (!added) { tb.insertAdjacentHTML("beforeend", ghRow + r.html + (last ? taxTot : "")); i++; added++; }   // a page always takes at least one row
+        break;
+      }
+      if (i < taxRows.length && added > 1 && taxRows[i - 1].first) { tb.lastElementChild.remove(); tb.lastElementChild.remove(); i--; }   // a group heading with only its first taxon moves to the next page with it
+      if (part > 12) break;   // safety
     }
-    pg3.dataset.note = `printed text about ${(f * 72 / 80).toFixed(1)} pt`;
+    if (taxRows.length && !$("pages").lastElementChild.querySelector("tr.tot")) [...$("pages").lastElementChild.querySelectorAll("tbody")].pop().insertAdjacentHTML("beforeend", taxTot);
+    $("pages").insertAdjacentHTML("beforeend", pLab());
+    const tx = [...document.querySelectorAll('#pages .paper[data-sec="taxa"]')]; if (tx.length > 1) tx.forEach((p, k) => { p.querySelector(".rphd-r span").textContent = `Every taxon (${k + 1} of ${tx.length})`; });
+    for (const p of document.querySelectorAll('#pages .paper:not([data-sec="taxa"])')) fitPage(p);   // a page whose tables run long shrinks to fit (most need nothing)
     reportSections();
-    // page 4 charts
-    const ss = S4.filter((_, i) => sm[i]), mk = (fn, d, label) => ss.map((s) => { const x = smp(a, s[0]).calc, v = fn(x); return { v, hex: s[2], short: SHORT[s[0]], tip: `${swatch(s[2])}<b>${s[1]}</b><br>${label}: <b>${fmt(v, d)}</b>` }; });
-    if (ss.length) {
-      // left column: the four bar charts stacked; right column: the group chart, as tall as the four together
-      colChart($("rcHils"), mk((x) => x.avg, 2, "Avg HILS"), { max: 10, bands: RATE, h: 160 }); colChart($("rcCount"), mk((x) => x.count, 0, "Organisms"), { h: 125 });
-      colChart($("rcTaxa"), mk((x) => x.taxa, 0, "Taxa present"), { h: 125 }); colChart($("rcEpt"), mk((x) => x.ept, 0, "EPT taxa"), { h: 125 });
-      const cats = GROUPS.map((g) => { const vals = {}; for (const s of ss) vals[s[0]] = groupStats(smp(a, s[0]), g).count;
-        return { key: g[0], label: g[1].split(" – ")[0].replace(" & Alderflies", ""), vals, any: ss.some((s) => vals[s[0]] > 0), tip: `<b>${esc(g[1])}</b>` }; }).filter((x) => x.any);
-      const left = document.querySelector(".r4l"), right = $("rcGrp"), Hpx = left.getBoundingClientRect().height - 40;   // minus the chart's own title
-      if (cats.length) barChart(right, cats, ss, { L: 92, minW: 200, pad: 5, gap: 1, height: Math.max(200, Hpx) });
-    }
     reportMap(a);
   }
-  // The report map is a still picture (WebGL maps do not print reliably): the Esri topo or imagery map exported for the
-  // sample points' area, with the WCCD stream lines and the points drawn over it in SVG. Same Map / Satellite switch as the other maps.
+  // The report map is a still picture (WebGL maps do not print reliably): the Esri imagery (or topographic map) exported for the sample
+  // points' area, with the WCCD flowlines (the monitored stream highlighted) and the points drawn over it in SVG. B20: satellite by default.
   const MERC = 6378137, mercX = (lon) => MERC * lon * Math.PI / 180, mercY = (lat) => MERC * Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360));
   function reportFrame(pts, w, h) {
     const xs = pts.map(({ p }) => mercX(p.lon)), ys = pts.map(({ p }) => mercY(p.lat)), cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
-    const res = Math.max((Math.max(...xs) - Math.min(...xs)) / (w - 140), (Math.max(...ys) - Math.min(...ys)) / (h - 70), 0.9);   // metres per pixel; ~zoom 17 at most
+    const res = Math.max((Math.max(...xs) - Math.min(...xs)) / (w - 160), (Math.max(...ys) - Math.min(...ys)) / (h - 90), 0.6);   // metres per pixel; ~zoom 18 at most
     return { minX: cx - w / 2 * res, maxX: cx + w / 2 * res, minY: cy - h / 2 * res, maxY: cy + h / 2 * res, res, w, h,
       px: (lon) => (mercX(lon) - (cx - w / 2 * res)) / res, py: (lat) => ((cy + h / 2 * res) - mercY(lat)) / res };
   }
-  const exportUrl = (F) => `${basePref === "sat" ? SAT_URL : TOPO_URL}/export?bbox=${[F.minX, F.minY, F.maxX, F.maxY].map((v) => v.toFixed(2)).join(",")}&bboxSR=3857&imageSR=3857&size=${F.w * 2},${F.h * 2}&dpi=192&format=png&transparent=false&f=image`;
+  const exportUrl = (F, base = rp.base || "sat") => `${base === "sat" ? SAT_URL : TOPO_URL}/export?bbox=${[F.minX, F.minY, F.maxX, F.maxY].map((v) => v.toFixed(2)).join(",")}&bboxSR=3857&imageSR=3857&size=${F.w * 2},${F.h * 2}&dpi=192&format=png&transparent=false&f=image`;
+  const rpStreamCol = () => (rp.base || "sat") === "sat" ? "#9FE8DA" : "#1F7A6C";
+  function reportOverlay(F) {   // streams + points as SVG (same drawing as the Word copy's picture)
+    const col = rpStreamCol(), path = (pa) => pa.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
+    const streams = (rp.streamPaths || []).map(({ pa, mon }) => mon ? `<polyline points="${path(pa)}" fill="none" stroke="${col}" stroke-width="9" stroke-opacity=".3"/><polyline points="${path(pa)}" fill="none" stroke="${col}" stroke-width="2.6"/>`
+      : `<polyline points="${path(pa)}" fill="none" stroke="${col}" stroke-width="1.1" stroke-opacity=".5"/>`).join("");
+    const dots = rp.pts.map(({ s, p }) => `<circle cx="${F.px(p.lon).toFixed(1)}" cy="${F.py(p.lat).toFixed(1)}" r="7.5" fill="${DSC[s[0]]}" stroke="#0B0F0C" stroke-width="2"/>`).join("");
+    const labels = ["down", "up"].map((sd) => { const q = rp.pts.filter(({ s }) => s[0].endsWith(sd)); if (!q.length) return "";
+      const x = q.reduce((t, { p }) => t + F.px(p.lon), 0) / q.length, y = Math.max(...q.map(({ p }) => F.py(p.lat)));
+      return `<text x="${x.toFixed(1)}" y="${(y + 22).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" stroke="#0B0F0C" stroke-width="3" paint-order="stroke" font-family="Arial, sans-serif">${SD[sd]}</text>`; }).join("");
+    return streams + dots + labels;
+  }
   async function reportMap(a) {
     const el = $("rMap"), pts = sitePts(a);
-    $("rMapNote").innerHTML = pts.length ? pts.map(({ s, p }) => `<span class="sw2" style="background:${s[2]}"></span>${s[1]} ${pt6(p.lat)}, ${pt6(p.lon)}`).join(" · ") : "No sample points have been entered yet.";
-    if (!pts.length) { el.innerHTML = `<p class="small" style="padding:10px">No sample points yet.</p>`; return; }
-    const F = reportFrame(pts, 602, 198); rp.frame = F; rp.pts = pts;   // the map's size on the printed page; picture and overlay stretch together on screen
-    let streams = "";
+    $("rMapNote").innerHTML = pts.length ? pts.map(({ s, p }) => `<span>${rsw(s[0], 8)}${DSN[s[0]]}: ${pt6(p.lat)}, ${pt6(p.lon)}</span>`).join("") : "No sample points have been entered yet.";
+    if (!pts.length) { el.innerHTML = `<p class="rsm" style="padding:10px">No sample points yet.</p>`; return; }
+    const F = reportFrame(pts, 584, 262); rp.frame = F; rp.pts = pts; rp.streamPaths = [];   // the map's size on the printed page
+    const draw = () => { el.innerHTML = `<img id="rMapImg" src="${exportUrl(F)}" alt="Map of the sample points" style="position:absolute;inset:0;width:100%;height:100%;object-fit:fill">
+        <svg viewBox="0 0 ${F.w} ${F.h}" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">${reportOverlay(F)}</svg>
+        <div class="baseswitch" style="position:absolute;top:8px;right:8px" role="group" aria-label="Basemap"><button type="button" data-b="sat">Satellite</button><button type="button" data-b="topo">Map</button></div>`;
+      el.querySelectorAll(".baseswitch button").forEach((b) => { const on = b.dataset.b === (rp.base || "sat"); b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); b.onclick = () => { rp.base = b.dataset.b; draw(); }; }); };
+    draw();
     try { const r = await getJson(FLOW_URL + "/query", { geometry: JSON.stringify({ xmin: F.minX, ymin: F.minY, xmax: F.maxX, ymax: F.maxY, spatialReference: { wkid: 3857 } }), geometryType: "esriGeometryEnvelope", inSR: 3857,
         spatialRel: "esriSpatialRelIntersects", outFields: "GNIS_NAME", returnGeometry: true, outSR: 3857, where: "1=1" });
-      const X = (x) => (x - F.minX) / F.res, Y = (y) => (F.maxY - y) / F.res;
-      streams = (r.features || []).map((f) => (f.geometry.paths || []).map((pa) => `<polyline points="${pa.map(([x, y]) => `${X(x).toFixed(1)},${Y(y).toFixed(1)}`).join(" ")}" fill="none" stroke="#1B5FAA" stroke-width="2" stroke-opacity=".85"/>`).join("")).join("");
-      rp.streamPaths = (r.features || []).flatMap((f) => (f.geometry.paths || []).map((pa) => pa.map(([x, y]) => [X(x), Y(y)])));
-    } catch { rp.streamPaths = []; /* the basemap still shows the streams */ }
-    const dots = pts.map(({ s, p }) => `<circle cx="${F.px(p.lon).toFixed(1)}" cy="${F.py(p.lat).toFixed(1)}" r="7" fill="${s[2]}" stroke="#fff" stroke-width="2"/>`).join("");
-    el.innerHTML = `<img id="rMapImg" src="${exportUrl(F)}" alt="Map of the sample points" style="position:absolute;inset:0;width:100%;height:100%;object-fit:fill">
-      <svg viewBox="0 0 ${F.w} ${F.h}" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">${streams}${dots}</svg>
-      <div class="baseswitch" style="position:absolute;top:8px;right:8px" role="group" aria-label="Basemap"><button type="button" data-b="topo">Map</button><button type="button" data-b="sat">Satellite</button></div>`;
-    const sw = el.querySelector(".baseswitch"), mark = () => sw.querySelectorAll("button").forEach((b) => { b.classList.toggle("on", b.dataset.b === basePref); b.setAttribute("aria-pressed", b.dataset.b === basePref); });
-    sw.querySelectorAll("button").forEach((b) => b.onclick = () => { basePref = b.dataset.b; mark(); $("rMapImg").src = exportUrl(F); }); mark();
+      if (rp.frame !== F) return;
+      const X = (x) => (x - F.minX) / F.res, Y = (y) => (F.maxY - y) / F.res, mine = String(a.stream || "").trim();
+      rp.streamPaths = (r.features || []).flatMap((f) => (f.geometry.paths || []).map((pa) => ({ pa: pa.map(([x, y]) => [X(x), Y(y)]), mon: !!mine && String(f.attributes.GNIS_NAME || "").trim() === mine })));
+      draw();
+    } catch { /* the imagery and the points still show */ }
   }
   // The same picture as one PNG (for the Word copy).
   async function reportMapPng() {
     const F = rp.frame; if (!F) return null;
     try { const blob = await (await fetch(exportUrl(F))).blob(), url = URL.createObjectURL(blob), img = new Image(); img.src = url; await img.decode();
-      const cv = document.createElement("canvas"); cv.width = F.w * 2; cv.height = F.h * 2; const cx = cv.getContext("2d"); cx.drawImage(img, 0, 0, cv.width, cv.height); URL.revokeObjectURL(url); cx.scale(2, 2);
-      cx.strokeStyle = "rgba(27,95,170,.85)"; cx.lineWidth = 2; for (const pa of rp.streamPaths || []) { cx.beginPath(); pa.forEach(([x, y], i) => i ? cx.lineTo(x, y) : cx.moveTo(x, y)); cx.stroke(); }
-      for (const { s, p } of rp.pts) { cx.beginPath(); cx.arc(F.px(p.lon), F.py(p.lat), 7, 0, 2 * Math.PI); cx.fillStyle = s[2]; cx.fill(); cx.lineWidth = 2; cx.strokeStyle = "#fff"; cx.stroke(); }
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${F.w}" height="${F.h}" viewBox="0 0 ${F.w} ${F.h}">${reportOverlay(F)}</svg>`, ov = new Image();
+      ov.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg); await ov.decode();
+      const cv = document.createElement("canvas"); cv.width = F.w * 2; cv.height = F.h * 2; const cx = cv.getContext("2d"); cx.drawImage(img, 0, 0, cv.width, cv.height); cx.drawImage(ov, 0, 0, cv.width, cv.height); URL.revokeObjectURL(url);
       return cv.toDataURL("image/png"); } catch { return null; }
   }
   function printReport() { window.print(); }
@@ -2669,13 +2796,13 @@
     const msg = $("rMsg"), old = msg.innerHTML; msg.innerHTML = '<span class="spin"></span>Preparing the file…';
     const pages = $("pages").cloneNode(true), live = $("pages");
     pages.querySelectorAll(".paper.skip").forEach((p) => p.remove());   // left-out sections stay out of the files too
-    const style = `body{font-family:Arial,sans-serif;font-size:10pt;color:#10242A} table{border-collapse:collapse;margin:4pt 0 10pt} td,th{border:1px solid #9FB0AD;padding:2pt 5pt;font-size:9pt;text-align:right} td:first-child,th:first-child{text-align:left} th{background:#EEF2F1} tr.gh td{background:#F4F7F6;font-weight:bold} tr.tot td{font-weight:bold} h1{font-size:20pt} h2{font-size:15pt;margin-top:18pt} h3{font-size:11pt} .small{font-size:8pt;color:#47606A} .hbi{color:#fff;padding:0 4pt}`;
+    const style = `body{font-family:Arial,sans-serif;font-size:10pt;color:#10242A} table{border-collapse:collapse;margin:4pt 0 10pt} td,th{border:1px solid #9FB0AD;padding:2pt 5pt;font-size:9pt;text-align:right} td:first-child,th:first-child{text-align:left} th{background:#EEF2F1} tr.gh td{background:#F4F7F6;font-weight:bold} tr.tot td{font-weight:bold} h1{font-size:20pt} h2{font-size:15pt;margin-top:18pt} h3{font-size:12pt;margin-top:12pt} .small,.rsm,.rmu,.rpsub,.rcard-d{font-size:8pt;color:#5B6B5F} .hbi{color:#fff;padding:0 4pt} .rhbi{color:#0B0F0C;padding:0 4pt;font-weight:bold} th.phs{background:#E6EEDA} td.dlt,th.dlt{background:#F3F7EE} tr.gh td{background:#E6EEDA;font-weight:bold;text-align:left} .rphd{border-bottom:3pt solid #C8E35A;padding-bottom:4pt} .rpfoot{display:none} .rcard{border:1px solid #DCE4D8;padding:4pt;margin:2pt 0} .rcard-n{font-size:18pt;font-weight:bold} .rsw{display:inline-block;width:8pt;height:8pt;border-radius:4pt}`;
     const name = `${a.id} ${a.stream || ""} report`.trim().replace(/[^\w .-]+/g, "");
     if (kind === "word") {
       const url = await reportMapPng(); const m = pages.querySelector("#rMap"); if (m) m.outerHTML = url ? `<img src="${url}" width="600" alt="Map of the sample points">` : "";
       const liveSvgs = live.querySelectorAll(".paper:not(.skip) .chart svg"), copySvgs = pages.querySelectorAll(".chart svg");
       for (let i = 0; i < liveSvgs.length; i++) { const png = await svgToPng(liveSvgs[i]); copySvgs[i].outerHTML = png ? `<img src="${png.url}" width="${Math.min(600, png.w)}" alt="chart">` : ""; }
-      pages.querySelectorAll(".pno").forEach((x) => x.remove()); pages.querySelectorAll(".rhd img").forEach((x) => x.setAttribute("width", "40"));
+      pages.querySelectorAll(".pno").forEach((x) => x.remove()); pages.querySelectorAll(".rhd img, .rphd img").forEach((x) => x.setAttribute("width", "40"));
       const html = [...pages.querySelectorAll(".paper")].map((p, i) => (i ? `<br clear="all" style="page-break-before:always">` : "") + p.innerHTML).join("");
       download(name + ".doc", "application/msword", `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><title>${esc(name)}</title><style>${style}</style></head><body>${html}</body></html>`);
     } else {
@@ -2761,7 +2888,7 @@
     const tiles = [["#/dash/sites", "Sites", "Every site and its progress on the map", `${k.sites.length} site${k.sites.length === 1 ? "" : "s"} · ${k.done} complete`, "home"],
       ["#/dash/new", "New site", "Start a site or its post-construction record", "Map + stream picker", "plus"],
       ["#/dash/explore", "Explore", "Charts, taxa browser and comparisons", "6 views", "explore"],
-      ["#/dash/reports", "Reports", "Print, PDF, Word and Excel", "5 Letter pages per site", "report"],
+      ["#/dash/reports", "Reports", "Print, PDF, Word and Excel", "White Letter pages per site", "report"],
       ["#/dash/check", "Data check", "Permissions, fields and totals", k.flags ? `${k.flags} flag${k.flags === 1 ? "" : "s"} to review` : "No flags on any site", "check"]];
     const curve = "M0,100 C260,10 420,150 700,60 C930,-10 1080,100 1280,30";
     $("dash").innerHTML = `<div class="dl-hero"><div class="dl-photo"></div><div class="dl-tint"></div><div class="dl-shade"></div>
@@ -2819,7 +2946,7 @@
           <tr><th></th><th>Down</th><th>Up</th><th>Lab</th><th class="sep">Down</th><th>Up</th><th>Lab</th></tr></thead><tbody>${rows || `<tr><td colspan="7" class="muted">No sites yet.</td></tr>`}</tbody></table></div>
       <div class="ds-ui ds-chart glass see"><h3>Avg HILS · Pre → Post (downstream)</h3>${chart}</div>
       <div class="ds-ui ds-leg glass see"><div class="lg"><span><i class="dot" style="background:#C8E35A;width:11px;height:11px"></i>complete</span><span><i class="dot" style="border:2.5px solid #C8E35A;width:11px;height:11px"></i>in progress</span><span><i style="display:inline-block;width:18px;height:2px;background:#9FE8DA"></i>monitored stream</span></div>
-        <div class="ds-sw" role="group" aria-label="Basemap"><button type="button" data-b="sat">Satellite</button><button type="button" data-b="topo">Map</button></div></div>`;
+        <button type="button" class="dbtn" id="dsFit" title="Zoom to show every site">Fit all sites</button><div class="ds-sw" role="group" aria-label="Basemap"><button type="button" data-b="sat">Satellite</button><button type="button" data-b="topo">Map</button></div></div>`;
     dashWire();
     const open = (id) => { location.hash = siteHash(id); };
     document.querySelectorAll("#dash tr.site, #dash .ds-pair").forEach((r) => { r.onclick = () => open(r.dataset.id); r.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(r.dataset.id); } }; });
@@ -2848,7 +2975,9 @@
         gl.add(new Graphic({ geometry, attributes: { site: a.id }, symbol: { type: "simple-marker", color: [200, 227, 90, 0.16], size: 40, outline: null } }));
         gl.add(new Graphic({ geometry, attributes: { site: a.id }, symbol: done ? { type: "simple-marker", color: "#C8E35A", size: 17, outline: { color: "#0B0F0C", width: 2.5 } } : { type: "simple-marker", color: "#0B0F0C", size: 15, outline: { color: "#C8E35A", width: 3 } } }));
         gl.add(new Graphic({ geometry, attributes: { site: a.id }, symbol: { type: "text", text: `${a.id} · ${a.stream || "no stream"}`, color: "#EEF3E9", haloColor: [8, 12, 9, 0.9], haloSize: 2, xoffset: 16, yoffset: 10, horizontalAlignment: "left", font: { size: 11, weight: "bold", family: "sans-serif" } } })); }
-      view.when(() => { if (token === dash.token) dashFit(view, gl.graphics.toArray().filter((x, i) => i % 3 === 1), 15, 14); }).catch(() => {});
+      const fitAll = () => dashFit(view, gl.graphics.toArray().filter((x, i) => i % 3 === 1), 15, 14);   // B20: also on the "Fit all sites" button
+      view.when(() => { if (token === dash.token) fitAll(); }).catch(() => {});
+      const fb = $("dsFit"); if (fb) fb.onclick = () => { if (token === dash.token) fitAll(); };
       const siteAt = async (e) => { try { const r = await view.hitTest(e, { include: [gl] }); const h = r.results.find((x) => x.graphic && x.graphic.attributes && x.graphic.attributes.site); return h ? model.find((a) => a.id === h.graphic.attributes.site) : null; } catch { return null; } };
       view.on("pointer-move", async (e) => { const a = await siteAt(e); if (token !== dash.token) return;
         if (!a) { hideTip(); el.style.cursor = ""; return; } el.style.cursor = "pointer";
@@ -2875,11 +3004,11 @@
     const line = (w, al) => ({ type: "simple-line", color: [159, 232, 218, al], width: w });
     const flow = new FeatureLayer({ url: FLOW_URL, outFields: ["GNIS_NAME"], renderer: { type: "unique-value",
       valueExpression: `var n = Trim(DefaultValue($feature.GNIS_NAME, "")); IIF(Includes(${JSON.stringify(names)}, n), "w", IIF(n == "", "u", "n"))`,
-      uniqueValueInfos: [{ value: "w", symbol: line(2.6, 0.95) }, { value: "n", symbol: line(1.2, 0.45) }, { value: "u", symbol: line(0.8, 0.25) }], defaultSymbol: line(0.8, 0.25) } });
+      uniqueValueInfos: [{ value: "w", symbol: line(3.2, 1) }, { value: "n", symbol: line(1.2, 0.45) }, { value: "u", symbol: line(0.8, 0.25) }], defaultSymbol: line(0.8, 0.25) } });
     const layers = [topo, sat, hill, roads];
-    if (names.length) layers.push(new FeatureLayer({ url: FLOW_URL, definitionExpression: `GNIS_NAME IN (${names.map((n) => "'" + n.replace(/'/g, "''") + "'").join(",")})`, renderer: { type: "simple", symbol: line(8, 0.18) } }));
+    if (names.length) layers.push(new FeatureLayer({ url: FLOW_URL, definitionExpression: `GNIS_NAME IN (${names.map((n) => "'" + n.replace(/'/g, "''") + "'").join(",")})`, renderer: { type: "simple", symbol: line(11, 0.3) } }));
     const gl = new GraphicsLayer(); layers.push(flow, gl);
-    return { Map, MapView, Graphic, sat, hill, topo, roads, gl, layers };
+    return { Map, MapView, Graphic, sat, hill, topo, roads, gl, layers, flow };
   }
 
   // ---------------- B11: the dashboard's site page (#/dash/site/<ID>/<tab>) ----------------
@@ -3033,7 +3162,8 @@
     if (!a) { $("dash").innerHTML = `${drail("home")}<main class="dsp-main"><a class="dsp-back" href="#/dash/sites">← Monitoring sites</a><div class="card" style="margin-top:12px">No site “${esc(id)}” was found.</div></main>`; dashWire(); return; }
     if (!DTABS.some((t) => t[0] === tab)) tab = "overview";
     const nFiles = ["pre", "post"].reduce((t, ph) => t + (a[ph] ? a[ph].files.length : 0), 0);
-    const body = tab === "pre" || tab === "post" ? dsPhase(a, tab) : tab === "files" ? dsFiles(a) : tab === "map" ? dsMapTab(a) : dsOverview(a);
+    const mapKeys = SKEYS.filter((k) => smp(a, k));   // B20: the site Map tab is the Explore map with every sample
+    const body = tab === "pre" || tab === "post" ? dsPhase(a, tab) : tab === "files" ? dsFiles(a) : tab === "map" ? dxMap(a, mapKeys) : dsOverview(a);
     $("dash").innerHTML = `${drail("home")}<main class="dsp-main"><a class="dsp-back" href="#/dash/sites">← Monitoring sites</a>${dashBanner()}${dash.note ? `<div class="dnote${dash.note.bad ? " bad" : ""}" role="status">${dash.note.html}</div>` : ""}
       <div class="dsp-head"><h2 class="ttl">${esc(a.id)}${a.test ? ' <span class="dtag">test</span>' : ""} · ${esc(a.stream || "no stream")}</h2>
         <span class="chip">Pre ${a.pre ? dayText(a.pre.date) : "–"}</span><span class="chip">Post ${a.post ? dayText(a.post.date) : "–"}</span><span class="chip" style="${a.status === "done" ? "color:var(--acc);border-color:rgba(200,227,90,.4)" : ""}">${STATUS_TEXT[a.status]}</span>
@@ -3055,7 +3185,7 @@
       try { const blob = await fetchFile(a, ph, f.id), u = URL.createObjectURL(blob), el = document.createElement("a"); el.href = u; el.download = f.name; document.body.appendChild(el); el.click(); setTimeout(() => { URL.revokeObjectURL(u); el.remove(); }, 1500); }
       catch (err) { alert("The file could not be downloaded: " + mask(err.message || err)); } b.disabled = false; });
     document.querySelectorAll("#dash .ds-sw button").forEach((b) => b.onclick = () => dashBase(b.dataset.b));
-    if (tab === "map") { dashBase(dash.base); dsMountMap(a); }
+    if (tab === "map") { dashBase(dash.base); dxMountMap(a, mapKeys); }
   }
 
   // ---------------- B13: editing in the Dashboard view (taxa counts, lab results) ----------------
@@ -3097,7 +3227,8 @@
     } else dashEditFail(a, ph, "Unknown editor.");
   }
   const deHead = (a, title, sideSw) => `<div class="de-head"><div><a class="dsp-back" href="${siteHash(a.id, dedit.ph)}">← ${esc(a.id)} · ${esc(a.stream || "no stream")} · ${PH[dedit.ph]}</a><h2 class="ttl">${title}</h2></div>${sideSw || ""}
-    <span class="de-btns"><button type="button" class="dbtn" id="deCancel">Cancel</button><button type="button" class="btnp" id="deReview" disabled>Review and save</button></span></div>${dash.note ? `<div class="dnote${dash.note.bad ? " bad" : ""}" role="status">${dash.note.html}</div>` : ""}`;
+    </div>${dash.note ? `<div class="dnote${dash.note.bad ? " bad" : ""}" role="status">${dash.note.html}</div>` : ""}`;
+  const deBar = () => `<div class="dbar" role="group" aria-label="Save or cancel"><span class="dbar-st" id="deBarSt" aria-live="polite">No changes yet</span><button type="button" class="dbtn" id="deCancel">Cancel</button><button type="button" class="btnp" id="deReview" disabled>Review and save</button></div>`;
   function deWireCommon(a) {
     dash.note = null; dashWire();   // B19: a "saved" note (e.g. after creating a site) shows once, at the top of the editor
     $("deCancel").onclick = () => { if (dashDirty() && !confirm("Discard the changes you made here?")) return; const ph = dedit.ph; dedit = null; location.hash = siteHash(a.id, ph); };
@@ -3118,7 +3249,7 @@
               ${GROUPS.map(([g, , lo]) => `<button type="button" role="tab" data-tab="${g}">${gName(g, lo, "gtx")}<b data-tabc="${g}"></b></button>`).join("")}
               <button type="button" role="tab" data-tab="OTHER"><span class="gtx"><span>Other taxa</span><em>a taxon not on the sheet</em></span><b data-tabc="OTHER"></b></button></nav>
             <div class="dlistcol"><div class="dth"><span>No.</span><span>Taxon</span><span style="text-align:center">HILS</span><span style="text-align:center">Count</span><span style="text-align:right">Index</span></div>
-              <div id="deList"></div><div class="de-err" id="deErr"></div></div></div></section>
+              <div id="deList"></div><div class="de-err" id="deErr"></div></div></div>${deBar()}</section>
         <aside class="de-col"><div class="card"><h3>Live figures · ${SD[E.sd].toLowerCase()}</h3><div id="deGauge" class="dsp-gauge" style="padding:0"></div><div id="deFigs"></div></div>
           <div class="card"><h3>Changes <span class="muted" id="deNch" style="font-weight:500"></span></h3><div id="deChg" style="font-size:13px"></div>
             <div class="muted" style="font-size:11.5px;margin-top:8px">Tab or Enter: next box · ↑ ↓: add or take one · nothing is saved until you review and confirm</div></div></aside></div></main>`;
@@ -3169,12 +3300,12 @@
         else if ((e.key === "ArrowUp" || e.key === "ArrowDown") && (inp.dataset.dn || inp.dataset.oth === "count")) { e.preventDefault(); const c = Math.max(0, cnum(inp.value) + (e.key === "ArrowUp" ? 1 : -1));
           if (inp.dataset.dn) setN(inp, c ? String(c) : ""); else { inp.value = c ? String(c) : ""; v.other = inp.value; dtaxaRefresh(a); } } };
     });
-    list.querySelectorAll(".stp").forEach((b) => b.onclick = () => { const inp = b.parentElement.querySelector("input"), c = Math.max(0, cnum(inp.value) + +b.dataset.step); setN(inp, c ? String(c) : ""); inp.focus(); });
+    list.querySelectorAll(".stp[data-step]").forEach((b) => b.onclick = () => { const inp = b.parentElement.querySelector("input"), c = Math.max(0, cnum(inp.value) + +b.dataset.step); setN(inp, c ? String(c) : ""); inp.focus(); });
     dtaxaRefresh(a);
   }
   function dtaxaRefresh(a) {
     const E = dedit, P = a[E.ph], v = E.sides[E.sd].vals, s = P.samples[E.sd], { counts, other, bad, oh, oname } = readCounts(v);
-    document.querySelectorAll("#deList .dtr").forEach((r) => { const n = +r.dataset.n, inp = r.querySelector("input"), c = counts[n] || 0, c0 = s.counts[n] || 0, b = inp.value.trim() !== "" && !/^\d+$/.test(inp.value.trim());
+    document.querySelectorAll("#deList .dtr:not(.dto)").forEach((r) => { const n = +r.dataset.n, inp = r.querySelector("input"), c = counts[n] || 0, c0 = s.counts[n] || 0, b = inp.value.trim() !== "" && !/^\d+$/.test(inp.value.trim());
       r.querySelector(".ix").textContent = c ? fmt(Math.round(c * HILS[n - 1])) : ""; inp.classList.toggle("bad-d", b);
       r.classList.toggle("chg", c !== c0 && !b); r.querySelector(".was").textContent = c === c0 || b ? "" : c0 ? (c ? `was ${c0}` : `was ${c0} · removed`) : "new"; });
     document.querySelectorAll("#dash [data-tabc]").forEach((el) => { const k = el.dataset.tabc; let c = 0;
@@ -3208,7 +3339,8 @@
     $("deNch").textContent = chg.length ? `(${chg.length})` : "";
     $("deChg").innerHTML = chg.length ? chg.slice(0, 10).map((x) => `<div style="padding:3px 0">• ${esc(x)}</div>`).join("") + (chg.length > 10 ? `<div class="muted">and ${chg.length - 10} more</div>` : "") : '<span class="muted">No changes yet.</span>';
     $("deErr").textContent = errs.join(" · ");
-    const rv = $("deReview"); rv.disabled = !chg.length || errs.length > 0; rv.textContent = !chg.length ? "Review and save" : errs.length ? "Fix the marked boxes first" : `Review and save · ${chg.length} change${chg.length === 1 ? "" : "s"}`;
+    const rv = $("deReview"); rv.disabled = !chg.length || errs.length > 0; rv.textContent = "Review and save";
+    $("deBarSt").innerHTML = errs.length ? `<span class="bad">Fix the marked boxes first</span>` : chg.length ? `<b>${chg.length} change${chg.length === 1 ? "" : "s"}</b> · ${Object.keys(E.sides).filter((x) => JSON.stringify(E.sides[x].vals) !== E.sides[x].orig).map((x) => SD[x]).join(" and ")} · nothing is saved until you confirm` : "No changes yet";
     document.querySelectorAll("#dash [data-side]").forEach((b) => { const x = b.dataset.side, dirty = JSON.stringify(E.sides[x].vals) !== E.sides[x].orig; b.textContent = SD[x] + (dirty ? " •" : ""); });
   }
 
@@ -3233,12 +3365,12 @@
           <div class="dsec">Samples</div>
           ${["down", "up"].map((sd) => `<div class="dlf c5"><span class="dsd">${SD[sd]}</span>${sampleCells(sd)}</div>`).join("")}
           <div class="dsec">Results <span>(type “&lt;” or “&gt;” before a number to mark a limit)</span></div>
-          <div class="dlt dlth"><span>Test</span><span>Units</span><span>Downstream</span><span>Upstream</span></div>
-          ${LABTESTS.map((tt) => `<div class="dlt"><span>${LABNAMES[tt]}</span><span class="u">${LABUNITS[tt]}</span>${cell("down", tt)}${cell("up", tt)}</div>`).join("")}
+          <div class="dlrow dlrowh"><span>Test</span><span>Units</span><span>Downstream</span><span>Upstream</span></div>
+          ${LABTESTS.map((tt) => `<div class="dlrow"><span>${LABNAMES[tt]}</span><span class="u">${LABUNITS[tt]}</span>${cell("down", tt)}${cell("up", tt)}</div>`).join("")}
           <div class="dsec">Lab notes</div>
           <div style="padding:0 14px 14px">${ok((ph === "pre" ? "Pre" : "Post") + "LabNotes") ? `<textarea class="dta" data-lv="notes" maxlength="1000" aria-label="Lab notes" placeholder="e.g. H4: pH and DO tested outside the 15-minute holding time.">${esc(v.notes)}</textarea>` : '<span class="muted">The notes field is not in the layer.</span>'}</div>
           <div class="de-err" id="deErr"></div>
-          <div class="muted" style="font-size:11.5px;padding:0 14px 14px;color:#5B6B5F">Tab follows the certificate: certificate, downstream sample, upstream sample, all downstream results, then all upstream results · &lt; below the reporting limit · = measured · &gt; above the upper limit</div></section>
+          <div class="muted" style="font-size:11.5px;padding:0 14px 14px;color:#5B6B5F">Tab follows the certificate: certificate, downstream sample, upstream sample, all downstream results, then all upstream results · &lt; below the reporting limit · = measured · &gt; above the upper limit</div>${deBar()}</section>
         <aside class="card dpdf"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><b style="font-size:13px">Lab certificate</b>${cert ? `<span class="muted" style="font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(cert.name)}</span>` : ""}</div>
           <div id="dePdf" class="dpdfbox">${cert ? '<span class="muted">Opening the certificate…</span>' : `<p class="muted">No certificate is attached to the ${PH[ph].toLowerCase()} record.</p>${clBtn("files:", "Attach the certificate", true)}`}</div></aside></div></main>`;
     deWireCommon(a);
@@ -3268,7 +3400,8 @@
     let planErr = ""; if (!errs.length && n) { try { labPlan(a, E.ph, v); } catch (err) { planErr = err.message || String(err); } }
     $("deErr").textContent = [...errs, planErr].filter(Boolean).join(" · ");
     const rv = $("deReview"); rv.disabled = !n || errs.length > 0 || !!planErr;
-    rv.textContent = errs.length ? `Fix ${bad.size} value${bad.size === 1 ? "" : "s"} first` : n ? `Review and save · ${n} change${n === 1 ? "" : "s"}` : "Review and save";
+    rv.textContent = "Review and save";
+    $("deBarSt").innerHTML = errs.length ? `<span class="bad">Fix ${bad.size} value${bad.size === 1 ? "" : "s"} first</span>` : planErr ? `<span class="bad">${esc(planErr)}</span>` : n ? `<b>${n} change${n === 1 ? "" : "s"}</b> · nothing is saved until you confirm` : "No changes yet";
   }
 
   // ---- review and save (same review panel and safe save as the classic editors) ----
@@ -3471,17 +3604,17 @@
     const oth = (g0 === "ALL" || g0 === "OTHER") && ss.some((k) => smp(a, k).other > 0);
     const mx = Math.max(1, ...rows.flatMap((r) => r.vals), ...(oth ? ss.map((k) => smp(a, k).other || 0) : []));
     const cols = `grid-template-columns:30px minmax(0,1.4fr) 40px repeat(${ss.length},minmax(0,1fr))`;
-    const cell = (k, c, h, label) => `<span class="dxtc"${tipA(`${tsw(PDSC[k])}<b>${DSN[k]}</b> · ${esc(label)}<br>count <b>${c}</b>${h != null ? ` · HILS ${h} · index ${Math.round(c * h)}` : ""}`)}><span class="tr">${c ? `<i style="width:${Math.max(2, c / mx * 100)}%;background:${PDSC[k]}"></i>` : ""}</span><b>${c || ""}</b></span>`;
+    const cell = (k, c, h, label) => `<span class="dxtc"${tipA(`${tsw(DSC[k])}<b>${DSN[k]}</b> · ${esc(label)}<br>count <b>${c}</b>${h != null ? ` · HILS ${h} · index ${Math.round(c * h)}` : ""}`)}><span class="tr">${c ? `<i style="width:${Math.max(2, c / mx * 100)}%;background:${DSC[k]}"></i>` : ""}</span><b>${c || ""}</b></span>`;
     const grpOf = (n) => GROUPS.find((x) => n >= x[2] && n <= x[3]);
     const gT = g0 === "ALL" ? "All taxa" : g0 === "OTHER" ? "Other taxa" : GSHORT[g0], gL = g0 === "ALL" ? "every group" : g0 === "OTHER" ? "a taxon not on the sheet" : GLATIN[g0];
-    return `<div class="dpaper dxp"><div class="dtabs-wrap">${dxGroupTabs(a, ss)}<div class="dlistcol">
+    return `<div class="dpaper dxp dk"><div class="dtabs-wrap">${dxGroupTabs(a, ss)}<div class="dlistcol">
       <div class="dxp-head"><span class="gn"><span>${gT}</span><em>${gL}</em></span></div>
       <div class="dxp-tb" style="padding-top:0"><span class="dxp-l">Sort</span>${[["num", "By number"], ["total", "By total count"], ["change", "Biggest Pre→Post change"]].map(([k, l]) => `<button type="button" class="dchip${k === dx.order ? " on" : ""}" data-dxo="${k}">${l}</button>`).join("")}</div>
-      <div class="dxtr dxth" style="${cols}"><span>No.</span><span>Taxon</span><span style="text-align:center">HILS</span>${ss.map((k) => `<span style="color:${PDSC[k]};font-weight:700">${DSS[k]}</span>`).join("")}</div>
+      <div class="dxtr dxth" style="${cols}"><span>No.</span><span>Taxon</span><span style="text-align:center">HILS</span>${ss.map((k) => `<span style="color:${DSC[k]};font-weight:700">${DSS[k]}</span>`).join("")}</div>
       ${rows.map((r) => `<div class="dxtr" style="${cols}"><span class="no">${r.n}</span><span class="nm"><span class="tn">${esc(TAXON[r.n - 1])}</span><em>${GSHORT[grpOf(r.n)[0]]}</em></span><span class="h">${HILS[r.n - 1]}</span>${ss.map((k, i) => cell(k, r.vals[i], HILS[r.n - 1], TAXON[r.n - 1])).join("")}</div>`).join("")}
       ${oth ? `<div class="dxtr" style="${cols}"><span class="no">–</span><span class="nm"><span class="tn">Other taxon</span><em>${esc([...new Set(ss.map((k) => smp(a, k).otherName).filter(Boolean))].join(", ") || "not on the sheet")}</em></span><span class="h">own</span>${ss.map((k) => { const s = smp(a, k); return cell(k, s.other || 0, s.otherHils || null, s.otherName || "Other taxon"); }).join("")}</div>` : ""}
-      ${!rows.length && !oth ? `<p style="padding:14px;color:#5B6B5F">No taxa with a count in ${g0 === "ALL" ? "any group" : "this group"} for the selected samples. Turn on “Show taxa with no count” on the left to list them all.</p>` : ""}
-      <div style="padding:8px 14px;font-size:11.5px;color:#5B6B5F">${rows.length + (oth ? 1 : 0)} taxa · hover a cell for its HILS and index</div></div></div></div>`;
+      ${!rows.length && !oth ? `<p class="dxnote" style="padding:14px">No taxa with a count in ${g0 === "ALL" ? "any group" : "this group"} for the selected samples. Turn on “Show taxa with no count” on the left to list them all.</p>` : ""}
+      <div class="dxnote" style="padding:8px 14px;font-size:11.5px">${rows.length + (oth ? 1 : 0)} taxa · hover a cell for its HILS and index</div></div></div></div>`;
   }
 
   // ---- Table (light panel, grouped as on the WCCD sheet) ----
@@ -3498,18 +3631,18 @@
         <div class="dxtr" style="${cols}"><span class="nm"><span class="tn">${esc([...new Set(ss.map((k) => smp(a, k).otherName).filter(Boolean))].join(", ") || "Other taxon")}</span></span><span class="h">own</span>${ss.map((k) => { const s = smp(a, k); return `<span class="dxtv">${s.other ? `<b>${s.other}</b> · ${Math.round(s.other * (s.otherHils || 0))}` : "–"}</span>`; }).join("")}</div></details>` : "";
     const tots = ss.map((k) => smp(a, k).calc);
     const gT = dx.grp === "ALL" ? "All taxa, grouped as on the WCCD sheet" : dx.grp === "OTHER" ? "Other taxa" : GSHORT[dx.grp], gL = dx.grp === "ALL" ? "" : dx.grp === "OTHER" ? "a taxon not on the sheet" : GLATIN[dx.grp];
-    return `<div class="dpaper dxp"><div class="dtabs-wrap">${dxGroupTabs(a, ss)}<div class="dlistcol">
+    return `<div class="dpaper dxp dk"><div class="dtabs-wrap">${dxGroupTabs(a, ss)}<div class="dlistcol">
       <div class="dxp-head" style="justify-content:space-between"><span class="gn"><span>${gT}</span>${gL ? `<em>${gL}</em>` : ""}</span>${dx.grp === "ALL" ? `<span><button type="button" class="dchip" id="dxExp">Expand all</button> <button type="button" class="dchip" id="dxCol">Collapse all</button></span>` : ""}</div>
-      <div class="dxtr dxth" style="${cols}"><span>Group / taxon</span><span style="text-align:center">HILS</span>${ss.map((k) => `<span class="dxtv" style="color:${PDSC[k]};font-weight:700">${DSS[k]}</span>`).join("")}</div>
-      ${body || (oth ? "" : `<p style="padding:14px;color:#5B6B5F">Nothing counted in this group for the selected samples.</p>`)}${oth}
+      <div class="dxtr dxth" style="${cols}"><span>Group / taxon</span><span style="text-align:center">HILS</span>${ss.map((k) => `<span class="dxtv" style="color:${DSC[k]};font-weight:700">${DSS[k]}</span>`).join("")}</div>
+      ${body || (oth ? "" : `<p class="dxnote" style="padding:14px">Nothing counted in this group for the selected samples.</p>`)}${oth}
       <div class="dxtr dxtot" style="${cols}"><span>Totals · Avg HILS</span><span></span>${tots.map((c) => `<span class="dxtv"><b>${c.count}</b> · ${c.taxa} · ${fmt(c.index)}<br><span style="font-size:11px">Avg ${fmt(c.avg, 2)} ${drating(c.avg) ? drating(c.avg)[1] : ""}</span></span>`).join("")}</div>
-      <div style="padding:8px 14px;font-size:11.5px;color:#5B6B5F">Group lines show count · taxa · index for each sample; taxa lines show count · index. The totals row is for all groups.</div></div></div></div>`;
+      <div class="dxnote" style="padding:8px 14px;font-size:11.5px">Group lines show count · taxa · index for each sample; taxa lines show count · index. The totals row is for all groups.</div></div></div></div>`;
   }
 
   // ---- B18: Map, with each sample's point sized by its Avg HILS and labelled ----
-  const dxSize = (avg) => avg == null ? 14 : Math.round(12 + Math.min(10, Math.max(0, avg)) * 3.2);   // Avg HILS 0 → 12 px … 10 → 44 px (bigger = poorer)
-  function dxMap(a) {
-    const ss = dxSel(a), P = (k) => a[k.split("_")[0]];
+  const dxSize = (avg) => avg == null ? 11 : Math.round(9 + Math.min(10, Math.max(0, avg)) * 1.5);   // B20: Avg HILS 0 → 9 px … 10 → 24 px (bigger = poorer)
+  function dxMap(a, ss = dxSel(a)) {
+    const P = (k) => a[k.split("_")[0]];
     const rows = ss.map((k) => { const s = smp(a, k), r = drating(s.calc.avg), g = geomPt(s.geom);
       return `<div class="dx-mrow"><i class="dot" style="background:${DSC[k]};width:11px;height:11px"></i><span>${DSN[k]}<small>${dayText(P(k).date)}${g ? "" : " · no point"}</small></span><b>${fmt(s.calc.avg, 2)}</b>${r ? `<span class="dhbi" style="background:${r[2]}">${r[1]}</span>` : ""}</div>`; }).join("");
     return `<div class="dsp-mapwrap dx-mapwrap"><div class="dsp-map" id="dspMap" aria-label="Map of the site's sample points"></div>
@@ -3520,24 +3653,25 @@
         <div class="ds-sw" role="group" aria-label="Basemap"><button type="button" data-b="sat">Satellite</button><button type="button" data-b="topo">Map</button></div>${clBtn("map:", "Edit the points")}</div></div>
       <p class="muted" id="dspMapNote" style="font-size:12px"></p>`;
   }
-  async function dxMountMap(a) {
-    const el = $("dspMap"); if (!el) return; dashMapFree(); const token = dash.token, ss = dxSel(a);
+  async function dxMountMap(a, ss = dxSel(a)) {
+    const el = $("dspMap"); if (!el) return; dashMapFree(); const token = dash.token;
     const pts = ss.map((k) => { const s = smp(a, k), g = geomPt(s.geom); return g ? { k, s, g } : null; }).filter(Boolean);
     $("dspMapNote").textContent = pts.length ? pts.map((p) => `${DSN[p.k]}: ${pt6(p.g.lat)}, ${pt6(p.g.lon)}`).join(" · ") : "None of the selected samples has a point yet.";
     try {
       const { Map, MapView, Graphic, sat, hill, topo, roads, gl, layers } = await dashLayers([a.stream]);
-      const info = document.querySelector("#dash .dx-minfo"), padL = info && innerWidth > 1000 ? Math.round(info.getBoundingClientRect().width + 36) : 30;
-      const view = new MapView({ container: el, map: new Map({ layers }), center: pts.length ? [pts[0].g.lon, pts[0].g.lat] : COUNTY_CENTER, zoom: pts.length ? 17 : 10, padding: { top: 50, left: padL, right: 50, bottom: 90 } });
+      // B20: the points open in the middle of the map (the info panel sits clear of them at the top left), zoomed in close
+      const mid = pts.length ? [(Math.min(...pts.map((q) => q.g.lon)) + Math.max(...pts.map((q) => q.g.lon))) / 2, (Math.min(...pts.map((q) => q.g.lat)) + Math.max(...pts.map((q) => q.g.lat))) / 2] : COUNTY_CENTER;
+      const view = new MapView({ container: el, map: new Map({ layers }), center: mid, zoom: pts.length ? 18 : 10, padding: { top: 40, left: 40, right: 40, bottom: 80 } });
       if (token !== dash.token || !document.body.contains(el)) { view.destroy(); return; }
       dash.map = view; dash.layers = { sat, hill, topo, roads }; dashBase(dash.base);
       const marks = [];
       for (const p of pts) { const geometry = { type: "point", longitude: p.g.lon, latitude: p.g.lat }, r = drating(p.s.calc.avg), size = dxSize(p.s.calc.avg), pre = p.k.startsWith("pre");
-        gl.add(new Graphic({ geometry, attributes: { key: p.k }, symbol: { type: "simple-marker", color: [8, 12, 9, 0.35], size: size + 14, outline: null } }));
-        const m = new Graphic({ geometry, attributes: { key: p.k }, symbol: { type: "simple-marker", color: DSC[p.k], size, outline: { color: r ? r[2] : "#0B0F0C", width: 3.5 } } }); gl.add(m); marks.push(m);
+        gl.add(new Graphic({ geometry, attributes: { key: p.k }, symbol: { type: "simple-marker", color: [8, 12, 9, 0.35], size: size + 8, outline: null } }));
+        const m = new Graphic({ geometry, attributes: { key: p.k }, symbol: { type: "simple-marker", color: DSC[p.k], size, outline: { color: r ? r[2] : "#0B0F0C", width: 2.5 } } }); gl.add(m); marks.push(m);
         // Pre labels to the left, Post labels to the right, so samples taken at the same spot stay readable
         gl.add(new Graphic({ geometry, attributes: { key: p.k }, symbol: { type: "text", text: `${DSS[p.k]} · ${fmt(p.s.calc.avg, 2)}${r ? "\n" + r[1] : ""}`, color: "#EEF3E9", haloColor: [8, 12, 9, 0.92], haloSize: 2.2,
           xoffset: (pre ? -1 : 1) * (size / 2 + 8), yoffset: 4, horizontalAlignment: pre ? "right" : "left", font: { size: 11.5, weight: "bold", family: "sans-serif" } } })); }
-      view.when(() => { if (token === dash.token) dashFit(view, marks, 18, 17); }).catch(() => {});
+      view.when(() => { if (token === dash.token) dashFit(view, marks, 19, 18); }).catch(() => {});
       view.on("pointer-move", async (e) => { let hit = null;
         try { const rr = await view.hitTest(e, { include: [gl] }); hit = rr.results.find((x) => x.graphic && x.graphic.attributes && x.graphic.attributes.key); } catch { /* view gone */ }
         if (token !== dash.token) return; if (!hit) { hideTip(); el.style.cursor = ""; return; }
@@ -3667,10 +3801,9 @@
   function dashNew() {
     if (!nw.st) { const vals = { id: "", stream: "", site: "", date: "", "down.lat": "", "down.lon": "", "up.lat": "", "up.lon": "" }; nw.st = { kind: "create", mode: "pre", vals, orig: JSON.stringify(vals), place: "down" }; }
     if (svc.pre.error) { $("dash").innerHTML = `${drail("plus")}<main class="dsp-main"><div class="card">${esc(svc.pre.error)}<p class="muted">A new site cannot be created until the Pre-construction survey can be read.</p></div></main>`; dashWire(); return; }
-    const st = nw.st, v = st.vals, cols = PTCOL.pre, step = (n, tl) => `<div class="dn-step"><span>${n}</span>${tl}</div>`;
+    const st = nw.st, v = st.vals, cols = { down: PDSC.pre_down, up: PDSC.pre_up }, step = (n, tl) => `<div class="dn-step"><span>${n}</span>${tl}</div>`;
     $("dash").innerHTML = `${drail("plus")}<main class="dsp-main dnpage" id="dnRoot">
-      <div class="de-head"><div><div class="muted" style="font-size:12px">New site · Pre-construction</div><h2 class="ttl">Start a new site</h2></div>
-        <span class="de-btns"><button type="button" class="dbtn" id="dnCancel">Cancel</button><button type="button" class="btnp" id="dnReview" disabled>Review and create</button></span></div>
+      <div class="de-head"><div><div class="muted" style="font-size:12px">New site · Pre-construction</div><h2 class="ttl">Start a new site</h2></div></div>
       <div class="dn-grid"><section class="dpaper dn-form">
           ${step(1, "Site")}
           <div class="dn-f"><label for="cId">WCCD project ID</label><input class="dtx" type="text" id="cId" data-cv="id" maxlength="8" autocomplete="off" placeholder="e.g. BRUR3699" value="${esc(v.id)}"><small>4 letters + 4 digits, not already used</small></div>
@@ -3685,7 +3818,7 @@
           <div class="dn-note" id="cOther"></div><div class="dn-note" id="cSug"></div><div class="dn-note" id="cLook"></div>
           ${step(3, "Review and create")}
           <div class="dn-note" style="margin-top:0">Creates the Pre-construction record with its downstream and upstream samples, as the Survey123 form does. Taxa counts, field readings and lab results are entered afterwards.</div>
-          <div class="dn-status" id="eChanged"></div></section>
+          <div class="dbar" role="group" aria-label="Create or cancel"><span class="dbar-st" id="eChanged" aria-live="polite"></span><button type="button" class="dbtn" id="dnCancel">Cancel</button><button type="button" class="btnp" id="dnReview" disabled>Review and create</button></div></section>
         <section class="dn-mapcol"><div id="cmap" class="dn-map" aria-label="Map: click to place the selected point"></div></section></div></main>`;
     dashWire();
     const root = $("dnRoot"), refresh = () => createRefresh(st, null, root, "#dnReview");
