@@ -248,8 +248,8 @@
   .rp20 h1.rpt{font:700 30px/1.1 "Barlow Semi Condensed",sans-serif;margin:0} .rp20 .rpsub{font-size:11px;color:#5B6B5F;margin-top:2px}
   .rp20 .rstat{margin-left:6px;padding:1px 8px;border-radius:999px;background:#E6EEDA;color:#142019;font-weight:700;font-size:9.5px} .rp20 .rstat.on{background:#C8E35A;color:#0B0F0C}
   .rp20 h3.rph{font:700 17px "Barlow Semi Condensed",sans-serif;margin:12px 0 5px} .rp20 h3.rph span{font:400 10px "Public Sans",sans-serif;color:#5B6B5F;margin-left:8px}
-  .rp20 .rsw{display:inline-block;border-radius:50%;border:1px solid rgba(20,32,25,.55);vertical-align:-1px;margin-right:4px}
-  .rp20 .rhbi{display:inline-block;padding:1px 7px;border-radius:999px;color:#0B0F0C;font-size:9.5px;font-weight:700}
+  .rp20 .rsw{display:inline-block;border-radius:2px;vertical-align:-1px;margin-right:4px}
+  .rp20 .rhbi{display:inline-flex;align-items:center;gap:4px;padding:1px 7px 1px 5px;border-radius:999px;font-size:9.5px;font-weight:700;white-space:nowrap} .rp20 .rhbi i{width:6px;height:6px;border-radius:50%;flex:none}
   .rp20 .rcards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px} .rp20 .rcard{border:1px solid #DCE4D8;border-top:5px solid;border-radius:8px;padding:8px 9px}
   .rp20 .rcard-t{font-size:10px;font-weight:700} .rp20 .rcard-d{font-size:9.5px;color:#5B6B5F} .rp20 .rcard-n{font:700 28px/1.05 "Barlow Semi Condensed",sans-serif;margin-top:4px}
   .rp20 .rdumb{display:flex;align-items:center;gap:8px;font-size:10px} .rp20 .rdumb-l{width:84px;flex:none;color:#5B6B5F} .rp20 .rdumb-l b{color:#142019} .rp20 .rdumb-x{color:#5B6B5F;padding:6px 0}
@@ -266,7 +266,7 @@
   .rp20 .rtx{font-size:10.5px} .rp20 .rmu{color:#5B6B5F} .rp20 .rsm{font-size:9.5px;color:#5B6B5F} .rp20 .rept{font-size:8.5px;font-weight:700;color:#6E8F12}
   .rp20 .rcharts{display:grid;grid-template-columns:300px minmax(0,1fr);gap:14px;align-items:start} .rp20 .rminis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
   .rp20 .rch{font-size:10px;font-weight:700} .rp20 .rch span{font-weight:400;color:#5B6B5F} .rp20 .chart{border:0;padding:0}
-  .rp20 .rscale{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;font-size:9.5px;text-align:center} .rp20 .rscale i{display:block;height:12px;border-radius:3px} .rp20 .rscale b{display:block} .rp20 .rscale span{color:#5B6B5F}
+  .rp20 .rscale{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;font-size:9.5px;text-align:center} .rp20 .rscale i{display:block;height:6px;border-radius:3px} .rp20 .rscale b{display:block} .rp20 .rscale span{color:#5B6B5F}
   .rp20 .rcerts{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:10px} .rp20 .rcert{border:1px solid #DCE4D8;border-left:4px solid;border-radius:6px;padding:6px 9px}
   .rp20 .baseswitch button.on{background:#1F3A2A}
   @page{size:letter;margin:0}
@@ -419,7 +419,20 @@
   .dsp-strip{display:flex;gap:28px;align-items:center;flex-wrap:wrap;padding:10px 16px;font-size:13px} .dsp-strip small{display:block;font-size:11px;color:var(--muted)}
   .dbar{display:grid;grid-template-columns:130px minmax(0,1fr) 34px;gap:8px;align-items:center;font-size:12px;margin:3px 0}
   .dbar>span:first-child{text-align:right} .dbar .tr{height:10px;border-radius:5px;background:rgba(255,255,255,.05);position:relative;display:block} .dbar .tr i{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
-  .dbar.z{opacity:.42}
+  .dbar.z{color:#7E8A81} .dbar.z .tr{background:none;border:1px dashed rgba(255,255,255,.14);box-sizing:border-box} .dbar.z b{color:#6B766E;font-weight:400}
+  .dzwrap:not(.showz) .dbar.z{display:none} .dzwrap.showz .dzn{display:none} .dzn{font-size:11.5px;margin-top:6px}
+  /* B21 switches (site page: dark; taxa editor: light) */
+  .dzsw{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;user-select:none;position:relative}
+  .dzsw input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+  .dzsw i{width:32px;height:18px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);position:relative;flex:none;transition:background .15s}
+  .dzsw i::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#C9D3C6;transition:left .15s}
+  .dzsw input:checked+i{background:var(--acc);border-color:var(--acc)} .dzsw input:checked+i::after{left:16px;background:#0B0F0C}
+  .dzsw input:focus-visible+i{outline:2px solid var(--acc);outline-offset:2px}
+  .dzsw.lt{color:#142019;font-size:12.5px;white-space:nowrap} .dzsw.lt i{background:#D7DED3;border-color:#C9D3C4} .dzsw.lt i::after{background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+  .dzsw.lt input:checked+i{background:#1F3A2A;border-color:#1F3A2A} .dzsw.lt input:checked+i::after{background:#C8E35A} .dzsw.lt input:focus-visible+i{outline-color:#8DB320}
+  .dtr.z .tn,.dtr.z .no,.dtr.z .h{color:#8A968D} .dtr.z .stp{color:#A9B3AB;border-color:#E1E7DE}
+  .dtr.z .cnt input{background:#F6F8F4;border-color:#E1E7DE;color:#A9B3AB;font-weight:400} .dtr.z .cnt input::placeholder{color:#B5BEB7}
+  .dtr.z .cnt input:focus{background:#fff;color:#142019;border:2px solid #8DB320}
   .dlab{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:10px} .dlab>div{background:var(--surf2);border-radius:12px;padding:8px 10px}
   .dhbi{font-size:11px;padding:2px 8px;border-radius:999px;color:#0B0F0C;font-weight:700}
   .dstage{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-top:1px solid rgba(255,255,255,.06);font-size:13px}
@@ -433,13 +446,13 @@
   @media (max-width:640px){ .dsp-main{margin-left:0;padding:12px 16px 24px} .dsp-g4{grid-template-columns:1fr} .dbar{grid-template-columns:96px minmax(0,1fr) 30px} }
   /* B13: dashboard editors (light "paper" forms) */
   /* B20: Save / Cancel sit at the end of the form they finish, in a bar that stays in view at the bottom of that panel */
-  .dbar{position:sticky;bottom:12px;z-index:6;margin:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-radius:14px;background:#fff;color:#142019;border:2px solid var(--acc);box-shadow:0 0 0 4px rgba(200,227,90,.18),0 -6px 20px rgba(0,0,0,.22)}
-  .dbar-st{flex:1;min-width:160px;font-size:12.5px;color:#5B6B5F} .dbar-st .bad{color:#C2410C} .dbar-st b{color:#142019}
-  .dbar .dbtn{background:#fff;color:#142019;border-color:#C9D3C4;font-size:13px;padding:7px 14px} .dbar .dbtn:hover{border-color:#1F3A2A}
-  .dash .dbar .btnp{background:#1F3A2A;border-color:#1F3A2A;color:#fff;padding:8px 16px;font-size:13.5px}
-  .dn-form .dbar{margin:12px 0 0}
-  .dpaper:has(.dbar){overflow:clip}   /* overflow:hidden would stop the bar from sticking */ #dash .dbar .dbar-st{text-align:left}
-  @media (max-width:640px){ .dbar{bottom:70px} .dbar .btnp{flex:1;justify-content:center} }
+  .dsave{position:sticky;bottom:12px;z-index:6;margin:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-radius:14px;background:#fff;color:#142019;border:2px solid var(--acc);box-shadow:0 0 0 4px rgba(200,227,90,.18),0 -6px 20px rgba(0,0,0,.22)}
+  .dsave-st{flex:1;min-width:160px;font-size:12.5px;color:#5B6B5F} .dsave-st .bad{color:#C2410C} .dsave-st b{color:#142019}
+  .dsave .dbtn{background:#fff;color:#142019;border-color:#C9D3C4;font-size:13px;padding:7px 14px} .dsave .dbtn:hover{border-color:#1F3A2A}
+  .dash .dsave .btnp{background:#1F3A2A;border-color:#1F3A2A;color:#fff;padding:8px 16px;font-size:13.5px}
+  .dn-form .dsave{margin:12px 0 0}
+  .dpaper:has(.dsave){overflow:clip}   /* overflow:hidden would stop the bar from sticking */ #dash .dsave .dsave-st{text-align:left}
+  @media (max-width:640px){ .dsave{bottom:70px} .dsave .btnp{flex:1;justify-content:center} }
   .de-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px} .de-head h2{font-size:28px;margin:2px 0 0} .de-btns{margin-left:auto;display:flex;gap:8px;align-items:center}
   .de-sides{font-size:13px} .dash .btnp{cursor:pointer;font:inherit;font-weight:700} .dash .btnp:disabled{opacity:.45;cursor:not-allowed;filter:none}
   .de-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start} .de-grid.lab{grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr)}
@@ -739,7 +752,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B20", BUILD_DATE = "17 Nov 2026";
+  const BUILD = "B21", BUILD_DATE = "18 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -2590,8 +2603,12 @@
   // Colours: the dashboard sample colours (DSC) with a dark outline, the dashboard HBI colours (DRATE), lime rules and light lime table headings.
   const RPC = { ink: "#142019", mut: "#5B6B5F", line: "#DCE4D8", tint: "#F3F7EE", tint2: "#E6EEDA", acc: "#C8E35A", ept: "#6E8F12" };
   const RPN = { pre_down: "Downstream", pre_up: "Upstream", post_down: "Downstream", post_up: "Upstream" };
-  const rsw = (k, w = 9) => `<i class="rsw" style="width:${w}px;height:${w}px;background:${DSC[k]}"></i>`;
-  const rHbiChip = (v) => { const r = drating(v); return r ? `<span class="rhbi" style="background:${r[2]}">${r[1]}</span>` : "–"; };
+  // B21 (approved Option A): sample colours and HBI colours toned down for paper; map points keep the bright DSC colours
+  const RPS = { pre_down: "#9CC7BE", pre_up: "#3F887D", post_down: "#C9D08E", post_up: "#7C8C34" };
+  const rMix = (x, y, t) => "#" + [1, 3, 5].map((i) => Math.round(parseInt(x.substr(i, 2), 16) * (1 - t) + parseInt(y.substr(i, 2), 16) * t).toString(16).padStart(2, "0")).join("");
+  const rMute = (h) => rMix(h, "#8E9690", 0.38);
+  const rsw = (k, w = 9) => `<i class="rsw" style="width:${w}px;height:${w}px;background:${RPS[k]}"></i>`;
+  const rHbiChip = (v) => { const r = drating(v); if (!r) return "–"; const m = rMute(r[2]); return `<span class="rhbi" style="background:${rMix(m, "#FFFFFF", 0.78)};color:${rMix(m, "#142019", 0.55)}"><i style="background:${m}"></i>${r[1]}</span>`; };
   const rSgn = (d, dec = 0) => (d > 0 ? "+" : d < 0 ? "−" : "") + fmt(Math.abs(d), dec);
   function buildReport() {
     hideTip();
@@ -2618,15 +2635,15 @@
 
     // ---- page 1: summary ----
     const card = (k, i) => { const s = sm[i], c = sts[i], ph = k.split("_")[0];
-      return `<div class="rcard" style="border-top-color:${DSC[k]}"><div class="rcard-t">${rsw(k)}${DSN[k]}</div><div class="rcard-d">${a[ph] ? dayText(a[ph].date) : "not sampled"}</div>
+      return `<div class="rcard" style="border-top-color:${RPS[k]}"><div class="rcard-t">${rsw(k)}${DSN[k]}</div><div class="rcard-d">${a[ph] ? dayText(a[ph].date) : "not sampled"}</div>
         ${s && c.count ? `<div class="rcard-n">${fmt(c.avg, 2)}</div><div class="rcard-d">Avg HILS</div>${rHbiChip(c.avg)}<div class="rcard-d" style="margin-top:6px">${c.count} organisms · ${c.taxa} taxa · ${c.ept} EPT</div>`
           : `<div class="rcard-d" style="margin-top:14px">${s ? "no organisms counted yet" : "no sample yet"}</div>`}</div>`; };
     const X = (q) => 18 + (1 - Math.min(10, Math.max(0, q)) / 10) * 500;
-    const grad = `<defs><linearGradient id="rpHbiG">${DRATE.slice().reverse().map((r, i) => `<stop offset="${i / 6}" stop-color="${r[2]}" stop-opacity=".55"/>`).join("")}</linearGradient></defs>`;
+    const grad = `<defs><linearGradient id="rpHbiG">${DRATE.slice().reverse().map((r, i) => `<stop offset="${i / 6}" stop-color="${rMute(r[2])}" stop-opacity=".5"/>`).join("")}</linearGradient></defs>`;
     const dumb = (sd) => { const p = sts[K.indexOf("pre_" + sd)], q = sts[K.indexOf("post_" + sd)];
       if (!p || !q || p.avg == null || q.avg == null) return `<div class="rdumb"><span class="rdumb-l"><b>${SD[sd]}</b><br>${p && p.avg != null ? fmt(p.avg, 2) : "–"} → ${q && q.avg != null ? fmt(q.avg, 2) : "–"}</span><span class="rdumb-x">Needs both Pre- and Post-construction samples.</span></div>`;
       return `<div class="rdumb"><span class="rdumb-l"><b>${SD[sd]}</b><br>${fmt(p.avg, 2)} → ${fmt(q.avg, 2)}</span><svg width="536" height="26" viewBox="0 0 536 26">${grad}<rect x="18" y="9" width="500" height="8" rx="4" fill="url(#rpHbiG)"/>
-        <line x1="${X(p.avg)}" x2="${X(q.avg)}" y1="13" y2="13" stroke="${RPC.ink}" stroke-width="2.5"/><circle cx="${X(p.avg)}" cy="13" r="6.5" fill="${DSC["pre_" + sd]}" stroke="${RPC.ink}" stroke-width="1.2"/><circle cx="${X(q.avg)}" cy="13" r="7.5" fill="${DSC["post_" + sd]}" stroke="${RPC.ink}" stroke-width="1.2"/></svg>
+        <line x1="${X(p.avg)}" x2="${X(q.avg)}" y1="13" y2="13" stroke="${RPC.ink}" stroke-width="1.6"/><circle cx="${X(p.avg)}" cy="13" r="6.5" fill="${RPS["pre_" + sd]}" stroke="${RPC.ink}" stroke-width=".6"/><circle cx="${X(q.avg)}" cy="13" r="7.5" fill="${RPS["post_" + sd]}" stroke="${RPC.ink}" stroke-width=".6"/></svg>
         <b class="${q.avg < p.avg ? "up" : q.avg > p.avg ? "dn" : ""}">${rSgn(q.avg - p.avg, 2)}</b></div>`; };
     const p1 = page("cover", "Summary", `<h1 class="rpt">${esc(a.stream || "no stream")} · ${esc(a.id)}</h1>
       <div class="rpsub">${dates}${comid ? ` · Stream ID (COMID) ${esc(comid)}` : ""} <span class="rstat${a.status === "done" ? " on" : ""}">${STATUS_TEXT[a.status]}</span></div>
@@ -2640,21 +2657,23 @@
       + `<tr><td>Water quality (HBI)</td>${sts.map((x) => `<td>${x ? rHbiChip(x.avg) : "–"}</td>`).join("")}<td class="dlt"></td><td class="dlt"></td></tr>`
       + (sm.some((s) => s && s.other) ? `<tr><td>Other taxon</td>${sm.map((s) => `<td>${s && s.other ? `${s.other}${s.otherName ? `<br><span class="rsm">${esc(s.otherName)}</span>` : ""}` : "–"}</td>`).join("")}${chgPair((i) => sm[i].other || 0)}</tr>` : "");
     const have = K.map((k, i) => ({ k, c: sts[i] })).filter((x) => x.c && x.c.count);
-    const bandsChart = () => { const W = 296, Hh = 176, Y = (q) => 12 + (1 - q / 10) * (Hh - 36), bw = 44, gap = (W - 40 - have.length * bw) / Math.max(1, have.length), bx = (i) => 34 + gap / 2 + i * (bw + gap);
-      return `<svg width="${W}" height="${Hh}" viewBox="0 0 ${W} ${Hh}">${DRATE.map((r, i) => { const lo = i ? DRATE[i - 1][0] : 0; return `<rect x="30" y="${Y(r[0])}" width="${W - 32}" height="${Y(lo) - Y(r[0])}" fill="${r[2]}" opacity=".16"/>`; }).join("")}
-        ${[0, 2.5, 5, 7.5, 10].map((t) => `<text x="25" y="${Y(t) + 3}" text-anchor="end" font-size="9" fill="${RPC.mut}">${t}</text>`).join("")}
-        ${have.map(({ k, c }, i) => `<rect x="${bx(i)}" y="${Y(c.avg)}" width="${bw}" height="${Y(0) - Y(c.avg)}" rx="3" fill="${DSC[k]}" stroke="${RPC.ink}" stroke-width=".7"/><text x="${bx(i) + bw / 2}" y="${Y(c.avg) - 4}" text-anchor="middle" font-size="10" font-weight="700" fill="${RPC.ink}">${fmt(c.avg, 2)}</text>
-          <text x="${bx(i) + bw / 2}" y="${Hh - 6}" text-anchor="middle" font-size="9" fill="${RPC.mut}">${DSS[k]}</text>`).join("")}</svg>`; };
+    const bandsChart = () => { const W = 296, Hh = 176, R = W - 72, Y = (q) => 10 + (1 - q / 10) * (Hh - 34), bw = 34, gap = (R - 34 - have.length * bw) / Math.max(1, have.length), bx = (i) => 34 + gap / 2 + i * (bw + gap);
+      return `<svg width="${W}" height="${Hh}" viewBox="0 0 ${W} ${Hh}">${DRATE.slice(0, 6).map((r) => `<line x1="32" x2="${R}" y1="${Y(r[0])}" y2="${Y(r[0])}" stroke="#E2E7E0" stroke-dasharray="2 3"/>`).join("")}
+        ${DRATE.map((r, i) => { const lo = i ? DRATE[i - 1][0] : 0; return `<rect x="${R + 2}" y="${Y(r[0]) + 0.5}" width="3" height="${Y(lo) - Y(r[0]) - 1}" fill="${rMute(r[2])}"/>`; }).join("")}
+        ${DRATE.slice().reverse().map((r, i) => `<rect x="${R + 14}" y="${12 + i * 19}" width="7" height="7" rx="1.5" fill="${rMute(r[2])}"/><text x="${R + 24}" y="${18.5 + i * 19}" font-size="8" fill="${RPC.mut}">${r[1]}</text>`).join("")}
+        ${[0, 2.5, 5, 7.5, 10].map((t) => `<text x="27" y="${Y(t) + 3}" text-anchor="end" font-size="8.5" fill="${RPC.mut}">${t}</text>`).join("")}<line x1="32" x2="${R}" y1="${Y(0)}" y2="${Y(0)}" stroke="#9AA49D"/>
+        ${have.map(({ k, c }, i) => `<rect x="${bx(i)}" y="${Y(c.avg)}" width="${bw}" height="${Y(0) - Y(c.avg)}" fill="${RPS[k]}"/><text x="${bx(i) + bw / 2}" y="${Y(c.avg) - 4}" text-anchor="middle" font-size="9.5" font-weight="600" fill="${RPC.ink}">${fmt(c.avg, 2)}</text>
+          <text x="${bx(i) + bw / 2}" y="${Hh - 8}" text-anchor="middle" font-size="8.5" fill="${RPC.mut}">${DSS[k]}</text>`).join("")}</svg>`; };
     const miniChart = (f) => { const w = 92, h = 104, mx = Math.max(1, ...have.map((x) => f(x.c))) * 1.15, Yb = (q) => h - 20 - q / mx * (h - 34), bw = Math.min(16, (w - 10) / Math.max(1, have.length) - 5);
-      return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${have.map(({ k, c }, i) => `<rect x="${6 + i * (bw + 5)}" y="${Yb(f(c))}" width="${bw}" height="${h - 20 - Yb(f(c))}" rx="2" fill="${DSC[k]}" stroke="${RPC.ink}" stroke-width=".6"/><text x="${6 + i * (bw + 5) + bw / 2}" y="${Yb(f(c)) - 3}" text-anchor="middle" font-size="8.5" fill="${RPC.ink}">${f(c)}</text>`).join("")}<line x1="2" x2="${w - 2}" y1="${h - 20}" y2="${h - 20}" stroke="${RPC.line}"/>${have.map(({ k }, i) => `<text x="${6 + i * (bw + 5) + bw / 2}" y="${h - 8}" text-anchor="middle" font-size="7.5" fill="${RPC.mut}">${DSS[k].replace("Post ", "Po").replace("Pre ", "Pr")}</text>`).join("")}</svg>`; };
+      return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${have.map(({ k, c }, i) => `<rect x="${6 + i * (bw + 5)}" y="${Yb(f(c))}" width="${bw}" height="${h - 20 - Yb(f(c))}" fill="${RPS[k]}"/><text x="${6 + i * (bw + 5) + bw / 2}" y="${Yb(f(c)) - 3}" text-anchor="middle" font-size="8" fill="${RPC.mut}">${f(c)}</text>`).join("")}<line x1="2" x2="${w - 2}" y1="${h - 20}" y2="${h - 20}" stroke="#9AA49D"/>${have.map(({ k }, i) => `<text x="${6 + i * (bw + 5) + bw / 2}" y="${h - 8}" text-anchor="middle" font-size="7.5" fill="${RPC.mut}">${DSS[k].replace("Post ", "Po").replace("Pre ", "Pr")}</text>`).join("")}</svg>`; };
     const p2 = page("stats", "Summary table and charts", `${H("Summary by sample", "change columns: Post − Pre at the same location; for Avg HILS a fall (green) means better water")}
       <table class="rt"><colgroup><col style="width:24%"><col><col><col><col><col style="width:11%"><col style="width:11%"></colgroup>
         <tr><th></th>${dHead()}${cHead}</tr><tr><th></th>${sideThs()}${cSub}</tr>${sumBody}</table>
-      ${H("Charts", "the dashboard's sample colours: teal = Pre, lime = Post")}
-      ${have.length ? `<div class="rcharts"><div class="chart"><div class="rch">Avg HILS <span>· bands = HBI rating · lower is better</span></div>${bandsChart()}</div>
+      ${H("Charts", "light = downstream, dark = upstream · teal = Pre, olive = Post")}
+      ${have.length ? `<div class="rcharts"><div class="chart"><div class="rch">Avg HILS <span>· dashed lines = HBI band limits · lower is better</span></div>${bandsChart()}</div>
         <div class="rminis">${[["Organisms", (c) => c.count], ["Taxa present", (c) => c.taxa], ["EPT taxa", (c) => c.ept]].map(([l, f]) => `<div class="chart"><div class="rch">${l}</div>${miniChart(f)}</div>`).join("")}</div></div>` : `<p class="rsm">No organisms counted yet.</p>`}
       ${H("HBI rating scale", "Hilsenhoff family-level biotic index, 1988")}
-      <div class="rscale">${DRATE.map((r, i) => `<div><i style="background:${r[2]}"></i><b>${r[1]}</b><span>${i ? fmt(DRATE[i - 1][0] + 0.01, 2) : "0.00"}–${fmt(r[0], 2)}</span></div>`).join("")}</div>
+      <div class="rscale">${DRATE.map((r, i) => `<div><i style="background:${rMute(r[2])}"></i><b>${r[1]}</b><span>${i ? fmt(DRATE[i - 1][0] + 0.01, 2) : "0.00"}–${fmt(r[0], 2)}</span></div>`).join("")}</div>
       <p class="rsm" style="margin-top:12px">Index = count × HILS for each taxon; Avg HILS = total index ÷ organisms (an other taxon counts with its own HILS). EPT = mayfly, stonefly and caddisfly families present.</p>`);
 
     // ---- page 3: taxa groups (count per sample) + chart ----
@@ -2669,7 +2688,7 @@
     if (anyOther) chartRows.push({ label: "Other taxon", vals: sm.map((s) => s ? s.other || 0 : 0) });
     const grpChart = () => { const mx = Math.max(1, ...chartRows.flatMap((r) => r.vals)), rowH = 4 * 3.2 + 4, W = 584, L = 96, Hh = chartRows.length * rowH + 22, bw = (v) => v / mx * (W - L - 40);
       return `<svg width="${W}" height="${Hh}" viewBox="0 0 ${W} ${Hh}">${chartRows.map((r, i) => `<text x="${L - 6}" y="${i * rowH + 11}" text-anchor="end" font-size="9" fill="${RPC.ink}">${esc(r.label)}</text>
-        ${r.vals.map((v, j) => v ? `<rect x="${L}" y="${i * rowH + 2 + j * 3.2}" width="${Math.max(1.5, bw(v))}" height="2.8" fill="${DSC[K[j]]}" stroke="${RPC.ink}" stroke-width=".35"/>` : "").join("")}
+        ${r.vals.map((v, j) => v ? `<rect x="${L}" y="${i * rowH + 2 + j * 3.2}" width="${Math.max(1.5, bw(v))}" height="2.8" fill="${RPS[K[j]]}"/>` : "").join("")}
         <text x="${L + bw(Math.max(...r.vals)) + 4}" y="${i * rowH + 11}" font-size="8.5" fill="${RPC.mut}">${Math.max(...r.vals)}</text>`).join("")}
         <line x1="${L}" x2="${L}" y1="0" y2="${Hh - 18}" stroke="${RPC.line}"/><text x="${L}" y="${Hh - 4}" font-size="8.5" fill="${RPC.mut}">bars in sample order: Pre ↓, Pre ↑, Post ↓, Post ↑ · the number is the largest count in the group</text></svg>`; };
     const p3 = page("groups", "Taxa groups", `${H("Organisms by taxa group", `count per sample${showEmpty ? "" : " · groups with no organisms in any sample are left out"}`)}${grpTable}
@@ -2696,7 +2715,7 @@
     const dt2 = (ms) => { const d = new Date(ms); return `${d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}<br>${d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}`; };
     const info = (k) => K.map((key) => { const [ph, sd] = key.split("_"), x = lv(labField(ph, sd, k)); return `<td>${k === "DateTime" ? (nb(x) ? "–" : dt2(x)) : k === "Lat" ? (nb(x) ? "–" : `${pt6(x)}<br>${pt6(lv(labField(ph, sd, "Lon")))}`) : esc(nb(x) ? "–" : x)}</td>`; }).join("");
     const certBox = (ph) => { if (!a[ph]) return ""; const files = a[ph].files.filter(isCert).map((f) => esc(f.name));
-      return `<div class="rcert" style="border-left-color:${DSC[ph + "_up"]}"><b>${PH[ph]}</b><br>${esc(mv(ph, "laboratory_name") || "laboratory not entered")}<br><span class="rmu">received ${dayText(mv(ph, "received_on"))} · reported ${dayText(mv(ph, "reported_on"))}<br>Certificate: ${files.length ? files.join("; ") : "none attached"}</span></div>`; };
+      return `<div class="rcert" style="border-left-color:${RPS[ph + "_up"]}"><b>${PH[ph]}</b><br>${esc(mv(ph, "laboratory_name") || "laboratory not entered")}<br><span class="rmu">received ${dayText(mv(ph, "received_on"))} · reported ${dayText(mv(ph, "reported_on"))}<br>Certificate: ${files.length ? files.join("; ") : "none attached"}</span></div>`; };
     const notes = ["Pre", "Post"].map((P0) => { const n = lv(P0 + "LabNotes"); return nb(n) ? "" : `<b>${P0}-construction notes:</b> ${esc(n)}`; }).filter(Boolean).join("<br>");
     const pLab = () => page("lab", "Lab results", !lab ? `${H("Laboratory")}<p>No lab results have been entered for this site yet.</p>` : `${H("Laboratory")}<div class="rcerts">${certBox("pre")}${certBox("post")}</div>
       ${H("Samples")}<table class="rt"><colgroup><col style="width:24%"><col><col><col><col></colgroup><tr><th></th>${dHead()}</tr><tr><th></th>${sideThs()}</tr>
@@ -2757,7 +2776,7 @@
   }
   async function reportMap(a) {
     const el = $("rMap"), pts = sitePts(a);
-    $("rMapNote").innerHTML = pts.length ? pts.map(({ s, p }) => `<span>${rsw(s[0], 8)}${DSN[s[0]]}: ${pt6(p.lat)}, ${pt6(p.lon)}</span>`).join("") : "No sample points have been entered yet.";
+    $("rMapNote").innerHTML = pts.length ? pts.map(({ s, p }) => `<span><i class="rsw" style="width:8px;height:8px;border-radius:50%;background:${DSC[s[0]]};border:1px solid rgba(20,32,25,.55)"></i>${DSN[s[0]]}: ${pt6(p.lat)}, ${pt6(p.lon)}</span>`).join("") : "No sample points have been entered yet.";
     if (!pts.length) { el.innerHTML = `<p class="rsm" style="padding:10px">No sample points yet.</p>`; return; }
     const F = reportFrame(pts, 584, 262); rp.frame = F; rp.pts = pts; rp.streamPaths = [];   // the map's size on the printed page
     const draw = () => { el.innerHTML = `<img id="rMapImg" src="${exportUrl(F)}" alt="Map of the sample points" style="position:absolute;inset:0;width:100%;height:100%;object-fit:fill">
@@ -3086,11 +3105,12 @@
     const c = s.calc, f = s.field || {}, g = s.geom;
     const bars = GROUPS.map(([gk, name, lo, hi]) => { let n = 0; for (let i = lo; i <= hi; i++) n += s.counts[i] || 0; return [GSHORT[gk] || name, n, name]; });
     if (s.other) bars.push([`Other: ${s.otherName || "other taxon"}`, s.other]);
+    const hidN = bars.filter((b) => !b[1]).length;
     return `<div class="card" style="border-top:3px solid ${col};padding:14px 16px">
       <div style="display:flex;align-items:center;gap:10px"><i class="dot" style="background:${col};width:11px;height:11px"></i><h3 style="margin:0;font-size:18px">${SD[sd]}</h3>
         <b class="num" style="margin-left:auto;font-size:30px">${fmt(c.avg, 2)}</b>${hbiChip(c.avg)}</div>
       <div class="muted" style="font-size:12px;margin:2px 0 8px">Avg HILS · ${c.count} organisms · ${c.taxa} taxa · EPT ${c.ept} · Index ${fmt(c.index)}</div>
-      ${bars.map(([name, n, full]) => `<div class="dbar${n ? "" : " z"}" title="${esc(full || name)}"><span>${esc(name)}</span><span class="tr">${n ? `<i style="width:${Math.max(2, Math.min(n, mx) / mx * 100)}%;background:${col};box-shadow:0 0 6px ${col}"></i>` : ""}</span><b>${n || ""}</b></div>`).join("")}
+      ${bars.map(([name, n, full]) => `<div class="dbar${n ? "" : " z"}" title="${esc(full || name)}"><span>${esc(name)}</span><span class="tr">${n ? `<i style="width:${Math.max(2, Math.min(n, mx) / mx * 100)}%;background:${col};box-shadow:0 0 6px ${col}"></i>` : ""}</span><b>${n || "0"}</b></div>`).join("")}${hidN ? `<div class="muted dzn">${hidN} group${hidN > 1 ? "s" : ""} with no organisms hidden</div>` : ""}
       <div class="muted" style="display:flex;gap:14px;flex-wrap:wrap;font-size:12px;margin-top:8px;border-top:1px solid var(--line);padding-top:8px">
         <span>Point ${zeroGeom(g) ? '<span style="color:#F07E3A">not entered</span>' : `${pt6(g.y)}, ${pt6(g.x)}`}</span>
         <span>${nb(f.ph) && nb(f.temp) && nb(f.cond) ? "No field readings" : `pH ${fmt(f.ph, 1)} · ${fmt(f.temp, 1)} °C · ${fmt(f.cond)} µS/cm`}</span></div>
@@ -3114,8 +3134,15 @@
     const labCard = `<div class="card" style="margin-top:14px"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><h3 style="margin:0">Lab results · ${PH[ph]}</h3>
         <span class="muted" style="font-size:12px">${esc(v("laboratory_name") || "laboratory not entered")} · received ${dayText(v("received_on"))} · reported ${dayText(v("reported_on"))}</span>
         <span style="margin-left:auto;display:flex;gap:8px">${cert ? `<button type="button" class="dbtn" data-dfview="${ph}:${cert.id}">Open certificate (PDF)</button>` : '<span class="muted" style="font-size:12px">no certificate attached</span>'}${deBtn(editHash(a.id, "lab", ph), lab ? "Edit lab results" : "Enter lab results")}</span></div>${labHtml}</div>`;
-    return `${strip}<div class="dsp-g2 even" style="margin-top:14px">${dsSample(a, ph, "down", mx)}${dsSample(a, ph, "up", mx)}</div>${labCard}<div id="dsViewer"></div>`;
+    const showZ = prefGet("wccd.showEmptyGroups") === "1";
+    return `${strip}<div style="margin-top:14px"><label class="dzsw"><input type="checkbox" id="dsShowZ"${showZ ? " checked" : ""}><i></i>Show groups with no organisms</label></div>
+      <div class="dsp-g2 even dzwrap${showZ ? " showz" : ""}" style="margin-top:10px">${dsSample(a, ph, "down", mx)}${dsSample(a, ph, "up", mx)}</div>${labCard}<div id="dsViewer"></div>`;
   }
+  // B21: remembered switches (per computer; the app works the same without storage)
+  function prefGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function prefSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* no storage */ } }
+  document.addEventListener("change", (e) => { const t = e.target; if (!t || t.id !== "dsShowZ") return;
+    prefSet("wccd.showEmptyGroups", t.checked ? "1" : "0"); document.querySelectorAll(".dzwrap").forEach((w) => w.classList.toggle("showz", t.checked)); });
   function dsFiles(a) {
     const sec = (ph) => { const P = a[ph];
       if (!P) return `<div class="card"><h3>${PH[ph]}</h3><p class="muted">No ${PH[ph].toLowerCase()} record yet.</p></div>`;
@@ -3228,7 +3255,7 @@
   }
   const deHead = (a, title, sideSw) => `<div class="de-head"><div><a class="dsp-back" href="${siteHash(a.id, dedit.ph)}">← ${esc(a.id)} · ${esc(a.stream || "no stream")} · ${PH[dedit.ph]}</a><h2 class="ttl">${title}</h2></div>${sideSw || ""}
     </div>${dash.note ? `<div class="dnote${dash.note.bad ? " bad" : ""}" role="status">${dash.note.html}</div>` : ""}`;
-  const deBar = () => `<div class="dbar" role="group" aria-label="Save or cancel"><span class="dbar-st" id="deBarSt" aria-live="polite">No changes yet</span><button type="button" class="dbtn" id="deCancel">Cancel</button><button type="button" class="btnp" id="deReview" disabled>Review and save</button></div>`;
+  const deBar = () => `<div class="dsave" role="group" aria-label="Save or cancel"><span class="dsave-st" id="deBarSt" aria-live="polite">No changes yet</span><button type="button" class="dbtn" id="deCancel">Cancel</button><button type="button" class="btnp" id="deReview" disabled>Review and save</button></div>`;
   function deWireCommon(a) {
     dash.note = null; dashWire();   // B19: a "saved" note (e.g. after creating a site) shows once, at the top of the editor
     $("deCancel").onclick = () => { if (dashDirty() && !confirm("Discard the changes you made here?")) return; const ph = dedit.ph; dedit = null; location.hash = siteHash(a.id, ph); };
@@ -3238,11 +3265,12 @@
   // ---- taxa counts ----
   function dtaxaDraw(a) {
     const E = dedit, P = a[E.ph], sides = Object.keys(E.sides);
+    if (E.filter.hideZ === undefined) E.filter.hideZ = prefGet("wccd.hideEmptyTaxa") === "1";
     const sw = `<div class="ds-sw de-sides" role="group" aria-label="Sample">${sides.map((x) => { const dirty = JSON.stringify(E.sides[x].vals) !== E.sides[x].orig;
       return `<button type="button" data-side="${x}" class="${x === E.sd ? "on" : ""}">${SD[x]}${dirty ? " •" : ""}</button>`; }).join("")}</div>`;
     $("dash").innerHTML = `${drail("home")}<main class="dsp-main">${deHead(a, "Edit taxa counts", sw)}
       <div class="de-grid"><section class="dpaper" aria-label="${SD[E.sd]} taxa counts">
-          <div class="tb"><input class="q" id="deQ" type="search" placeholder="Find a taxon (name or number)…" value="${esc(E.filter.q)}" aria-label="Find a taxon"></div>
+          <div class="tb"><input class="q" id="deQ" type="search" placeholder="Find a taxon (name or number)…" value="${esc(E.filter.q)}" aria-label="Find a taxon"><label class="dzsw lt"><input type="checkbox" id="deHideZ"${E.filter.hideZ ? " checked" : ""}><i></i>Hide taxa with no count</label></div>
           <div class="dtabs-wrap"><nav class="dgtabs" role="tablist" aria-label="Taxa groups">
               <button type="button" role="tab" data-tab="counts">Counted taxa <b data-tabc="counts"></b></button><button type="button" role="tab" data-tab="all">All taxa</button>
               <span class="dgsep">Taxa groups</span>
@@ -3256,19 +3284,20 @@
     deWireCommon(a);
     document.querySelectorAll("#dash [data-side]").forEach((b) => b.onclick = () => { location.hash = editHash(a.id, "taxa", E.ph, b.dataset.side); });
     $("deQ").oninput = (e) => { E.filter.q = e.target.value; dtaxaList(a); };
+    $("deHideZ").onchange = (e) => { E.filter.hideZ = e.target.checked; prefSet("wccd.hideEmptyTaxa", e.target.checked ? "1" : "0"); dtaxaList(a); };
     document.querySelectorAll("#dash [data-tab]").forEach((b) => b.onclick = () => { E.filter.tab = b.dataset.tab; E.filter.q = ""; $("deQ").value = ""; dtaxaList(a); });
     dtaxaList(a);
   }
   function dtaxaList(a) {
     const E = dedit, v = E.sides[E.sd].vals, s = a[E.ph].samples[E.sd], f = E.filter, q = f.q.trim().toLowerCase();
     const row = (n) => `<div class="dtr" data-n="${n}"><span class="no">${n}</span><span class="nm"><span class="tn" title="${n}. ${esc(TAXON[n - 1])}">${esc(TAXON[n - 1])}</span><em class="was"></em></span><span class="h">${HILS[n - 1]}</span>
-      <span class="cnt"><button type="button" class="stp" data-step="-1" tabindex="-1" aria-label="One less ${esc(TAXON[n - 1])}">−</button><input inputmode="numeric" autocomplete="off" data-dn="${n}" value="${esc(v.counts[n])}" aria-label="${n}. ${esc(TAXON[n - 1])} count"><button type="button" class="stp" data-step="1" tabindex="-1" aria-label="One more ${esc(TAXON[n - 1])}">+</button></span><span class="ix"></span></div>`;
+      <span class="cnt"><button type="button" class="stp" data-step="-1" tabindex="-1" aria-label="One less ${esc(TAXON[n - 1])}">−</button><input inputmode="numeric" autocomplete="off" data-dn="${n}" value="${esc(v.counts[n])}" placeholder="0" aria-label="${n}. ${esc(TAXON[n - 1])} count"><button type="button" class="stp" data-step="1" tabindex="-1" aria-label="One more ${esc(TAXON[n - 1])}">+</button></span><span class="ix"></span></div>`;
     let html = ""; const folds = [];
     for (const [g, , lo, hi] of GROUPS) {
       if (!q && f.tab !== "counts" && f.tab !== "all" && f.tab !== g) continue;
       const ns = []; for (let n = lo; n <= hi; n++) ns.push(n);
       const has = (n) => (s.counts[n] || 0) > 0 || cnum(v.counts[n]) > 0;
-      const show = q ? ns.filter((n) => String(n) === q || TAXON[n - 1].toLowerCase().includes(q)) : f.tab === "counts" ? ns.filter(has) : ns;
+      const show = q ? ns.filter((n) => String(n) === q || TAXON[n - 1].toLowerCase().includes(q)) : f.tab === "counts" || f.hideZ ? ns.filter(has) : ns;
       if (!show.length) { if (!q && f.tab === "counts") folds.push(g); continue; }
       html += `<div class="dgh">${gName(g, lo, "gn")}<span class="gt" data-gt="${g}"></span></div>${show.map(row).join("")}`
         + (!q && f.tab === "counts" && show.length < ns.length ? `<div class="dmore"><button type="button" class="dfold" data-open="${g}">▸ all ${ns.length} ${GSHORT[g].toLowerCase()}</button></div>` : "");
@@ -3282,10 +3311,11 @@
         <span class="cnt"><button type="button" class="stp" data-ostep="-1" tabindex="-1" aria-label="One less">−</button><input inputmode="numeric" autocomplete="off" data-oth="count" value="${esc(v.other)}" aria-label="Other taxon count"><button type="button" class="stp" data-ostep="1" tabindex="-1" aria-label="One more">+</button></span><span class="ix"></span></div>
       <div class="dmore" style="font-size:11.5px;color:#5B6B5F;padding:4px 14px 10px">Index = count × its HILS; it counts in the totals and the Avg HILS like any taxon on the sheet.</div>`;
     if (!html) html = q ? `<p style="padding:14px;color:#5B6B5F">No taxon matches “${esc(f.q)}”.</p>` : `<p style="padding:14px;color:#5B6B5F">No counts entered yet. Pick a group on the left, or “All taxa”.</p>`;
+    if (f.hideZ && !q && f.tab !== "counts") html += `<div class="dfolds"><span style="font-size:12px;color:#5B6B5F;align-self:center">Taxa with no count are hidden. Turn off “Hide taxa with no count” to add one.</span></div>`;
     if (folds.length) html += `<div class="dfolds"><span style="font-size:12px;color:#5B6B5F;align-self:center">No counts yet:</span>${folds.map((g) => `<button type="button" class="dfold" data-open="${g}">${GSHORT[g]}</button>`).join("")}</div>`;
     $("deList").innerHTML = html;
     const list = $("deList");
-    list.querySelectorAll("[data-open]").forEach((b) => b.onclick = () => { E.filter.tab = b.dataset.open; dtaxaList(a); });
+    list.querySelectorAll("[data-open]").forEach((b) => b.onclick = () => { E.filter.tab = b.dataset.open; if (E.filter.hideZ) { E.filter.hideZ = false; const hz = $("deHideZ"); if (hz) hz.checked = false; } dtaxaList(a); });
     document.querySelectorAll("#dash [data-tab]").forEach((b) => { const on = !q && b.dataset.tab === f.tab; b.classList.toggle("on", on); b.setAttribute("aria-selected", on); });
     const inputs = [...list.querySelectorAll("input[data-dn], input[data-oth]:not([disabled])")];
     const OK = { name: "otherName", hils: "otherHils", count: "other" };
@@ -3306,13 +3336,13 @@
   function dtaxaRefresh(a) {
     const E = dedit, P = a[E.ph], v = E.sides[E.sd].vals, s = P.samples[E.sd], { counts, other, bad, oh, oname } = readCounts(v);
     document.querySelectorAll("#deList .dtr:not(.dto)").forEach((r) => { const n = +r.dataset.n, inp = r.querySelector("input"), c = counts[n] || 0, c0 = s.counts[n] || 0, b = inp.value.trim() !== "" && !/^\d+$/.test(inp.value.trim());
-      r.querySelector(".ix").textContent = c ? fmt(Math.round(c * HILS[n - 1])) : ""; inp.classList.toggle("bad-d", b);
+      r.querySelector(".ix").textContent = c ? fmt(Math.round(c * HILS[n - 1])) : ""; inp.classList.toggle("bad-d", b); r.classList.toggle("z", !c && inp.value.trim() === "");
       r.classList.toggle("chg", c !== c0 && !b); r.querySelector(".was").textContent = c === c0 || b ? "" : c0 ? (c ? `was ${c0}` : `was ${c0} · removed`) : "new"; });
     document.querySelectorAll("#dash [data-tabc]").forEach((el) => { const k = el.dataset.tabc; let c = 0;
       if (k === "counts") { for (let n = 1; n <= 99; n++) if (counts[n]) c++; if (other > 0) c++; el.textContent = c ? `${c} taxa` : ""; return; }
       if (k === "OTHER") { el.textContent = other || ""; el.parentElement.classList.toggle("has", other > 0); return; }
       const G = GROUPS.find((x) => x[0] === k); for (let n = G[2]; n <= G[3]; n++) c += counts[n] || 0; el.textContent = c || ""; el.parentElement.classList.toggle("has", c > 0); });
-    document.querySelectorAll('#deList [data-gt]:not([data-gt="OTHER"])').forEach((el) => { const G = GROUPS.find((x) => x[0] === el.dataset.gt); let c = 0; for (let n = G[2]; n <= G[3]; n++) c += counts[n] || 0; el.textContent = `${c} organisms`; });
+    document.querySelectorAll('#deList [data-gt]:not([data-gt="OTHER"])').forEach((el) => { const G = GROUPS.find((x) => x[0] === el.dataset.gt); let c = 0, k = 0; for (let n = G[2]; n <= G[3]; n++) { c += counts[n] || 0; if (counts[n]) k++; } el.textContent = `${c} organism${c === 1 ? "" : "s"} · ${k} of ${G[3] - G[2] + 1} counted`; });
     const orow = document.querySelector("#deList .dto");
     if (orow) { const oc0 = s.other || 0, oh0 = s.otherHils || 0, on0 = s.otherName || "", ci = orow.querySelector('[data-oth="count"]'), hi = orow.querySelector('[data-oth="hils"]'), hs = String(v.otherHils).trim();
       const cb = ci.value.trim() !== "" && !/^\d+$/.test(ci.value.trim()), hb = hs !== "" && !(/^\d*\.?\d+$/.test(hs) && +hs <= 10), need = other > 0 && hs === "";
@@ -3818,7 +3848,7 @@
           <div class="dn-note" id="cOther"></div><div class="dn-note" id="cSug"></div><div class="dn-note" id="cLook"></div>
           ${step(3, "Review and create")}
           <div class="dn-note" style="margin-top:0">Creates the Pre-construction record with its downstream and upstream samples, as the Survey123 form does. Taxa counts, field readings and lab results are entered afterwards.</div>
-          <div class="dbar" role="group" aria-label="Create or cancel"><span class="dbar-st" id="eChanged" aria-live="polite"></span><button type="button" class="dbtn" id="dnCancel">Cancel</button><button type="button" class="btnp" id="dnReview" disabled>Review and create</button></div></section>
+          <div class="dsave" role="group" aria-label="Create or cancel"><span class="dsave-st" id="eChanged" aria-live="polite"></span><button type="button" class="dbtn" id="dnCancel">Cancel</button><button type="button" class="btnp" id="dnReview" disabled>Review and create</button></div></section>
         <section class="dn-mapcol"><div id="cmap" class="dn-map" aria-label="Map: click to place the selected point"></div></section></div></main>`;
     dashWire();
     const root = $("dnRoot"), refresh = () => createRefresh(st, null, root, "#dnReview");
