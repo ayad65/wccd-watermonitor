@@ -477,6 +477,20 @@
   .dsave.danger{border-color:#E5484D;box-shadow:0 0 0 4px rgba(229,72,77,.18),0 -6px 20px rgba(0,0,0,.22)} .dsave.danger .dsave-st{color:#B3261E}
   .dash .dsave .btnd{background:#C2281E;border:1px solid #C2281E;color:#fff;border-radius:999px;padding:8px 16px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer} .dash .dsave .btnd:disabled{opacity:.45;cursor:default}
   @media (max-width:1100px){ .dfx-grid{grid-template-columns:minmax(0,1fr)} .dfx-list{position:static} .dfx-aside{display:none} }
+  /* B27: Help page */
+  .dh-grid{display:grid;grid-template-columns:250px minmax(0,1fr) 290px;gap:16px;align-items:start}
+  .dh-q{width:100%;height:40px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);padding:0 14px;font:inherit;font-size:14px;margin-bottom:14px}
+  .dh-q:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(200,227,90,.2)}
+  .dh-list{position:sticky;top:16px} .dh-t{display:block;padding:8px 12px;border-radius:10px;margin-bottom:4px;font-size:13.5px;color:#C9D3C6;border:1px solid transparent;text-decoration:none}
+  .dh-t:hover{color:var(--ink);border-color:var(--line)} .dh-t.on{background:rgba(200,227,90,.12);border-color:var(--acc);color:var(--ink);font-weight:600} .dh-none{font-size:12.5px;padding:8px 12px}
+  .dh-p{padding:20px 24px} .dh-p h2{font:700 26px "Barlow Semi Condensed",sans-serif;margin:0;color:#142019} .dh-intro{font-size:13.5px;color:#5B6B5F;margin:4px 0 8px;line-height:1.5}
+  .dh-step{display:flex;gap:12px;margin:14px 0} .dh-step>span{flex:none;width:28px;height:28px;border-radius:50%;background:#1F3A2A;color:#fff;display:grid;place-items:center;font-weight:700;font-size:12.5px}
+  .dh-step b{font-size:14px;color:#142019} .dh-step div div{font-size:13px;color:#4A5A4E;line-height:1.55;margin-top:2px} .dh-step div div b{font-size:inherit}
+  .dh-tip{margin-top:14px;padding:10px 14px;border-radius:10px;background:#EEF3E7;font-size:12.5px;line-height:1.55;color:#142019}
+  .dh-tbl{border-collapse:collapse;font-size:12.5px;margin-top:6px} .dh-tbl td{padding:3px 12px 3px 0} .dh-tbl i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+  .dh-nav{display:flex;gap:12px;margin-top:18px;align-items:center;flex-wrap:wrap} .dh-nav a.next{font-size:13px;color:#1F3A2A}
+  .dh-side .card{margin-bottom:12px;font-size:12.5px} .dh-side dl{margin:6px 0 0;line-height:1.55} .dh-side dt{font-weight:700;color:var(--ink)} .dh-side dd{margin:0 0 6px;color:var(--muted)}
+  @media (max-width:1100px){ .dh-grid{grid-template-columns:minmax(0,1fr)} .dh-list{position:static;display:flex;flex-wrap:wrap;gap:4px} .dh-t{margin:0} .dh-list .card{display:none} }
   /* B24: Files tab actions */
   .dfrow-x td{padding:0 0 8px !important;border-top:none !important}
   .dfconf{padding:10px 12px;border-radius:10px;background:rgba(229,72,77,.10);border:1px solid rgba(229,72,77,.45);font-size:12.5px;white-space:normal}
@@ -666,7 +680,7 @@
     body.drep #dash .dsp-main{margin:0 !important;padding:0 !important;background:#fff !important;min-height:0} body.drep .drp-wrap{display:block} body.drep .drp-prev{border:0;padding:0;background:none;overflow:visible} body.drep .drp-prev .paper{box-shadow:none} }
   /* B14: on phones the dashboard menu becomes a bar along the bottom, so it never covers the page */
   @media (max-width:640px){ .drail{top:auto;bottom:0;right:0;width:auto;height:60px;flex-direction:row;justify-content:space-around;padding:4px 2px;border-right:0;border-top:1px solid var(--line)}
-    .drail .logo,.drail .grow,.drail a[href="#/help"]{display:none} .drail a{width:auto;flex:1;padding:4px 0;font-size:10px} .drail a.classic{border-top:0;padding-top:4px}
+    .drail .logo,.drail .grow,.drail a[href="#/help"],.drail a[href="#/dash/help"]{display:none} .drail a{width:auto;flex:1;padding:4px 0;font-size:10px} .drail a.classic{border-top:0;padding-top:4px}
     .dsp-main{margin-left:0;padding-bottom:84px;overflow-x:hidden} .ds-ui{margin:12px 12px 12px 12px} .ds-leg{margin-bottom:76px}
     .de-head h2{font-size:24px} .de-btns{margin-left:0;width:100%} .de-btns .btnp{flex:1;justify-content:center} .de-grid>*{min-width:0}
     .dth,.dtr{grid-template-columns:30px minmax(0,1fr) 132px;gap:6px;padding:6px 10px} .cnt{gap:4px} .stp{width:30px;height:32px} .cnt input{width:60px;height:34px} }
@@ -793,11 +807,7 @@
 
   <section id="p-help" class="hidden">
     <div class="card" style="max-width:820px">
-      <h3>About this build</h3>
-      <p>This is an early build. It reads the three surveys (Pre-construction, Post-construction, Lab analysis) and shows each site's progress on the Home page. Click a site to see its summary, then <b>Open site</b> for its page.</p>
-      <p>On a site's Overview tab, two corrections are available: changing the site ID, and reviewing "Total Other Taxa". Each one shows exactly what will change, saves only after you confirm, and checks the stored values afterwards. Nothing else can be changed yet.</p>
-      <p>Data entry, Explore and Reports are added in later builds. The greyed menu items are placeholders.</p>
-      <p>To report a problem or ask a question, email the administrator at <a href="mailto:yayad@pennwest.edu">yayad@pennwest.edu</a>. Include the site ID, what you clicked, and the message on the screen.</p>
+      <div id="helpBody"></div>
       <p class="small" id="aboutInfo"></p>
     </div>
   </section>
@@ -816,7 +826,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B26", BUILD_DATE = "19 Nov 2026";
+  const BUILD = "B27", BUILD_DATE = "19 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -2999,7 +3009,7 @@
           <path d="${curve} L1280,150 L0,150 Z" fill="#0B0F0C"/><path d="${curve}" stroke="#C8E35A" stroke-width="6" fill="none" filter="url(#dlGlow)" opacity=".85" vector-effect="non-scaling-stroke"/>
           <path d="${curve}" stroke="#C8E35A" stroke-width="2.2" fill="none" vector-effect="non-scaling-stroke"/></svg>
         <div class="dl-top"><a class="dl-brand" href="#/dash"><img src="${DLOGO}" width="64" height="64" alt=""><div><div class="ttl">Washington County Conservation District</div><div class="muted">Watershed Monitoring</div></div></a>
-          <nav class="dl-nav" aria-label="Dashboard"><a href="#/help">Help</a>
+          <nav class="dl-nav" aria-label="Dashboard"><a href="#/dash/help">Help</a>
             <span class="chip" style="color:var(--ink)">Signed in · ${esc(user)}</span><button type="button" id="dSignOut">Sign out</button></nav></div>
         <div class="dl-body"><div>${dashBanner()}
             <div class="dl-kick">STREAM ASSESSMENT · STAFF PORTAL</div>
@@ -3022,9 +3032,9 @@
     const so = $("dSignOut"); if (so) so.onclick = () => $("signOut").click();
     document.querySelectorAll("#dash [data-classic]").forEach((x) => x.addEventListener("click", () => setViewPref("classic")));
   }
-  const drail = (on) => `<nav class="drail" aria-label="Dashboard"><a class="logo" href="#/dash" title="Dashboard home"><img src="${DLOGO}" width="46" height="46" alt="Dashboard home"></a>
+  const drail = (on, drailOn = on) => `<nav class="drail" aria-label="Dashboard"><a class="logo" href="#/dash" title="Dashboard home"><img src="${DLOGO}" width="46" height="46" alt="Dashboard home"></a>
     ${[["#/dash/sites", "home", "Sites"], ["#/dash/new", "plus", "New site"], ["#/dash/explore", "explore", "Explore"], ["#/dash/reports", "report", "Reports"], ["#/dash/check", "check", "Data check"]].map(([h, k, l]) => `<a href="${h}"${k === on ? ' class="on" aria-current="page"' : ""}>${dico(k)}<span>${l}</span></a>`).join("")}
-    <span class="grow"></span><a href="#/help">${dico("help", "currentColor", 18)}<span>Help</span></a><a class="classic" href="#/" data-classic>${dico("back", "currentColor", 18)}<span>Classic<br>view</span></a></nav>`;
+    <span class="grow"></span><a href="#/dash/help"${drailOn === "help" ? ' class="on" aria-current="page"' : ""}>${dico("help", "currentColor", 18)}<span>Help</span></a><a class="classic" href="#/" data-classic>${dico("back", "currentColor", 18)}<span>Classic<br>view</span></a></nav>`;
 
   function dashSites() {
     const k = dashStats(), all = model.filter((a) => a.pre || a.post || a.lab);
@@ -4381,6 +4391,103 @@
     $("tCancel").onclick = closeTool;
     $("tGo").onclick = () => dashRunSave(() => createPlan(st, a), "post-construction record created; enter the downstream taxa next", editHash(a.id, "taxa", "post", "down"), () => { if (st === nw.post) nw.post = null; });
   }
+  // ---------------- B27: Help (#/dash/help/<topic>); the same topics fill the classic Help page ----------------
+  const HELP = [
+    { k: "start", t: "Getting around", go: ["#/dash", "Open the home page"], intro: "The home page shows the program at a glance; the large tiles below the curve open each part of the app.",
+      steps: [["The tiles", "<b>Sites</b> (map and progress), <b>New site</b>, <b>Explore</b> (charts and comparisons), <b>Reports</b> (print, PDF, Word, Excel) and <b>Data check</b>."],
+        ["The side menu", "Inside the app, the menu on the left has the same five places, plus <b>Help</b> and <b>Classic view</b> at the bottom. On a phone it becomes a bar along the bottom of the screen."],
+        ["Going back", "Every page has a “←” link at the top left back to where you came from (the site, or the list of sites)."],
+        ["Signing out", "Use <b>Sign out</b> at the top right of the home page."]],
+      tip: "The classic view is the original layout of the same app, on the same data. Use it if you prefer it; the dashboard remembers which one you used last." },
+    { k: "sites", t: "Sites and the site page", go: ["#/dash/sites", "Go to the sites"], intro: "Every site, its progress, and everything entered for it.",
+      steps: [["The sites map", "Points sized by Avg HILS on satellite imagery, with the monitored streams highlighted. <b>Fit all sites</b> zooms to all of them. The progress table shows each stage: entered, partly entered or not yet entered."],
+        ["Open a site", "Click a site on the map, in the table, or on the Pre → Post chart."],
+        ["The site page tabs", "<b>Overview</b> (rings, EPT, key lab tests, stages, flags and corrections), <b>Pre-construction</b> and <b>Post-construction</b> (the two sample cards and the lab results), <b>Map</b> and <b>Files</b>."],
+        ["Groups with no organisms", "On the Pre and Post tabs they are hidden; <b>Show groups with no organisms</b> shows them, faded. The app remembers your choice."]] },
+    { k: "taxa", t: "Entering taxa counts", go: ["#/dash/sites", "Go to the sites"], intro: "Counts for one sample at a time, laid out by taxa group like the WCCD sheet. Nothing is stored until you review and confirm.",
+      steps: [["Open the editor", "On a site page, open the Pre- or Post-construction tab and click <b>Edit taxa counts</b> on the downstream or upstream card."],
+        ["Pick a group, type the counts", "Groups are on the left (Miscellaneous first; <b>Counted taxa</b> lists only the taxa with a count). Type a count, or use − and +. Leave a taxon empty if none were found. <b>Hide taxa with no count</b> shortens the list."],
+        ["Other taxa", "A taxon that is not on the sheet goes in the <b>Other taxa</b> row: its name, its HILS (0–10) and the count."],
+        ["Check the live figures", "Avg HILS, organisms, taxa and EPT update on the right as you type, with every change listed."],
+        ["Review and save", "The bar at the bottom shows how many changes you made. <b>Review and save</b> lists each one; <b>Confirm and save</b> stores them and checks them afterwards."]],
+      tip: "<b>Keyboard:</b> Tab or Enter moves to the next box · ↑ ↓ add or take one · switching between Downstream and Upstream at the top keeps your changes." },
+    { k: "lab", t: "Lab results", go: ["#/dash/sites", "Go to the sites"], intro: "The laboratory's results for both samples of a phase, typed next to the certificate.",
+      steps: [["Open the form", "On the Pre- or Post-construction tab, click <b>Edit lab results</b> (or <b>Enter lab results</b> the first time). The attached lab certificate opens on the right."],
+        ["Certificate and samples", "The laboratory, the received and reported dates, then each sample's lab ID, collector, time and point."],
+        ["Results", "One row per test, downstream and upstream. Type “&lt;” or “&gt;” before a number to mark a reporting limit, or use the &lt; = &gt; buttons."],
+        ["Notes and save", "Add lab notes (e.g. holding times), then <b>Review and save</b>. If the site has no Lab record yet, saving creates it."]],
+      tip: "Tab follows the certificate's order: certificate, downstream sample, upstream sample, all downstream results, then all upstream results." },
+    { k: "edit", t: "Field readings, site details, points", go: ["#/dash/sites", "Go to the sites"], intro: "The other parts of a phase record, each with its own page and the same review before saving.",
+      steps: [["Field readings", "<b>Field readings</b> on a sample card: pH, temperature (°C) and conductivity (µS/cm) for each sample. An empty box stays empty. pH must be 0–14; a value outside the usual range only gets a “check this” note."],
+        ["Site details", "<b>Edit site details</b> on the Pre or Post tab: the stream (from the county stream list), the site name and the date sampled. A new stream also looks up the Stream ID (COMID)."],
+        ["Sample locations", "<b>Sample locations</b> on a sample card: pick Downstream or Upstream, then click the map, drag the point, or type the latitude and longitude. The old position shows as a dashed ring."],
+        ["Checks", "The page shows the distance between the points and warns if a point is more than 15 m from the stream. Moving the downstream point updates the Stream ID."]] },
+    { k: "new", t: "New site and post-construction", go: ["#/dash/new", "Start a new site"], intro: "Creating the records the Survey123 forms would create.",
+      steps: [["New site", "<b>New site</b>: the WCCD project ID (4 letters + 4 digits), the stream, the site name (it follows the stream unless you change it) and the date sampled."],
+        ["Place the points", "Pick Downstream, click the map (or type the coordinates), then the same for Upstream."],
+        ["Create", "<b>Review and create</b> makes the Pre-construction record and both samples in one step, then opens the downstream taxa counts."],
+        ["Post-construction", "When construction is done, open the site's Post-construction tab and click <b>Start post-construction</b>. The stream, site name and points are copied from Pre; enter the date and adjust the points if needed."]] },
+    { k: "files", t: "Files and lab certificates", go: ["#/dash/sites", "Go to the sites"], intro: "Files attached to the Pre- and Post-construction records, as in the Survey123 form.",
+      steps: [["Open the Files tab", "On the site page, the <b>Files</b> tab lists each record's files with View, Download and Remove."],
+        ["Attach", "Drop a file on the record's box, or click <b>choose a file</b>: PDF, Excel/CSV, JPG or PNG, up to 25 MB."],
+        ["Attach as", "A PDF can be the <b>Lab certificate</b> (also shown in the Survey123 form's “Upload Document Here” question); anything else is an <b>Other file</b>. Then <b>Review and attach</b>; the stored file is checked afterwards."],
+        ["Remove", "<b>Remove</b> asks again in the row (“Keep it” / “Remove file”). Removing cannot be undone, so download a copy first if you may need it."]] },
+    { k: "explore", t: "Explore", go: ["#/dash/explore", "Open Explore"], intro: "Charts and tables to look at the results; nothing here changes the data.",
+      steps: [["Pick a site", "Choose the site at the top, and another one under <b>Compare with</b> to see them side by side."],
+        ["The views", "<b>Summary</b>, <b>Taxa groups</b>, <b>Taxa browser</b>, <b>Table</b>, <b>Lab</b> and <b>Map</b>, as side tabs."],
+        ["Details", "Point at a bar, slice or point to see its values; click a slice to focus on it, and click again to reset."]] },
+    { k: "reports", t: "Reports and printing", go: ["#/dash/reports", "Open Reports"], intro: "White Letter pages for one site, for printing, PDF, Word or Excel.",
+      steps: [["Pick the site", "Choose the site at the top. The pages are shown as they will print."],
+        ["Choose the sections", "Untick a section to leave it out (Summary, Summary table and charts, Taxa groups, Every taxon, Lab results); the page numbers update."],
+        ["Print or PDF", "<b>Print / PDF</b> opens the print window: choose your printer, or “Save as PDF”. The pages are Letter size."],
+        ["Word and Excel", "<b>Word</b> saves the report as a document you can edit; <b>Excel</b> saves its tables."]],
+      tip: "<b>Show taxa with no count</b> adds the empty groups and taxa to the tables." },
+    { k: "fix", t: "Corrections", go: ["#/dash/sites", "Go to the sites"], intro: "Fixes that change several records at once. Each shows exactly what will change before saving.",
+      steps: [["Open them", "On a site's Overview tab, click <b>Open corrections</b>. A badge shows when a tool needs attention."],
+        ["Change the site ID", "Type the new ID; it replaces the old one in every record of the site."],
+        ["Check the stream ID (COMID)", "Compares the stored Stream ID with the stream segment nearest the downstream point, and corrects the ones that differ."],
+        ["Review “Other Taxa”", "Opens the taxa editor on the Other taxa row (name, HILS and count)."],
+        ["Delete this site", "Type the site ID to confirm. A backup file with every record and file is saved to your computer first; then the site is deleted."]] },
+    { k: "check", t: "Data check", go: ["#/dash/check", "Open the Data check"], intro: "Whether the surveys can be read and edited, and whether the stored totals match the app's calculation.",
+      steps: [["The three surveys", "One card each for Pre-construction, Post-construction and Lab analysis: what your account can do (read, add, update, delete, attach files) and any missing layers or fields."],
+        ["Stored totals", "For every sample, the totals stored in the survey compared with the app's own calculation from the taxa rows."],
+        ["Flags", "Anything that needs a look, such as a missing point, an ID that doesn't follow the 4 + 4 pattern, or a Stream ID shared by different streams. Open the site to fix it."]] },
+    { k: "calc", t: "How the figures are calculated", go: ["#/dash/explore", "Open Explore"], intro: "Every figure is calculated by the app from the counts; nothing is typed in by hand.",
+      steps: [["Index", "For each taxon, count × HILS (its pollution tolerance, 0 = very sensitive to 10 = very tolerant). An other taxon uses its own HILS."],
+        ["Avg HILS", "Total index ÷ organisms counted: the family-level Hilsenhoff Biotic Index. <b>Lower is better water.</b>"],
+        ["Taxa and EPT", "Taxa present = taxa with a count. EPT = mayfly, stonefly and caddisfly families present (pollution-sensitive)."],
+        ["Change", "Post − Pre at the same location. A lower Avg HILS after construction means the water improved."]],
+      table: true }
+  ];
+  const helpText = (h) => (h.t + " " + h.intro + " " + h.steps.map((x) => x.join(" ")).join(" ") + " " + (h.tip || "")).replace(/<[^>]+>/g, " ").toLowerCase();
+  const helpScale = () => `<table class="dh-tbl">${DRATE.map((r, i) => `<tr><td><i style="background:${r[2]}"></i>${r[1]}</td><td>${i ? fmt(DRATE[i - 1][0] + 0.01, 2) : "0.00"}–${fmt(r[0], 2)}</td></tr>`).join("")}</table>`;
+  const helpBody = (h, cls = "") => `${h.steps.map(([t, d], i) => `<div class="dh-step${cls}"><span>${i + 1}</span><div><b>${t}</b><div>${d}</div></div></div>`).join("")}
+    ${h.table ? `<div class="dh-tip"><b>Water quality (HBI) bands for Avg HILS</b> · Hilsenhoff, 1988${helpScale()}</div>` : ""}${h.tip ? `<div class="dh-tip">${h.tip}</div>` : ""}`;
+  const dhelp = { q: "" };
+  function dashHelp(k) {
+    const i = Math.max(0, HELP.findIndex((h) => h.k === k)), h = HELP[i], nx = HELP[i + 1];
+    $("dash").innerHTML = `${drail("", "help")}<main class="dsp-main"><div class="de-head"><div><div class="muted" style="font-size:12px">Washington County Conservation District · Watershed Monitoring</div><h2 class="ttl">Help</h2></div></div>
+      <input class="dh-q" id="dhQ" type="search" placeholder="Search help (e.g. “certificate”, “delete”, “print”)" aria-label="Search help" value="${esc(dhelp.q)}">
+      <div class="dh-grid"><nav class="dh-list" aria-label="Help topics"><div id="dhList"></div>
+          <div class="card" style="margin-top:14px;padding:12px 14px;font-size:12.5px"><b>Questions or a problem?</b><div class="muted" style="margin-top:6px;line-height:1.5">Email the administrator. Include the site ID, what you clicked and the message on screen.</div>
+            <a href="mailto:${esc(CFG.admin)}" style="display:inline-block;margin-top:8px;color:var(--acc)">✉ ${esc(CFG.admin)}</a></div></nav>
+        <section class="dpaper dh-p" aria-labelledby="dhTitle"><h2 id="dhTitle">${h.t}</h2><div class="dh-intro">${h.intro}</div>${helpBody(h)}
+          <div class="dh-nav"><a class="btnp" href="${h.go[0]}">${h.go[1]}</a>${nx ? `<a class="next" href="#/dash/help/${nx.k}">Next: <u>${nx.t}</u> →</a>` : ""}</div></section>
+        <aside class="dh-side"><div class="card"><h3 style="margin:0">Words used in the app</h3><dl>
+            <dt>HILS</dt><dd>the pollution-tolerance value of a taxon, 0 (sensitive) to 10 (tolerant)</dd><dt>Avg HILS</dt><dd>total index ÷ organisms; lower is better water</dd>
+            <dt>EPT</dt><dd>mayfly, stonefly and caddisfly families present</dd><dt>Index</dt><dd>count × HILS for each taxon</dd><dt>COMID</dt><dd>the ID of the stream segment at the downstream point (the Stream ID)</dd>
+            <dt>Pre / Post</dt><dd>the samples before and after construction, each with a downstream and an upstream location</dd></dl></div>
+          <div class="card"><h3 style="margin:0">About</h3><div class="muted" style="margin-top:6px;line-height:1.6">WCCD Watershed Monitoring · build ${BUILD} (${BUILD_DATE})<br>Reads and saves the Pre-construction, Post-construction and Lab analysis Survey123 surveys. Every figure is calculated by the app.<br>Classic view: the button at the bottom of the side menu.</div></div></aside></div></main>`;
+    dashWire();
+    const list = () => { const q = dhelp.q.trim().toLowerCase(), hits = HELP.filter((x) => !q || helpText(x).includes(q));
+      $("dhList").innerHTML = hits.length ? hits.map((x) => `<a class="dh-t${x === h ? " on" : ""}" href="#/dash/help/${x.k}"${x === h ? ' aria-current="page"' : ""}>${HELP.indexOf(x) + 1}. ${x.t}</a>`).join("") : `<div class="dh-none muted">No topic mentions “${esc(dhelp.q)}”.</div>`; };
+    $("dhQ").oninput = (e) => { dhelp.q = e.target.value; list(); };
+    list(); window.scrollTo(0, 0);
+  }
+  // the classic Help page: every topic, one after the other
+  { const hb = document.getElementById("helpBody");
+    if (hb) hb.innerHTML = `<h3>Help</h3><p class="small">The same guide is in the Dashboard view (Help). To report a problem or ask a question, email the administrator at <a href="mailto:${esc(CFG.admin)}">${esc(CFG.admin)}</a>; include the site ID, what you clicked and the message on the screen.</p>`
+      + HELP.map((h, i) => `<h4 style="margin:18px 0 4px">${i + 1}. ${h.t}</h4><p class="small" style="margin:0 0 4px">${h.intro}</p><ol style="margin:4px 0 0 18px;padding:0">${h.steps.map(([t, d]) => `<li style="margin:4px 0"><b>${t}.</b> ${d}</li>`).join("")}</ol>${h.table ? helpScale() : ""}${h.tip ? `<p class="small" style="margin:6px 0 0">${h.tip}</p>` : ""}`).join(""); }
   function drawDash(parts) {
     hideTip(); document.body.classList.add("dashmode"); $("dash").hidden = false; setViewPref("dash");
     document.title = "WCCD Watershed Monitoring · Dashboard";
@@ -4394,6 +4501,7 @@
     else if (sub === "sites") dashSites();
     else if (sub === "site" && parts[3] === "edit") { dashMapFree(); const a = model.find((x) => x.id === decodeURIComponent(parts[2] || ""));
       if (a) dashEdit(a, parts[4], parts[5], parts[6]); else dashSite(decodeURIComponent(parts[2] || ""), "overview"); }
+    else if (sub === "help") { dashMapFree(); dashHelp(parts[2]); }   // B27
     else if (sub === "site" && parts[3] === "startpost") { dashMapFree(); dedit = null; const a = model.find((x) => x.id === decodeURIComponent(parts[2] || ""));   // B24
       if (a) dashPost(a); else dashSite(decodeURIComponent(parts[2] || ""), "overview"); }
     else if (sub === "site" && parts[3] === "fix") { dashMapFree(); dedit = null; const a = model.find((x) => x.id === decodeURIComponent(parts[2] || ""));   // B23
