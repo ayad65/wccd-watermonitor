@@ -816,7 +816,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B25", BUILD_DATE = "19 Nov 2026";
+  const BUILD = "B26", BUILD_DATE = "19 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -2993,7 +2993,7 @@
       ["#/dash/reports", "Reports", "Print, PDF, Word and Excel", "White Letter pages per site", "report"],
       ["#/dash/check", "Data check", "Permissions, fields and totals", k.flags ? `${k.flags} flag${k.flags === 1 ? "" : "s"} to review` : "No flags on any site", "check"]];
     const curve = "M0,100 C260,10 420,150 700,60 C930,-10 1080,100 1280,30";
-    const DLTINT = ["#C8E35A", "#9FE8DA", "#7FD8C8", "#E8F07E", "#B9CC3C"];   // B25: one scheme colour per tile (lime, stream teal, sample teal, pale lime, olive)
+    const DLTINT = ["#C8E35A", "#7FD8C8", "#6FB7E6", "#F2B33D", "#EE8A5E"];   // B26: a distinct hue per tile, all from the app's palette (lime, sample teal, HBI sky blue, HBI amber, HBI coral)
     $("dash").innerHTML = `<div class="dl-hero"><div class="dl-photo"></div><div class="dl-tint"></div><div class="dl-shade"></div>
         <svg class="dl-curve" viewBox="0 0 1280 150" preserveAspectRatio="none" aria-hidden="true"><defs><filter id="dlGlow" x="-10%" y="-200%" width="120%" height="500%"><feGaussianBlur stdDeviation="7"/></filter></defs>
           <path d="${curve} L1280,150 L0,150 Z" fill="#0B0F0C"/><path d="${curve}" stroke="#C8E35A" stroke-width="6" fill="none" filter="url(#dlGlow)" opacity=".85" vector-effect="non-scaling-stroke"/>
