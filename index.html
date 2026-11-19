@@ -361,14 +361,15 @@
   .dl-best{padding:12px 18px;display:flex;align-items:center;gap:16px}
   .dl-best .num{font-size:46px;font-weight:700;color:var(--acc);line-height:1;text-shadow:0 0 18px rgba(200,227,90,.45)}
   .dl-tiles{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;padding:0 48px 26px;margin-top:-40px}
+  .dl-tiles.four{grid-template-columns:repeat(4,minmax(0,1fr))}
   .dl-tile{display:block;padding:18px;transition:transform .15s,border-color .15s,box-shadow .15s} .dl-tile:hover{transform:translateY(-3px);border-color:var(--acc)}
   /* B25: a subtle tint per tile, from the site's colours */
   .dl-tile[style*="--tc"]{background-image:linear-gradient(160deg,color-mix(in srgb,var(--tc) 14%,transparent),color-mix(in srgb,var(--tc) 4%,transparent) 55%,transparent);border-color:color-mix(in srgb,var(--tc) 32%,rgba(255,255,255,.08));box-shadow:inset 0 2px 0 color-mix(in srgb,var(--tc) 55%,transparent)}
   .dl-tile[style*="--tc"]:hover{border-color:var(--tc);box-shadow:inset 0 2px 0 var(--tc),0 10px 26px -12px color-mix(in srgb,var(--tc) 45%,transparent)} .dl-tile[style*="--tc"] em{color:var(--tc)}
   .dl-tile .ttl{font-size:22px;font-weight:700;margin-top:8px} .dl-tile p{margin:0;font-size:13px;color:var(--muted);min-height:36px} .dl-tile em{display:block;margin-top:8px;font-style:normal;font-size:13px;color:var(--acc)}
   .dl-foot{padding:0 48px 22px;font-size:12px;color:var(--muted)}
-  @media (max-width:1100px){ .dl-body{grid-template-columns:1fr} .dl-tiles{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:0} .dl-title{font-size:46px} }
-  @media (max-width:640px){ .dl-top,.dl-body,.dl-tiles,.dl-foot{padding-left:16px;padding-right:16px} .dl-tiles{grid-template-columns:1fr 1fr} .dl-title{font-size:38px} .dl-quick{grid-template-columns:1fr 1fr} }
+  @media (max-width:1100px){ .dl-body{grid-template-columns:1fr} .dl-tiles,.dl-tiles.four{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:0} .dl-tiles.four{grid-template-columns:repeat(2,minmax(0,1fr))} .dl-title{font-size:46px} }
+  @media (max-width:640px){ .dl-top,.dl-body,.dl-tiles,.dl-foot{padding-left:16px;padding-right:16px} .dl-tiles,.dl-tiles.four{grid-template-columns:1fr 1fr} .dl-title{font-size:38px} .dl-quick{grid-template-columns:1fr 1fr} }
   /* the slim rail used by the dashboard's inner pages */
   .drail{position:fixed;left:0;top:0;bottom:0;width:78px;background:rgba(10,14,11,.9);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding:14px 0;gap:4px;z-index:20}
   .drail a{width:64px;padding:8px 0;border-radius:12px;text-align:center;font-size:10.5px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px}
@@ -826,7 +827,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B27", BUILD_DATE = "19 Nov 2026";
+  const BUILD = "B28", BUILD_DATE = "19 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -840,7 +841,8 @@
     serviceNames: { pre: "Pre-construction", post: "Post-construction", lab: "Lab analysis" },
     testIds: ["asdfadsf"],                            // shown on Home with a "test" tag; left out of Explore and Reports
     idPattern: /^[A-Z]{4}\d{4}$/,                     // WCCD project ID: 4 letters + 4 digits (e.g. BRUR3699)
-    admin: "yayad@pennwest.edu"
+    admin: "yayad@pennwest.edu",
+    owners: ["yasserayad"]   // B28: ArcGIS usernames that see Classic view and Data check (owner's request)
   };
 
   // ---------------- reference: HILS per taxon (WCCD sheet; 8 Other Worms and 57 Taeniopterygidae included) ----------------
@@ -878,6 +880,7 @@
   $("build").textContent = "WCCD Watershed Monitoring · build " + BUILD + " · " + BUILD_DATE;
 
   let req, svc = {}, model = [], portalUser = null;
+  const isOwner = () => !!portalUser && (CFG.owners || []).some((u) => u.toLowerCase() === String(portalUser.username || "").toLowerCase());
 
   // ---------------- start-up: SDK, sign-in ----------------
   async function start() {
@@ -2986,7 +2989,7 @@
       <b>${esc(label)}</b><small>${esc(sub)}</small></div>`;
   }
   // A start-up warning (e.g. a survey that could not be read) is shown on the dashboard too.
-  const dashBanner = () => { const s = $("status"); return s && !s.classList.contains("hidden") && s.classList.contains("error") ? `<div class="banner">${s.innerHTML}</div>` : ""; };
+  const dashBanner = () => { const s = $("status"); return s && !s.classList.contains("hidden") && s.classList.contains("error") ? `<div class="banner">${s.innerHTML.replace(/<a href="#\/check">([^<]*)<\/a>/g, isOwner() ? '<a href="#/dash/check">$1</a>' : "$1")}</div>` : ""; };   // B28: no classic links
   const sideText = (sd) => sd === "down" ? "downstream" : "upstream";
 
   function dashLanding() {
@@ -3001,7 +3004,7 @@
       ["#/dash/new", "New site", "Start a site or its post-construction record", "Map + stream picker", "plus"],
       ["#/dash/explore", "Explore", "Charts, taxa browser and comparisons", "6 views", "explore"],
       ["#/dash/reports", "Reports", "Print, PDF, Word and Excel", "White Letter pages per site", "report"],
-      ["#/dash/check", "Data check", "Permissions, fields and totals", k.flags ? `${k.flags} flag${k.flags === 1 ? "" : "s"} to review` : "No flags on any site", "check"]];
+      ["#/dash/check", "Data check", "Permissions, fields and totals", k.flags ? `${k.flags} flag${k.flags === 1 ? "" : "s"} to review` : "No flags on any site", "check"]].filter((t) => t[0] !== "#/dash/check" || isOwner());   // B28
     const curve = "M0,100 C260,10 420,150 700,60 C930,-10 1080,100 1280,30";
     const DLTINT = ["#C8E35A", "#7FD8C8", "#6FB7E6", "#F2B33D", "#EE8A5E"];   // B26: a distinct hue per tile, all from the app's palette (lime, sample teal, HBI sky blue, HBI amber, HBI coral)
     $("dash").innerHTML = `<div class="dl-hero"><div class="dl-photo"></div><div class="dl-tint"></div><div class="dl-shade"></div>
@@ -3024,7 +3027,7 @@
                 ${dRing(after == null ? null : (10 - after) / 10, rt ? rt[2] : "#C8E35A", after == null ? "–" : fmt(after, 2), "Avg HILS after", after == null ? "no Post samples yet" : `${fmt(k.preMean, 2)} ${rtPre ? rtPre[1] : ""} → ${rt[1]}`)}</div>
               <div class="dl-quick">${[[k.sites.length, "sites"], [k.nSmp, "samples"], [fmt(k.org), "organisms counted"], [k.certNeed ? `${k.certHave} of ${k.certNeed}` : "–", "lab certificates"]].map(([n, l]) => `<div><div class="num">${n}</div><small>${l}</small></div>`).join("")}</div></div>
             <div class="glass dl-best">${bestHtml}</div></div></div></div>
-      <div class="dl-tiles">${tiles.map(([h, t, d, f, ic], i) => `<a class="card dl-tile" href="${h}" style="--tc:${DLTINT[i]}">${dico(ic, DLTINT[i], 30)}<div class="ttl">${t}</div><p>${d}</p><em>${esc(f)}</em></a>`).join("")}</div>
+      <div class="dl-tiles${tiles.length === 4 ? " four" : ""}">${tiles.map(([h, t, d, f, ic], i) => `<a class="card dl-tile" href="${h}" style="--tc:${DLTINT[i]}">${dico(ic, DLTINT[i], 30)}<div class="ttl">${t}</div><p>${d}</p><em>${esc(f)}</em></a>`).join("")}</div>
       <div class="dl-foot">WCCD Watershed Monitoring · build ${BUILD} · ${BUILD_DATE} · Dashboard view (new). Reports and printouts keep the white page layout.</div>`;
     dashWire();
   }
@@ -3033,8 +3036,8 @@
     document.querySelectorAll("#dash [data-classic]").forEach((x) => x.addEventListener("click", () => setViewPref("classic")));
   }
   const drail = (on, drailOn = on) => `<nav class="drail" aria-label="Dashboard"><a class="logo" href="#/dash" title="Dashboard home"><img src="${DLOGO}" width="46" height="46" alt="Dashboard home"></a>
-    ${[["#/dash/sites", "home", "Sites"], ["#/dash/new", "plus", "New site"], ["#/dash/explore", "explore", "Explore"], ["#/dash/reports", "report", "Reports"], ["#/dash/check", "check", "Data check"]].map(([h, k, l]) => `<a href="${h}"${k === on ? ' class="on" aria-current="page"' : ""}>${dico(k)}<span>${l}</span></a>`).join("")}
-    <span class="grow"></span><a href="#/dash/help"${drailOn === "help" ? ' class="on" aria-current="page"' : ""}>${dico("help", "currentColor", 18)}<span>Help</span></a><a class="classic" href="#/" data-classic>${dico("back", "currentColor", 18)}<span>Classic<br>view</span></a></nav>`;
+    ${[["#/dash/sites", "home", "Sites"], ["#/dash/new", "plus", "New site"], ["#/dash/explore", "explore", "Explore"], ["#/dash/reports", "report", "Reports"]].map(([h, k, l]) => `<a href="${h}"${k === on ? ' class="on" aria-current="page"' : ""}>${dico(k)}<span>${l}</span></a>`).join("")}
+    <span class="grow"></span><a href="#/dash/help"${drailOn === "help" ? ' class="on" aria-current="page"' : ""}>${dico("help", "currentColor", 18)}<span>Help</span></a>${isOwner() ? `<a href="#/dash/check"${on === "check" ? ' class="on" aria-current="page"' : ""} title="Data check (administrator only)">${dico("check", "currentColor", 18)}<span>Data check</span></a><a class="classic" href="#/" data-classic title="Classic view (administrator only)">${dico("back", "currentColor", 18)}<span>Classic<br>view</span></a>` : ""}</nav>`;
 
   function dashSites() {
     const k = dashStats(), all = model.filter((a) => a.pre || a.post || a.lab);
@@ -3324,7 +3327,7 @@
   function dsMapTab(a) {
     return `<div class="dsp-mapwrap"><div class="dsp-map" id="dspMap" aria-label="Map of the site's sample points"></div>
       <div class="glass see dsp-maplg"><div class="lg">${SKEYS.map((k) => `<span><i class="dot" style="background:${DSC[k]};width:11px;height:11px"></i>${DSN[k]}</span>`).join("")}<span><i style="display:inline-block;width:18px;height:2px;background:#9FE8DA"></i>monitored stream</span></div>
-        <div class="ds-sw" role="group" aria-label="Basemap"><button type="button" data-b="sat">Satellite</button><button type="button" data-b="topo">Map</button></div>${clBtn("map:", "Edit the points")}</div></div>
+        <div class="ds-sw" role="group" aria-label="Basemap"><button type="button" data-b="sat">Satellite</button><button type="button" data-b="topo">Map</button></div>${dPtLinks(a)}</div></div>
       <p class="muted" id="dspMapNote" style="font-size:12px"></p>`;
   }
   async function dsMountMap(a) {
@@ -3391,6 +3394,7 @@
   function dashDirty() { if (!dedit) return false; return dedit.kind === "taxa" ? Object.values(dedit.sides).some((x) => JSON.stringify(x.vals) !== x.orig) : JSON.stringify(dedit.vals) !== dedit.orig; }
   const editHash = (id, kind, ph, sd) => `#/dash/site/${encodeURIComponent(id)}/edit/${kind}/${ph}${sd ? "/" + sd : ""}`;
   const deBtn = (href, label) => `<a class="dbtn acc" href="${href}">${label}</a>`;
+  const dPtLinks = (a) => ["pre", "post"].filter((ph) => a[ph]).map((ph) => `<a class="dbtn" href="${editHash(a.id, "loc", ph)}">Edit ${PH[ph].split("-")[0]} points</a>`).join("");   // B28: the dashboard location editor
   const taxaStart = (s, nameOk) => {   // nameOk: the Lab layer has this sample's name field (B16)
     const counts = {}; for (let n = 1; n <= 99; n++) counts[n] = s.counts[n] ? String(s.counts[n]) : "";
     return { counts, other: s.other ? String(s.other) : "", otherHils: s.otherHils ? String(s.otherHils) : "", ...(nameOk ? { otherName: s.otherName || "" } : {}) }; };
@@ -3591,7 +3595,7 @@
           <div class="de-err" id="deErr"></div>
           <div class="muted" style="font-size:11.5px;padding:0 14px 14px;color:#5B6B5F">Tab follows the certificate: certificate, downstream sample, upstream sample, all downstream results, then all upstream results · &lt; below the reporting limit · = measured · &gt; above the upper limit</div>${deBar()}</section>
         <aside class="card dpdf"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><b style="font-size:13px">Lab certificate</b>${cert ? `<span class="muted" style="font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(cert.name)}</span>` : ""}</div>
-          <div id="dePdf" class="dpdfbox">${cert ? '<span class="muted">Opening the certificate…</span>' : `<p class="muted">No certificate is attached to the ${PH[ph].toLowerCase()} record.</p>${clBtn("files:", "Attach the certificate", true)}`}</div></aside></div></main>`;
+          <div id="dePdf" class="dpdfbox">${cert ? '<span class="muted">Opening the certificate…</span>' : `<p class="muted">No certificate is attached to the ${PH[ph].toLowerCase()} record.</p><a class="dbtn acc" href="${siteHash(a.id, "files")}">Attach the certificate</a>`}</div></aside></div></main>`;
     deWireCommon(a);
     document.querySelectorAll("#dash [data-cl]").forEach((b) => b.onclick = () => { if (dashDirty() && !confirm("Leave without saving the lab results?")) return; dedit = null; const [tb, sd] = b.dataset.cl.split(":"); toClassic(a.id, tb, sd || null); });
     const form = document.querySelector("#dash .dlabf");
@@ -4157,7 +4161,7 @@
         <div class="muted" style="font-size:12px;margin-bottom:6px">${a.site && a.site !== a.stream ? esc(a.site) + " · " : ""}${STATUS_TEXT[a.status]}</div>${rows}
         <div class="dx-msize"><span class="muted" style="font-size:11px">Point size = Avg HILS</span>${[[3, "3 · excellent"], [6, "6 · fair"], [9, "9 · very poor"]].map(([v0, l]) => `<span><i style="width:${dxSize(v0) * 0.6}px;height:${dxSize(v0) * 0.6}px"></i>${l}</span>`).join("")}</div></div>
       <div class="glass see dsp-maplg"><div class="lg">${SKEYS.map((k) => `<span><i class="dot" style="background:${DSC[k]};width:11px;height:11px"></i>${DSN[k]}</span>`).join("")}<span><i class="dot" style="border:2.5px solid #E5484D;width:11px;height:11px"></i>ring = HBI rating</span><span><i style="display:inline-block;width:18px;height:2px;background:#9FE8DA"></i>monitored stream</span></div>
-        <div class="ds-sw" role="group" aria-label="Basemap"><button type="button" data-b="sat">Satellite</button><button type="button" data-b="topo">Map</button></div>${clBtn("map:", "Edit the points")}</div></div>
+        <div class="ds-sw" role="group" aria-label="Basemap"><button type="button" data-b="sat">Satellite</button><button type="button" data-b="topo">Map</button></div>${dPtLinks(a)}</div></div>
       <p class="muted" id="dspMapNote" style="font-size:12px"></p>`;
   }
   async function dxMountMap(a, ss = dxSel(a)) {
@@ -4394,11 +4398,11 @@
   // ---------------- B27: Help (#/dash/help/<topic>); the same topics fill the classic Help page ----------------
   const HELP = [
     { k: "start", t: "Getting around", go: ["#/dash", "Open the home page"], intro: "The home page shows the program at a glance; the large tiles below the curve open each part of the app.",
-      steps: [["The tiles", "<b>Sites</b> (map and progress), <b>New site</b>, <b>Explore</b> (charts and comparisons), <b>Reports</b> (print, PDF, Word, Excel) and <b>Data check</b>."],
-        ["The side menu", "Inside the app, the menu on the left has the same five places, plus <b>Help</b> and <b>Classic view</b> at the bottom. On a phone it becomes a bar along the bottom of the screen."],
+      steps: [["The tiles", "<b>Sites</b> (map and progress), <b>New site</b>, <b>Explore</b> (charts and comparisons) and <b>Reports</b> (print, PDF, Word, Excel)."],
+        ["The side menu", "Inside the app, the menu on the left has the same places, with <b>Help</b> at the bottom. On a phone it becomes a bar along the bottom of the screen."],
         ["Going back", "Every page has a “←” link at the top left back to where you came from (the site, or the list of sites)."],
         ["Signing out", "Use <b>Sign out</b> at the top right of the home page."]],
-      tip: "The classic view is the original layout of the same app, on the same data. Use it if you prefer it; the dashboard remembers which one you used last." },
+      ownerTip: "Administrator only: <b>Data check</b> and <b>Classic view</b> (the original layout of the same app, on the same data) sit at the bottom of the side menu. Other users don't see them, and the classic pages always send them back to the dashboard." },
     { k: "sites", t: "Sites and the site page", go: ["#/dash/sites", "Go to the sites"], intro: "Every site, its progress, and everything entered for it.",
       steps: [["The sites map", "Points sized by Avg HILS on satellite imagery, with the monitored streams highlighted. <b>Fit all sites</b> zooms to all of them. The progress table shows each stage: entered, partly entered or not yet entered."],
         ["Open a site", "Click a site on the map, in the table, or on the Pre → Post chart."],
@@ -4448,7 +4452,7 @@
         ["Check the stream ID (COMID)", "Compares the stored Stream ID with the stream segment nearest the downstream point, and corrects the ones that differ."],
         ["Review “Other Taxa”", "Opens the taxa editor on the Other taxa row (name, HILS and count)."],
         ["Delete this site", "Type the site ID to confirm. A backup file with every record and file is saved to your computer first; then the site is deleted."]] },
-    { k: "check", t: "Data check", go: ["#/dash/check", "Open the Data check"], intro: "Whether the surveys can be read and edited, and whether the stored totals match the app's calculation.",
+    { k: "check", owner: true, t: "Data check", go: ["#/dash/check", "Open the Data check"], intro: "Whether the surveys can be read and edited, and whether the stored totals match the app's calculation.",
       steps: [["The three surveys", "One card each for Pre-construction, Post-construction and Lab analysis: what your account can do (read, add, update, delete, attach files) and any missing layers or fields."],
         ["Stored totals", "For every sample, the totals stored in the survey compared with the app's own calculation from the taxa rows."],
         ["Flags", "Anything that needs a look, such as a missing point, an ID that doesn't follow the 4 + 4 pattern, or a Stream ID shared by different streams. Open the site to fix it."]] },
@@ -4462,10 +4466,10 @@
   const helpText = (h) => (h.t + " " + h.intro + " " + h.steps.map((x) => x.join(" ")).join(" ") + " " + (h.tip || "")).replace(/<[^>]+>/g, " ").toLowerCase();
   const helpScale = () => `<table class="dh-tbl">${DRATE.map((r, i) => `<tr><td><i style="background:${r[2]}"></i>${r[1]}</td><td>${i ? fmt(DRATE[i - 1][0] + 0.01, 2) : "0.00"}–${fmt(r[0], 2)}</td></tr>`).join("")}</table>`;
   const helpBody = (h, cls = "") => `${h.steps.map(([t, d], i) => `<div class="dh-step${cls}"><span>${i + 1}</span><div><b>${t}</b><div>${d}</div></div></div>`).join("")}
-    ${h.table ? `<div class="dh-tip"><b>Water quality (HBI) bands for Avg HILS</b> · Hilsenhoff, 1988${helpScale()}</div>` : ""}${h.tip ? `<div class="dh-tip">${h.tip}</div>` : ""}`;
+    ${h.table ? `<div class="dh-tip"><b>Water quality (HBI) bands for Avg HILS</b> · Hilsenhoff, 1988${helpScale()}</div>` : ""}${h.tip ? `<div class="dh-tip">${h.tip}</div>` : ""}${h.ownerTip && isOwner() ? `<div class="dh-tip">${h.ownerTip}</div>` : ""}`;
   const dhelp = { q: "" };
   function dashHelp(k) {
-    const i = Math.max(0, HELP.findIndex((h) => h.k === k)), h = HELP[i], nx = HELP[i + 1];
+    const HL = HELP.filter((x) => !x.owner || isOwner()), i = Math.max(0, HL.findIndex((h) => h.k === k)), h = HL[i], nx = HL[i + 1];   // B28: owner-only topics
     $("dash").innerHTML = `${drail("", "help")}<main class="dsp-main"><div class="de-head"><div><div class="muted" style="font-size:12px">Washington County Conservation District · Watershed Monitoring</div><h2 class="ttl">Help</h2></div></div>
       <input class="dh-q" id="dhQ" type="search" placeholder="Search help (e.g. “certificate”, “delete”, “print”)" aria-label="Search help" value="${esc(dhelp.q)}">
       <div class="dh-grid"><nav class="dh-list" aria-label="Help topics"><div id="dhList"></div>
@@ -4477,10 +4481,10 @@
             <dt>HILS</dt><dd>the pollution-tolerance value of a taxon, 0 (sensitive) to 10 (tolerant)</dd><dt>Avg HILS</dt><dd>total index ÷ organisms; lower is better water</dd>
             <dt>EPT</dt><dd>mayfly, stonefly and caddisfly families present</dd><dt>Index</dt><dd>count × HILS for each taxon</dd><dt>COMID</dt><dd>the ID of the stream segment at the downstream point (the Stream ID)</dd>
             <dt>Pre / Post</dt><dd>the samples before and after construction, each with a downstream and an upstream location</dd></dl></div>
-          <div class="card"><h3 style="margin:0">About</h3><div class="muted" style="margin-top:6px;line-height:1.6">WCCD Watershed Monitoring · build ${BUILD} (${BUILD_DATE})<br>Reads and saves the Pre-construction, Post-construction and Lab analysis Survey123 surveys. Every figure is calculated by the app.<br>Classic view: the button at the bottom of the side menu.</div></div></aside></div></main>`;
+          <div class="card"><h3 style="margin:0">About</h3><div class="muted" style="margin-top:6px;line-height:1.6">WCCD Watershed Monitoring · build ${BUILD} (${BUILD_DATE})<br>Reads and saves the Pre-construction, Post-construction and Lab analysis Survey123 surveys. Every figure is calculated by the app.${isOwner() ? "<br>Data check and Classic view: at the bottom of the side menu (administrator only)." : ""}</div></div></aside></div></main>`;
     dashWire();
-    const list = () => { const q = dhelp.q.trim().toLowerCase(), hits = HELP.filter((x) => !q || helpText(x).includes(q));
-      $("dhList").innerHTML = hits.length ? hits.map((x) => `<a class="dh-t${x === h ? " on" : ""}" href="#/dash/help/${x.k}"${x === h ? ' aria-current="page"' : ""}>${HELP.indexOf(x) + 1}. ${x.t}</a>`).join("") : `<div class="dh-none muted">No topic mentions “${esc(dhelp.q)}”.</div>`; };
+    const list = () => { const q = dhelp.q.trim().toLowerCase(), hits = HL.filter((x) => !q || helpText(x).includes(q));
+      $("dhList").innerHTML = hits.length ? hits.map((x) => `<a class="dh-t${x === h ? " on" : ""}" href="#/dash/help/${x.k}"${x === h ? ' aria-current="page"' : ""}>${HL.indexOf(x) + 1}. ${x.t}</a>`).join("") : `<div class="dh-none muted">No topic mentions “${esc(dhelp.q)}”.</div>`; };
     $("dhQ").oninput = (e) => { dhelp.q = e.target.value; list(); };
     list(); window.scrollTo(0, 0);
   }
@@ -4494,7 +4498,7 @@
     const sub = parts[1];
     if (sub !== "site" || parts[3] !== "edit") dedit = null;
     if (sub !== "reports") drpRestore();
-    if (sub === "check") { dashMapFree(); dashCheck(); }
+    if (sub === "check") { dashMapFree(); if (!isOwner()) { location.replace("#/dash"); return; } dashCheck(); }   // B28: owner only
     else if (sub === "reports") { dashMapFree(); dashReports(); }
     else if (sub === "new") { dashMapFree(); dashNew(); }
     else if (sub === "explore") { dashMapFree(); if (dash.lastSub !== "explore") dxReset(); if (DXV.some((x) => x[0] === parts[2])) dx.view = parts[2]; dashExplore(); }   // #/dash/explore/<view> opens that view
@@ -4525,6 +4529,7 @@
   let curRoute = "";
   function route() {
     const parts = location.hash.replace(/^#\/?/, "").split("/"), r = parts[0] || "home";
+    if (r !== "dash" && svc.pre && !isOwner()) { location.replace(r === "help" ? "#/dash/help" : "#/dash"); return; }   // B28: the classic view is for the owner only
     const prevRoute = curRoute; curRoute = r;
     if (prevRoute !== r && r === "explore") exReset();   // arriving from another page
     if (prevRoute !== r && r === "reports") rp.empty = false;
@@ -4532,7 +4537,7 @@
     hideTip();
     if (r !== "new" && r !== "area" && mapS.view) mountMap(null);   // free the map when leaving a page that has one
     if (r !== "explore" && exMapS.view) { try { exMapS.view.destroy(); } catch { /* gone */ } exMapS.view = null; }
-    if (r === "dash") { try { drawDash(parts); } catch (err) { console.error(err); $("dash").innerHTML = `<div class="load" style="flex-direction:column;text-align:center;padding:20px">This dashboard page could not be shown (${esc(mask(err.message || err))}).<br><a href="#/dash" style="color:var(--acc)">Dashboard home</a> · <a href="#/" style="color:var(--acc)">Classic view</a></div>`; } return; }   // B10: the Dashboard view has its own pages (B15: an error stays on the page)
+    if (r === "dash") { try { drawDash(parts); } catch (err) { console.error(err); $("dash").innerHTML = `<div class="load" style="flex-direction:column;text-align:center;padding:20px">This dashboard page could not be shown (${esc(mask(err.message || err))}).<br><a href="#/dash" style="color:var(--acc)">Dashboard home</a>${isOwner() ? ' · <a href="#/" style="color:var(--acc)">Classic view</a>' : ""}</div>`; } return; }   // B10: the Dashboard view has its own pages (B15: an error stays on the page)
     leaveDash();
     document.querySelectorAll(".rail a[data-r]").forEach((a) => a.classList.toggle("on", a.dataset.r === r || (r === "area" && a.dataset.r === "home")));
     if (!model.length && r !== "help") { if (svc.pre) say("notice", "No sites were found in the layers."); }
