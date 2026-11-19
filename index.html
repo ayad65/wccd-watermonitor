@@ -433,6 +433,32 @@
   .dtr.z .tn,.dtr.z .no,.dtr.z .h{color:#8A968D} .dtr.z .stp{color:#A9B3AB;border-color:#E1E7DE}
   .dtr.z .cnt input{background:#F6F8F4;border-color:#E1E7DE;color:#A9B3AB;font-weight:400} .dtr.z .cnt input::placeholder{color:#B5BEB7}
   .dtr.z .cnt input:focus{background:#fff;color:#142019;border:2px solid #8DB320}
+  /* B22: field readings, site details and sample locations editors */
+  .dfr{display:grid;grid-template-columns:130px repeat(3,minmax(0,1fr));gap:10px;align-items:start;padding:6px 14px}
+  .dfrh{font-size:11px;color:#5B6B5F;text-transform:uppercase;letter-spacing:.04em;align-items:end;padding-bottom:0;text-align:center} .dfrh em{display:block;font-style:normal;text-transform:none;letter-spacing:0}
+  .dfr b{font-size:13.5px;padding-top:9px;display:flex;align-items:center;gap:7px} .dfr .dot,.dptc-h .dot,.dloc-move .dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+  .dfc{display:flex;flex-direction:column;align-items:stretch} .dfc .dpi{width:100%} .dfc .was{margin:2px 0 0;text-align:center} .dfc .was:empty{display:none}
+  .dfnote,.dsfnote{font-size:11.5px;color:#5B6B5F;padding:4px 14px 10px;line-height:1.5}
+  .dsf{padding:0 14px 12px} .dsf label{display:block;font-size:11.5px;font-weight:600;color:#3D4C41;margin-bottom:4px} .dsf label span{font-weight:400;color:#5B6B5F}
+  .dsf .dtx{height:38px} .dsf .was{display:block;margin:3px 0 0} .dsf .was:empty{display:none} .dsf .dsfnote{padding:3px 0 0}
+  .dro{min-height:38px;border-radius:9px;border:1px dashed #D6DFD3;background:#F4F7F0;color:#5B6B5F;display:flex;align-items:center;padding:0 10px;font-size:13.5px}
+  .demini{height:180px;border-radius:12px;overflow:hidden;border:1px solid var(--line);margin-top:6px}
+  .de-grid.loc{grid-template-columns:minmax(0,1fr) 380px}
+  .dloc-map{position:relative;min-width:0} .dloc-cmap{height:calc(100vh - 150px);min-height:460px}
+  .dloc-move{position:absolute;left:14px;top:14px;z-index:5;padding:7px 9px;display:flex;gap:6px;align-items:center;font-size:12.5px}
+  .dloc-move button{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;cursor:pointer}
+  .dloc-move button.on{background:var(--acc);border-color:var(--acc);color:#0B0F0C;font-weight:700} .dloc-move button:disabled{opacity:.4;cursor:default}
+  .dloc-fit{position:absolute;right:14px;top:14px;z-index:5;padding:7px 12px;font:inherit;font-size:12.5px;color:var(--ink);cursor:pointer;border:1px solid var(--line)}
+  .dloc-hint{position:absolute;left:14px;bottom:14px;z-index:5;padding:7px 12px;font-size:12px;max-width:min(60%,520px)}
+  .dptc{margin:0 14px 10px;border:1px solid #DDE5DA;border-radius:12px;padding:10px 12px;background:#fff} .dptc.chg{border-color:#E2A82B;background:#FFF8E1} .dptc.on{box-shadow:0 0 0 2px rgba(157,191,46,.6)}
+  .dptc-h{display:flex;align-items:center;gap:7px;font-size:13.5px} .dptc-m{margin-left:auto;font-size:11px;color:#9A6A00;font-weight:600}
+  .dptc-g{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px} .dptc-g label{font-size:10.5px;color:#5B6B5F} .dptc-g .dtx{margin-top:2px;font-weight:600}
+  .dptc .was{display:block;margin:4px 0 0} .dptc .was:empty{display:none}
+  .dlocinfo{font-size:12.5px;line-height:1.6;margin:4px 14px 0;padding-top:8px;border-top:1px solid #DDE5DA} .dlocinfo:empty{display:none} .dlocinfo .warn{color:#B45309} .dlocinfo .ok{color:#2E7D32}
+  .dpaper .bad-in{border:2px solid #C2410C !important;background:#FFF1EC !important}
+  .dlocf .dsave .dsave-st{flex-basis:100%} .dlocf .dsave .dbtn{margin-left:auto}   /* narrow panel: status on its own line, buttons together on the right */
+  @media (max-width:1100px){ .de-grid.loc{grid-template-columns:minmax(0,1fr)} .dloc-cmap{height:55vh;min-height:320px} }
+  @media (max-width:640px){ .dfr{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:4px 10px} .dfr b{grid-column:1/-1;padding-top:6px} .dfrh span:first-child{display:none} .dfrh{font-size:10px;letter-spacing:.02em} .dloc-hint{display:none} }
   .dlab{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:10px} .dlab>div{background:var(--surf2);border-radius:12px;padding:8px 10px}
   .dhbi{font-size:11px;padding:2px 8px;border-radius:999px;color:#0B0F0C;font-weight:700}
   .dstage{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-top:1px solid rgba(255,255,255,.06);font-size:13px}
@@ -752,7 +778,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B21", BUILD_DATE = "18 Nov 2026";
+  const BUILD = "B22", BUILD_DATE = "18 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -1438,13 +1464,13 @@
     const mc = change(ph, M, P.main.row, mset, `${PH[ph]} record (stored field readings)`); if (mc) out.push(mc);
     return out;
   }
-  function sitePlan(a, ph, vals) {
+  function sitePlan(a, ph, vals, look = area.edit && area.edit.look) {
     const P = a[ph], M = P.main.L, set = {}; set[M.fields.sitename] = vals.site.trim() || null;
     if (vals.date !== dayKey(att(M, P.main.row, "DateSampled"))) set[M.fields.datesampled] = noonMs(vals.date);   // same calendar day = no change
     const stream = matchStream(vals.stream);
     if (stream && stream !== (att(M, P.main.row, "StreamName") || "") && M.fields.streamname) {
       set[M.fields.streamname] = stream;
-      const lk = area.edit && area.edit.look; if (lk && !lk.pending && lk.comid && M.fields.streamid) set[M.fields.streamid] = lk.comid; }
+      const lk = look; if (lk && !lk.pending && lk.comid && M.fields.streamid) set[M.fields.streamid] = lk.comid; }
     const c = change(ph, M, P.main.row, set, `${PH[ph]} record`); if (c) c.names = { [M.fields.sitename]: "Site name", [M.fields.datesampled]: "Date sampled", [M.fields.streamname]: "Stream", [M.fields.streamid]: "Stream ID (COMID)" };
     return c ? [c] : [];
   }
@@ -1732,9 +1758,18 @@
       const dashPick = el.classList.contains("dn-map");   // B20: the dashboard New site page uses the dashboard map
       const { view, gl, flow, Graphic } = dashPick ? await buildDashPick(el, first ? [first.lon, first.lat] : COUNTY_CENTER, first ? 16 : 10, st)
         : await buildMap(el, first ? [first.lon, first.lat] : COUNTY_CENTER, first ? 16 : 10);
-      if (dashPick) cols = { down: DSC.pre_down, up: DSC.pre_up };   // the dashboard sample colours
+      if (dashPick) cols = st.kind === "loc" && st.ph === "post" ? { down: DSC.post_down, up: DSC.post_up } : { down: DSC.pre_down, up: DSC.pre_up };   // the dashboard sample colours
       mapS.dash = dashPick; mapS.view = view; mapS.gl = gl; mapS.Graphic = Graphic; mapS.st = st; mapS.cols = cols; mapS.flow = flow;
       view.on("click", (e) => { const p = e.mapPoint; if (p) onPick(Math.round(p.latitude * 1e6) / 1e6, Math.round(p.longitude * 1e6) / 1e6); });
+      if (dashPick && st.kind === "loc") {   // B22: drag a point (press on it, then move)
+        let drag = null;
+        view.on("pointer-down", async (e) => { drag = null; try { const r = await view.hitTest(e, { include: [gl] }); const h = r.results.find((x) => x.graphic && x.graphic.attributes && x.graphic.attributes.sd); if (h) drag = h.graphic.attributes.sd; } catch { /* view gone */ } });
+        view.on("pointer-up", () => { drag = null; });
+        view.on("drag", (e) => { if (!drag) return; e.stopPropagation(); const p = view.toMap({ x: e.x, y: e.y }); if (!p) return;
+          if (st.place !== drag && st.choose) st.choose(drag);
+          onPick(Math.round(p.latitude * 1e6) / 1e6, Math.round(p.longitude * 1e6) / 1e6); if (e.action === "end") drag = null; });
+        view.when(() => dlocFit()).catch(() => {});
+      }
       drawMapPts();
       if (mapS.pendingZoom) { const z = mapS.pendingZoom; mapS.pendingZoom = null; zoomToStream(z); }
     } catch (err) { el.innerHTML = `<p class="small" style="padding:12px">The map could not be shown (${esc(mask(err.message || err))}). Type the coordinates instead.</p>`; }
@@ -1762,10 +1797,15 @@
   }
   function drawMapPts() {
     if (!mapS.gl || !mapS.st) return; mapS.gl.removeAll();
-    for (const sd of ["down", "up"]) { const p = ptOf(mapS.st.vals, sd); if (!p) continue;
+    const locEd = mapS.dash && mapS.st.kind === "loc", o = locEd ? JSON.parse(mapS.st.orig) : null;
+    for (const sd of ["down", "up"]) { const p = ptOf(mapS.st.vals, sd), q = o ? ptOf(o, sd) : null;
+      if (q && (!p || Math.abs(p.lat - q.lat) > 5e-7 || Math.abs(p.lon - q.lon) > 5e-7))
+        mapS.gl.add(new mapS.Graphic({ geometry: { type: "point", longitude: q.lon, latitude: q.lat }, symbol: { type: "simple-marker", color: [0, 0, 0, 0], size: 18, outline: { color: mapS.cols[sd], width: 2, style: "dash" } } }));
+      if (!p) continue;
       const geometry = { type: "point", longitude: p.lon, latitude: p.lat };
+      if (locEd && mapS.st.place === sd) mapS.gl.add(new mapS.Graphic({ geometry, symbol: { type: "simple-marker", color: [0, 0, 0, 0], size: 30, outline: { color: "#C8E35A", width: 2.5 } } }));
       if (mapS.dash) mapS.gl.add(new mapS.Graphic({ geometry, symbol: { type: "simple-marker", color: [8, 12, 9, 0.35], size: 26, outline: null } }));
-      mapS.gl.add(new mapS.Graphic({ geometry, symbol: { type: "simple-marker", color: mapS.cols[sd], size: mapS.dash ? 16 : 13, outline: { color: mapS.dash ? "#0B0F0C" : "#ffffff", width: mapS.dash ? 2.5 : 2 } } }));
+      mapS.gl.add(new mapS.Graphic({ geometry, attributes: { sd }, symbol: { type: "simple-marker", color: mapS.cols[sd], size: mapS.dash ? 16 : 13, outline: { color: mapS.dash ? "#0B0F0C" : "#ffffff", width: mapS.dash ? 2.5 : 2 } } }));
       mapS.gl.add(new mapS.Graphic({ geometry, symbol: mapS.dash ? { type: "text", text: SD[sd], color: "#EEF3E9", haloColor: [8, 12, 9, 0.92], haloSize: 2.2, xoffset: 14, yoffset: -4, horizontalAlignment: "left", font: { size: 12, weight: "bold", family: "sans-serif" } }
         : { type: "text", text: sd === "down" ? "D" : "U", color: "#ffffff", font: { size: 8, weight: "bold" }, yoffset: -3 } })); }
   }
@@ -1795,8 +1835,10 @@
     const choose = (sd) => { st.place = sd;
       root.querySelectorAll("[data-place]").forEach((x) => { const on = x.dataset.place === sd; x.classList.toggle("on", on); x.setAttribute("aria-pressed", on); });
       root.querySelectorAll("[data-ptrow]").forEach((r) => { r.hidden = r.dataset.ptrow !== sd; });
+      root.querySelectorAll("[data-ptcard]").forEach((r) => r.classList.toggle("on", r.dataset.ptcard === sd));
       const t = root.querySelector("#cPlaceTxt"); if (t) t.innerHTML = `Click the map to place the <b>${sd === "down" ? "downstream" : "upstream"}</b> point, or type it below.`; refresh(); };
     root.querySelectorAll("[data-place]").forEach((b) => b.onclick = () => choose(b.dataset.place));
+    st.choose = choose;
     const pick = (lat, lon) => { const sd = st.place; st.vals[sd + ".lat"] = pt6(lat); st.vals[sd + ".lon"] = pt6(lon); st.touched[sd + ".lat"] = st.touched[sd + ".lon"] = true;
       for (const k of ["lat", "lon"]) { const el = root.querySelector(`[data-cv="${sd}.${k}"]`); if (el) el.value = st.vals[`${sd}.${k}`]; }
       refresh(); };
@@ -1806,7 +1848,7 @@
       .catch((e) => { st.streamErr = mask(e.message || e); refresh(); });
   }
   // Checks, lookups and the status line for the create form and the sample-location editor. Returns the plan (or null).
-  function createRefresh(st, a, root, reviewSel) {
+  function createRefresh(st, a, root, reviewSel, redoFn) {
     const v = st.vals, errs = [], bad = new Set(), notes = [];
     const create = st.kind === "create" || st.kind === "post0";
     let stream;
@@ -1828,7 +1870,7 @@
     if (!create) for (const sd of ["down", "up"]) { const s = a[st.ph].samples[sd];
       if (s.grp && geomPt(s.geom) && !ptOf(v, sd) && String(v[sd + ".lat"]).trim() === "" && String(v[sd + ".lon"]).trim() === "") { errs.push(`The ${SD[sd].toLowerCase()} point cannot be removed; type the corrected one`); bad.add(sd + ".lat"); } }
     for (const sd of ["down", "up"]) if (!ptOf(v, sd) && !bad.has(sd + ".lat") && !bad.has(sd + ".lon")) notes.push(`no ${SD[sd].toLowerCase()} point yet (the site will be flagged until it is entered)`);
-    const down = bad.has("down.lat") || bad.has("down.lon") ? null : ptOf(v, "down"), redo = () => createRefresh(st, a, root, reviewSel);
+    const down = bad.has("down.lat") || bad.has("down.lon") ? null : ptOf(v, "down"), redo = redoFn || (() => createRefresh(st, a, root, reviewSel));
     lookups(st, stream, down, redo);
     const touched = st.touched || {};   // an untouched empty box is not red yet
     root.querySelectorAll("[data-cv]").forEach((el) => el.classList.toggle("bad-in", bad.has(el.dataset.cv) && (!create || touched[el.dataset.cv] || String(st.vals[el.dataset.cv] || "").trim() !== "")));
@@ -3114,14 +3156,14 @@
       <div class="muted" style="display:flex;gap:14px;flex-wrap:wrap;font-size:12px;margin-top:8px;border-top:1px solid var(--line);padding-top:8px">
         <span>Point ${zeroGeom(g) ? '<span style="color:#F07E3A">not entered</span>' : `${pt6(g.y)}, ${pt6(g.x)}`}</span>
         <span>${nb(f.ph) && nb(f.temp) && nb(f.cond) ? "No field readings" : `pH ${fmt(f.ph, 1)} · ${fmt(f.temp, 1)} °C · ${fmt(f.cond)} µS/cm`}</span></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">${deBtn(editHash(a.id, "taxa", ph, sd), "Edit taxa counts")}${clBtn(`${ph}:loc`, "Sample locations")}${clBtn(`${ph}:field`, "Field readings")}</div></div>`;
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">${deBtn(editHash(a.id, "taxa", ph, sd), "Edit taxa counts")}<a class="dbtn" href="${editHash(a.id, "loc", ph)}">Sample locations</a><a class="dbtn" href="${editHash(a.id, "field", ph)}">Field readings</a></div></div>`;
   }
   function dsPhase(a, ph) {
     const P = a[ph];
     if (!P) return `<div class="card"><p style="margin:0 0 10px">No ${PH[ph].toLowerCase()} record yet.</p>${ph === "post" && a.pre ? clBtn("post:", "Start post-construction", true) : ""}</div>`;
     const M = P.main.L, r = P.main.row, v = (f) => att(M, r, f);
     const strip = `<div class="card dsp-strip">${[["Date sampled", dayText(v("DateSampled"))], ["Site name", v("SiteName") || "–"], ["Phase ID", v("PhaseID") || "–"], ["Stream ID (COMID)", v("StreamID") || "–"], ["Collected by", v("collected_by") || "–"]].map(([l, x]) => `<div><small>${l}</small><b>${esc(x)}</b></div>`).join("")}
-      <span style="margin-left:auto">${clBtn(`${ph}:site`, "Edit site details")}</span></div>`;
+      <span style="margin-left:auto"><a class="dbtn" href="${editHash(a.id, "site", ph)}">Edit site details</a></span></div>`;
     let mx = 1; for (const sd of ["down", "up"]) { const s = P.samples[sd]; if (s.exists) { for (const [, , lo, hi] of GROUPS) { let n = 0; for (let i = lo; i <= hi; i++) n += s.counts[i] || 0; mx = Math.max(mx, n); } mx = Math.max(mx, s.other || 0); } }
     const cert = P.files.find(isCert), lab = a.lab, Lt = (k) => lab ? att(lab.L, lab.row, labField(ph, "down", k)) : null;
     let labHtml;
@@ -3251,6 +3293,24 @@
       if (!labL()) return dashEditFail(a, ph, "The Lab survey's layer was not found.");
       if (!dedit || dedit.kind !== "lab" || dedit.id !== a.id || dedit.ph !== ph) { const v = labStartVals(a, ph); dedit = { kind, id: a.id, ph, vals: v, orig: JSON.stringify(v) }; }
       dlabDraw(a);
+    } else if (kind === "field") {   // B22
+      if (svc[ph].error) return dashEditFail(a, ph, svc[ph].error);
+      if (!["down", "up"].some((x) => P.samples[x].exists && P.samples[x].grp)) return dashEditFail(a, ph, "This phase has no sample records to edit yet.");
+      if (!dedit || dedit.kind !== "field" || dedit.id !== a.id || dedit.ph !== ph) { const v = fieldStart(P); dedit = { kind, id: a.id, ph, vals: v, orig: JSON.stringify(v) }; }
+      dfieldDraw(a);
+    } else if (kind === "site") {
+      if (svc[ph].error) return dashEditFail(a, ph, svc[ph].error);
+      if (!dedit || dedit.kind !== "site" || dedit.id !== a.id || dedit.ph !== ph) { const M = P.main.L, r = P.main.row, v = { stream: att(M, r, "StreamName") || "", site: att(M, r, "SiteName") || "", date: dayKey(att(M, r, "DateSampled")) };
+        dedit = { kind, id: a.id, ph, vals: v, orig: JSON.stringify(v) }; }
+      dsiteDraw(a);
+      if (!streamNames) loadStreams().then(() => { const dl = document.querySelector("#dash #streamList"); if (dl) dl.outerHTML = streamListHtml(); if (dedit && dedit.kind === "site") dsiteRefresh(a); }).catch(() => { /* the typed name is then checked as is */ });
+    } else if (kind === "loc") {
+      if (svc[ph].error) return dashEditFail(a, ph, svc[ph].error);
+      if (!["down", "up"].some((x) => P.samples[x].grp)) return dashEditFail(a, ph, "This phase has no sample records, so there are no points to move.");
+      if (!dedit || dedit.kind !== "loc" || dedit.id !== a.id || dedit.ph !== ph) { const vals = {};
+        for (const x of ["down", "up"]) { const p = geomPt(P.samples[x].geom); vals[x + ".lat"] = p ? pt6(p.lat) : ""; vals[x + ".lon"] = p ? pt6(p.lon) : ""; }
+        dedit = { kind, id: a.id, ph, vals, orig: JSON.stringify(vals), place: P.samples.down.grp ? "down" : "up" }; }
+      dlocDraw(a);
     } else dashEditFail(a, ph, "Unknown editor.");
   }
   const deHead = (a, title, sideSw) => `<div class="de-head"><div><a class="dsp-back" href="${siteHash(a.id, dedit.ph)}">← ${esc(a.id)} · ${esc(a.stream || "no stream")} · ${PH[dedit.ph]}</a><h2 class="ttl">${title}</h2></div>${sideSw || ""}
@@ -3434,6 +3494,172 @@
     $("deBarSt").innerHTML = errs.length ? `<span class="bad">Fix ${bad.size} value${bad.size === 1 ? "" : "s"} first</span>` : planErr ? `<span class="bad">${esc(planErr)}</span>` : n ? `<b>${n} change${n === 1 ? "" : "s"}</b> · nothing is saved until you confirm` : "No changes yet";
   }
 
+  // ---------------- B22: field readings, site details and sample locations in the Dashboard view ----------------
+  // Same plans as the classic editors (fieldPlan, sitePlan, locPlan), the same review panel and safe save; Save / Cancel pinned at the end of the form.
+  const FIELDK = [["ph", "pH", ""], ["temp", "Temperature", "°C"], ["cond", "Conductivity", "µS/cm"]];
+  const FIELDTYP = { ph: [6.5, 8.5], temp: [0, 30], cond: [150, 500] };   // typical county stream ranges: a soft "check this" note only
+  const fieldStart = (P) => { const v = {}; for (const x of ["down", "up"]) { const f = P.samples[x].field || {}; v[x] = { ph: nb(f.ph) ? "" : String(f.ph), temp: nb(f.temp) ? "" : String(f.temp), cond: nb(f.cond) ? "" : String(f.cond) }; } return v; };
+  const dChg = (list) => `<div class="card"><h3>Changes <span class="muted" style="font-weight:500">${list.length ? `(${list.length})` : ""}</span></h3><div class="muted" style="font-size:12.5px;line-height:1.55">${list.length ? list.map(esc).join("<br>") : "No changes yet."}</div></div>`;
+  const deStatus = (errs, n, extra = "") => errs ? `<span class="bad">Fix ${errs} value${errs === 1 ? "" : "s"} first</span>` : n ? `<b>${n} change${n === 1 ? "" : "s"}</b>${extra} · nothing is saved until you confirm` : "No changes yet";
+  const distM = (p, q) => { const r = Math.PI / 180, dl = (q.lat - p.lat) * r, dn = (q.lon - p.lon) * r, x = Math.sin(dl / 2) ** 2 + Math.cos(p.lat * r) * Math.cos(q.lat * r) * Math.sin(dn / 2) ** 2; return 2 * 6371000 * Math.asin(Math.sqrt(x)); };
+  const fmtDist = (d) => d < 1 ? "under 1 m" : d < 1000 ? `${Math.round(d)} m` : `${(d / 1000).toFixed(2)} km`;
+
+  // ---- field readings ----
+  function dfieldDraw(a) {
+    const E = dedit, P = a[E.ph], sides = ["down", "up"].filter((x) => P.samples[x].exists && P.samples[x].grp);
+    $("dash").innerHTML = `${drail("home")}<main class="dsp-main">${deHead(a, "Edit field readings")}
+      <div class="de-grid"><section class="dpaper dfldf" aria-label="Field readings">
+          <div class="dsec">Field readings · ${PH[E.ph]} <span>measured at the stream when the sample was taken · leave a box empty if it was not measured</span></div>
+          <div class="dfr dfrh"><span></span>${FIELDK.map(([, l, u]) => `<span>${l}${u ? `<em>${u}</em>` : ""}</span>`).join("")}</div>
+          ${sides.map((sd) => `<div class="dfr"><b><i class="dot" style="background:${DSC[E.ph + "_" + sd]}"></i>${SD[sd]}</b>${FIELDK.map(([k, l, u]) => `<span class="dfc"><input class="dpi" data-fv="${sd}.${k}" inputmode="decimal" autocomplete="off" value="${esc(E.vals[sd][k])}" aria-label="${SD[sd]} ${l}${u ? " (" + u + ")" : ""}"><em class="was" data-fwas="${sd}.${k}"></em></span>`).join("")}</div>`).join("")}
+          <div class="dfnote">pH must be between 0 and 14 and conductivity 0 or more; anything else is marked red and blocks saving. An empty box stays empty (it is not stored as 0). Enter moves to the next box.</div>
+          <div class="de-err" id="deErr"></div>${deBar()}</section>
+        <aside class="de-col"><div class="card"><h3>Typical ranges</h3><div class="muted" style="font-size:12.5px;line-height:1.6">pH 6.5–8.5<br>Temperature 0–30 °C<br>Conductivity 150–500 µS/cm in county streams</div>
+            <div id="deSoft" style="font-size:12px;margin-top:8px;line-height:1.5"></div><div class="muted" style="font-size:11.5px;margin-top:6px">A value outside these is allowed; it only gets a “check this” note.</div></div>
+          <div id="deChg"></div></aside></div></main>`;
+    deWireCommon(a);
+    const inputs = [...document.querySelectorAll("#dash [data-fv]")];
+    inputs.forEach((el, i) => { el.oninput = () => { const [sd, k] = el.dataset.fv.split("."); E.vals[sd][k] = el.value; dfieldRefresh(a); };
+      el.onfocus = () => el.select();
+      el.onkeydown = (e) => { if (e.key === "Enter") { e.preventDefault(); const nx = inputs[i + (e.shiftKey ? -1 : 1)]; if (nx) nx.focus(); } }; });
+    dfieldRefresh(a);
+  }
+  function dfieldRefresh(a) {
+    const E = dedit, P0 = a[E.ph], o = JSON.parse(E.orig), changed = [], soft = []; let errs = 0;
+    document.querySelectorAll("#dash [data-fv]").forEach((el) => { const [x, k] = el.dataset.fv.split("."), t = String(E.vals[x][k]).trim(), f = P0.samples[x].field || {}, n = Number(t), nm = FIELDK.find((q) => q[0] === k)[1];
+      const okNum = t === "" || Number.isFinite(n), okRange = !(k === "ph" && t !== "" && (n < 0 || n > 14)) && !(k === "cond" && t !== "" && n < 0), ok = okNum && okRange;
+      const ch = ok && normV(t === "" ? null : n) !== normV(nb(f[k]) ? null : Number(f[k]));
+      el.classList.toggle("bad-d", !ok); el.classList.toggle("chg-d", ch);
+      if (!ok) errs++;
+      else if (t !== "" && (n < FIELDTYP[k][0] || n > FIELDTYP[k][1])) soft.push(`${SD[x]} ${nm} ${t} is outside the typical range: check this.`);
+      if (ch) changed.push(`${SD[x]} ${nm} ${fmtV(f[k])} → ${t || "(empty)"}`);
+      const w = document.querySelector(`#dash [data-fwas="${x}.${k}"]`); if (w) w.textContent = ch ? (o[x][k] === "" ? "new" : `was ${o[x][k]}`) : ""; });
+    $("deErr").textContent = errs ? "pH must be between 0 and 14, conductivity 0 or more, and every value a number." : "";
+    $("deSoft").innerHTML = soft.map((x) => `<div style="color:#E2A82B">${esc(x)}</div>`).join("");
+    $("deChg").innerHTML = dChg(changed);
+    $("deReview").disabled = !changed.length || errs > 0;
+    $("deBarSt").innerHTML = deStatus(errs, changed.length);
+  }
+
+  // ---- site details (stream, site name, date) ----
+  function dsiteDraw(a) {
+    const E = dedit, P = a[E.ph], M = P.main.L, r = P.main.row, v = (f) => att(M, r, f);
+    $("dash").innerHTML = `${drail("home")}<main class="dsp-main">${deHead(a, "Edit site details")}
+      <div class="de-grid"><section class="dpaper dsitef" aria-label="Site details">
+          <div class="dsec">Site and date · ${PH[E.ph]}</div>
+          <div class="dsf"><label for="deStream">Stream <span>· required, from the Washington County stream list</span></label><input class="dtx" id="deStream" data-sv="stream" list="streamList" autocomplete="off" value="${esc(E.vals.stream)}">${streamListHtml()}<em class="was" data-swas="stream"></em><div class="dsfnote" id="deStreamOk"></div></div>
+          <div class="dsf"><label for="deSite">Site name</label><input class="dtx" id="deSite" data-sv="site" maxlength="255" autocomplete="off" value="${esc(E.vals.site)}"><em class="was" data-swas="site"></em></div>
+          <div class="dsf"><label for="deDate">Date sampled <span>· required</span></label><input class="dtx" id="deDate" data-sv="date" type="date" value="${esc(E.vals.date)}"><em class="was" data-swas="date"></em></div>
+          <div class="dsec" style="border-top:1px solid #DDE5DA;margin:6px 14px 0;padding-left:0">Set by the app <span>· not typed here</span></div>
+          <div class="dsf"><label>Project ID · Phase ID</label><div class="dro">${esc(v("ProjectID") || "–")} · ${esc(v("PhaseID") || "–")}</div><div class="dsfnote">Changed with “Change the site ID” in Corrections (Overview tab).</div></div>
+          <div class="dsf"><label>Stream ID (COMID)</label><div class="dro">${esc(v("StreamID") || "–")}</div><div class="dsfnote" id="cLook"></div></div>
+          <div class="de-err" id="deErr"></div>${deBar()}</section>
+        <aside class="de-col"><div class="card"><h3>Location</h3><div id="deMini" class="demini" aria-label="Map of the sample points"></div>
+            <div class="muted" style="font-size:11.5px;margin-top:6px">The monitored stream and the ${PH[E.ph].toLowerCase()} sample points.</div>
+            <div style="margin-top:8px"><a class="dbtn" href="${editHash(a.id, "loc", E.ph)}">Edit sample locations</a></div></div>
+          <div id="deChg"></div></aside></div></main>`;
+    deWireCommon(a);
+    document.querySelectorAll("#dash [data-sv]").forEach((el) => el.oninput = el.onchange = () => { E.vals[el.dataset.sv] = el.value; dsiteRefresh(a); });
+    dsiteRefresh(a);
+    dMiniMount(a, E.ph);
+  }
+  function dsiteRefresh(a) {
+    const E = dedit, P = a[E.ph], M = P.main.L, r = P.main.row, changed = [], errs = []; let pending = false;
+    const was = { stream: att(M, r, "StreamName") || "", site: att(M, r, "SiteName") || "", date: dayKey(att(M, r, "DateSampled")) };
+    const stream = matchStream(E.vals.stream), streamBad = !String(E.vals.stream).trim() || !stream, chg = {};
+    if (E.vals.site.trim() !== was.site) { chg.site = true; changed.push(`Site name: ${was.site || "(empty)"} → ${E.vals.site.trim() || "(empty)"}`); }
+    if (E.vals.date !== was.date) { chg.date = true; changed.push(`Date sampled: ${was.date ? dayText(noonMs(was.date)) : "(empty)"} → ${E.vals.date ? dayText(noonMs(E.vals.date)) : "(empty)"}`); }
+    if (!E.vals.date) errs.push("Date sampled is required");
+    if (streamBad) errs.push(String(E.vals.stream).trim() ? `“${E.vals.stream.trim()}” is not in the Washington County stream list` : "Choose the stream");
+    const lk = $("cLook"), okEl = $("deStreamOk"), dflt = "From the stream segment nearest the downstream point; updates by itself when the stream changes.";
+    if (okEl) okEl.innerHTML = streamBad || !streamNames ? "" : `<span style="color:#2E7D32">✓ in the county stream list</span>`;
+    if (!streamBad && stream !== was.stream) {
+      chg.stream = true; changed.push(`Stream: ${was.stream || "(empty)"} → ${stream}`);
+      const down = geomPt(P.samples.down.geom); lookups(E, stream, down, () => { if (dedit === E) dsiteRefresh(a); });
+      if (lk) lk.innerHTML = down ? lookHtml(E, stream, down) : "There is no downstream point, so the Stream ID is left as it is.";
+      if (!lookReady(E, stream, down)) pending = true;
+      else if (E.look && E.look.comid && String(E.look.comid) !== String(att(M, r, "StreamID") || "")) changed.push(`Stream ID (COMID): ${att(M, r, "StreamID") || "(empty)"} → ${E.look.comid}`);
+    } else if (lk) lk.textContent = dflt;
+    $("deStream").classList.toggle("bad-d", streamBad); $("deDate").classList.toggle("bad-d", !E.vals.date);
+    for (const k of ["stream", "site", "date"]) { const el = document.querySelector(`#dash [data-sv="${k}"]`); if (el) el.classList.toggle("chg-d", !!chg[k] && !el.classList.contains("bad-d"));
+      const w = document.querySelector(`#dash [data-swas="${k}"]`); if (w) w.textContent = chg[k] ? `was ${k === "date" ? (was.date ? dayText(noonMs(was.date)) : "empty") : was[k] || "empty"}` : ""; }
+    $("deErr").textContent = errs.join(" · ");
+    $("deChg").innerHTML = dChg(changed);
+    $("deReview").disabled = !changed.length || errs.length > 0 || pending;
+    $("deBarSt").innerHTML = errs.length ? `<span class="bad">${esc(errs[0])}</span>` : pending ? '<span class="spin"></span>Finding the stream segment…' : deStatus(0, changed.length);
+  }
+  // A small read-only map of one phase's points (the dashboard layers, monitored stream highlighted).
+  async function dMiniMount(a, ph) {
+    const el = $("deMini"); if (!el) return; dashMapFree(); const token = dash.token, P = a[ph];
+    const pts = ["down", "up"].map((sd) => { const p = geomPt(P.samples[sd].geom); return p ? { sd, p } : null; }).filter(Boolean);
+    if (!pts.length) { el.innerHTML = '<p class="muted" style="padding:10px;font-size:12px">No sample points have been entered yet.</p>'; return; }
+    try {
+      const { Map, MapView, Graphic, sat, hill, topo, roads, gl, layers } = await dashLayers([P.stream || a.stream]);
+      const view = new MapView({ container: el, map: new Map({ layers }), center: [pts[0].p.lon, pts[0].p.lat], zoom: 16, padding: { top: 22, left: 22, right: 22, bottom: 26 } });
+      if (token !== dash.token || !document.body.contains(el)) { view.destroy(); return; }
+      dash.map = view; dash.layers = { sat, hill, topo, roads }; dashBase(dash.base);
+      const marks = pts.map(({ sd, p }) => { const m = new Graphic({ geometry: { type: "point", longitude: p.lon, latitude: p.lat }, symbol: { type: "simple-marker", color: DSC[ph + "_" + sd], size: 12, outline: { color: "#0B0F0C", width: 2 } } }); gl.add(m); return m; });
+      view.when(() => { if (token === dash.token) dashFit(view, marks, 17, 16); }).catch(() => {});
+    } catch (err) { el.innerHTML = `<p class="muted" style="padding:10px;font-size:12px">The map could not be shown (${esc(mask(err.message || err))}).</p>`; }
+  }
+
+  // ---- sample locations (the dashboard New site map; click or drag a point, or type it) ----
+  function dlocDraw(a) {
+    const E = dedit, P = a[E.ph], col = (sd) => DSC[E.ph + "_" + sd];
+    $("dash").innerHTML = `${drail("home")}<main class="dsp-main">${deHead(a, "Edit sample locations")}
+      <div class="de-grid loc dloc"><div class="dloc-map"><div id="cmap" class="dn-map dloc-cmap" aria-label="Map: click to place the selected point"></div>
+          <div class="glass see dloc-move" role="group" aria-label="Point to move"><span>Move:</span>${["down", "up"].map((sd) => `<button type="button" data-place="${sd}" class="${E.place === sd ? "on" : ""}" aria-pressed="${E.place === sd}"${P.samples[sd].grp ? "" : " disabled"}><i class="dot" style="background:${col(sd)}"></i>${SD[sd]}</button>`).join("")}</div>
+          <button type="button" class="glass see dloc-fit" id="deFit">Fit both points</button>
+          <div class="glass see dloc-hint" id="cPlaceTxt">Click the map to place the <b>${E.place === "down" ? "downstream" : "upstream"}</b> point, or type it below.</div></div>
+        <section class="dpaper dlocf" aria-label="Sample points">
+          <div class="dsec">Sample points · ${PH[E.ph]} <span>latitude, longitude (WGS84)</span></div>
+          ${["down", "up"].map((sd) => P.samples[sd].grp ? `<div class="dptc${E.place === sd ? " on" : ""}" data-ptcard="${sd}"><div class="dptc-h"><i class="dot" style="background:${col(sd)}"></i><b>${SD[sd]}</b><span class="dptc-m" data-moved="${sd}"></span></div>
+              <div class="dptc-g"><label>Latitude<input class="dtx" type="text" inputmode="decimal" data-cv="${sd}.lat" value="${esc(E.vals[sd + ".lat"])}" placeholder="e.g. 40.2021" aria-label="${SD[sd]} latitude"></label>
+                <label>Longitude<input class="dtx" type="text" inputmode="decimal" data-cv="${sd}.lon" value="${esc(E.vals[sd + ".lon"])}" placeholder="e.g. -80.4003" aria-label="${SD[sd]} longitude"></label></div><em class="was" data-lwas="${sd}"></em></div>`
+            : `<div class="dptc"><div class="dptc-h"><i class="dot" style="background:${col(sd)}"></i><b>${SD[sd]}</b></div><div class="muted" style="font-size:12px;margin-top:4px">There is no ${SD[sd].toLowerCase()} sample record, so there is no point to move.</div></div>`).join("")}
+          <div class="dlocinfo" id="deLocInfo"></div><div class="dsfnote" id="cLook"></div>
+          <div class="dsave" role="group" aria-label="Save or cancel"><span class="dsave-st" id="eChanged" aria-live="polite">No changes yet</span><button type="button" class="dbtn" id="deCancel">Cancel</button><button type="button" class="btnp" id="deReview" disabled>Review and save</button></div></section></div></main>`;
+    deWireCommon(a);
+    const root = document.querySelector("#dash .dloc");
+    bindCreate(E, a, root, () => dlocRefresh(a));
+    $("deFit").onclick = () => dlocFit();
+    dlocRefresh(a);
+  }
+  function dlocFit() { const v = mapS.view; if (!v || !mapS.gl) return; dashFit(v, mapS.gl.graphics.toArray().filter((g) => g.attributes && g.attributes.sd), 19, 18); }
+  // Distance from each point to the record's stream (debounced; a soft warning beyond 15 m).
+  function dlocNear(st, a, cb) {
+    const stream = a[st.ph].stream; st.near = st.near || {};
+    for (const sd of ["down", "up"]) { const p = ptOf(st.vals, sd), key = p && stream ? `${p.lat}|${p.lon}` : "";
+      if (!key) { st.near[sd] = null; continue; }
+      if (st.near[sd] && st.near[sd].key === key) continue;
+      st.near[sd] = { key, pending: true }; clearTimeout(st["nearT" + sd]);
+      st["nearT" + sd] = setTimeout(async () => { const res = { key }; try { const b = await nearestFlow(p.lat, p.lon, stream, 300); res.dist = b ? b.dist : null; } catch (e) { res.err = true; }
+        if (st.near[sd] && st.near[sd].key === key) { st.near[sd] = res; cb(); } }, 450); }
+    return st.near;
+  }
+  function dlocRefresh(a) {
+    const E = dedit, root = document.querySelector("#dash .dloc"); if (!E || E.kind !== "loc" || !root) return;
+    const plan = createRefresh(E, a, root, "#deReview", () => dlocRefresh(a));
+    const o = JSON.parse(E.orig), moved = {};
+    for (const sd of ["down", "up"]) { const p = ptOf(E.vals, sd), q = ptOf(o, sd), d = p && q ? distM(p, q) : null, mv = !!p && (!q || d >= 0.05);
+      if (mv) moved[sd] = q ? d : null;
+      const m = root.querySelector(`[data-moved="${sd}"]`), w = root.querySelector(`[data-lwas="${sd}"]`), card = root.querySelector(`[data-ptcard="${sd}"]`);
+      if (m) m.textContent = mv ? (q ? `moved ${fmtDist(d)}` : "new point") : "";
+      if (w) w.textContent = mv && q ? `was ${pt6(q.lat)}, ${pt6(q.lon)}` : "";
+      if (card) card.classList.toggle("chg", mv); }
+    const stream = a[E.ph].stream, near = dlocNear(E, a, () => dlocRefresh(a)), info = [], pd = ptOf(E.vals, "down"), pu = ptOf(E.vals, "up");
+    if (pd && pu) info.push(`Between the points: <b>${fmtDist(distM(pd, pu))}</b> (straight line)`);
+    if (stream) { const far = ["down", "up"].filter((sd) => near[sd] && !near[sd].pending && !near[sd].err && (near[sd].dist == null || near[sd].dist > 15));
+      const done = ["down", "up"].filter((sd) => near[sd] && !near[sd].pending && !near[sd].err);
+      for (const sd of far) info.push(`<span class="warn">The ${SD[sd].toLowerCase()} point is ${near[sd].dist == null ? "more than 300 m" : fmtDist(near[sd].dist)} from ${esc(stream)}: check it.</span>`);
+      if (done.length && !far.length) info.push(`<span class="ok">✓ ${done.length === 2 ? "Both points are" : `The ${SD[done[0]].toLowerCase()} point is`} within 15 m of ${esc(stream)}.</span>`); }
+    $("deLocInfo").innerHTML = info.join("<br>");
+    const line = $("eChanged");
+    if (line && plan && plan.length) { const sid = plan.some((c) => c.names && Object.values(c.names).includes("Stream ID (COMID)"));
+      line.innerHTML = deStatus(0, plan.length, " · " + Object.keys(moved).map((sd) => `${SD[sd]} ${moved[sd] == null ? "placed" : "moved " + fmtDist(moved[sd])}`).join(" · ") + (sid ? " · Stream ID updated" : "")); }
+    else if (line && plan && !plan.length) line.textContent = "No changes yet";
+  }
+
   // ---- review and save (same review panel and safe save as the classic editors) ----
   function dashReview(a) {
     const E = dedit; let plan, what, extra = "";
@@ -3446,10 +3672,13 @@
           return `<div class="card" style="padding:10px 14px;margin-top:10px"><b>${SD[x]}</b><table class="ovtab"><tr><th></th><th>Now</th><th>After saving</th></tr>
             <tr><td>Organisms</td><td>${c0.count}</td><td>${c1.count}</td></tr><tr><td>Taxa present</td><td>${c0.taxa}</td><td>${c1.taxa}</td></tr><tr><td>Total Index</td><td>${fmt(c0.index)}</td><td>${fmt(c1.index)}</td></tr>
             <tr><td>Avg HILS</td><td>${fmt(c0.avg, 2)} ${hbiBadge(c0.avg)}</td><td>${fmt(c1.avg, 2)} ${hbiBadge(c1.avg)}</td></tr><tr><td>EPT taxa</td><td>${c0.ept}</td><td>${c1.ept}</td></tr></table></div>`; }).join("");
-      } else { plan = () => labPlan(a, E.ph, E.vals); what = `${PH[E.ph]} lab results saved`; }
+      } else if (E.kind === "field") { plan = () => fieldPlan(a, E.ph, E.vals); what = `${PH[E.ph]} field readings saved`; }
+      else if (E.kind === "site") { plan = () => sitePlan(a, E.ph, E.vals, E.look); what = `${PH[E.ph]} site details saved`; }
+      else if (E.kind === "loc") { plan = () => locPlan(E, a); what = `${PH[E.ph]} sample locations saved`; }
+      else { plan = () => labPlan(a, E.ph, E.vals); what = `${PH[E.ph]} lab results saved`; }
       const changes = plan();
       $("ovl").classList.remove("hidden");
-      $("panel").innerHTML = `<h3 id="panelTitle">Review and save</h3><p>${esc(a.id)} · ${esc(PH[E.ph])} · ${E.kind === "taxa" ? "taxa counts" : "lab results"}. Nothing is stored until you click Confirm and save.</p>
+      $("panel").innerHTML = `<h3 id="panelTitle">Review and save</h3><p>${esc(a.id)} · ${esc(PH[E.ph])} · ${{ taxa: "taxa counts", lab: "lab results", field: "field readings", site: "site details", loc: "sample locations" }[E.kind]}. Nothing is stored until you click Confirm and save.</p>
         ${extra}${changes.length ? reviewHtml(changes) : '<p class="bad">Nothing to save.</p>'}<div class="small" id="toolStatus"></div>
         <div class="btns"><button class="btn" type="button" id="tCancel">Back to editing</button><button class="btn pri" type="button" id="tGo"${changes.length ? "" : " disabled"}>Confirm and save</button></div>`;
       $("tCancel").onclick = closeTool;
