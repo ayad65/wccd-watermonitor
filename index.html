@@ -474,6 +474,23 @@
   .dsave.danger{border-color:#E5484D;box-shadow:0 0 0 4px rgba(229,72,77,.18),0 -6px 20px rgba(0,0,0,.22)} .dsave.danger .dsave-st{color:#B3261E}
   .dash .dsave .btnd{background:#C2281E;border:1px solid #C2281E;color:#fff;border-radius:999px;padding:8px 16px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer} .dash .dsave .btnd:disabled{opacity:.45;cursor:default}
   @media (max-width:1100px){ .dfx-grid{grid-template-columns:minmax(0,1fr)} .dfx-list{position:static} .dfx-aside{display:none} }
+  /* B24: Files tab actions */
+  .dfrow-x td{padding:0 0 8px !important;border-top:none !important}
+  .dfconf{padding:10px 12px;border-radius:10px;background:rgba(229,72,77,.10);border:1px solid rgba(229,72,77,.45);font-size:12.5px;white-space:normal}
+  .dfconf .muted{display:block;margin:4px 0 8px;font-size:12px} .dfconf .dfc-b{display:flex;gap:8px;justify-content:flex-end;align-items:center;flex-wrap:wrap} .dfconf .dfc-st{margin-right:auto;font-size:12px}
+  .dbtn.dfrm{color:#FF8A8E;border-color:rgba(229,72,77,.4)} .dbtn.dfdel{background:#C2281E;border-color:#C2281E;color:#fff;font-weight:700}
+  .dfdrop{margin-top:12px;border:2px dashed rgba(200,227,90,.45);border-radius:12px;padding:16px;text-align:center;font-size:13px;transition:background .15s}
+  .dfdrop.over{background:rgba(200,227,90,.10);border-color:var(--acc)} .dfdrop .ic{font-size:20px;line-height:1} .dflink{background:none;border:none;color:var(--acc);text-decoration:underline;font:inherit;cursor:pointer;padding:0}
+  .dfstage{margin-top:12px;border-radius:12px;background:#FBFCF9;color:#142019;padding:12px 14px} .dfstage[hidden]{display:none}
+  .dfst-h{font:700 14px "Barlow Semi Condensed",sans-serif;color:#1F3A2A}
+  .dfst-f{display:flex;align-items:center;gap:10px;margin-top:8px;padding:8px 10px;border-radius:9px;border:1px solid #D6DFD3;background:#fff;font-size:12.5px} .dfst-f b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap} .dfst-f span{margin-left:auto;color:#5B6B5F;white-space:nowrap}
+  .dfst-x{background:none;border:none;color:#5B6B5F;cursor:pointer;font-size:14px;padding:0 2px}
+  .dfst-l{font-size:11.5px;margin-top:10px;color:#3D4C41;font-weight:600}
+  .dfst-k{display:flex;gap:8px;margin-top:5px;flex-wrap:wrap} .dfst-k button{font:inherit;font-size:12.5px;padding:6px 12px;border-radius:999px;border:1px solid #C9D3C4;background:#fff;color:#142019;cursor:pointer} .dfst-k button.on{background:#1F3A2A;border-color:#1F3A2A;color:#fff;font-weight:700} .dfst-k button:disabled{opacity:.45;cursor:default}
+  .dfst-n{font-size:11.5px;margin-top:8px;line-height:1.5} .dfst-n .ok{color:#2E7D32} .dfst-n .warn{color:#B45309} .dfst-n .bad{color:#C2410C}
+  .dfstage .dsave{position:static;margin:12px 0 0}
+  /* B24: Start post-construction */
+  .dn-ro{min-height:38px;border-radius:9px;border:1px dashed #D6DFD3;background:#F4F7F0;color:#5B6B5F;display:flex;align-items:center;padding:0 10px;font-size:13.5px}
   .dlocf .dsave .dsave-st{flex-basis:100%} .dlocf .dsave .dbtn{margin-left:auto}   /* narrow panel: status on its own line, buttons together on the right */
   @media (max-width:1100px){ .de-grid.loc{grid-template-columns:minmax(0,1fr)} .dloc-cmap{height:55vh;min-height:320px} }
   @media (max-width:640px){ .dfr{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:4px 10px} .dfr b{grid-column:1/-1;padding-top:6px} .dfrh span:first-child{display:none} .dfrh{font-size:10px;letter-spacing:.02em} .dloc-hint{display:none} }
@@ -796,7 +813,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B23", BUILD_DATE = "19 Nov 2026";
+  const BUILD = "B24", BUILD_DATE = "19 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -1326,7 +1343,7 @@
 
   // ---------------- editing (B3): taxa sheet, field readings, site name and date ----------------
   const editButtons = () => `<div class="btns ebar"><span class="small" id="eChanged"></span><button class="btn" type="button" data-ecancel>Cancel</button><button class="btn pri" type="button" data-ereview disabled>Review and save</button></div>`;
-  const isDirty = () => (!!area.edit && JSON.stringify(area.edit.vals) !== area.edit.orig) || (!!nw.st && JSON.stringify(nw.st.vals) !== nw.st.orig) || dashDirty();
+  const isDirty = () => (!!area.edit && JSON.stringify(area.edit.vals) !== area.edit.orig) || (!!nw.st && JSON.stringify(nw.st.vals) !== nw.st.orig) || (!!nw.post && JSON.stringify(nw.post.vals) !== nw.post.orig) || dashDirty();
   const leaveOk = () => !isDirty() || confirm("You have changes that are not saved. Discard them?");
   // Local noon for a date typed without a time (the convention used on the lime app), so it shows the same day everywhere.
   const noonMs = (t) => { const d = /^(\d{4})-(\d\d)-(\d\d)$/.exec(t || ""); return d ? new Date(+d[1], +d[2] - 1, +d[3], 12).getTime() : null; };
@@ -1776,10 +1793,10 @@
       const dashPick = el.classList.contains("dn-map");   // B20: the dashboard New site page uses the dashboard map
       const { view, gl, flow, Graphic } = dashPick ? await buildDashPick(el, first ? [first.lon, first.lat] : COUNTY_CENTER, first ? 16 : 10, st)
         : await buildMap(el, first ? [first.lon, first.lat] : COUNTY_CENTER, first ? 16 : 10);
-      if (dashPick) cols = st.kind === "loc" && st.ph === "post" ? { down: DSC.post_down, up: DSC.post_up } : { down: DSC.pre_down, up: DSC.pre_up };   // the dashboard sample colours
+      if (dashPick) cols = (st.kind === "loc" && st.ph === "post") || st.mode === "post" ? { down: DSC.post_down, up: DSC.post_up } : { down: DSC.pre_down, up: DSC.pre_up };   // the dashboard sample colours
       mapS.dash = dashPick; mapS.view = view; mapS.gl = gl; mapS.Graphic = Graphic; mapS.st = st; mapS.cols = cols; mapS.flow = flow;
       view.on("click", (e) => { const p = e.mapPoint; if (p) onPick(Math.round(p.latitude * 1e6) / 1e6, Math.round(p.longitude * 1e6) / 1e6); });
-      if (dashPick && st.kind === "loc") {   // B22: drag a point (press on it, then move)
+      if (dashPick && (st.kind === "loc" || st.kind === "post0")) {   // B22: drag a point (press on it, then move); B24: also on the post form
         let drag = null;
         view.on("pointer-down", async (e) => { drag = null; try { const r = await view.hitTest(e, { include: [gl] }); const h = r.results.find((x) => x.graphic && x.graphic.attributes && x.graphic.attributes.sd); if (h) drag = h.graphic.attributes.sd; } catch { /* view gone */ } });
         view.on("pointer-up", () => { drag = null; });
@@ -1815,10 +1832,10 @@
   }
   function drawMapPts() {
     if (!mapS.gl || !mapS.st) return; mapS.gl.removeAll();
-    const locEd = mapS.dash && mapS.st.kind === "loc", o = locEd ? JSON.parse(mapS.st.orig) : null;
+    const post0 = mapS.dash && mapS.st.kind === "post0", locEd = mapS.dash && (mapS.st.kind === "loc" || post0), o = mapS.dash && mapS.st.kind === "loc" ? JSON.parse(mapS.st.orig) : post0 ? mapS.st.preVals : null;
     for (const sd of ["down", "up"]) { const p = ptOf(mapS.st.vals, sd), q = o ? ptOf(o, sd) : null;
-      if (q && (!p || Math.abs(p.lat - q.lat) > 5e-7 || Math.abs(p.lon - q.lon) > 5e-7))
-        mapS.gl.add(new mapS.Graphic({ geometry: { type: "point", longitude: q.lon, latitude: q.lat }, symbol: { type: "simple-marker", color: [0, 0, 0, 0], size: 18, outline: { color: mapS.cols[sd], width: 2, style: "dash" } } }));
+      if (q && (post0 || !p || Math.abs(p.lat - q.lat) > 5e-7 || Math.abs(p.lon - q.lon) > 5e-7))   // the old point (location editor) or the Pre point (post form)
+        mapS.gl.add(new mapS.Graphic({ geometry: { type: "point", longitude: q.lon, latitude: q.lat }, symbol: { type: "simple-marker", color: [0, 0, 0, 0], size: 18, outline: { color: post0 ? DSC["pre_" + sd] : mapS.cols[sd], width: 2, style: "dash" } } }));
       if (!p) continue;
       const geometry = { type: "point", longitude: p.lon, latitude: p.lat };
       if (locEd && mapS.st.place === sd) mapS.gl.add(new mapS.Graphic({ geometry, symbol: { type: "simple-marker", color: [0, 0, 0, 0], size: 30, outline: { color: "#C8E35A", width: 2.5 } } }));
@@ -3181,7 +3198,7 @@
   }
   function dsPhase(a, ph) {
     const P = a[ph];
-    if (!P) return `<div class="card"><p style="margin:0 0 10px">No ${PH[ph].toLowerCase()} record yet.</p>${ph === "post" && a.pre ? clBtn("post:", "Start post-construction", true) : ""}</div>`;
+    if (!P) return `<div class="card"><p style="margin:0 0 10px">No ${PH[ph].toLowerCase()} record yet.</p>${ph === "post" && a.pre ? (svc.post.error ? `<p class="muted">${esc(svc.post.error)}</p>` : `<a class="dbtn acc" href="#/dash/site/${encodeURIComponent(a.id)}/startpost">Start post-construction</a>`) : ""}</div>`;
     const M = P.main.L, r = P.main.row, v = (f) => att(M, r, f);
     const strip = `<div class="card dsp-strip">${[["Date sampled", dayText(v("DateSampled"))], ["Site name", v("SiteName") || "–"], ["Phase ID", v("PhaseID") || "–"], ["Stream ID (COMID)", v("StreamID") || "–"], ["Collected by", v("collected_by") || "–"]].map(([l, x]) => `<div><small>${l}</small><b>${esc(x)}</b></div>`).join("")}
       <span style="margin-left:auto"><a class="dbtn" href="${editHash(a.id, "site", ph)}">Edit site details</a></span></div>`;
@@ -3206,14 +3223,89 @@
   function prefSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* no storage */ } }
   document.addEventListener("change", (e) => { const t = e.target; if (!t || t.id !== "dsShowZ") return;
     prefSet("wccd.showEmptyGroups", t.checked ? "1" : "0"); document.querySelectorAll(".dzwrap").forEach((w) => w.classList.toggle("showz", t.checked)); });
-  function dsFiles(a) {
+  function dsFiles(a) {   // B24: attach (drop or choose, then review) and remove (confirm in place) without the classic view
     const sec = (ph) => { const P = a[ph];
       if (!P) return `<div class="card"><h3>${PH[ph]}</h3><p class="muted">No ${PH[ph].toLowerCase()} record yet.</p></div>`;
-      const M = P.main.L, err = svc[ph].error || M.filesError;
+      const M = P.main.L, err = svc[ph].error || M.filesError, canAdd = !svc[ph].error && M.def.hasAttachments;
       return `<div class="card"><h3>${PH[ph]}</h3>${err ? `<p class="muted">${esc(err)}</p>` : ""}${P.files.length ? `<table class="dftbl">${P.files.map((f) => `<tr><td>${esc(f.name)}${isCert(f) ? ' <span class="dcert">lab certificate</span>' : ""}</td><td class="muted">${fileKind(f)}</td><td class="muted" style="text-align:right">${fmtSize(f.size)}</td>
-          <td style="text-align:right;white-space:nowrap"><button type="button" class="dbtn" data-dfview="${ph}:${f.id}">View</button> <button type="button" class="dbtn" data-dfdl="${ph}:${f.id}">Download</button></td></tr>`).join("")}</table>` : '<p class="muted" style="font-size:13px">No files attached yet.</p>'}</div>`; };
-    return `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px"><span class="muted" style="font-size:13px">Files attached to the Pre- and Post-construction records. A PDF marked “lab certificate” also shows in the Survey123 form.</span>${clBtn("files:", "Attach or remove files", true)}</div>
+          <td style="text-align:right;white-space:nowrap"><button type="button" class="dbtn" data-dfview="${ph}:${f.id}">View</button> <button type="button" class="dbtn" data-dfdl="${ph}:${f.id}">Download</button>${canAdd ? ` <button type="button" class="dbtn dfrm" data-dfrm="${ph}:${f.id}">Remove</button>` : ""}</td></tr>
+          <tr class="dfrow-x" data-dfconf="${ph}:${f.id}" hidden><td colspan="4"><div class="dfconf"><b>Remove “${esc(f.name)}” from the ${PH[ph]} record?</b><span class="muted">The file is deleted from the survey; this cannot be undone in the app. Download it first if you need a copy.</span>
+            <div class="dfc-b"><span class="dfc-st" data-dfst="${ph}:${f.id}" aria-live="polite"></span><button type="button" class="dbtn" data-dfkeep="${ph}:${f.id}">Keep it</button><button type="button" class="dbtn dfdel" data-dfdel="${ph}:${f.id}">Remove file</button></div></div></td></tr>`).join("")}</table>` : '<p class="muted" style="font-size:13px">No files attached yet.</p>'}
+        ${canAdd ? `<div class="dfdrop" data-dfdrop="${ph}"><div class="ic" aria-hidden="true">⇪</div><b>Drop a file here</b> or <button type="button" class="dflink" data-dfpick="${ph}">choose a file</button><input type="file" id="dfIn-${ph}" accept="${FILE_ACCEPT}" hidden>
+            <div class="muted" style="font-size:11.5px;margin-top:4px">PDF, Excel/CSV, JPG or PNG · up to 25 MB</div></div><div class="dfstage" id="dfStage-${ph}" hidden></div>`
+          : !svc[ph].error ? '<p class="muted" style="font-size:12px">This survey\'s layer does not accept attached files.</p>' : ""}</div>`; };
+    return `<div style="margin-bottom:12px"><span class="muted" style="font-size:13px">Files attached to the Pre- and Post-construction records. A PDF marked “lab certificate” also shows in the Survey123 form's “Upload Document Here” question.</span></div>
       <div class="dsp-g2 even" style="margin-top:0">${sec("pre")}${sec("post")}</div><div id="dsViewer"></div>`;
+  }
+  const dfst = {};   // the file chosen for each record, waiting to be attached: { file, kind }
+  function dfStage(a, ph) {
+    const box = $("dfStage-" + ph); if (!box) return; const sx = dfst[ph];
+    if (!sx) { box.hidden = true; box.innerHTML = ""; return; }
+    const fl = sx.file, pdf = /\.pdf$/i.test(fl.name), P = a[ph], probs = [], notes = [];
+    if (!/\.(pdf|xlsx|xls|csv|jpe?g|png)$/i.test(fl.name)) probs.push("Only PDF, Excel/CSV, JPG and PNG files can be attached.");
+    if (fl.size > FILE_MAX) probs.push(`The file is ${fmtSize(fl.size)}; the limit is ${fmtSize(FILE_MAX)}.`);
+    if (fl.size === 0) probs.push("The file is empty.");
+    if (sx.kind === "cert" && !pdf) probs.push("A lab certificate must be a PDF; choose “Other file”.");
+    if (P.files.some((x) => x.name === fl.name)) notes.push("A file with this name is already attached; attaching it again keeps both copies.");
+    if (sx.kind === "cert" && P.files.some(isCert)) notes.push("This record already has a lab certificate; both will be listed.");
+    box.hidden = false;
+    box.innerHTML = `<div class="dfst-h">Attach to the ${PH[ph]} record</div>
+      <div class="dfst-f"><b title="${esc(fl.name)}">📄 ${esc(fl.name)}</b><span>${fmtSize(fl.size)} · ${fileKind({ name: fl.name, type: fl.type })}</span><button type="button" class="dfst-x" data-dfx="${ph}" aria-label="Take this file off the list" title="Take this file off the list">✕</button></div>
+      <div class="dfst-l">Attach as</div><div class="dfst-k" role="group" aria-label="Attach as"><button type="button" data-dfk="${ph}:cert" class="${sx.kind === "cert" ? "on" : ""}" aria-pressed="${sx.kind === "cert"}"${pdf ? "" : " disabled"}>Lab certificate</button><button type="button" data-dfk="${ph}:other" class="${sx.kind === "other" ? "on" : ""}" aria-pressed="${sx.kind === "other"}">Other file</button></div>
+      <div class="dfst-n">${probs.map((x) => `<div class="bad">${esc(x)}</div>`).join("")}${probs.length ? "" : `<div class="ok">✓ ${fileKind({ name: fl.name, type: fl.type })}, ${fmtSize(fl.size)} (limit 25 MB)${sx.kind === "cert" ? " · shown in the Survey123 form's “Upload Document Here” question" : ""}</div>`}${notes.map((x) => `<div class="warn">${esc(x)}</div>`).join("")}</div>
+      <div class="dsave" role="group" aria-label="Attach or cancel"><span class="dsave-st">${probs.length ? '<span class="bad">Fix the file first</span>' : "<b>1 file</b> ready · nothing is stored until you confirm"}</span><button type="button" class="dbtn" data-dfx="${ph}">Cancel</button><button type="button" class="btnp" data-dfgo="${ph}"${probs.length ? " disabled" : ""}>Review and attach</button></div>`;
+  }
+  async function dfileRun(op, st, btns) {
+    const progress = (t) => { st.innerHTML = '<span class="spin"></span>' + esc(t); };
+    btns.forEach((b) => { if (b) b.disabled = true; });
+    try { const what = await op(progress); progress("Reloading the survey data…"); await loadAll();
+      for (const k of Object.keys(dfst)) delete dfst[k];
+      dash.note = { html: esc(what) + "." }; closeTool(); route(); }
+    catch (err) { console.error(err); st.innerHTML = `<span class="bad">Stopped – ${esc(mask(err.message || err))}. Nothing else was changed.</span>`; btns.forEach((b) => { if (b) b.disabled = false; });
+      try { await loadAll(); } catch { /* keep the old data */ } }
+  }
+  const dfileUpload = (a, ph, fl, kind) => async (progress) => { const P = a[ph];
+    progress(`Uploading ${fl.name} (${fmtSize(fl.size)})…`);
+    const fd = new FormData(); fd.append("attachment", fl, fl.name); fd.append("f", "json"); fd.append("keywords", kind === "cert" ? CERT_KEY : OTHER_KEY);
+    const r = (await req(`${P.main.L.url}/${P.oid}/addAttachment`, { method: "post", body: fd })).data, ar = r && r.addAttachmentResult;
+    if (r && r.error) throw new Error(r.error.message || "the upload was refused");
+    if (!ar || !ar.success) throw new Error((ar && ar.error && ar.error.description) || "the upload was refused");
+    progress("Checking the stored file…");
+    const list = await getJson(attUrl(a, ph)), got = (list.attachmentInfos || []).find((x) => x.id === ar.objectId);
+    if (!got) throw new Error("the file was not found on the record afterwards");
+    if (got.size !== fl.size) throw new Error(`the stored file is ${got.size} bytes, the original ${fl.size}`);
+    return `${fl.name} attached to the ${PH[ph]} record and verified (${fmtSize(fl.size)})`; };
+  const dfileRemove = (a, ph, f) => async (progress) => {
+    progress(`Removing ${f.name}…`);
+    const r = (await req(`${a[ph].main.L.url}/${a[ph].oid}/deleteAttachments`, { method: "post", query: { f: "json", attachmentIds: String(f.id) } })).data;
+    if (r && r.error) throw new Error(r.error.message || "the removal was refused");
+    const d = (r && r.deleteAttachmentResults || [])[0]; if (!d || !d.success) throw new Error((d && d.error && d.error.description) || "the removal was refused");
+    progress("Checking…");
+    const list = await getJson(attUrl(a, ph)); if ((list.attachmentInfos || []).some((x) => x.id === f.id)) throw new Error("the file is still attached afterwards");
+    return `${f.name} removed from the ${PH[ph]} record`; };
+  function dfilesWire(a) {
+    const main = document.querySelector("#dash main"); if (!main) return;
+    const fileOf = (k) => { const [ph, id] = k.split(":"); return { ph, f: a[ph] && a[ph].files.find((x) => String(x.id) === id) }; };
+    const stage = (ph, fl) => { if (!fl) return; dfst[ph] = { file: fl, kind: /\.pdf$/i.test(fl.name) && !a[ph].files.some(isCert) ? "cert" : "other" }; dfStage(a, ph); };
+    for (const ph of ["pre", "post"]) { const inp = $("dfIn-" + ph); if (inp) inp.onchange = () => { stage(ph, inp.files[0]); inp.value = ""; }; if (dfst[ph]) dfStage(a, ph); }
+    main.querySelectorAll("[data-dfdrop]").forEach((z) => { const ph = z.dataset.dfdrop;
+      z.ondragover = (e) => { e.preventDefault(); z.classList.add("over"); }; z.ondragleave = () => z.classList.remove("over");
+      z.ondrop = (e) => { e.preventDefault(); z.classList.remove("over"); stage(ph, e.dataTransfer && e.dataTransfer.files[0]); }; });
+    main.onclick = (e) => { const t = e.target.closest("button"); if (!t || !main.contains(t)) return; const d = t.dataset;
+      if (d.dfpick) { const inp = $("dfIn-" + d.dfpick); if (inp) inp.click(); }
+      else if (d.dfx) { delete dfst[d.dfx]; dfStage(a, d.dfx); }
+      else if (d.dfk) { const [ph, k] = d.dfk.split(":"); if (dfst[ph]) { dfst[ph].kind = k; dfStage(a, ph); } }
+      else if (d.dfgo) { const ph = d.dfgo, sx = dfst[ph]; if (!sx) return;
+        $("ovl").classList.remove("hidden");
+        $("panel").innerHTML = `<h3 id="panelTitle">Review and attach</h3><p>Nothing is stored until you click Confirm and attach.</p>
+          <div class="rev"><table><tr><th>Record</th><th>File</th><th>Size</th><th>Attached as</th></tr><tr><td>${PH[ph]} record for ${esc(a.id)}</td><td>${esc(sx.file.name)}</td><td>${fmtSize(sx.file.size)}</td><td>${sx.kind === "cert" ? "Lab certificate (shown in the Survey123 form)" : "Other file"}</td></tr></table></div>
+          <div class="small" id="toolStatus"></div><div class="btns"><button class="btn" type="button" id="tCancel">Back</button><button class="btn pri" type="button" id="tGo">Confirm and attach</button></div>`;
+        $("tCancel").onclick = closeTool;
+        $("tGo").onclick = () => dfileRun(dfileUpload(a, ph, sx.file, sx.kind), $("toolStatus"), [$("tGo"), $("tCancel")]); }
+      else if (d.dfrm) { const row = main.querySelector(`[data-dfconf="${d.dfrm}"]`); if (row) row.hidden = !row.hidden; }
+      else if (d.dfkeep) { const row = main.querySelector(`[data-dfconf="${d.dfkeep}"]`); if (row) row.hidden = true; }
+      else if (d.dfdel) { const { ph, f } = fileOf(d.dfdel); if (!f) return; const st = main.querySelector(`[data-dfst="${d.dfdel}"]`);
+        dfileRun(dfileRemove(a, ph, f), st, [t, main.querySelector(`[data-dfkeep="${d.dfdel}"]`)]); } };
   }
   function dsMapTab(a) {
     return `<div class="dsp-mapwrap"><div class="dsp-map" id="dspMap" aria-label="Map of the site's sample points"></div>
@@ -3262,6 +3354,7 @@
     dash.note = null; dashWire();
     document.querySelectorAll("#dash [data-cl]").forEach((b) => b.onclick = () => { const [t, sd] = b.dataset.cl.split(":"); toClassic(a.id, t, sd || null); });
     const find = (k) => { const [ph, fid] = k.split(":"); return { ph, f: a[ph].files.find((x) => String(x.id) === fid) }; };
+    if (tab === "files") dfilesWire(a);   // B24
     document.querySelectorAll("#dash [data-dfview]").forEach((b) => b.onclick = async () => { const { ph, f } = find(b.dataset.dfview), box = $("dsViewer"); if (!f || !box) return;
       box.innerHTML = `<div class="card" style="margin-top:14px"><span class="muted">Opening ${esc(f.name)}…</span></div>`;
       try { const blob = await fetchFile(a, ph, f.id); if (fileView.url) URL.revokeObjectURL(fileView.url); fileView.url = URL.createObjectURL(blob.type ? blob : new Blob([blob], { type: f.type }));
@@ -4238,6 +4331,52 @@
     $("tCancel").onclick = closeTool;
     $("tGo").onclick = () => dashRunSave(() => createPlan(st, null), `site ${id} created; enter the downstream taxa next`, editHash(id, "taxa", "pre", "down"), () => { if (st === nw.st) nw.st = null; });
   }
+  // ---- B24: Start post-construction (#/dash/site/<id>/startpost): the New site layout; stream, site and points copied from Pre ----
+  function dashPost(a) {
+    if (a.post || !a.pre) return dashSite(a.id, "post");
+    if (svc.post.error) { $("dash").innerHTML = `${drail("home")}<main class="dsp-main"><a class="dsp-back" href="${siteHash(a.id, "post")}">← Back to the site</a><div class="card" style="margin-top:12px">${esc(svc.post.error)}</div></main>`; dashWire(); return; }
+    if (!nw.post || nw.post.id !== a.id) { const g = (x) => a.pre.samples[x] && geomPt(a.pre.samples[x].geom), vals = { stream: a.pre.stream || "", site: a.pre.site || "", date: "" }, pre = {};
+      for (const x of ["down", "up"]) { const p = g(x); vals[x + ".lat"] = pre[x + ".lat"] = p ? pt6(p.lat) : ""; vals[x + ".lon"] = pre[x + ".lon"] = p ? pt6(p.lon) : ""; }
+      nw.post = { kind: "post0", ph: "post", mode: "post", id: a.id, vals, orig: JSON.stringify(vals), preVals: pre, place: "down", siteOwn: !!vals.site && vals.site !== vals.stream, zoomed: g("down") || g("up") ? vals.stream : null }; }   // no Pre points: the map zooms to the stream
+    const st = nw.post, v = st.vals, cols = { down: PDSC.post_down, up: PDSC.post_up }, step = (n, tl) => `<div class="dn-step"><span>${n}</span>${tl}</div>`;
+    const preTxt = ["down", "up"].map((sd) => { const p = ptOf(st.preVals, sd); return `${SD[sd]} ${p ? `${pt6(p.lat)}, ${pt6(p.lon)}` : "not entered"}`; }).join(" · ");
+    $("dash").innerHTML = `${drail("home")}<main class="dsp-main dnpage" id="dnRoot">
+      <div class="de-head"><div><a class="dsp-back" href="${siteHash(a.id, "post")}">← ${esc(a.id)} · ${esc(a.stream || "no stream")}</a><h2 class="ttl">Start post-construction</h2></div></div>
+      <div class="dn-grid"><section class="dpaper dn-form">
+          <div class="dn-note" style="margin-top:12px">Creates the site's Post-construction record with its downstream and upstream samples, as the Survey123 form does. The stream, site name and points are copied from the Pre-construction record.</div>
+          ${step(1, "Site")}
+          <div class="dn-f"><label>Project ID</label><div class="dn-ro">${esc(a.id)}</div></div>
+          <div class="dn-f"><label for="cStream">Stream</label><input class="dtx" type="text" id="cStream" data-cv="stream" list="streamList" autocomplete="off" value="${esc(v.stream)}">${streamListHtml()}<small>copied from Pre-construction</small></div>
+          <div class="dn-2"><div class="dn-f"><label for="cSite">Site name</label><input class="dtx" type="text" id="cSite" data-cv="site" maxlength="255" placeholder="same as the stream" value="${esc(v.site)}"><small>copied from Pre-construction</small></div>
+            <div class="dn-f"><label for="cDate">Post-construction date sampled</label><input class="dtx" type="date" id="cDate" data-cv="date" value="${esc(v.date)}"><small>required</small></div></div>
+          ${step(2, "Sample points")}
+          <div class="dn-place" role="group" aria-label="Point to place">${["down", "up"].map((sd) => `<button type="button" class="pbtn${st.place === sd ? " on" : ""}" style="--pc:${cols[sd]}" data-place="${sd}" aria-pressed="${st.place === sd}"><i class="sw" style="background:${cols[sd]}"></i>${SD[sd]}</button>`).join("")}</div>
+          <div class="dn-hint" id="cPlaceTxt">Click the map to place the <b>${st.place === "down" ? "downstream" : "upstream"}</b> point, drag it, or type it below.</div>
+          ${["down", "up"].map((sd) => `<div class="dn-2 ptrow" data-ptrow="${sd}"${st.place === sd ? "" : " hidden"}><div class="dn-f"><label>${SD[sd]} latitude</label><input class="dtx" type="text" inputmode="decimal" data-cv="${sd}.lat" value="${esc(v[sd + ".lat"])}" placeholder="e.g. 40.2021"></div>
+            <div class="dn-f"><label>${SD[sd]} longitude</label><input class="dtx" type="text" inputmode="decimal" data-cv="${sd}.lon" value="${esc(v[sd + ".lon"])}" placeholder="e.g. -80.4003"></div></div>`).join("")}
+          <div class="dn-note">Copied from Pre: ${esc(preTxt)}. The Pre points show on the map as dashed rings.</div>
+          <div class="dn-note" id="cOther"></div><div class="dn-note" id="cSug"></div><div class="dn-note" id="cLook"></div>
+          ${step(3, "Review and create")}
+          <div class="dn-note" style="margin-top:0">Creates 3 records: the Post-construction record and both samples, in one all-or-nothing request. Taxa counts, field readings and lab results are entered afterwards; you land on the downstream taxa.</div>
+          <div class="dsave" role="group" aria-label="Create or cancel"><span class="dsave-st" id="eChanged" aria-live="polite"></span><button type="button" class="dbtn" id="dnCancel">Cancel</button><button type="button" class="btnp" id="dnReview" disabled>Review and create</button></div></section>
+        <section class="dn-mapcol"><div id="cmap" class="dn-map" aria-label="Map: click to place the selected point"></div></section></div></main>`;
+    dashWire();
+    const root = $("dnRoot"), refresh = () => createRefresh(st, a, root, "#dnReview");
+    bindCreate(st, a, root, refresh);
+    $("dnCancel").onclick = () => { if (JSON.stringify(st.vals) !== st.orig && !confirm("Discard this post-construction record?")) return; nw.post = null; location.hash = siteHash(a.id, "post"); };
+    $("dnReview").onclick = () => dashPostReview(st, a);
+    refresh(); const fd = $("cDate"); if (fd && !v.date) fd.focus();
+  }
+  function dashPostReview(st, a) {
+    let changes; try { changes = createPlan(st, a); } catch (err) { alert("This cannot be saved: " + (err.message || err)); return; }
+    $("ovl").classList.remove("hidden");
+    $("panel").innerHTML = `<h3 id="panelTitle">Review and create</h3><p>Post-construction · new record for ${esc(a.id)}. Nothing is stored until you click Confirm.</p>
+      <p class="small">One request creates all three records, linked to each other; if any of them is refused, none is created.</p>
+      ${reviewHtml(changes)}<div class="small" id="toolStatus"></div>
+      <div class="btns"><button class="btn" type="button" id="tCancel">Back to editing</button><button class="btn pri" type="button" id="tGo">Confirm and create</button></div>`;
+    $("tCancel").onclick = closeTool;
+    $("tGo").onclick = () => dashRunSave(() => createPlan(st, a), "post-construction record created; enter the downstream taxa next", editHash(a.id, "taxa", "post", "down"), () => { if (st === nw.post) nw.post = null; });
+  }
   function drawDash(parts) {
     hideTip(); document.body.classList.add("dashmode"); $("dash").hidden = false; setViewPref("dash");
     document.title = "WCCD Watershed Monitoring · Dashboard";
@@ -4251,6 +4390,8 @@
     else if (sub === "sites") dashSites();
     else if (sub === "site" && parts[3] === "edit") { dashMapFree(); const a = model.find((x) => x.id === decodeURIComponent(parts[2] || ""));
       if (a) dashEdit(a, parts[4], parts[5], parts[6]); else dashSite(decodeURIComponent(parts[2] || ""), "overview"); }
+    else if (sub === "site" && parts[3] === "startpost") { dashMapFree(); dedit = null; const a = model.find((x) => x.id === decodeURIComponent(parts[2] || ""));   // B24
+      if (a) dashPost(a); else dashSite(decodeURIComponent(parts[2] || ""), "overview"); }
     else if (sub === "site" && parts[3] === "fix") { dashMapFree(); dedit = null; const a = model.find((x) => x.id === decodeURIComponent(parts[2] || ""));   // B23
       if (a) dashFix(a, parts[4]); else dashSite(decodeURIComponent(parts[2] || ""), "overview"); }
     else if (sub === "site") { dashMapFree(); dedit = null; dashSite(decodeURIComponent(parts[2] || ""), parts[3] || "overview"); }
