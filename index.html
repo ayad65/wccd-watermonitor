@@ -456,6 +456,24 @@
   .dptc .was{display:block;margin:4px 0 0} .dptc .was:empty{display:none}
   .dlocinfo{font-size:12.5px;line-height:1.6;margin:4px 14px 0;padding-top:8px;border-top:1px solid #DDE5DA} .dlocinfo:empty{display:none} .dlocinfo .warn{color:#B45309} .dlocinfo .ok{color:#2E7D32}
   .dpaper .bad-in{border:2px solid #C2410C !important;background:#FFF1EC !important}
+  /* B23: Corrections page */
+  .dfx-grid{display:grid;grid-template-columns:270px minmax(0,1fr) 300px;gap:16px;align-items:start}
+  .dfx-list{position:sticky;top:16px} .dfx-item{display:block;border-radius:12px;padding:10px 12px;margin-bottom:8px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--ink);text-decoration:none}
+  .dfx-item:hover{border-color:rgba(200,227,90,.5)} .dfx-item.on{border-color:var(--acc);background:rgba(200,227,90,.10)}
+  .dfx-item b{font-size:13.5px;display:flex;align-items:center;gap:8px} .dfx-item .muted{font-size:11.5px;margin-top:3px;line-height:1.4;display:block}
+  .dfx-badge{margin-left:auto;font-size:10px;padding:2px 7px;border-radius:999px;color:#0B0F0C;font-weight:700}
+  .dfx-oth{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px} .dfx-oth button{font:inherit;font-size:11.5px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer} .dfx-oth button:hover{border-color:var(--acc)}
+  .dfx-dz{font-size:10.5px;letter-spacing:.08em;color:#FF8A8E;margin:16px 2px 8px}
+  .dfx-item.danger{border-color:rgba(229,72,77,.35)} .dfx-item.danger b{color:#FF8A8E} .dfx-item.danger.on{border-color:#E5484D;background:rgba(229,72,77,.12)}
+  .dfx-p.danger{border-top:5px solid #E5484D} .dfx-p.danger .dsec{color:#B3261E}
+  .dfx-t{width:calc(100% - 28px);margin:4px 14px 8px;border-collapse:collapse;font-size:12.5px} .dfx-t th{background:#EEF3E7;font-weight:600;font-size:11px;color:#3D4C41;text-align:left;padding:6px 8px;border-bottom:1px solid #C9D6BE} .dfx-t td{padding:6px 8px;border-bottom:1px solid #E3EAE0;vertical-align:top}
+  .dfx-t .ok{color:#2E7D32;font-weight:700} .dfx-t .upd{color:#B45309;font-weight:700} .dfx-t .na{color:#5B6B5F}
+  .dfx-p details{margin:0 14px 8px;font-size:12px} .dfx-p details summary{cursor:pointer;color:#1F3A2A;font-weight:600;margin-bottom:6px}
+  .dfx-map{height:200px;margin:6px 14px 10px;border-radius:12px;overflow:hidden;border:1px solid #DDE5DA}
+  .dfx-steps{font-size:12.5px;line-height:1.8;padding:0 14px 6px}
+  .dsave.danger{border-color:#E5484D;box-shadow:0 0 0 4px rgba(229,72,77,.18),0 -6px 20px rgba(0,0,0,.22)} .dsave.danger .dsave-st{color:#B3261E}
+  .dash .dsave .btnd{background:#C2281E;border:1px solid #C2281E;color:#fff;border-radius:999px;padding:8px 16px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer} .dash .dsave .btnd:disabled{opacity:.45;cursor:default}
+  @media (max-width:1100px){ .dfx-grid{grid-template-columns:minmax(0,1fr)} .dfx-list{position:static} .dfx-aside{display:none} }
   .dlocf .dsave .dsave-st{flex-basis:100%} .dlocf .dsave .dbtn{margin-left:auto}   /* narrow panel: status on its own line, buttons together on the right */
   @media (max-width:1100px){ .de-grid.loc{grid-template-columns:minmax(0,1fr)} .dloc-cmap{height:55vh;min-height:320px} }
   @media (max-width:640px){ .dfr{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:4px 10px} .dfr b{grid-column:1/-1;padding-top:6px} .dfrh span:first-child{display:none} .dfrh{font-size:10px;letter-spacing:.02em} .dloc-hint{display:none} }
@@ -778,7 +796,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B22", BUILD_DATE = "18 Nov 2026";
+  const BUILD = "B23", BUILD_DATE = "19 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -2579,6 +2597,9 @@
         done.push(CFG.serviceNames[k]); }
       progress("Reloading the survey data…"); await loadAll();
       closeTool(); area.edit = null; area.id = null;
+      if (/^#\/dash/.test(location.hash)) {   // B23: deleted from the dashboard Corrections page
+        dash.note = { html: `Site ${esc(a.id)} was deleted (${esc(done.join(", "))}). The backup file “${esc(a.id)} backup before delete…json” is in your downloads.` };
+        location.hash = "#/dash/sites"; return; }
       location.hash = "#/";
       setTimeout(() => say("okmsg", `Site ${esc(a.id)} was deleted (${done.join(", ")}). The backup file "${esc(a.id)} backup before delete…json" is in your downloads. <a href="#" onclick="this.parentNode.classList.add('hidden');return false">Close</a>`), 50);
     } catch (err) { console.error(err);
@@ -3002,13 +3023,13 @@
       <div class="ds-ui ds-head"><div class="ttl">Monitoring sites</div><div class="muted" style="font-size:12px;text-shadow:0 1px 3px #000">Washington County · ${k.sites.length} site${k.sites.length === 1 ? "" : "s"}</div></div>
       <div class="ds-ui ds-kpis">${kpi("Sites", k.sites.length, `${k.done} complete · ${k.sites.length - k.done} in progress`)}${kpi("Samples entered", `${k.smpFull} of ${k.smpTotal}`, "Pre + Post, down + up")}
         ${kpi("Lab certificates", k.certNeed ? `${k.certHave} of ${k.certNeed}` : "–", "attached to phases with lab results")}${kpi("Avg HILS change", signed(k.change), k.locs.length ? `average over ${k.locs.length} Pre/Post pair${k.locs.length === 1 ? "" : "s"}` : "no Pre/Post pairs yet")}</div>
-      <div class="ds-ui ds-prog glass see">${dashBanner()}<h3>Site progress</h3><div class="lg" style="margin-bottom:6px"><span><i class="pd on"></i>entered</span><span><i class="pd part"></i>partly entered</span><span><i class="pd"></i>not yet entered</span></div>
+      <div class="ds-ui ds-prog glass see">${dashBanner()}${dash.note ? `<div class="dnote${dash.note.bad ? " bad" : ""}" role="status">${dash.note.html}</div>` : ""}<h3>Site progress</h3><div class="lg" style="margin-bottom:6px"><span><i class="pd on"></i>entered</span><span><i class="pd part"></i>partly entered</span><span><i class="pd"></i>not yet entered</span></div>
         <table><thead><tr><th style="text-align:left;padding-left:6px">Site</th><th colspan="3">Pre-construction</th><th colspan="3" class="sep">Post-construction</th></tr>
           <tr><th></th><th>Down</th><th>Up</th><th>Lab</th><th class="sep">Down</th><th>Up</th><th>Lab</th></tr></thead><tbody>${rows || `<tr><td colspan="7" class="muted">No sites yet.</td></tr>`}</tbody></table></div>
       <div class="ds-ui ds-chart glass see"><h3>Avg HILS · Pre → Post (downstream)</h3>${chart}</div>
       <div class="ds-ui ds-leg glass see"><div class="lg"><span><i class="dot" style="background:#C8E35A;width:11px;height:11px"></i>complete</span><span><i class="dot" style="border:2.5px solid #C8E35A;width:11px;height:11px"></i>in progress</span><span><i style="display:inline-block;width:18px;height:2px;background:#9FE8DA"></i>monitored stream</span></div>
         <button type="button" class="dbtn" id="dsFit" title="Zoom to show every site">Fit all sites</button><div class="ds-sw" role="group" aria-label="Basemap"><button type="button" data-b="sat">Satellite</button><button type="button" data-b="topo">Map</button></div></div>`;
-    dashWire();
+    dash.note = null; dashWire();
     const open = (id) => { location.hash = siteHash(id); };
     document.querySelectorAll("#dash tr.site, #dash .ds-pair").forEach((r) => { r.onclick = () => open(r.dataset.id); r.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(r.dataset.id); } }; });
     document.querySelectorAll("#dash .ds-sw button").forEach((b) => b.onclick = () => dashBase(b.dataset.b));
@@ -3137,7 +3158,7 @@
         return `<div style="margin:10px 0 4px"><div style="font-size:13px;margin-bottom:3px"><b>${LABNAMES[tt]}</b> <span class="muted">${LABUNITS[tt] === "–" ? "" : LABUNITS[tt]}</span></div>${lrow("down", v.down, mx)}${lrow("up", v.up, mx)}</div>`; }).join("")}</div>`;
     const stages = `<div class="card"><h3>Stages</h3>${a.stages.map((s) => `<div class="dstage"><i class="pd${s.state === "full" ? " on" : s.state === "part" ? " part" : s.state === "unknown" ? " unk" : ""}" style="flex:none;margin-top:2px"></i><div><b>${esc(s.label)}</b> <span class="muted">· ${STATE_TEXT[s.state]}</span>${s.notes.length ? `<div class="muted" style="font-size:12px">${esc(s.notes.join("; "))}</div>` : ""}</div></div>`).join("")}</div>`;
     const flags = `<div class="card"><h3>Flags ${a.flags.length ? `<span class="muted" style="font-weight:500">(${a.flags.length})</span>` : ""}</h3>${a.flags.length ? a.flags.map((f) => `<div class="dflag">${esc(f)}</div>`).join("") : `<p class="muted" style="margin:4px 0">Nothing to flag.</p>`}
-      <h3 style="margin-top:14px">Corrections</h3><div class="muted" style="font-size:12px;margin-bottom:8px">Change the site ID, check the stream ID (COMID), review “Other Taxa” or delete the site. Each one shows exactly what will change before saving.</div>${clBtn("overview:", "Open corrections", true)}</div>`;
+      <h3 style="margin-top:14px">Corrections</h3><div class="muted" style="font-size:12px;margin-bottom:8px">Change the site ID, check the stream ID (COMID), review “Other Taxa” or delete the site. Each one shows exactly what will change before saving.</div><a class="dbtn acc" href="#/dash/site/${encodeURIComponent(a.id)}/fix">Open corrections</a></div>`;
     return `<div class="dsp-g4">${gauges}</div><div class="dsp-g2">${ept}${lab}</div><div class="dsp-g2 even">${stages}${flags}</div>`;
   }
 
@@ -3287,6 +3308,7 @@
         for (const x of sides) { const v = taxaStart(P.samples[x], labNameOk(ph, x)); dedit.sides[x] = { vals: v, orig: JSON.stringify(v) }; } }
       if (dedit.sd !== sd) dedit.filter.tab = null;
       dedit.sd = sd; if (dedit.filter.tab == null) dedit.filter.tab = "MISC";   // B18: group tabs open on Miscellaneous
+      if (dash.openTab) { dedit.filter.tab = dash.openTab; dedit.filter.q = ""; dash.openTab = null; }   // B23: Corrections → Other taxa
       dtaxaDraw(a);
     } else if (kind === "lab") {
       if (svc.lab.error) return dashEditFail(a, ph, svc.lab.error);
@@ -3658,6 +3680,125 @@
     if (line && plan && plan.length) { const sid = plan.some((c) => c.names && Object.values(c.names).includes("Stream ID (COMID)"));
       line.innerHTML = deStatus(0, plan.length, " · " + Object.keys(moved).map((sd) => `${SD[sd]} ${moved[sd] == null ? "placed" : "moved " + fmtDist(moved[sd])}`).join(" · ") + (sid ? " · Stream ID updated" : "")); }
     else if (line && plan && !plan.length) line.textContent = "No changes yet";
+  }
+
+  // ---------------- B23: Corrections in the Dashboard view (#/dash/site/<id>/fix/<tool>) ----------------
+  // Same plans and safe save as the classic tools: renamePlan, streamIdChange (nearestFlow), runDeleteSite (backup first).
+  let dfixTok = 0;
+  const DFIX = [["id", "Change the site ID"], ["comid", "Check the stream ID (COMID)"], ["other", "Review “Other Taxa”"], ["del", "Delete this site"]];
+  const dfixOthers = (a) => ["pre", "post"].flatMap((ph) => a[ph] ? ["down", "up"].filter((sd) => a[ph].samples[sd].grp && a[ph].samples[sd].other).map((sd) => ({ ph, sd, s: a[ph].samples[sd] })) : []);
+  function dfixReview(a, planFn, title, what, back) {
+    let changes; try { changes = planFn(); } catch (err) { alert("This cannot be saved: " + (err.message || err)); return; }
+    $("ovl").classList.remove("hidden");
+    $("panel").innerHTML = `<h3 id="panelTitle">Review and save</h3><p>${esc(a.id)} · ${esc(title)}. Nothing is stored until you click Confirm and save.</p>
+      ${changes.length ? reviewHtml(changes) : '<p class="bad">Nothing to save.</p>'}<div class="small" id="toolStatus"></div>
+      <div class="btns"><button class="btn" type="button" id="tCancel">Back to corrections</button><button class="btn pri" type="button" id="tGo"${changes.length ? "" : " disabled"}>Confirm and save</button></div>`;
+    $("tCancel").onclick = closeTool;
+    $("tGo").onclick = () => dashRunSave(planFn, what, back);
+  }
+  function dashFix(a, tool) {
+    const idBad = !a.test && !CFG.idPattern.test(a.id), comidFlag = a.flags.some((f) => /Stream ID/.test(f)), oth = dfixOthers(a), othNeed = oth.filter((x) => !x.s.otherHils).length;
+    if (!DFIX.some((t) => t[0] === tool)) tool = idBad ? "id" : comidFlag && (a.pre || a.post) ? "comid" : "id";
+    if (tool === "other") tool = "id";   // Other taxa opens the taxa editor; it has no panel of its own
+    const href = (k) => `#/dash/site/${encodeURIComponent(a.id)}/fix/${k}`, badge = (t, c) => `<span class="dfx-badge" style="background:${c}">${t}</span>`;
+    const list = `<nav class="dfx-list" aria-label="Corrections">
+        <a class="dfx-item${tool === "id" ? " on" : ""}" href="${href("id")}"><b>Change the site ID${idBad ? badge("fix", "#F2B33D") : ""}</b><span class="muted">${esc(a.id)} · replaces it in every record of the site</span></a>
+        ${a.pre || a.post ? `<a class="dfx-item${tool === "comid" ? " on" : ""}" href="${href("comid")}"><b>Check the stream ID (COMID)${comidFlag ? badge("check", "#F2B33D") : ""}</b><span class="muted">Compares the stored Stream ID with the segment nearest the downstream point</span></a>` : ""}
+        <div class="dfx-item"><b>Review “Other Taxa”${othNeed ? badge(othNeed, "#C8E35A") : ""}</b><span class="muted">${oth.length ? `${oth.length} sample${oth.length === 1 ? " has" : "s have"} other taxa. Opens the taxa editor on its Other taxa row (name, HILS, count) ↗` : "No sample has other taxa. Add one in the taxa editor's Other taxa row."}</span>
+          ${oth.length ? `<div class="dfx-oth">${oth.map(({ ph, sd, s }) => `<button type="button" data-oth="${ph}:${sd}" title="${s.otherHils ? "HILS " + s.otherHils : "no HILS yet"}">${PH[ph].split("-")[0]} ${SD[sd].toLowerCase()}: ${s.other}${s.otherHils ? "" : " · no HILS"} ↗</button>`).join("")}</div>` : ""}</div>
+        <div class="dfx-dz">DANGER ZONE</div>
+        <a class="dfx-item danger${tool === "del" ? " on" : ""}" href="${href("del")}"><b>Delete this site</b><span class="muted">Every record and file, after a backup to your computer</span></a></nav>`;
+    const why = { id: ["Why change it?", "A typo in the ID entered in Survey123, or an ID the District reassigned. The Data check flags IDs that don't match the 4 letters + 4 digits pattern."],
+      comid: ["About the Stream ID", `The COMID of the WCCD flowline segment at the downstream point, found on the record's stream within ${COMID_RADIUS} m. The old Survey123 form stored 99425020 for every record; the Data check flags it.`],
+      del: ["Before deleting", "The backup file is a complete copy (every record, point and attached file). Keep it until you are sure the site is no longer needed. Restoring from it is done by the administrator."] }[tool];
+    $("dash").innerHTML = `${drail("home")}<main class="dsp-main"><div class="de-head"><div><a class="dsp-back" href="${siteHash(a.id)}">← ${esc(a.id)} · ${esc(a.stream || "no stream")}</a><h2 class="ttl">Corrections</h2></div></div>
+      <div class="dfx-grid">${list}<section class="dpaper dfx-p${tool === "del" ? " danger" : ""}" id="dfxP" aria-label="${esc(DFIX.find((t) => t[0] === tool)[1])}"></section>
+        <aside class="card dfx-aside"><h3>${why[0]}</h3><div class="muted" style="font-size:12px;line-height:1.6">${why[1]}</div></aside></div></main>`;
+    dashWire();
+    document.querySelectorAll("#dash [data-oth]").forEach((b) => b.onclick = () => { const [ph, sd] = b.dataset.oth.split(":"); dash.openTab = "OTHER"; location.hash = editHash(a.id, "taxa", ph, sd); });
+    if (tool === "id") dfixId(a); else if (tool === "comid") dfixComid(a); else dfixDel(a);
+  }
+  const dfixBar = (st) => `<div class="dsave" role="group" aria-label="Save or cancel"><span class="dsave-st" id="dfxSt" aria-live="polite">${st}</span><button type="button" class="dbtn" id="dfxCancel">Cancel</button><button type="button" class="btnp" id="dfxReview" disabled>Review and save</button></div>`;
+  function dfixId(a) {
+    $("dfxP").innerHTML = `<div class="dsec">Change the site ID</div>
+      <div class="dfnote" style="padding-top:0">Replaces <b>${esc(a.id)}</b> in the Project, Phase and Sample ID fields of every record of this site: the Pre, Post and Lab records, both samples and every taxa row. Counts, readings, points and files are not touched.</div>
+      <div class="dsf"><label for="dfxId">New WCCD project ID <span>· 4 letters + 4 digits</span></label><input class="dtx" id="dfxId" maxlength="8" autocomplete="off" spellcheck="false" placeholder="e.g. ${esc(a.id)}"><div class="dsfnote" id="dfxIdMsg"></div></div>
+      <div id="dfxSum"></div>
+      <div class="dfnote">The review lists every change before anything is stored; each survey is saved all-or-nothing and read back. The site page address changes to the new ID.</div>${dfixBar("Type the new ID")}`;
+    const inp = $("dfxId"); let plan = null;
+    $("dfxCancel").onclick = () => { location.hash = siteHash(a.id); };
+    const check = () => { const v = inp.value.trim().toUpperCase(); if (inp.value !== v) inp.value = v; let msg = "";
+      if (v && !CFG.idPattern.test(v)) msg = "Use 4 letters followed by 4 digits."; else if (v === a.id) msg = "That is the current ID."; else if (v && model.some((x) => x.id.toUpperCase() === v)) msg = "Another site already uses this ID.";
+      const ok = !!v && !msg; inp.classList.toggle("bad-d", !!msg); inp.classList.toggle("chg-d", ok);
+      $("dfxIdMsg").innerHTML = msg ? `<span style="color:#C2410C">${esc(msg)}</span>` : ok ? '<span style="color:#2E7D32">✓ valid · not used by another site</span>' : "";
+      plan = null; try { plan = ok ? renamePlan(a, v) : null; } catch (err) { $("dfxIdMsg").innerHTML = `<span style="color:#C2410C">${esc(err.message || err)}</span>`; }
+      if (plan) { const by = {}; for (const c of plan) { const b = by[c.svc] = by[c.svc] || { n: 0, f: 0, ex: null }; b.n++; b.f += Object.keys(c.set).length;
+          if (!b.ex) { const k = Object.keys(c.set)[0]; b.ex = [c.before[k], c.set[k]]; } }
+        const nF = plan.reduce((t, c) => t + Object.keys(c.set).length, 0), hi = (x) => esc(String(x)).replace(esc(v), `<b>${esc(v)}</b>`);
+        $("dfxSum").innerHTML = `<div class="dsec" style="padding-top:4px">What changes</div><table class="dfx-t"><tr><th>Survey</th><th>Records</th><th>Example</th></tr>
+          ${["pre", "post", "lab"].filter((k) => by[k]).map((k) => `<tr><td>${esc(CFG.serviceNames[k])}</td><td>${by[k].n} record${by[k].n === 1 ? "" : "s"} · ${by[k].f} ID field${by[k].f === 1 ? "" : "s"}</td><td>${esc(String(by[k].ex[0]))} → ${hi(by[k].ex[1])}</td></tr>`).join("")}
+          <tr><td><b>Total</b></td><td><b>${plan.length} records · ${nF} ID fields</b></td><td></td></tr></table>
+          <details><summary>Show every field (${nF})</summary>${reviewHtml(plan)}</details>`;
+      } else $("dfxSum").innerHTML = "";
+      $("dfxReview").disabled = !plan || !plan.length;
+      $("dfxSt").innerHTML = msg ? `<span class="bad">${esc(msg)}</span>` : plan && plan.length ? `<b>${plan.length} records</b> will change · nothing is saved until you confirm` : plan ? "Nothing to change" : "Type the new ID"; };
+    inp.oninput = check; inp.onkeydown = (e) => { if (e.key === "Enter" && !$("dfxReview").disabled) $("dfxReview").click(); };
+    $("dfxReview").onclick = () => { const v = inp.value.trim().toUpperCase(); dfixReview(a, () => renamePlan(a, v), `change the site ID to ${v}`, `ID changed from ${a.id} to ${v}`, siteHash(v)); };
+    check(); inp.focus();
+  }
+  async function dfixComid(a) {
+    const token = ++dfixTok, box = $("dfxP");
+    box.innerHTML = `<div class="dsec">Check the stream ID (COMID)</div>
+      <div class="dfnote" style="padding-top:0">Finds the segment of the record's stream nearest each downstream point and compares its COMID with the stored Stream ID. Only the rows that differ are saved.</div>
+      <div id="dfxRows"><p class="dfnote"><span class="spin"></span>Looking up the stream segments…</p></div><div class="dfx-map" id="dfxMap" aria-label="Map of the downstream points and the segments found"></div>${dfixBar("Looking up the stream segments…")}`;
+    $("dfxCancel").onclick = () => { location.hash = siteHash(a.id); };
+    const rows = [], looks = {};
+    for (const ph of ["pre", "post"]) { const R = a[ph]; if (!R) continue;
+      const stored = att(R.main.L, R.main.row, "StreamID"), pt = geomPt(R.samples.down.geom), stream = R.stream; let res = null, msg = "";
+      if (!pt) msg = "no downstream point"; else if (!stream) msg = "no stream name";
+      else { try { res = await nearestFlow(pt.lat, pt.lon, stream, COMID_RADIUS); msg = res ? `${res.comid} · ${Math.round(res.dist)} m` : `no ${stream} segment within ${COMID_RADIUS} m`; } catch (e) { msg = "lookup failed: " + mask(e.message || e); } }
+      looks[ph] = res ? { comid: String(res.comid) } : null;
+      rows.push({ ph, stream, stored, msg, pt, comid: res ? String(res.comid) : null, state: !res ? "na" : String(res.comid) === String(stored ?? "") ? "ok" : "upd" }); }
+    if (token !== dfixTok || !document.body.contains(box)) return;
+    const plan = () => ["pre", "post"].map((ph) => a[ph] ? streamIdChange(a, ph, looks[ph]) : null).filter(Boolean), n = plan().length;
+    $("dfxRows").innerHTML = `<table class="dfx-t"><tr><th></th><th>Stream</th><th>Stored</th><th>Nearest segment</th><th></th></tr>
+      ${rows.map((r) => `<tr><td><b>${PH[r.ph].split("-")[0]}</b></td><td>${esc(r.stream || "–")}</td><td>${esc(fmtV(r.stored))}</td><td>${esc(r.msg)}</td><td class="${r.state}">${r.state === "ok" ? "✓ matches" : r.state === "upd" ? "update" : "–"}</td></tr>`).join("")}</table>
+      ${rows.some((r) => String(r.stored) === "99425020") ? '<div class="dfnote" style="padding-top:0">99425020 is the value the old form stored for every record.</div>' : ""}`;
+    $("dfxReview").disabled = !n;
+    $("dfxSt").innerHTML = n ? `<b>${n} Stream ID${n === 1 ? "" : "s"}</b> to correct (${rows.filter((r) => r.state === "upd").map((r) => PH[r.ph].split("-")[0]).join(", ")}) · nothing is saved until you confirm` : "Nothing to correct";
+    $("dfxReview").onclick = () => dfixReview(a, plan, "Stream ID (COMID)", "Stream ID corrected from the downstream point", siteHash(a.id));
+    dfixMap(a, rows, token);
+  }
+  // The downstream points (Pre / Post colours) and the segments found (lime), on the dashboard layers.
+  async function dfixMap(a, rows, token) {
+    const el = $("dfxMap"); if (!el) return; const pts = rows.filter((r) => r.pt);
+    if (!pts.length) { el.innerHTML = '<p class="muted" style="padding:10px;font-size:12px;color:#5B6B5F">No downstream point to show.</p>'; return; }
+    try {
+      const { Map, MapView, Graphic, sat, hill, topo, roads, gl, layers } = await dashLayers([a.stream]);
+      const view = new MapView({ container: el, map: new Map({ layers }), center: [pts[0].pt.lon, pts[0].pt.lat], zoom: 16, padding: { top: 22, left: 22, right: 22, bottom: 26 } });
+      if (token !== dfixTok || !document.body.contains(el)) { view.destroy(); return; }
+      dash.map = view; dash.layers = { sat, hill, topo, roads }; dashBase(dash.base);
+      const ids = [...new Set(rows.map((r) => r.comid).filter((x) => x && /^\d+$/.test(x)))];
+      if (ids.length) { try { const r = await getJson(FLOW_URL + "/query", { where: `COMID IN (${ids.join(",")})`, outFields: "COMID", returnGeometry: true, outSR: 4326 });
+          for (const f of r.features || []) gl.add(new Graphic({ geometry: { type: "polyline", paths: f.geometry.paths, spatialReference: { wkid: 4326 } }, symbol: { type: "simple-line", color: "#C8E35A", width: 4.5 } })); } catch { /* points only */ } }
+      const marks = pts.map((r) => { const m = new Graphic({ geometry: { type: "point", longitude: r.pt.lon, latitude: r.pt.lat }, symbol: { type: "simple-marker", color: DSC[r.ph + "_down"], size: 13, outline: { color: "#0B0F0C", width: 2 } } }); gl.add(m); return m; });
+      view.when(() => { if (token === dfixTok) dashFit(view, marks, 17, 17); }).catch(() => {});
+    } catch (err) { el.innerHTML = `<p class="muted" style="padding:10px;font-size:12px;color:#5B6B5F">The map could not be shown (${esc(mask(err.message || err))}).</p>`; }
+  }
+  function dfixDel(a) {
+    const recs = siteRecords(a), files = ["pre", "post"].flatMap((ph) => a[ph] ? a[ph].files.map((f) => ({ ph, f })) : []);
+    const desc = (ph) => { const n = recs[ph].length; if (!n) return "none"; const sm = a[ph] ? ["down", "up"].filter((sd) => a[ph].samples[sd].grp).length : 0; return `${n} record${n === 1 ? "" : "s"} (the record, ${sm} sample${sm === 1 ? "" : "s"} and ${n - 1 - sm} taxa row${n - 1 - sm === 1 ? "" : "s"})`; };
+    $("dfxP").innerHTML = `<div class="dsec">Delete site ${esc(a.id)}${a.stream ? " · " + esc(a.stream) : ""}</div>
+      <div class="dfnote" style="padding-top:0">Permanently deletes everything stored for this site. This cannot be undone in the app.</div>
+      <table class="dfx-t"><tr><th>Survey</th><th>Will be deleted</th></tr><tr><td>Pre-construction</td><td>${desc("pre")}</td></tr><tr><td>Post-construction</td><td>${desc("post")}</td></tr>
+        <tr><td>Lab analysis</td><td>${recs.lab.length ? "1 record" : "none"}</td></tr><tr><td>Attached files</td><td>${files.length ? files.map(({ f }) => esc(f.name)).join("<br>") : "none"}</td></tr></table>
+      <div class="dsec" style="padding-top:6px">What happens</div>
+      <div class="dfx-steps">① A backup file with every record, point and attached file is saved to your computer.<br>② The Lab, then Post, then Pre records are deleted (each survey all-or-nothing).<br>③ You return to the sites list; the backup stays in your downloads.</div>
+      <div class="dsf"><label for="delId">Type the site ID <b>${esc(a.id)}</b> to confirm</label><input class="dtx" id="delId" autocomplete="off" spellcheck="false"></div>
+      <div class="dsave danger" role="group" aria-label="Delete or cancel"><span class="dsave-st" id="toolStatus" aria-live="polite">Type the site ID to enable deleting</span><button type="button" class="dbtn" id="tCancel">Cancel</button><button type="button" class="btnd" id="tGo" disabled>Save backup and delete</button></div>`;
+    $("tCancel").onclick = () => { location.hash = siteHash(a.id); };
+    $("delId").oninput = () => { const ok = $("delId").value.trim() === a.id; $("tGo").disabled = !ok; $("toolStatus").textContent = ok ? "Ready: the backup file is saved first, then the site is deleted" : "Type the site ID to enable deleting"; };
+    $("tGo").onclick = () => runDeleteSite(a, recs, files);
   }
 
   // ---- review and save (same review panel and safe save as the classic editors) ----
@@ -4110,6 +4251,8 @@
     else if (sub === "sites") dashSites();
     else if (sub === "site" && parts[3] === "edit") { dashMapFree(); const a = model.find((x) => x.id === decodeURIComponent(parts[2] || ""));
       if (a) dashEdit(a, parts[4], parts[5], parts[6]); else dashSite(decodeURIComponent(parts[2] || ""), "overview"); }
+    else if (sub === "site" && parts[3] === "fix") { dashMapFree(); dedit = null; const a = model.find((x) => x.id === decodeURIComponent(parts[2] || ""));   // B23
+      if (a) dashFix(a, parts[4]); else dashSite(decodeURIComponent(parts[2] || ""), "overview"); }
     else if (sub === "site") { dashMapFree(); dedit = null; dashSite(decodeURIComponent(parts[2] || ""), parts[3] || "overview"); }
     else { dashMapFree(); dashLanding(); }
     dash.lastSub = sub; window.scrollTo(0, 0);
