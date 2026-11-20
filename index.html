@@ -478,6 +478,23 @@
   .dsave.danger{border-color:#E5484D;box-shadow:0 0 0 4px rgba(229,72,77,.18),0 -6px 20px rgba(0,0,0,.22)} .dsave.danger .dsave-st{color:#B3261E}
   .dash .dsave .btnd{background:#C2281E;border:1px solid #C2281E;color:#fff;border-radius:999px;padding:8px 16px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer} .dash .dsave .btnd:disabled{opacity:.45;cursor:default}
   @media (max-width:1100px){ .dfx-grid{grid-template-columns:minmax(0,1fr)} .dfx-list{position:static} .dfx-aside{display:none} }
+  /* B29: backup and restore, reminders */
+  .dck-tabs{display:flex;gap:6px;margin:0 0 14px;flex-wrap:wrap} .dck-tabs a{padding:7px 14px;border-radius:999px;border:1px solid var(--line);color:#C9D3C6;font-size:13px;text-decoration:none} .dck-tabs a.on{background:var(--acc);border-color:var(--acc);color:#0B0F0C;font-weight:700}
+  .dbk-nag{display:block;margin:0 0 14px;padding:10px 14px;border-radius:12px;background:rgba(242,179,61,.12);border:1px solid rgba(242,179,61,.5);color:#F5D38A;font-size:13px;text-decoration:none;line-height:1.45} .dbk-nag b{color:#F2B33D} .dbk-nag:hover{border-color:#F2B33D}
+  .dbk-nag.hero{margin:16px 0 0;max-width:560px;background:rgba(8,12,9,.6)} .dbk-ok{margin:0 0 14px;font-size:12.5px;color:var(--acc)}
+  .dbk-grid{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:16px;align-items:start}
+  .dbk-full{font-size:13px} .dbk-full h3{margin:0 0 6px} .dbk-stat{margin:12px 0;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--line);line-height:1.7}
+  .dbk-act{margin:12px 0 0;padding-top:12px;border-top:1px solid var(--line)} .dbk-act .muted{font-size:12px;display:block;margin-top:2px} .dbk-act button{margin-top:8px}
+  .dbk-st{font-size:12px;margin-top:6px;line-height:1.5} .dbk-st .ok{color:var(--acc)} .dbk-st .bad{color:#FF8A8E}
+  .dbk-auto{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px} .dbk-auto .muted{margin-top:4px;line-height:1.5}
+  .dbk-step{display:flex;align-items:center;gap:8px;font:700 15px "Barlow Semi Condensed",sans-serif;color:#1F3A2A;padding:12px 14px 6px} .dbk-step span{width:22px;height:22px;border-radius:50%;background:#1F3A2A;color:#fff;display:grid;place-items:center;font:700 11.5px "Public Sans",sans-serif;flex:none}
+  .dbk-step.off{color:#8A968D} .dbk-step.off span{background:#C9D3C4}
+  .dbk-body{padding:0 14px 8px 44px;font-size:12.5px;color:#142019;line-height:1.6} .dbk-body .dfst-f{margin-top:0}
+  .dbk-drop{border:2px dashed #C9D3C4;border-radius:12px;padding:14px;text-align:center;font-size:13px;color:#3D4C41} .dbk-drop.over{border-color:#8DB320;background:#F1F6E8}
+  .dbk-t{width:100%;border-collapse:collapse;font-size:12.5px} .dbk-t th{background:#EEF3E7;text-align:left;padding:6px 8px;font-size:11px;color:#3D4C41;font-weight:600} .dbk-t td{padding:6px 8px;border-bottom:1px solid #E3EAE0} .dbk-t .ok{color:#2E7D32;font-weight:700} .dbk-t .no{color:#B3261E;font-weight:700}
+  .dbk-err{color:#C2410C;margin-top:6px}
+  .dh-quick{width:100%;margin-bottom:10px;justify-content:center}
+  @media (max-width:1100px){ .dbk-grid{grid-template-columns:minmax(0,1fr)} }
   /* B27: Help page */
   .dh-grid{display:grid;grid-template-columns:250px minmax(0,1fr) 290px;gap:16px;align-items:start}
   .dh-q{width:100%;height:40px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);padding:0 14px;font:inherit;font-size:14px;margin-bottom:14px}
@@ -681,7 +698,7 @@
     body.drep #dash .dsp-main{margin:0 !important;padding:0 !important;background:#fff !important;min-height:0} body.drep .drp-wrap{display:block} body.drep .drp-prev{border:0;padding:0;background:none;overflow:visible} body.drep .drp-prev .paper{box-shadow:none} }
   /* B14: on phones the dashboard menu becomes a bar along the bottom, so it never covers the page */
   @media (max-width:640px){ .drail{top:auto;bottom:0;right:0;width:auto;height:60px;flex-direction:row;justify-content:space-around;padding:4px 2px;border-right:0;border-top:1px solid var(--line)}
-    .drail .logo,.drail .grow,.drail a[href="#/help"],.drail a[href="#/dash/help"]{display:none} .drail a{width:auto;flex:1;padding:4px 0;font-size:10px} .drail a.classic{border-top:0;padding-top:4px}
+    .drail .logo,.drail .grow,.drail a[href="#/help"],.drail a[href="#/dash/help"],.drail a[href="#/dash/backup"]{display:none} .drail a{width:auto;flex:1;padding:4px 0;font-size:10px} .drail a.classic{border-top:0;padding-top:4px}
     .dsp-main{margin-left:0;padding-bottom:84px;overflow-x:hidden} .ds-ui{margin:12px 12px 12px 12px} .ds-leg{margin-bottom:76px}
     .de-head h2{font-size:24px} .de-btns{margin-left:0;width:100%} .de-btns .btnp{flex:1;justify-content:center} .de-grid>*{min-width:0}
     .dth,.dtr{grid-template-columns:30px minmax(0,1fr) 132px;gap:6px;padding:6px 10px} .cnt{gap:4px} .stp{width:30px;height:32px} .cnt input{width:60px;height:34px} }
@@ -827,7 +844,7 @@
   // ==========================================================================================
   // WCCD Watershed Monitoring – build B1 (read-only)
   // ==========================================================================================
-  const BUILD = "B28", BUILD_DATE = "19 Nov 2026";
+  const BUILD = "B29", BUILD_DATE = "19 Nov 2026";
   const CFG = {
     clientId: "T7mlirNaWVfvD6Ua",                     // public OAuth Client ID of the "WCCD Water Monitor" credentials item (never the secret); redirect https://ayad65.github.io/wccd-watermonitor/
     portalUrl: "https://clarion.maps.arcgis.com",
@@ -841,7 +858,7 @@
     serviceNames: { pre: "Pre-construction", post: "Post-construction", lab: "Lab analysis" },
     testIds: ["asdfadsf"],                            // shown on Home with a "test" tag; left out of Explore and Reports
     idPattern: /^[A-Z]{4}\d{4}$/,                     // WCCD project ID: 4 letters + 4 digits (e.g. BRUR3699)
-    admin: "yayad@pennwest.edu",
+    admin: "yayad@pennwest.edu", adminName: "Yasser Ayad",
     owners: ["yasserayad"]   // B28: ArcGIS usernames that see Classic view and Data check (owner's request)
   };
 
@@ -2631,7 +2648,7 @@
       progress("Reloading the survey data…"); await loadAll();
       closeTool(); area.edit = null; area.id = null;
       if (/^#\/dash/.test(location.hash)) {   // B23: deleted from the dashboard Corrections page
-        dash.note = { html: `Site ${esc(a.id)} was deleted (${esc(done.join(", "))}). The backup file “${esc(a.id)} backup before delete…json” is in your downloads.` };
+        dash.note = { html: `Site ${esc(a.id)} was deleted (${esc(done.join(", "))}). The backup file “${esc(a.id)} backup before delete…json” is in your downloads.${dBackupLink()}` };
         location.hash = "#/dash/sites"; return; }
       location.hash = "#/";
       setTimeout(() => say("okmsg", `Site ${esc(a.id)} was deleted (${done.join(", ")}). The backup file "${esc(a.id)} backup before delete…json" is in your downloads. <a href="#" onclick="this.parentNode.classList.add('hidden');return false">Close</a>`), 50);
@@ -2952,7 +2969,7 @@
   const VIEW_KEY = "wccdView";   // which interface opens next time ("dash" or "classic"); a convenience only
   const viewPref = () => { try { return localStorage.getItem(VIEW_KEY); } catch { return null; } };
   const setViewPref = (v) => { try { localStorage.setItem(VIEW_KEY, v); } catch { /* private window: fine */ } };
-  const DICON = { home: "M3 11l9-8 9 8M5 10v10h14V10", plus: "M12 5v14M5 12h14", explore: "M9 4l-6 2v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14",
+  const DICON = { backup: "M12 3v12M7 10l5 5 5-5M5 21h14", home: "M3 11l9-8 9 8M5 10v10h14V10", plus: "M12 5v14M5 12h14", explore: "M9 4l-6 2v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14",
     report: "M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h7", check: "M9 11l3 3 8-8M20 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11", back: "M10 6l-6 6 6 6M4 12h16",
     help: "M12 21a9 9 0 100-18 9 9 0 000 18zM9.5 9a2.5 2.5 0 015 .5c0 1.7-2.5 2-2.5 3.5M12 17h.01" };
   const dico = (k, col = "currentColor", s = 20) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${col}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${DICON[k]}"/></svg>`;
@@ -3018,7 +3035,7 @@
             <div class="dl-kick">STREAM ASSESSMENT · STAFF PORTAL</div>
             <h1 class="ttl dl-title">Watershed<br>Monitoring Program</h1>
             <p class="dl-lead">Pre- and post-construction assessments of District conservation projects: macroinvertebrate surveys, laboratory results, site records and reports.</p>
-            <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap"><a class="btnp" href="#/dash/sites">View monitoring sites</a><a class="btnp ghost" href="#/dash/new">Start a new site</a></div></div>
+            <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap"><a class="btnp" href="#/dash/sites">View monitoring sites</a><a class="btnp ghost" href="#/dash/new">Start a new site</a></div>${dBackupNag("hero")}</div>
           <div class="dl-side">
             <div class="dl-sum" aria-label="Program summary, all sites">
               <div class="dl-rings">
@@ -3037,7 +3054,7 @@
   }
   const drail = (on, drailOn = on) => `<nav class="drail" aria-label="Dashboard"><a class="logo" href="#/dash" title="Dashboard home"><img src="${DLOGO}" width="46" height="46" alt="Dashboard home"></a>
     ${[["#/dash/sites", "home", "Sites"], ["#/dash/new", "plus", "New site"], ["#/dash/explore", "explore", "Explore"], ["#/dash/reports", "report", "Reports"]].map(([h, k, l]) => `<a href="${h}"${k === on ? ' class="on" aria-current="page"' : ""}>${dico(k)}<span>${l}</span></a>`).join("")}
-    <span class="grow"></span><a href="#/dash/help"${drailOn === "help" ? ' class="on" aria-current="page"' : ""}>${dico("help", "currentColor", 18)}<span>Help</span></a>${isOwner() ? `<a href="#/dash/check"${on === "check" ? ' class="on" aria-current="page"' : ""} title="Data check (administrator only)">${dico("check", "currentColor", 18)}<span>Data check</span></a><a class="classic" href="#/" data-classic title="Classic view (administrator only)">${dico("back", "currentColor", 18)}<span>Classic<br>view</span></a>` : ""}</nav>`;
+    <span class="grow"></span><a href="#/dash/backup"${drailOn === "backup" ? ' class="on" aria-current="page"' : ""} title="Make a local backup of the data">${dico("backup", "currentColor", 18)}<span>Backup</span></a><a href="#/dash/help"${drailOn === "help" ? ' class="on" aria-current="page"' : ""}>${dico("help", "currentColor", 18)}<span>Help</span></a>${isOwner() ? `<a href="#/dash/check"${on === "check" ? ' class="on" aria-current="page"' : ""} title="Data check (administrator only)">${dico("check", "currentColor", 18)}<span>Data check</span></a><a class="classic" href="#/" data-classic title="Classic view (administrator only)">${dico("back", "currentColor", 18)}<span>Classic<br>view</span></a>` : ""}</nav>`;
 
   function dashSites() {
     const k = dashStats(), all = model.filter((a) => a.pre || a.post || a.lab);
@@ -3277,7 +3294,7 @@
     btns.forEach((b) => { if (b) b.disabled = true; });
     try { const what = await op(progress); progress("Reloading the survey data…"); await loadAll();
       for (const k of Object.keys(dfst)) delete dfst[k];
-      dash.note = { html: esc(what) + "." }; closeTool(); route(); }
+      dash.note = { html: esc(what) + "." + dBackupLink() }; closeTool(); route(); }
     catch (err) { console.error(err); st.innerHTML = `<span class="bad">Stopped – ${esc(mask(err.message || err))}. Nothing else was changed.</span>`; btns.forEach((b) => { if (b) b.disabled = false; });
       try { await loadAll(); } catch { /* keep the old data */ } }
   }
@@ -3944,7 +3961,7 @@
       const plan = makePlan(), res = await saveChanges(plan, progress);
       progress("Reloading the survey data…"); await loadAll();
       dash.note = res.wrong.length ? { bad: true, html: `Saved, but the check afterwards found differences:<br>${res.wrong.map(esc).join("<br>")}<br>Tell the administrator (${CFG.admin}).` }
-        : { html: `Saved and verified (${res.written} records, ${res.fields} values): ${esc(what)}.` };
+        : { html: `Saved and verified (${res.written} records, ${res.fields} values): ${esc(what)}.${dBackupLink()}` };
       closeTool(); dedit = null; if (after) after();
       if (location.hash === back) route(); else location.hash = back;
     } catch (err) {
@@ -4219,7 +4236,8 @@
 
   // ---------------- B19: step 4 — Data check, Reports and New site in the Dashboard view ----------------
   // ---- Data check (#/dash/check): read-only, the same checks as the classic page ----
-  function dashCheck() {
+  function dashCheck(tab) {
+    if (tab === "backup") { location.replace("#/dash/backup"); return; }   // B29: moved to its own page
     const NAMES = { pre: "Pre-construction", post: "Post-construction", lab: "Lab analysis" };
     const cards = ["pre", "post", "lab"].map((k) => {
       const S = svc[k], M = S.byName[MAIN[k]], miss = [], opt = [];
@@ -4250,13 +4268,206 @@
           <td style="text-align:right"><span class="dck-st ${bad ? "warn" : "ok"}">${bad ? "differs" : "✓ matches"}</span></td></tr>`; } }
     const flags = model.filter((a) => a.flags.length);
     $("dash").innerHTML = `${drail("check")}<main class="dsp-main">${dashBanner()}
-      <div class="dx-head"><div><div class="muted" style="font-size:12px">Data check · nothing is changed on this page</div><h2 class="ttl">Survey layers and totals</h2></div></div>
+      <div class="dx-head"><div><div class="muted" style="font-size:12px">Data check · nothing is changed on this page</div><h2 class="ttl">Survey layers and totals</h2></div></div>${dBackupNag("card")}
       <div class="dck-grid">${cards}</div>
       <div class="dck-two"><div class="card dx-card"><div class="dx-ch"><h3>Totals: stored in the layer · recomputed by the app</h3><span class="muted" style="font-size:12px">${nBad ? `${nBad} sample${nBad === 1 ? "" : "s"} differ` : "every sample matches"}</span></div>
           <div style="overflow:auto"><table class="dck-t"><tr><th>Site</th><th>Sample</th><th>Count</th><th>Taxa</th><th>Index</th><th>Avg HILS</th><th>EPT</th><th></th></tr>${rows || `<tr><td colspan="8" class="muted">No samples yet.</td></tr>`}</table></div>
           <div class="muted" style="font-size:11.5px;margin-top:6px">Each cell: stored · recomputed. Recomputed values use the WCCD HILS table (99 taxa) plus the other taxon's own HILS. Index = round(count × HILS); Avg HILS = total index ÷ total count.</div></div>
         <div class="card dx-card"><h3>Flags on sites</h3>${flags.length ? flags.map((a) => `<div class="dck-f"><a href="${siteHash(a.id)}"><b>${esc(a.id)}</b> · open ↗</a>${a.flags.map((x) => `<div>${esc(x)}</div>`).join("")}</div>`).join("") : '<p class="muted">Nothing to flag on any site.</p>'}</div></div></main>`;
     dashWire();
+  }
+
+  // ---------------- B29: backup and restore (owner only: Data check → Backup and restore, #/dash/backup) ----------------
+  const dckTabs = (on) => `<div class="dck-tabs" role="tablist" aria-label="Data check"><a href="#/dash/check" role="tab" class="${on === "checks" ? "on" : ""}"${on === "checks" ? ' aria-selected="true"' : ""}>Checks</a><a href="#/dash/backup" role="tab" class="${on === "backup" ? "on" : ""}"${on === "backup" ? ' aria-selected="true"' : ""}>Backup and restore</a></div>`;
+  const lastLocalBackup = () => { const v = Number(prefGet("wccd.lastBackup")); return v > 0 ? v : null; };
+  const markLocalBackup = () => prefSet("wccd.lastBackup", String(Date.now()));
+  const markDataChanged = () => prefSet("wccd.dataChangedAt", String(Date.now()));   // deletions leave no edit date, so every successful save also marks the time here
+  const bkStamp = () => new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-");
+  function dataEdits() {   // the newest edit date in the surveys, and how many records were edited since the last local backup
+    const since = lastLocalBackup() || 0; let last = 0, n = 0;
+    for (const k of ["pre", "post", "lab"]) { const S = svc[k]; if (!S || !S.byName) continue;
+      for (const L of new Set(Object.values(S.byName))) for (const r of L.rows || []) { const d = Number(editDateOf(L, r)) || 0; if (d > last) last = d; if (d > since) n++; } }
+    last = Math.max(last, Number(prefGet("wccd.dataChangedAt")) || 0);
+    return { last, n };
+  }
+  function dBackupNag(where) {   // the reminder (every editor): shown when the data changed after the last local backup from this computer
+    const lb = lastLocalBackup(), { last, n } = dataEdits();
+    if (lb && last <= lb) return where === "hero" ? "" : `<div class="dbk-ok" id="dbkNag">✓ Your local backup is up to date (made ${dayText(lb)}).</div>`;
+    return `<a class="dbk-nag${where === "hero" ? " hero" : ""}" href="#/dash/backup"${where === "hero" ? "" : ' id="dbkNag"'}>⚠ ${lb ? `The data has changed since your last local backup (${dayText(lb)})${n ? `: ${n} record${n === 1 ? "" : "s"} edited` : ""}.` : "No local backup has been made from this computer yet."} <b>Back up now →</b></a>`;
+  }
+  const dBackupLink = () => { markDataChanged(); return ` <a href="#/dash/backup">Make a local backup →</a>`; };   // used in every "saved" note
+  const dbk = { data: null, site: null, err: "" };
+  function dashBackup() {
+    const sites = model.filter((a) => a.pre || a.post || a.lab), lb = lastLocalBackup();
+    let nRec = 0, nFiles = 0; for (const a of sites) { const r = siteRecords(a); nRec += r.pre.length + r.post.length + r.lab.length; for (const ph of ["pre", "post"]) if (a[ph]) nFiles += a[ph].files.length; }
+    $("dash").innerHTML = `${drail("", "backup")}<main class="dsp-main">${dashBanner()}${dash.note ? `<div class="dnote${dash.note.bad ? " bad" : ""}" role="status">${dash.note.html}</div>` : ""}
+      <div class="dx-head"><div><div class="muted" style="font-size:12px">Keep a copy of the data on this computer</div><h2 class="ttl">${isOwner() ? "Backup and restore" : "Backup"}</h2></div></div><div id="dbkNagBox">${dBackupNag("card")}</div>
+      <div class="dbk-grid"><div class="card dbk-full"><h3>Local backup of the project</h3>
+          <div class="muted" style="line-height:1.55">Make one after every significant change: new sites, a batch of counts or lab results, a deletion, an ID change or a restore. Both are saved to this computer.</div>
+          <div class="dbk-stat">${sites.length} site${sites.length === 1 ? "" : "s"} · ${nRec} records · ${nFiles} file${nFiles === 1 ? "" : "s"}<br><span class="muted">Last local backup from this computer: <b style="color:var(--ink)">${lb ? `${dayText(lb)} at ${new Date(lb).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}` : "none yet"}</b></span></div>
+          <div class="dbk-act"><b>Geodatabases</b><span class="muted">The three surveys as file geodatabases (zip), with their attached files, to open in ArcGIS Pro.</span><button type="button" class="btnp" id="dbkGdb">⇩ Download geodatabases</button><div class="dbk-st" id="dbkGdbSt" aria-live="polite"></div></div>
+          <div class="dbk-act"><b>Full backup file</b><span class="muted">Every site, record, point and attached file in one file. The app can restore a site from it.</span><button type="button" class="btnp" id="dbkFull">⇩ Download full backup</button><div class="dbk-st" id="dbkFullSt" aria-live="polite"></div></div>
+          <div class="dbk-auto"><b>Automatic copies in ArcGIS Online</b><div class="muted">On the 1st of every month the “WCCD Water backup” notebook saves the three surveys as geodatabases in <b style="color:var(--ink)">WCCD Water Backups</b> and keeps the newest six.${isOwner() ? ` Set-up steps: <code>wccd-watermonitor\\backup\\backup-notebook-setup.md</code>.` : ""}</div></div></div>
+        ${isOwner() ? '<section class="dpaper dbk-rest" id="dbkRest" aria-label="Restore a site"></section>'
+          : `<div class="card" style="font-size:13px"><h3 style="margin:0 0 6px">Restoring a site</h3><div class="muted" style="line-height:1.55">Restoring a deleted site from a backup is done by the administrator (${esc(CFG.adminName || "")}, ${esc(CFG.admin)}). Keep your backup files; if a site goes missing, send him the file and the site ID.</div></div>`}</div></main>`;
+    dash.note = null; dashWire();
+    $("dbkFull").onclick = () => dbkFull($("dbkFull"), $("dbkFullSt"));
+    $("dbkGdb").onclick = () => dbkGdb($("dbkGdb"), $("dbkGdbSt"));
+    dbkWire();
+  }
+  const dbkNagRefresh = () => { const b = $("dbkNagBox"); if (b) b.innerHTML = dBackupNag("card"); };
+  // Full backup: the format of the "backup before delete" file, one entry per site (so a site can be restored from either).
+  async function dbkFull(btn, st) {
+    const progress = (t) => { st.innerHTML = '<span class="spin"></span>' + esc(t); }; btn.disabled = true;
+    try {
+      const out = { app: "WCCD Watershed Monitoring", build: BUILD, kind: "full", savedAt: new Date().toISOString(), savedBy: portalUser ? portalUser.username : "", sites: [] };
+      for (const a of model.filter((x) => x.pre || x.post || x.lab)) {
+        progress(`Reading ${a.id}…`); const recs = siteRecords(a), e = { site: a.id, stream: a.stream, records: {}, files: [] };
+        for (const k of ["pre", "post", "lab"]) e.records[k] = recs[k].map((r) => ({ layer: r.L.name, layerUrl: r.L.url, label: r.label, attributes: r.row.attributes, geometry: r.row.geometry || null }));
+        for (const ph of ["pre", "post"]) if (a[ph]) for (const f of a[ph].files) { progress(`Reading ${a.id}: ${f.name}…`); const blob = await fetchFile(a, ph, f.id);
+          e.files.push({ survey: ph, record: a[ph].oid, name: f.name, contentType: f.type, keywords: f.keywords, size: f.size, base64: await blobToB64(blob) }); }
+        out.sites.push(e); }
+      const name = `WCCD Water full backup ${bkStamp()}.json`;
+      download(name, "application/json", JSON.stringify(out));
+      markLocalBackup(); st.innerHTML = `<span class="ok">✓ Saved “${esc(name)}” to your downloads.</span>`; dbkNagRefresh();
+    } catch (err) { console.error(err); st.innerHTML = `<span class="bad">Stopped – ${esc(mask(err.message || err))}. Nothing was saved.</span>`; }
+    btn.disabled = false;
+  }
+  // Geodatabases: an extract (createReplica, no sync) of each survey with its attachments, saved as a zip.
+  async function dbkGdb(btn, st) {
+    btn.disabled = true; const done = [], fails = [], stamp = bkStamp();
+    for (const k of ["pre", "post", "lab"]) { const S = svc[k], nm = CFG.serviceNames[k];
+      try {
+        if (!S || S.error) throw new Error(S && S.error ? S.error : "the survey was not read");
+        st.innerHTML = `<span class="spin"></span>Preparing the ${esc(nm)} geodatabase…`;
+        const ids = [...new Set(Object.values(S.byName).map((L) => L.id))].filter((x) => x != null).sort((x, y) => x - y);
+        const r = (await req(S.base + "/createReplica", { method: "post", query: { f: "json", replicaName: `WCCD_${k}_${stamp}`, layers: ids.join(","), returnAttachments: true, returnAttachmentsDataByUrl: true,
+          syncModel: "none", dataFormat: "filegdb", async: true, transportType: "esriTransportTypeUrl" } })).data;
+        if (!r || r.error) throw new Error((r && r.error && r.error.message) || "the survey refused the export");
+        let url = r.responseUrl || r.resultUrl || r.URL;
+        for (let i = 0; !url && r.statusUrl && i < 150; i++) { await new Promise((res) => setTimeout(res, 2000));
+          const s = (await req(r.statusUrl, { query: { f: "json" } })).data || {};
+          if (/^completed/i.test(s.status || "")) url = s.resultUrl; else if (/fail/i.test(s.status || "")) throw new Error((s.error && s.error.message) || "the export failed"); }
+        if (!url) throw new Error("no download link came back");
+        st.innerHTML = `<span class="spin"></span>Downloading the ${esc(nm)} geodatabase…`;
+        const blob = (await req(url, { responseType: "blob" })).data;
+        const el = document.createElement("a"); el.href = URL.createObjectURL(blob); el.download = `WCCD_Water_${nm.replace(/\W+/g, "_")}_${stamp}.zip`; document.body.appendChild(el); el.click(); setTimeout(() => { URL.revokeObjectURL(el.href); el.remove(); }, 2000);
+        done.push(nm);
+      } catch (err) { console.error(err); fails.push(`${nm} (${mask(err.message || err)})`); } }
+    if (!fails.length) { markLocalBackup(); st.innerHTML = `<span class="ok">✓ Saved three geodatabases (${esc(done.join(", "))}) to your downloads.</span>`; dbkNagRefresh(); }
+    else st.innerHTML = `<span class="bad">Not saved: ${esc(fails.join("; "))}.</span>${done.length ? `<br>Saved: ${esc(done.join(", "))}.` : ""}<br><span class="muted">Geodatabase downloads need the layer's “Sync” setting. The full backup file works without it, and the monthly notebook makes geodatabases in ArcGIS Online.</span>`;
+    btn.disabled = false;
+  }
+  // The records of one site from a backup file, as new rows that keep their GlobalIDs (so samples and taxa rows stay linked).
+  function dbkPlan(e) {
+    const plan = [], probs = [];
+    for (const k of ["pre", "post", "lab"]) for (const r of (e.records && e.records[k]) || []) {
+      const S = svc[k], L = S && S.byName ? S.byName[r.layer] : null;
+      if (!L) { probs.push(`${CFG.serviceNames[k]}: the layer “${r.layer}” is not in the survey now`); continue; }
+      const ef = L.def.editFieldsInfo || {}, gf = gidField(L), fields = L.def.fields || [];
+      const skip = new Set([L.def.objectIdField, ef.creationDateField, ef.creatorField, ef.editDateField, ef.editorField].filter(Boolean).map((x) => x.toLowerCase()));
+      const set = {};
+      for (const [f, v] of Object.entries(r.attributes || {})) { const fd = fields.find((x) => x.name === f);
+        if (!fd || skip.has(f.toLowerCase()) || (fd.editable === false && f !== gf)) continue; set[f] = v; }
+      if (!set[gf]) { probs.push(`${r.layer}: a record has no GlobalID`); continue; }
+      const c = { op: "add", svc: k, L, set, gid: set[gf], label: r.label || `${CFG.serviceNames[k]} · ${r.layer}`, summary: "restored from the backup" };
+      if (r.geometry && L.isLayer) c.geometry = { x: r.geometry.x, y: r.geometry.y, spatialReference: r.geometry.spatialReference || { wkid: 4326 } };
+      if (L.name === MAIN[k]) { const pf = L.fields.projectid || L.fields.project_id; if (pf) c.unique = { where: `${pf} = '${sq(e.site)}'`, what: `a ${CFG.serviceNames[k]} record for ${e.site}` }; }
+      plan.push(c); }
+    return { plan, probs };
+  }
+  const dbkInUse = (id) => model.some((x) => x.id.toUpperCase() === String(id).toUpperCase());
+  function dbkRestHtml() {
+    const d = dbk.data, e = d && dbk.site != null ? d.list[dbk.site] : null, p = e ? dbkPlan(e) : null, files = e ? e.files || [] : [];
+    const cnt = (x) => `Pre ${(x.records.pre || []).length} · Post ${(x.records.post || []).length} · Lab ${(x.records.lab || []).length}${(x.files || []).length ? ` · ${x.files.length} file${x.files.length === 1 ? "" : "s"}` : ""}`;
+    return `<div class="dsec">Restore a site from a backup file <span>puts back a deleted site as it was: its records, the links between them, points and attached files</span></div>
+      <div class="dbk-step"><span>1</span>Choose the backup file</div><div class="dbk-body">${d ? `<div class="dfst-f"><b title="${esc(d.name)}">📄 ${esc(d.name)}</b><span>${d.savedAt ? "saved " + dayText(Date.parse(d.savedAt)) : ""}${d.build ? " · build " + esc(d.build) : ""}</span><button type="button" class="dfst-x" id="dbkX" aria-label="Choose another file" title="Choose another file">✕</button></div>`
+        : `<div class="dbk-drop" id="dbkDrop"><b>Drop a backup file here</b> or <button type="button" class="dflink" id="dbkPick" style="color:#1F3A2A">choose a file</button><input type="file" id="dbkIn" accept=".json,application/json" hidden><div style="font-size:11.5px;color:#5B6B5F;margin-top:4px">A full backup, or a “… backup before delete ….json” file</div></div>`}${dbk.err ? `<div class="dbk-err">${esc(dbk.err)}</div>` : ""}</div>
+      <div class="dbk-step${d ? "" : " off"}"><span>2</span>Pick the site</div><div class="dbk-body">${d ? `<table class="dbk-t"><tr><th></th><th>Site</th><th>In the file</th><th>Now in the surveys</th></tr>${d.list.map((x, i) => { const used = dbkInUse(x.site);
+          return `<tr><td><input type="radio" name="dbkSite" value="${i}"${dbk.site === i ? " checked" : ""}${used ? " disabled" : ""} aria-label="Restore ${esc(x.site)}"></td><td><b>${esc(x.site)}</b>${x.stream ? " · " + esc(x.stream) : ""}</td><td>${cnt(x)}</td><td class="${used ? "no" : "ok"}">${used ? "already there: restore blocked" : "not there: can be restored"}</td></tr>`; }).join("")}</table>` : ""}</div>
+      <div class="dbk-step${e ? "" : " off"}"><span>3</span>Check what will be restored</div><div class="dbk-body">${e ? `${["pre", "post", "lab"].map((k) => { const n = (e.records[k] || []).length; return n ? `${CFG.serviceNames[k]}: ${n} record${n === 1 ? "" : "s"}` : ""; }).filter(Boolean).join(" · ")}${files.length ? `<br>Files: ${files.map((f) => esc(f.name)).join(", ")}` : ""}
+          ${p.probs.length ? `<div class="dbk-err">${p.probs.map(esc).join("<br>")}</div>` : `<div style="color:#5B6B5F;margin-top:4px">The records keep their original IDs, so the samples and taxa rows stay linked. Each survey is restored all-or-nothing and checked afterwards; then the files are uploaded again.</div>`}` : ""}</div>
+      <div class="dsave" role="group" aria-label="Restore or cancel"><span class="dsave-st">${!d ? "Choose a backup file" : !e ? "Pick a site to restore" : p.probs.length ? '<span class="bad">This backup cannot be restored as it is</span>' : `<b>${p.plan.length} records${files.length ? ` and ${files.length} file${files.length === 1 ? "" : "s"}` : ""}</b> ready · nothing is stored until you confirm`}</span><button type="button" class="dbtn" id="dbkCancel">Cancel</button><button type="button" class="btnp" id="dbkGo"${e && !p.probs.length && p.plan.length ? "" : " disabled"}>Review and restore</button></div>`;
+  }
+  function dbkWire() {
+    const box = $("dbkRest"); if (!box) return; box.innerHTML = dbkRestHtml();
+    const load = (fl) => { if (!fl) return; const fr = new FileReader();
+      fr.onload = () => { try { const j = JSON.parse(String(fr.result).replace(/^﻿/, "")), list = Array.isArray(j.sites) ? j.sites : j.site ? [j] : [];
+          if (!list.length || !list.every((x) => x && x.site && x.records)) throw new Error("this is not a WCCD Watershed backup file");
+          dbk.data = { name: fl.name, savedAt: j.savedAt, build: j.build, list }; dbk.err = ""; dbk.site = list.length === 1 && !dbkInUse(list[0].site) ? 0 : null;
+        } catch (err) { dbk.data = null; dbk.site = null; dbk.err = `${fl.name}: ${err.message || err}`; } dbkWire(); };
+      fr.onerror = () => { dbk.err = `${fl.name} could not be read`; dbkWire(); }; fr.readAsText(fl); };
+    const inp = $("dbkIn"), pick = $("dbkPick"), dz = $("dbkDrop"), x = $("dbkX");
+    if (inp) inp.onchange = () => load(inp.files[0]);
+    if (pick) pick.onclick = () => inp.click();
+    if (dz) { dz.ondragover = (ev) => { ev.preventDefault(); dz.classList.add("over"); }; dz.ondragleave = () => dz.classList.remove("over");
+      dz.ondrop = (ev) => { ev.preventDefault(); dz.classList.remove("over"); load(ev.dataTransfer && ev.dataTransfer.files[0]); }; }
+    if (x) x.onclick = () => { dbk.data = null; dbk.site = null; dbk.err = ""; dbkWire(); };
+    box.querySelectorAll('input[name="dbkSite"]').forEach((r) => r.onchange = () => { dbk.site = +r.value; dbkWire(); });
+    $("dbkCancel").onclick = () => { dbk.data = null; dbk.site = null; dbk.err = ""; dbkWire(); };
+    $("dbkGo").onclick = () => { const e = dbk.data && dbk.data.list[dbk.site]; if (!e) return; const p = dbkPlan(e); if (p.probs.length) return;
+      $("ovl").classList.remove("hidden");
+      $("panel").innerHTML = `<h3 id="panelTitle">Review and restore</h3><p>Site <b>${esc(e.site)}</b>${e.stream ? " · " + esc(e.stream) : ""} from ${esc(dbk.data.name)}. Nothing is stored until you click Confirm and restore.</p>
+        <p class="small">${["pre", "post", "lab"].map((k) => { const n = p.plan.filter((c) => c.svc === k).length; return n ? `${CFG.serviceNames[k]}: ${n} new row${n === 1 ? "" : "s"}` : ""; }).filter(Boolean).join(" · ")}${(e.files || []).length ? ` · then ${e.files.length} file${e.files.length === 1 ? "" : "s"} uploaded` : ""}. Each survey is all-or-nothing; if one is refused, the ones already restored are removed again.</p>
+        <details><summary class="small" style="cursor:pointer">Every record (${p.plan.length})</summary>${reviewHtml(p.plan)}</details><div class="small" id="toolStatus"></div>
+        <div class="btns"><button class="btn" type="button" id="tCancel">Back</button><button class="btn pri" type="button" id="tGo">Confirm and restore</button></div>`;
+      $("tCancel").onclick = closeTool; $("tGo").onclick = () => dbkRun(e); };
+  }
+  async function dbkRun(e) {
+    if (!isOwner()) return;   // restoring is for the owner only
+    const go = $("tGo"), cancel = $("tCancel"), st = $("toolStatus"), progress = (t) => { st.innerHTML = '<span class="spin"></span>' + esc(t); };
+    go.disabled = true; cancel.disabled = true;
+    try {
+      const { plan, probs } = dbkPlan(e); if (probs.length) throw new Error(probs.join("; "));
+      if (dbkInUse(e.site)) throw new Error(`site ${e.site} is in the surveys now`);
+      const res = await saveChanges(plan, progress);
+      progress("Reloading the survey data…"); await loadAll();
+      const a = model.find((x) => x.id.toUpperCase() === String(e.site).toUpperCase()), fails = [];
+      for (const f of e.files || []) { const ph = f.survey;
+        try { if (!a || !a[ph]) throw new Error("no record to attach it to");
+          progress(`Uploading ${f.name}…`); const bin = atob(f.base64 || ""), u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+          const fd = new FormData(); fd.append("attachment", new Blob([u8], { type: f.contentType || "application/octet-stream" }), f.name); fd.append("f", "json"); fd.append("keywords", f.keywords || OTHER_KEY);
+          const r = (await req(`${a[ph].main.L.url}/${a[ph].oid}/addAttachment`, { method: "post", body: fd })).data, ar = r && r.addAttachmentResult;
+          if (!ar || !ar.success) throw new Error((ar && ar.error && ar.error.description) || (r && r.error && r.error.message) || "refused");
+        } catch (err) { fails.push(`${f.name} (${mask(err.message || err)})`); } }
+      if ((e.files || []).length) { progress("Reloading the survey data…"); await loadAll(); }
+      dash.note = res.wrong.length || fails.length
+        ? { bad: true, html: `Site ${esc(e.site)} restored, but:${res.wrong.length ? `<br>the check afterwards found differences: ${res.wrong.map(esc).join("<br>")}` : ""}${fails.length ? `<br>these files were not uploaded: ${fails.map(esc).join("; ")} (attach them on the Files tab)` : ""}${dBackupLink()}` }
+        : { html: `Site ${esc(e.site)} restored and verified (${res.written} records${(e.files || []).length ? `, ${e.files.length} file${e.files.length === 1 ? "" : "s"}` : ""}).${dBackupLink()}` };
+      dbk.data = null; dbk.site = null; closeTool(); location.hash = siteHash(a ? a.id : e.site);
+    } catch (err) { console.error(err);
+      st.innerHTML = `<div class="msg error" style="margin-top:10px">Stopped – ${esc(mask(err.message || err))}.</div>`; cancel.disabled = false; cancel.textContent = "Close";
+      try { await loadAll(); } catch { /* keep */ } }
+  }
+  // ---- the editor quick start: one white Letter page, opened in its own window ready to print ----
+  const QUICK = [
+    ["Sign in and find the site", ["Open <b>ayad65.github.io/wccd-watermonitor</b> and sign in with your ArcGIS account.", "Click <b>Sites</b>, then the site on the map or in the table.", "Tabs: Overview · Pre-construction · Post-construction · Map · Files."]],
+    ["Enter taxa counts", ["Pre or Post tab → <b>Edit taxa counts</b> on the downstream or upstream card.", "Pick a group on the left, type each count (or − / +). Leave it empty if none were found.", "A taxon not on the sheet: the <b>Other taxa</b> row (name, HILS, count)."]],
+    ["Lab results and certificate", ["<b>Files</b> tab → drop the lab PDF, “Attach as: Lab certificate”.", "Pre or Post tab → <b>Edit lab results</b>; the certificate opens beside the form.", "Type “&lt;” or “&gt;” before a value at a reporting limit."]],
+    ["Field readings, points, details", ["<b>Field readings</b>: pH, °C and µS/cm for each sample; leave empty if not measured.", "<b>Sample locations</b>: pick the point, click or drag it on the map, or type it.", "<b>Edit site details</b>: stream, site name, date sampled."]],
+    ["Saving: the colours", ["<span class=\"y\">Yellow</span> = changed, with “was …” underneath.", "<span class=\"rd\">Red</span> = must be fixed before saving.", "The bar at the bottom → <b>Review and save</b> → <b>Confirm and save</b>. Nothing is stored before that."]],
+    ["New sites and help", ["<b>New site</b>: ID (4 letters + 4 digits), stream, date, two points → <b>Review and create</b>.", "After construction: Post tab → <b>Start post-construction</b>.", "<b>Help</b> (top right of the home page) has every step in detail.", "<b>Backup</b> (side menu, above Help): download a local copy after big changes."]]
+  ];
+  function printQuick() {
+    const w = window.open("", "_blank"); if (!w) { alert("Allow pop-ups for this site to open the quick start."); return; }
+    const logo = logoSrc();
+    w.document.write(`<!doctype html><html lang="en"><head><meta charset="utf-8"><title>WCCD Watershed Monitoring · Quick start for editors</title><style>
+      @page{size:letter;margin:0.5in} *{box-sizing:border-box} body{margin:0;font:12px/1.45 Arial,Helvetica,sans-serif;color:#142019;background:#fff}
+      .pg{max-width:7.5in;margin:0 auto} .hd{display:flex;align-items:center;gap:10px;border-bottom:3px solid #C8E35A;padding-bottom:8px} .hd img{width:40px;height:40px} .hd b{display:block;font-size:15px} .hd span{font-size:11px;color:#5B6B5F} .hd .r{margin-left:auto;text-align:right}
+      h1{font-size:26px;margin:14px 0 2px} .sub{font-size:12px;color:#5B6B5F;margin-bottom:12px}
+      .g{display:grid;grid-template-columns:1fr 1fr;gap:10px} .b{border:1px solid #DCE4D8;border-top:4px solid #9CC7BE;border-radius:8px;padding:9px 12px;break-inside:avoid}
+      .b h2{font-size:14.5px;margin:0;display:flex;gap:8px;align-items:center} .b h2 i{font-style:normal;width:22px;height:22px;border-radius:50%;background:#1F3A2A;color:#fff;display:inline-grid;place-items:center;font-size:11.5px;flex:none}
+      .b ul{margin:6px 0 0 16px;padding:0} .b li{margin:3px 0} .y{background:#FFF3CC;padding:0 4px} .rd{background:#FFF1EC;color:#C2410C;padding:0 4px}
+      .note{margin-top:12px;padding:9px 12px;border-radius:8px;background:#F3F7EE} .ft{margin-top:12px;border-top:1px solid #DCE4D8;padding-top:5px;font-size:10px;color:#5B6B5F;display:flex;justify-content:space-between}
+      .bar{text-align:center;margin:10px} @media print{.bar{display:none}}</style></head><body>
+      <div class="bar"><button onclick="window.print()">Print or save as PDF</button></div>
+      <div class="pg"><div class="hd">${logo ? `<img src="${logo}" alt="">` : ""}<div><b>Washington County Conservation District</b><span>Watershed Monitoring</span></div><div class="r"><b>Quick start for editors</b><span>build ${esc(BUILD)}</span></div></div>
+      <h1>Quick start for editors</h1><div class="sub">The daily routine in the Watershed Monitoring app · keep it next to the field sheets</div>
+      <div class="g">${QUICK.map(([t, ls], i) => `<div class="b"><h2><i>${i + 1}</i>${t}</h2><ul>${ls.map((l) => `<li>${l}</li>`).join("")}</ul></div>`).join("")}</div>
+      <div class="note"><b>Something looks wrong?</b> Don't guess. Note the site ID, what you clicked and the message on screen, and email ${esc(CFG.adminName || "the administrator")} (${esc(CFG.admin)}). Never delete or rename a site; the administrator does that.</div>
+      <div class="ft"><span>WCCD Watershed Monitoring · quick start</span><span>printed ${new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span></div></div>
+      <script>window.addEventListener("load", function () { setTimeout(function () { window.print(); }, 400); });<\/script></body></html>`);
+    w.document.close();
   }
 
   // ---- Reports (#/dash/reports): new controls; the report itself is the classic white Letter pages ----
@@ -4456,6 +4667,11 @@
       steps: [["The three surveys", "One card each for Pre-construction, Post-construction and Lab analysis: what your account can do (read, add, update, delete, attach files) and any missing layers or fields."],
         ["Stored totals", "For every sample, the totals stored in the survey compared with the app's own calculation from the taxa rows."],
         ["Flags", "Anything that needs a look, such as a missing point, an ID that doesn't follow the 4 + 4 pattern, or a Stream ID shared by different streams. Open the site to fix it."]] },
+    { k: "backup", t: "Backups", go: ["#/dash/backup", "Open Backup"], intro: "Copies of the data, so nothing is lost.",
+      steps: [["Monthly copies in ArcGIS Online", "On the 1st of every month the “WCCD Water backup” notebook saves the three surveys as geodatabases in the folder <b>WCCD Water Backups</b> and keeps the newest six."],
+        ["Local backups after significant changes", "<b>Backup</b> (above Help in the side menu): <b>Download geodatabases</b> (for ArcGIS Pro) and <b>Download full backup</b> (one file the app can restore a site from). Make one after new sites, a batch of counts or lab results, or any larger change."],
+        ["The reminder", "When the data has changed since your last local backup from this computer, an amber line on the home page and after each save says so. It turns to “up to date” once you make a backup."]],
+      ownerTip: "Administrator only: on the Backup page, <b>Restore a site</b> puts back a deleted site from a backup file (choose the file, pick the site, check, then Review and restore). Records keep their original IDs and the files are uploaded again." },
     { k: "calc", t: "How the figures are calculated", go: ["#/dash/explore", "Open Explore"], intro: "Every figure is calculated by the app from the counts; nothing is typed in by hand.",
       steps: [["Index", "For each taxon, count × HILS (its pollution tolerance, 0 = very sensitive to 10 = very tolerant). An other taxon uses its own HILS."],
         ["Avg HILS", "Total index ÷ organisms counted: the family-level Hilsenhoff Biotic Index. <b>Lower is better water.</b>"],
@@ -4472,7 +4688,7 @@
     const HL = HELP.filter((x) => !x.owner || isOwner()), i = Math.max(0, HL.findIndex((h) => h.k === k)), h = HL[i], nx = HL[i + 1];   // B28: owner-only topics
     $("dash").innerHTML = `${drail("", "help")}<main class="dsp-main"><div class="de-head"><div><div class="muted" style="font-size:12px">Washington County Conservation District · Watershed Monitoring</div><h2 class="ttl">Help</h2></div></div>
       <input class="dh-q" id="dhQ" type="search" placeholder="Search help (e.g. “certificate”, “delete”, “print”)" aria-label="Search help" value="${esc(dhelp.q)}">
-      <div class="dh-grid"><nav class="dh-list" aria-label="Help topics"><div id="dhList"></div>
+      <div class="dh-grid"><nav class="dh-list" aria-label="Help topics"><button type="button" class="dbtn dh-quick" id="dhQuick" title="Opens a one-page sheet ready to print or save as PDF">🖨 Print the quick start (1 page)</button><div id="dhList"></div>
           <div class="card" style="margin-top:14px;padding:12px 14px;font-size:12.5px"><b>Questions or a problem?</b><div class="muted" style="margin-top:6px;line-height:1.5">Email the administrator. Include the site ID, what you clicked and the message on screen.</div>
             <a href="mailto:${esc(CFG.admin)}" style="display:inline-block;margin-top:8px;color:var(--acc)">✉ ${esc(CFG.admin)}</a></div></nav>
         <section class="dpaper dh-p" aria-labelledby="dhTitle"><h2 id="dhTitle">${h.t}</h2><div class="dh-intro">${h.intro}</div>${helpBody(h)}
@@ -4486,6 +4702,7 @@
     const list = () => { const q = dhelp.q.trim().toLowerCase(), hits = HL.filter((x) => !q || helpText(x).includes(q));
       $("dhList").innerHTML = hits.length ? hits.map((x) => `<a class="dh-t${x === h ? " on" : ""}" href="#/dash/help/${x.k}"${x === h ? ' aria-current="page"' : ""}>${HL.indexOf(x) + 1}. ${x.t}</a>`).join("") : `<div class="dh-none muted">No topic mentions “${esc(dhelp.q)}”.</div>`; };
     $("dhQ").oninput = (e) => { dhelp.q = e.target.value; list(); };
+    $("dhQuick").onclick = printQuick;   // B29
     list(); window.scrollTo(0, 0);
   }
   // the classic Help page: every topic, one after the other
@@ -4498,13 +4715,14 @@
     const sub = parts[1];
     if (sub !== "site" || parts[3] !== "edit") dedit = null;
     if (sub !== "reports") drpRestore();
-    if (sub === "check") { dashMapFree(); if (!isOwner()) { location.replace("#/dash"); return; } dashCheck(); }   // B28: owner only
+    if (sub === "check") { dashMapFree(); if (!isOwner()) { location.replace("#/dash"); return; } dashCheck(parts[2]); }   // B28: owner only
     else if (sub === "reports") { dashMapFree(); dashReports(); }
     else if (sub === "new") { dashMapFree(); dashNew(); }
     else if (sub === "explore") { dashMapFree(); if (dash.lastSub !== "explore") dxReset(); if (DXV.some((x) => x[0] === parts[2])) dx.view = parts[2]; dashExplore(); }   // #/dash/explore/<view> opens that view
     else if (sub === "sites") dashSites();
     else if (sub === "site" && parts[3] === "edit") { dashMapFree(); const a = model.find((x) => x.id === decodeURIComponent(parts[2] || ""));
       if (a) dashEdit(a, parts[4], parts[5], parts[6]); else dashSite(decodeURIComponent(parts[2] || ""), "overview"); }
+    else if (sub === "backup") { dashMapFree(); dashBackup(); }   // B29: every editor (restore: owner only)
     else if (sub === "help") { dashMapFree(); dashHelp(parts[2]); }   // B27
     else if (sub === "site" && parts[3] === "startpost") { dashMapFree(); dedit = null; const a = model.find((x) => x.id === decodeURIComponent(parts[2] || ""));   // B24
       if (a) dashPost(a); else dashSite(decodeURIComponent(parts[2] || ""), "overview"); }
